@@ -1,5 +1,6 @@
 import { lato } from '@/utils/fonts'
 import Image from 'next/image'
+import Link from 'next/link'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 
 export default function Navbar() {
@@ -10,12 +11,12 @@ export default function Navbar() {
       <ul
         className={`${lato.className} flex text-black space-x-14 font-poppins text-base items-center font-medium leading `}
       >
-        <a>Home</a>
-        <a>Properties</a>
-        <a>Bookings</a>
-        <a>Rooms</a>
-        <a>Contact Us</a>
-        <a className="flex items-center space-x-2" href="">
+        <Link href={'/'}>Home</Link>
+        <Link href={'/auth/registerproperty'}>Properties</Link>
+        <Link href={'/'}>Bookings</Link>
+        <Link href={'/'}>Rooms</Link>
+        <Link href={'/'}>Contact Us</Link>
+        <Link className="flex items-center space-x-2" href="">
           <Image
             src="/web.svg"
             width={30}
@@ -25,9 +26,9 @@ export default function Navbar() {
           />
           EN
           <MdKeyboardArrowDown size={20} />
-        </a>
-        <a href='/auth/login' className=" text-primary-color">Log In</a>
-        <a href='/auth/signup' className="bg-primary-color p-2 px-6 text-white">Sign Up</a>
+        </Link>
+        <Link href='/auth/login' className=" text-primary-color">Log In</Link>
+        <Link href='/auth/signup' className="bg-primary-color p-2 px-6 text-white">Sign Up</Link>
       </ul>
     </div>
   )
