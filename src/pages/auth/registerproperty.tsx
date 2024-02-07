@@ -70,7 +70,7 @@ export default function RegisterProperty() {
               register={register}
               required
               placeHolder="Enter first name"
-              message={errors?.firstName?.message}
+              // message={errors?.firstName}
             />
 
             <div className="flex space-x-8">
@@ -81,7 +81,7 @@ export default function RegisterProperty() {
                 register={register}
                 required
                 placeHolder="Enter last name"
-                message={errors?.lastName?.message}
+                // message={errors?.lastName?.message}
               />
               <InputField
                 name="lastName"
@@ -90,7 +90,7 @@ export default function RegisterProperty() {
                 register={register}
                 required
                 placeHolder="Enter last name"
-                message={errors?.lastName?.message}
+                // message={errors?.lastName?.message}
               />
             </div>
 
@@ -102,7 +102,7 @@ export default function RegisterProperty() {
                 register={register}
                 required
                 placeHolder="Enter last name"
-                message={errors?.lastName?.message}
+                // message={errors?.lastName?.message}
               />
               <InputField
                 name="city"
@@ -111,7 +111,7 @@ export default function RegisterProperty() {
                 register={register}
                 required
                 placeHolder="Enter last name"
-                message={errors?.lastName?.message}
+                // message={errors?.lastName?.message}
               />
             </div>
 
@@ -129,7 +129,7 @@ export default function RegisterProperty() {
                 register={register}
                 required
                 placeHolder="Enter last name"
-                message={errors?.lastName?.message}
+                // message={errors?.lastName?.message}
               />
               <InputField
                 name="city"
@@ -138,7 +138,7 @@ export default function RegisterProperty() {
                 register={register}
                 required
                 placeHolder="Enter last name"
-                message={errors?.lastName?.message}
+                // message={errors?.lastName?.message}
               />
             </div>
 
@@ -150,7 +150,7 @@ export default function RegisterProperty() {
                 register={register}
                 required
                 placeHolder="Enter last name"
-                message={errors?.lastName?.message}
+                // message={errors?.lastName?.message}
               />
               <InputField
                 name="city"
@@ -159,7 +159,7 @@ export default function RegisterProperty() {
                 register={register}
                 required
                 placeHolder="Enter last name"
-                message={errors?.lastName?.message}
+                // message={errors?.lastName?.message}
               />
             </div>
 

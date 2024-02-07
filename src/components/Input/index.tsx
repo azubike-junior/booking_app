@@ -7,8 +7,8 @@ type InputProp = {
   name: string
   type: string
   required: boolean
-  message: string | undefined
-  errors: FieldError | undefined
+  message?: string | undefined
+  errors?: FieldError | undefined
   validate?: any
 }
 
