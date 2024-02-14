@@ -1,18 +1,25 @@
 import InputField from '@/components/Input'
-import axiosInstance from '@/utils/axios'
-import { lato, quickSand } from '@/utils/fonts'
+import { useCreateAccountMutation } from '@/features/auth'
+import {
+  handleErrorResponse,
+  handleSuccessResponse,
+  lato,
+  quickSand,
+} from '@/utils'
 import { FormValues } from '@/utils/types'
 import { Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function Signup() {
   const router = useRouter()
   const toast = useToast()
-  const [loading, setLoading] = useState(false)
+  const [
+    createAccount,
+    { isLoading, data: response, error },
+  ] = useCreateAccountMutation()
 
   const {
     register,
@@ -21,46 +28,39 @@ export default function Signup() {
     watch,
   } = useForm<FormValues>({})
 
-  async function signupHandler(data: FormValues) {
-    setLoading(true)
-    const { confirmPassword, ..._data } = data
-    const updated = { country_code: '+234', ..._data }
-    await axiosInstance
-      .post(`/auth/pm/create/account`, updated, {
-        auth: {
-          username: 'bookingengine',
-          password: 'secretbookingenginesecret',
-        },
-      })
-      .then((rs) => {
-        setLoading(false)
+  const password = watch('password')
 
-        if (rs.status === 400) {
-          toast({
-            title: 'Account created.',
-            description: rs?.data.message,
-            status: 'success',
-            duration: 9000,
-            isClosable: true,
-            position: 'top-right',
-          })
-        }
-        if (rs.status === 201) {
-          router.push('/dashboard')
+  const { status: error_code, data: rs } = handleErrorResponse(error)
+  const { status: success_code } = handleSuccessResponse(response)
 
-          toast({
-            title: 'Account created.',
-            description: rs?.data.message,
-            status: 'success',
-            duration: 9000,
-            isClosable: true,
-            position: 'top-right',
-          })
-        }
-      })
+  if (success_code === 201) {
+    router.push('/properties')
+    toast({
+      title: 'Account created successfully',
+      description: '',
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+      position: 'top-right',
+    })
   }
 
-  const password = watch('password')
+  if (error_code === 400) {
+    toast({
+      title: rs.message,
+      description: '',
+      status: 'error',
+      duration: 9000,
+      isClosable: true,
+      position: 'top-right',
+    })
+  }
+
+  async function signupHandler(data: FormValues) {
+    const { confirmPassword, ..._data } = data
+    const updated = { country_code: '+234', ..._data }
+    createAccount(updated)
+  }
 
   return (
     <div className="flex justify-between h-screen content_bg">
@@ -185,7 +185,7 @@ export default function Signup() {
               type="submit"
               className="bg-primary-color py-3 text-center w-full text-white mt-10 rounded-lg"
             >
-              {loading ? <Spinner /> : 'Create Account'}
+              {isLoading ? <Spinner /> : 'Create Account'}
             </button>
             <Link href={'/auth/login'}>
               <p className="text-right pt-2">Login</p>

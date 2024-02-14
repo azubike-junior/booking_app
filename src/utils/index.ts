@@ -1,0 +1,122 @@
+import { Lato, Lora, Quicksand } from 'next/font/google'
+import { storage } from './firebase';
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import axios from 'axios';
+import { getTimeMeasureUtils } from '@reduxjs/toolkit/dist/utils';
+
+
+
+
+export const lato = Lato({
+  weight: '400',
+  subsets: ['latin'],
+})
+
+export const lora = Lora({
+  weight: '700',
+  subsets: ['latin'],
+})
+
+export const quickSand = Quicksand({
+  weight: '500',
+  subsets: ['latin'],
+})
+
+export const lato_bold = Lato({
+  weight: '700',
+  subsets: ['latin'],
+})
+
+interface Response {
+  status: number | undefined;
+  data?: any;
+}
+
+export function handleErrorResponse(error: any): Response  {
+  let status
+  let data
+  if (error) {
+    if ('status' in error) {
+      status = error.status
+      data = error.data
+      return {
+        status,
+        data
+      };
+    }
+    
+  }
+  return {
+    status,
+    data
+  };
+}
+
+export function handleSuccessResponse(res: any): Response  {
+  let status
+  if (res) {
+    if ('res' in res) {
+      status = res.res
+      return {
+        status,
+      };
+    }
+    
+  }
+  return {
+    status,
+  };
+}
+
+
+export const getItem = (name: string): string => {
+  let value: any
+    if (typeof window !== "undefined") {
+    value = localStorage.getItem(name) || ""
+    }
+  return value
+}
+
+export const setItem = (name: string, value: string) => {
+    if (typeof window !== "undefined") {
+    localStorage.setItem(name, value)
+    }
+}
+
+console.log(">>>>>>token", getItem("access_token"))
+
+// const token = getItem("access_token")
+
+export const _http =  axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  auth: { username:'bookingengine', password:'secretbookingenginesecret' },
+  headers: { token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdG9rZW5fZXhwaXJ5IjoxNzA4MDE1MzUzNzk1LCJ1c2VyX2lkIjoiZjA0ZDZmZTItNDkwNS00OTgyLWI5MDctZjc3NGFiNzYzMWFhIn0.cb8GuA9Y87jf1mutmmLcUMDD7x8GU9szRAF6IBEEjIk`}
+});
+
+export const uploadFile = (file: any, setImgUrl: any, setLoading: any) => {
+  // const file = e.target[0]?.files[0]
+    if (!file) return;
+    const storageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on("state_changed",
+      (snapshot) => {
+        // const progress =
+        //   Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        // setProgresspercent(progress);
+        console.log(snapshot);
+        
+      },
+      (error) => {
+        alert(error);
+      },
+
+      () => {
+        setLoading(false)
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setImgUrl(downloadURL)
+        });
+      }
+    );
+}
+

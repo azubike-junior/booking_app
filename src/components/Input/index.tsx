@@ -31,7 +31,7 @@ export default function InputField({
       <input
         type={type}
         placeholder={placeHolder}
-        className="border-[1px] border-[#96A0A5] bg-white w-full mt-2 py-3 rounded-lg px-4 outline-none"
+        className="border-[1px] border-[#96A0A5] bg-white w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium"
         {...register(name, { required, validate })}
       />
       {errors ? <p className="text-red-500 text-sm pt-1">{message}</p> : null}

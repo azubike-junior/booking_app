@@ -1,23 +1,105 @@
 import InputField from '@/components/Input'
-import { lato, lato_bold, quickSand } from '@/utils/fonts'
-import { FormValues } from '@/utils/types'
+import { useCreatePropertyMutation } from '@/features/property'
+import { _http, lato, lato_bold, quickSand } from '@/utils'
+import { PropertyProp } from '@/utils/types'
+import { Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { MutableRefObject, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { uploadFile } from '../../utils/index'
 
 export default function RegisterProperty() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({})
+  } = useForm<PropertyProp>({})
+  const [loading, setLoading] = useState(false)
+  const toast = useToast()
 
-  function signupHandler(data: FormValues) {
-    console.log('>>>>data', data)
+  const [imgUrl, setImgUrl] = useState('')
+
+  const [
+    createProperty,
+    { isLoading, error, data },
+  ] = useCreatePropertyMutation()
+
+  const fileRef = useRef() as MutableRefObject<HTMLInputElement>
+
+  async function propertyHandler(data: PropertyProp) {
+    if (!imgUrl) {
+      return
+    }
+
+    const { image, number_of_rooms, country, logo, ...rest } = data
+
+    // createProperty({
+    //   toast,
+    //   number_of_rooms: Number(number_of_rooms),
+    //   country: 'Nigeria',
+    //   logo: imgUrl,
+    //   image: imgUrl,
+    //   ...rest,
+    // })
+
+    const res = await _http.post(
+      `/property/create`,
+      {
+        number_of_rooms: 7,
+        country: 'Nigeria',
+        logo:
+          'https://firebasestorage.googleapis.com/v0/b/swave-a0e1f.appspot.com/o/files%2Fmy%20photo.jpeg?alt=media&token=45acd330-a785-4025-87b8-56ffc98f99c0',
+        image:
+          'https://firebasestorage.googleapis.com/v0/b/swave-a0e1f.appspot.com/o/files%2Fmy%20photo.jpeg?alt=media&token=45acd330-a785-4025-87b8-56ffc98f99c0',
+        name: 'junior sean',
+        address: 'Ajah, lekki, Lagos state, Nigeria',
+        phone_number: '09064487778',
+        email_address: 'pearlthelma299@gmail.com',
+        web_address: 'http://localhost:3000/auth/registerproperty',
+        text_color: 'white',
+        primary_color: 'colorr',
+        secondary_color: 'green',
+      }
+      // {
+      //   headers: {
+      //     'Authorization': 'Basic ' + btoa('bookingengine:secretbookingenginesecret'),
+      //     'token': `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdG9rZW5fZXhwaXJ5IjoxNzA3OTQyNTc1NTYzLCJ1c2VyX2lkIjoiZjA0ZDZmZTItNDkwNS00OTgyLWI5MDctZjc3NGFiNzYzMWFhIn0.xTieKM7PbNdfcswiPIxSMijak2dI_nWnkQ7P1u11Jgs`
+      //   }
+      // }
+    )
+
+    console.log(">>>>>res", res);
+    
   }
 
+  const ok = {
+    number_of_rooms: 7,
+    country: 'Nigeria',
+    logo:
+      'https://firebasestorage.googleapis.com/v0/b/swave-a0e1f.appspot.com/o/files%2Fmy%20photo.jpeg?alt=media&token=45acd330-a785-4025-87b8-56ffc98f99c0',
+    image:
+      'https://firebasestorage.googleapis.com/v0/b/swave-a0e1f.appspot.com/o/files%2Fmy%20photo.jpeg?alt=media&token=45acd330-a785-4025-87b8-56ffc98f99c0',
+    name: 'junior sean',
+    address: 'Ajah, lekki, Lagos state, Nigeria',
+    phone_number: '09064487778',
+    email_address: 'pearlthelma299@gmail.com',
+    web_address: 'http://localhost:3000/auth/registerproperty',
+    text_color: 'white',
+    primary_color: 'colorr',
+    secondary_color: 'green',
+  }
+
+  const handleFileChange = (e: any) => {
+    setLoading(true)
+
+    uploadFile(e.target.files[0], setImgUrl, setLoading)
+  }
+
+  console.log('>>>>>imgUrl', imgUrl)
+
   return (
-    <div className="flex justify-between h-screen content_bg">
+    <div className="flex justify-between content_bg">
       <div className="w-5/12 ">
         <div className="px-24 mt-16">
           <Link href={'/'}>
@@ -53,122 +135,160 @@ export default function RegisterProperty() {
             Register your property here!
           </p>
 
-          <p
-            className={`${quickSand.className} text-left text-[#111827] text-xl pt-14 py-4`}
-          >
-            Your property details
-          </p>
-
           <form
-            onSubmit={handleSubmit(signupHandler)}
-            className={`${lato.className} space-y-8`}
+            onSubmit={handleSubmit(propertyHandler)}
+            className={`${lato.className} space-y-8 pt-14`}
           >
             <InputField
-              name="propertyName"
-              label="Property Name"
+              name="name"
+              label="Name"
+              type="text"
+              register={register}
+              required
+              placeHolder="Enter name"
+              errors={errors?.name}
+              message={' Name is required'}
+            />
+
+            <InputField
+              name="address"
+              label="Address"
+              type="text"
+              register={register}
+              required
+              placeHolder="Enter address"
+              errors={errors?.address}
+              message={'Address is required'}
+            />
+
+            <InputField
+              name="phone_number"
+              label="Phone Number"
               type="text"
               register={register}
               required
               placeHolder="Enter first name"
-              // message={errors?.firstName}
+              errors={errors?.phone_number}
+              message={'Phone is required'}
+            />
+
+            <InputField
+              name="email_address"
+              label="Email Address"
+              type="text"
+              register={register}
+              required
+              placeHolder="Enter email"
+              errors={errors?.email_address}
+              message={' Email is required'}
+            />
+            <InputField
+              name="web_address"
+              label="Web address"
+              type="text"
+              register={register}
+              required
+              placeHolder="Enter first name"
+              errors={errors?.web_address}
+              message={'Web address is required'}
             />
 
             <div className="flex space-x-8">
               <InputField
-                name="lastName"
-                label="Property Type"
-                type="text"
-                register={register}
-                required
-                placeHolder="Enter last name"
-                // message={errors?.lastName?.message}
-              />
-              <InputField
-                name="lastName"
+                name="number_of_rooms"
                 label="Number of rooms"
+                type="number"
+                register={register}
+                required
+                placeHolder="Enter last name"
+                errors={errors?.number_of_rooms}
+                message={'Number of rooms is required'}
+              />
+              <InputField
+                name="text_color"
+                label="Text Color"
                 type="text"
                 register={register}
                 required
                 placeHolder="Enter last name"
-                // message={errors?.lastName?.message}
+                errors={errors?.text_color}
+                message={'Text color is required'}
               />
             </div>
 
             <div className="flex space-x-8">
               <InputField
-                name="country"
-                label="Country"
-                type="text"
-                register={register}
-                required
-                placeHolder="Enter last name"
-                // message={errors?.lastName?.message}
-              />
-              <InputField
-                name="city"
-                label="City"
-                type="text"
-                register={register}
-                required
-                placeHolder="Enter last name"
-                // message={errors?.lastName?.message}
-              />
-            </div>
-
-            <p
-              className={`${quickSand.className} text-left text-[#111827] text-xl pt-3 `}
-            >
-              Contact Information
-            </p>
-
-            <div className="flex space-x-8">
-              <InputField
-                name="country"
+                name="primary_color"
                 label="First Name"
                 type="text"
                 register={register}
                 required
                 placeHolder="Enter last name"
-                // message={errors?.lastName?.message}
+                errors={errors?.primary_color}
+                message={'Primary color is required'}
               />
               <InputField
-                name="city"
-                label="Last Name"
+                name="secondary_color"
+                label="Secondary Color"
                 type="text"
                 register={register}
                 required
                 placeHolder="Enter last name"
-                // message={errors?.lastName?.message}
+                errors={errors?.secondary_color}
+                message={'Secondary color is required'}
               />
             </div>
 
-            <div className="flex space-x-8 mb-10">
-              <InputField
-                name="country"
-                label="Email"
-                type="text"
-                register={register}
-                required
-                placeHolder="Enter last name"
-                // message={errors?.lastName?.message}
-              />
-              <InputField
-                name="city"
-                label="Phone"
-                type="text"
-                register={register}
-                required
-                placeHolder="Enter last name"
-                // message={errors?.lastName?.message}
-              />
+            <div className="flex  mb-10 space-x-4 text-sm">
+              <button
+                onClick={() => fileRef.current.click()}
+                type="button"
+                className="w-full text-sm"
+              >
+                <p>Upload Image</p>
+                <div className="w-full bg-[#F4F4F4] rounded-lg  py-10 flex justify-center mt-2">
+                  <div>
+                    <input
+                      onChange={handleFileChange}
+                      ref={fileRef}
+                      hidden
+                      type="file"
+                    />
+                    {loading ? (
+                      <Spinner />
+                    ) : (
+                      <>
+                        {imgUrl ? (
+                          <p>Done !</p>
+                        ) : (
+                          <>
+                            <p className="text-[#0B60B0]">Click to Upload</p>
+                            <p className="text-[#2E2E2E]"> SVG, PNG, or JPG </p>
+                          </>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              </button>
+
+              <div className="w-full text-sm">
+                <p>Upload Image</p>
+                <div className="w-full bg-[#F4F4F4] rounded-lg py-10 flex justify-center mt-2">
+                  <div>
+                    <p className="text-[#0B60B0]">Click to Upload</p>
+                    <p className="text-[#2E2E2E]"> SVG, PNG, or JPG </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="">
               <button
                 type="submit"
-                className="bg-primary-color py-3 text-center w-full text-white mt-12 rounded-lg"
+                className="bg-primary-color py-3 text-center w-full text-white my-10 rounded-lg"
               >
-                Register Property
+                Submit
               </button>
             </div>
           </form>

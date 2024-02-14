@@ -1,23 +1,21 @@
 import HeroInput from '@/components/HeroInput'
-import Navbar from '@/components/Navbar/index'
-import { lato, lora } from '@/utils/fonts'
+import { lato, lora } from '@/utils'
 import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="bg-white pt-12">
-      <Navbar />
-      <div className="max-w-[1300px] mx-auto mt-14">
+    <main className="bg-white pt-12 ">
+      <div className="max-w-[1400px] mx-auto mt-14 px-10">
         <div className="flex  items-center text-ash">
-          <span className={`${lato.className} capitalize pr-4 text-xl`}>
+          <p className={`${lato.className} capitalize pr-4 text-xl`}>
             introducing
-          </span>{' '}
+          </p>{' '}
           <div className="w-20 h-0.5 bg-ash mt-1"></div>
         </div>
 
         <div className="flex pt-6 ">
           <div
-            className={`${lora.className} w-8/12 text-6xl space-y-3 text-brand-color`}
+            className={`${lora.className} w-8/12 text-4xl xl:text-6xl space-y-3 text-brand-color`}
           >
             <p className="">
               <span className="text-primary-color">Revolutionary</span>{' '}
@@ -26,8 +24,10 @@ export default function Home() {
             <p> space to realize your</p>
             <p> innovation</p>
           </div>
-          <div className="w-4/12">
-            <p className={`${lato.className} text-xl leading-9 text-light-ash`}>
+          <div className="w-6/12 xl:w-4/12">
+            <p
+              className={`${lato.className} text-base xl:text-2xl leading-9 font-medium text-[#6A6A6A]`}
+            >
               Lorem ipsum dolor sit amet consectetur. Faucibus odio sed nibh
               sit. Eu nibh sodales mus in. Turpis molestie elit massa quis non
               et hendrerit vel ultricies. ullamcorper eu.
@@ -36,19 +36,20 @@ export default function Home() {
         </div>
       </div>
 
-      <div className='flex justify-end mt-10 max-w-[2000px] relative mb-10'>
+      <div className="flex justify-end mt-10  relative mb-10 mx-auto">
         <HeroInput />
         <Image
           src="/hero.svg"
-          width={1130}
-          height={1200}
+          width={500}
+          height={500}
           alt="bookteller"
+          // layout="responsive"
+          // sizes="(min-width: 768px) 80px, 60px, (min-width: 1200px) 1000px, 10000px"
+          className="_image"
         />
       </div>
 
-      <div>
-        hlell
-      </div>
+      {/* <div>hlell</div> */}
     </main>
   )
 }

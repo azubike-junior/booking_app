@@ -1,18 +1,47 @@
 import InputField from '@/components/Input'
-import axiosInstance from '@/utils/axios'
-import { lato, quickSand } from '@/utils/fonts'
+import { useLoginMutation } from '@/features/auth'
+import { useAppDispatch } from '@/store'
+import { getItem, lato, quickSand } from '@/utils'
 import { FormValues } from '@/utils/types'
 import { Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function Login() {
   const router = useRouter()
   const toast = useToast()
-  const [loading, setLoading] = useState(false)
+  const dispatch = useAppDispatch()
+
+  const [
+    login,
+    { isLoading, error, data, isSuccess, isError },
+  ] = useLoginMutation()
+
+
+  if (isError) {
+    toast({
+      title: 'Invalid Login credentials',
+      description: '',
+      status: 'error',
+      duration: 9000,
+      isClosable: true,
+      position: 'top-right',
+    })
+  }
+
+  if (isSuccess) {
+    router.push('/properties')
+    toast({
+      title: 'Account created successfully',
+      description: '',
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+      position: 'top-right',
+    })
+  }
 
   const {
     register,
@@ -22,44 +51,11 @@ export default function Login() {
   } = useForm<FormValues>({})
 
   async function loginHandler(data: FormValues) {
-    setLoading(true)
-
-    await axiosInstance
-      .post(`/auth/login`, data, {
-        auth: {
-          username: 'bookingengine',
-          password: 'secretbookingenginesecret',
-        },
-      })
-      .then((rs) => {
-        setLoading(false)
-
-        if (rs.status === 400) {
-          toast({
-            title: 'Account created.',
-            description: rs?.data.message,
-            status: 'success',
-            duration: 9000,
-            isClosable: true,
-            position: 'top-right',
-          })
-        }
-        if (rs.status === 200) {
-          router.push('/dashboard')
-          toast({
-            title: 'Login Successfully',
-            description: rs?.data.message,
-            status: 'success',
-            duration: 9000,
-            isClosable: true,
-            position: 'top-right',
-          })
-        }
-      })
+    login(data)
   }
 
   return (
-    <div className="flex justify-between h-screen content_bg">
+    <div className="flex justify-between h-screen content_bg bg-red-300">
       <div className="w-5/12 ">
         <div className="px-24 mt-16">
           <Link href={'/'}>
@@ -126,7 +122,7 @@ export default function Login() {
               type="submit"
               className="bg-primary-color py-3 text-center w-full text-white mt-10 rounded-lg"
             >
-              {loading ? <Spinner /> : 'Login'}
+              {isLoading ? <Spinner /> : 'Login'}
             </button>
           </form>
 

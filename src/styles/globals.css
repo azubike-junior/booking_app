@@ -3,12 +3,55 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Poppins:wght@200;500&display=swap');
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.container {
+  height: 100%;
+}
 .content_bg {
     background-image: url('../../public/bg.svg');
-    /* height: ; */
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 1024px) {
+  ._image {
+    width: 700px;
+  }
+  ._properties {
+    width: 100%;
+    z-index: 0;
+  }
+  ._property-div {
+    background-color: white;
+    z-index: 99;
+  }
+}
+
+@media (min-width: 1200px) {
+  ._image {
+    width: 1200px;
+  }
+}
+
+@media (min-width: 2560px) {
+  ._image {
+    width: 1500px;
+  }
+}
+
+
+
+
+
+
+
