@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: any) {
   const { pathname } = useRouter()
   const pathnames = ['/auth/login', '/auth/signup', '/auth/registerproperty']
 
-  const getLayout = Component.getLayout || ((page) => page);
+  const getLayout = Component.getLayout || ((page: any) => page);
 
   return (
     <Provider store={store}>

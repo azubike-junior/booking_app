@@ -35,8 +35,8 @@ export default function Properties() {
           {isLoading ? <Spinner /> : null}
 
           <>
-            {data?.map((p) => {
-              return <Lists {...p}/>
+            {data?.map((p, index) => {
+              return <Lists {...p} key={index}/>
             })}
           </>
         </div>
@@ -45,6 +45,6 @@ export default function Properties() {
   )
 }
 
-Properties.getLayout = function getLayout(page) {
+Properties.getLayout = function getLayout(page: any) {
   return <AuthWrapper>{page}</AuthWrapper>
 }

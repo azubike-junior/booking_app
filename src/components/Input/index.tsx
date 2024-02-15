@@ -22,7 +22,6 @@ export default function InputField({
   message,
   errors,
   validate,
-  value,
 }: InputProp) {
   return (
     <div className="w-full">
@@ -31,7 +30,6 @@ export default function InputField({
       </label>
       <input
         type={type}
-        value={value}
         placeholder={placeHolder}
         className="border-[1px] border-[#96A0A5] bg-white w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium"
         {...register(name, { required, validate })}

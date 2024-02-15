@@ -116,6 +116,6 @@ export default function PropertyDetails() {
   )
 }
 
-PropertyDetails.getLayout = function getLayout(page) {
+PropertyDetails.getLayout = function getLayout(page: any) {
   return <AuthWrapper>{page}</AuthWrapper>
 }
