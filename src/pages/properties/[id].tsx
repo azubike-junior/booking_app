@@ -1,3 +1,6 @@
+
+'use client'
+
 import { AuthWrapper } from '@/components/AuthWrapper'
 import { DisabledField } from '@/components/Input'
 import { useGetPropertyQuery } from '@/features/property'
