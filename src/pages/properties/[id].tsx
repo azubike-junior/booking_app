@@ -12,11 +12,11 @@ export default function PropertyDetails() {
     formState: { errors },
   } = useForm({})
 
-  const { id } = useParams<{ id: string }>()
+  const params = useParams<{ id: string }>()
 
-  const { data, isLoading } = useGetPropertyQuery(id)
+  const { data, isLoading } = useGetPropertyQuery(params.id)
 
-  console.log('>>>>>id', id, data)
+  // console.log('>>>>>id', id, data)
 
   return (
     <div className="mt-5">
