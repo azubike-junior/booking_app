@@ -14,7 +14,7 @@ export default function PropertyDetails() {
 
   const params = useParams<{ id: string }>()
 
-  const { data, isLoading } = useGetPropertyQuery(params.id)
+  const { data, isLoading } = useGetPropertyQuery(params?.id)
 
   // console.log('>>>>>id', id, data)
 
