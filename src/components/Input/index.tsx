@@ -43,7 +43,7 @@ export default function InputField({
 
 type DisabledFieldProp = {
   label: string
-  value: string | undefined
+  value: any | undefined
 }
 
 export function DisabledField({ label, value }: DisabledFieldProp) {
