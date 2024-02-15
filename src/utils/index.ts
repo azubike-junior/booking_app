@@ -1,4 +1,4 @@
-import { Lato, Lora, Quicksand } from 'next/font/google'
+import { Lato, Lora, Open_Sans, Quicksand } from 'next/font/google'
 import { storage } from './firebase';
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import axios from 'axios';
@@ -24,6 +24,11 @@ export const quickSand = Quicksand({
 
 export const lato_bold = Lato({
   weight: '700',
+  subsets: ['latin'],
+})
+
+export const open_sans = Open_Sans({
+  weight: '500',
   subsets: ['latin'],
 })
 
@@ -90,7 +95,7 @@ console.log(">>>>>>token", getItem("access_token"))
 export const _http =  axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   auth: { username:'bookingengine', password:'secretbookingenginesecret' },
-  headers: { token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdG9rZW5fZXhwaXJ5IjoxNzA4MDE1MzUzNzk1LCJ1c2VyX2lkIjoiZjA0ZDZmZTItNDkwNS00OTgyLWI5MDctZjc3NGFiNzYzMWFhIn0.cb8GuA9Y87jf1mutmmLcUMDD7x8GU9szRAF6IBEEjIk`}
+  headers: { token: getItem('access_token')}
 });
 
 export const uploadFile = (file: any, setImgUrl: any, setLoading: any) => {

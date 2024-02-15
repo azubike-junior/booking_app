@@ -10,7 +10,7 @@ const baseQuery = fetchBaseQuery({
     const token = getItem("access_token")
     // console.log(">>>>>token", headers);
     
-    // headers.set('token', `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdG9rZW5fZXhwaXJ5IjoxNzA3OTQyNTc1NTYzLCJ1c2VyX2lkIjoiZjA0ZDZmZTItNDkwNS00OTgyLWI5MDctZjc3NGFiNzYzMWFhIn0.xTieKM7PbNdfcswiPIxSMijak2dI_nWnkQ7P1u11Jgs`)
+    headers.set('token', getItem("access_token"))
     
     headers.set('Authorization', 'Basic ' + btoa('bookingengine:secretbookingenginesecret'))
 

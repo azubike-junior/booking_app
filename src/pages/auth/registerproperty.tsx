@@ -1,15 +1,17 @@
 import InputField from '@/components/Input'
 import { useCreatePropertyMutation } from '@/features/property'
-import { _http, lato, lato_bold, quickSand } from '@/utils'
+import { lato, lato_bold, quickSand } from '@/utils'
 import { PropertyProp } from '@/utils/types'
 import { Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { MutableRefObject, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { uploadFile } from '../../utils/index'
 
 export default function RegisterProperty() {
+  const route = useRouter()
   const {
     register,
     handleSubmit,
@@ -31,68 +33,20 @@ export default function RegisterProperty() {
     if (!imgUrl) {
       return
     }
-
     const { image, number_of_rooms, country, logo, ...rest } = data
-
-    // createProperty({
-    //   toast,
-    //   number_of_rooms: Number(number_of_rooms),
-    //   country: 'Nigeria',
-    //   logo: imgUrl,
-    //   image: imgUrl,
-    //   ...rest,
-    // })
-
-    const res = await _http.post(
-      `/property/create`,
-      {
-        number_of_rooms: 7,
-        country: 'Nigeria',
-        logo:
-          'https://firebasestorage.googleapis.com/v0/b/swave-a0e1f.appspot.com/o/files%2Fmy%20photo.jpeg?alt=media&token=45acd330-a785-4025-87b8-56ffc98f99c0',
-        image:
-          'https://firebasestorage.googleapis.com/v0/b/swave-a0e1f.appspot.com/o/files%2Fmy%20photo.jpeg?alt=media&token=45acd330-a785-4025-87b8-56ffc98f99c0',
-        name: 'junior sean',
-        address: 'Ajah, lekki, Lagos state, Nigeria',
-        phone_number: '09064487778',
-        email_address: 'pearlthelma299@gmail.com',
-        web_address: 'http://localhost:3000/auth/registerproperty',
-        text_color: 'white',
-        primary_color: 'colorr',
-        secondary_color: 'green',
-      }
-      // {
-      //   headers: {
-      //     'Authorization': 'Basic ' + btoa('bookingengine:secretbookingenginesecret'),
-      //     'token': `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdG9rZW5fZXhwaXJ5IjoxNzA3OTQyNTc1NTYzLCJ1c2VyX2lkIjoiZjA0ZDZmZTItNDkwNS00OTgyLWI5MDctZjc3NGFiNzYzMWFhIn0.xTieKM7PbNdfcswiPIxSMijak2dI_nWnkQ7P1u11Jgs`
-      //   }
-      // }
-    )
-
-    console.log(">>>>>res", res);
-    
-  }
-
-  const ok = {
-    number_of_rooms: 7,
-    country: 'Nigeria',
-    logo:
-      'https://firebasestorage.googleapis.com/v0/b/swave-a0e1f.appspot.com/o/files%2Fmy%20photo.jpeg?alt=media&token=45acd330-a785-4025-87b8-56ffc98f99c0',
-    image:
-      'https://firebasestorage.googleapis.com/v0/b/swave-a0e1f.appspot.com/o/files%2Fmy%20photo.jpeg?alt=media&token=45acd330-a785-4025-87b8-56ffc98f99c0',
-    name: 'junior sean',
-    address: 'Ajah, lekki, Lagos state, Nigeria',
-    phone_number: '09064487778',
-    email_address: 'pearlthelma299@gmail.com',
-    web_address: 'http://localhost:3000/auth/registerproperty',
-    text_color: 'white',
-    primary_color: 'colorr',
-    secondary_color: 'green',
+    createProperty({
+      toast,
+      route,
+      number_of_rooms: Number(number_of_rooms),
+      country: 'Nigeria',
+      logo: imgUrl,
+      image: imgUrl,
+      ...rest,
+    })
   }
 
   const handleFileChange = (e: any) => {
     setLoading(true)
-
     uploadFile(e.target.files[0], setImgUrl, setLoading)
   }
 
@@ -219,7 +173,7 @@ export default function RegisterProperty() {
             <div className="flex space-x-8">
               <InputField
                 name="primary_color"
-                label="First Name"
+                label="Primary Color"
                 type="text"
                 register={register}
                 required
@@ -288,7 +242,7 @@ export default function RegisterProperty() {
                 type="submit"
                 className="bg-primary-color py-3 text-center w-full text-white my-10 rounded-lg"
               >
-                Submit
+              {isLoading ? <Spinner/> : 'Submit'} 
               </button>
             </div>
           </form>

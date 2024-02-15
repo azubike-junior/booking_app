@@ -15,9 +15,10 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addMatcher(
       authApi.endpoints.login.matchFulfilled, (_state, { payload }: any) => {
-        console.log(">>>>_tats", payload.res);
         setItem("access_token", payload.res.access_token)
         setItem("first_name", payload.res.firstname)
+        setItem("last_name", payload.res.lastname)
+
       }
     )
   }

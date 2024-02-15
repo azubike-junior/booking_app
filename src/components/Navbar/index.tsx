@@ -1,14 +1,13 @@
-import { RootState } from '@/store'
-import { getItem, lato } from '@/utils'
+import { getItem, lato, open_sans } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { MdKeyboardArrowDown } from 'react-icons/md'
-import { useSelector } from 'react-redux'
 
 export default function Navbar() {
-  const user = useSelector((state: RootState) => state.authslice)
-
+  const router = useRouter()
   const firstname = getItem('first_name')
+  const lastname = getItem('last_name')
 
   return (
     <div className="flex justify-between items-center max-w-[1400px] mx-auto px-10 pt-10 ">
@@ -24,34 +23,44 @@ export default function Navbar() {
           <Link className="font-medium " href={'/properties'}>
             Property Listing
           </Link>
-          <Link className="font-medium " href={'/'}>
-            My Properties
-          </Link>
+
           <Link className="font-medium" href={'/'}>
             Contact Us
           </Link>
-          <Link className="flex items-center font-medium space-x-2" href="">
-            <Image
-              src="/web.svg"
-              width={30}
-              height={30}
-              alt="bookteller"
-              className="mr-2"
-            />
-            EN
-            <MdKeyboardArrowDown size={20} />
-          </Link>
           <Link
-            onClick={() => localStorage.clear()}
-            href="/auth/login"
-            className=" text-primary-color font-medium "
-          >
-            {firstname.charAt(0).toUpperCase()}
-          </Link>
-          <Link href="/auth/signup" className=" p-2 px-6  ">
-            <p className="font-semibold"> Hi, {firstname}</p>
-            <p className="text-[#8B8B8B] text-xs">You are welcome</p>
-          </Link>
+            className="flex items-center font-medium space-x-2"
+            href=""
+          ></Link>
+
+          <div className=" p-2 px-6 flex items-center space-x-6 ">
+            <div className="flex items-center space-x-2">
+              <Image
+                src="/web.svg"
+                width={30}
+                height={30}
+                alt="bookteller"
+                className="mr-2"
+              />
+              <p> EN</p>
+              <MdKeyboardArrowDown size={20} />
+            </div>
+            <p
+              onClick={() => {
+                localStorage.clear()
+                router.push('/auth/login')
+              }}
+              className="bg-[#FAFAFA] cursor-pointer"
+            >
+              {firstname.charAt(0).toUpperCase()}
+              {lastname.charAt(0).toUpperCase()}
+            </p>
+            <div className={`${open_sans.className} font-semibold`}>
+              <p>
+                Hi, {firstname} {lastname}
+              </p>
+              <p className="text-[#8B8B8B] text-xs">You are welcome</p>
+            </div>
+          </div>
         </ul>
       ) : (
         <ul
@@ -77,7 +86,7 @@ export default function Navbar() {
               alt="bookteller"
               className="mr-2"
             />
-            EN
+            <p>EN</p>
             <MdKeyboardArrowDown size={20} />
           </Link>
           <Link href="/auth/login" className=" text-primary-color font-medium ">
@@ -92,5 +101,6 @@ export default function Navbar() {
         </ul>
       )}
     </div>
+    // <></>
   )
 }

@@ -18,8 +18,8 @@ export default function Home() {
             className={`${lora.className} w-8/12 text-4xl xl:text-6xl space-y-3 text-brand-color`}
           >
             <p className="">
-              <span className="text-primary-color">Revolutionary</span>{' '}
-              co-working{' '}
+              <span className="text-primary-color">Revolutionary</span>
+              co-working
             </p>
             <p> space to realize your</p>
             <p> innovation</p>

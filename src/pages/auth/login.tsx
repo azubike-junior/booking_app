@@ -1,7 +1,7 @@
 import InputField from '@/components/Input'
 import { useLoginMutation } from '@/features/auth'
 import { useAppDispatch } from '@/store'
-import { getItem, lato, quickSand } from '@/utils'
+import { lato, quickSand } from '@/utils'
 import { FormValues } from '@/utils/types'
 import { Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
@@ -16,32 +16,8 @@ export default function Login() {
 
   const [
     login,
-    { isLoading, error, data, isSuccess, isError },
+    { isLoading },
   ] = useLoginMutation()
-
-
-  if (isError) {
-    toast({
-      title: 'Invalid Login credentials',
-      description: '',
-      status: 'error',
-      duration: 9000,
-      isClosable: true,
-      position: 'top-right',
-    })
-  }
-
-  if (isSuccess) {
-    router.push('/properties')
-    toast({
-      title: 'Account created successfully',
-      description: '',
-      status: 'success',
-      duration: 9000,
-      isClosable: true,
-      position: 'top-right',
-    })
-  }
 
   const {
     register,
@@ -51,7 +27,8 @@ export default function Login() {
   } = useForm<FormValues>({})
 
   async function loginHandler(data: FormValues) {
-    login(data)
+    const _data = { toast, router, ...data }
+    login(_data)
   }
 
   return (

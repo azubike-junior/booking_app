@@ -33,32 +33,21 @@ export default function Signup() {
   const { status: error_code, data: rs } = handleErrorResponse(error)
   const { status: success_code } = handleSuccessResponse(response)
 
-  if (success_code === 201) {
-    router.push('/properties')
-    toast({
-      title: 'Account created successfully',
-      description: '',
-      status: 'success',
-      duration: 9000,
-      isClosable: true,
-      position: 'top-right',
-    })
-  }
 
-  if (error_code === 400) {
-    toast({
-      title: rs.message,
-      description: '',
-      status: 'error',
-      duration: 9000,
-      isClosable: true,
-      position: 'top-right',
-    })
-  }
+  // if (error_code === 400) {
+  //   toast({
+  //     title: rs.message,
+  //     description: '',
+  //     status: 'error',
+  //     duration: 9000,
+  //     isClosable: true,
+  //     position: 'top-right',
+  //   })
+  // }
 
   async function signupHandler(data: FormValues) {
     const { confirmPassword, ..._data } = data
-    const updated = { country_code: '+234', ..._data }
+    const updated = { toast, router, country_code: '+234', ..._data }
     createAccount(updated)
   }
 

@@ -1,4 +1,6 @@
 export type FormValues = {
+   router?: any
+  toast?: any
   firstname?: string
   lastname?: string
   email: string
@@ -8,7 +10,7 @@ export type FormValues = {
 }
 
 export type LoginResponse = {
-   id: string
+    id: string
     firstname: string
     lastname: string
     email: string
@@ -26,6 +28,8 @@ export type LoginResponse = {
 
 export type PropertyProp = {
   toast?: any
+  route?: any
+  id: string
     address: string
     name: string
     number_of_rooms: number
