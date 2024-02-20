@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { MutableRefObject, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { IoIosArrowDropleftCircle } from 'react-icons/io'
 import { uploadFile } from '../../utils/index'
 
 export default function RegisterProperty() {
@@ -82,6 +83,13 @@ export default function RegisterProperty() {
         </div>
       </div>
       <div className=" w-7/12 bg-white rounded-l-[40px] px-20">
+        <div
+          onClick={() => route.back()}
+          className="flex mt-20 items-center space-x-2 cursor-pointer"
+        >
+          <IoIosArrowDropleftCircle size={35} />
+          <p>Go back</p>
+        </div>
         <div className="mx-auto mt-16 max-w-[500px]">
           <p
             className={`${quickSand.className} text-center text-[#111827] text-3xl`}
@@ -242,7 +250,7 @@ export default function RegisterProperty() {
                 type="submit"
                 className="bg-primary-color py-3 text-center w-full text-white my-10 rounded-lg"
               >
-              {isLoading ? <Spinner/> : 'Submit'} 
+                {isLoading ? <Spinner /> : 'Submit'}
               </button>
             </div>
           </form>

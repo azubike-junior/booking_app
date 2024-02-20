@@ -17,6 +17,11 @@ export const lora = Lora({
   subsets: ['latin'],
 })
 
+export const lora_small = Lora({
+  weight: '400',
+  subsets: ['latin'],
+})
+
 export const quickSand = Quicksand({
   weight: '500',
   subsets: ['latin'],
@@ -88,15 +93,13 @@ export const setItem = (name: string, value: string) => {
     }
 }
 
-console.log(">>>>>>token", getItem("access_token"))
-
-// const token = getItem("access_token")
-
 export const _http =  axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   auth: { username:'bookingengine', password:'secretbookingenginesecret' },
   headers: { token: getItem('access_token')}
 });
+
+export const firstname = getItem('first_name')
 
 export const uploadFile = (file: any, setImgUrl: any, setLoading: any) => {
   // const file = e.target[0]?.files[0]

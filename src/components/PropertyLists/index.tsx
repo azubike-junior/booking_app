@@ -83,7 +83,7 @@ export const Lists = ({
             href={`/properties/${id}`}
             className="bg-[#10375C] text-white text-center font-md rounded-lg py-2 px-10"
           >
-            <p>Edit</p>
+            <p>View Details</p>
           </Link>
         </div>
       </div>

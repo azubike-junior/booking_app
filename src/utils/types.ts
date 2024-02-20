@@ -43,3 +43,23 @@ export type PropertyProp = {
     image:string
     country: string
 }
+
+export type RoomProps = {
+  toast?: any
+  route?: any
+  property_id: string,
+  name: string,
+  size: string,
+  price: number,
+  adults: number,
+  mode: number,
+  children: number,
+  wakeup_call: number,
+  flat_tv: number
+  laundry: number
+  internet: number
+  room_service_24h: number
+  intercom: number
+  bedside_fridge: number
+  category: number
+}

@@ -1,14 +1,20 @@
-
 'use client'
 
 import { AuthWrapper } from '@/components/AuthWrapper'
 import { DisabledField } from '@/components/Input'
-import { useGetPropertyQuery } from '@/features/property'
+import { Rooms } from '@/components/PropertyLists/roomLists'
+import { useGetPropertiesQuery, useGetPropertyQuery, useGetRoomByPropertyIdQuery } from '@/features/property'
+import { RoomProps } from '@/utils/types'
+import { Spinner } from '@chakra-ui/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useParams } from 'next/navigation'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import { IoIosArrowDropleftCircle } from 'react-icons/io'
 
 export default function PropertyDetails() {
+  const route = useRouter()
   const {
     register,
     handleSubmit,
@@ -19,10 +25,18 @@ export default function PropertyDetails() {
 
   const { data, isLoading } = useGetPropertyQuery(params?.id)
 
-  // console.log('>>>>>id', id, data)
+  const { data:rooms } = useGetRoomByPropertyIdQuery(params?.id)
+
+  console.log('>>>>>id', rooms)
 
   return (
     <div className="mt-5">
+      {isLoading ? (
+        <div className="flex justify-center items-center">
+          <Spinner />
+        </div>
+      ) : null}
+
       <Image
         src="/property.svg"
         className="_properties -z-10"
@@ -32,7 +46,14 @@ export default function PropertyDetails() {
       />
 
       <div className="max-w-[1400px] mt-10 mx-auto px-10">
-        <div className="bg-[#F5F5F5] pt-14 px-10 mt-16 space-y-10">
+        <div
+          onClick={() => route.back()}
+          className="flex  items-center space-x-2 cursor-pointer"
+        >
+          <IoIosArrowDropleftCircle size={35} />
+          <p>Go back</p>
+        </div>
+        <div className="bg-[#F5F5F5] pt-14 px-10 mt-10 space-y-10">
           <div className="flex items-center space-x-4">
             <Image
               src="/bookteller.svg"
@@ -97,7 +118,7 @@ export default function PropertyDetails() {
               </div>
             </div>
 
-            <div className="flex justify-between">
+            {/* <div className="flex justify-between">
               <button
                 type="submit"
                 className="border-[#10375C]  text-[#10375C] border py-2 text-center px-10 my-10 rounded-lg"
@@ -111,8 +132,34 @@ export default function PropertyDetails() {
               >
                 Save Changes
               </button>
-            </div>
+            </div> */}
           </form>
+
+          <div className="max-w-[1400px] mx-auto px-10">
+            <div className="bg-[#F5F5F5] px-10">
+              <div className="flex justify-between items-center pb-8">
+                <p className="text-[#10375C] text-3xl">
+                  Rooms under this property
+                </p>
+
+                <Link
+                  href={`/properties/rooms/${params?.id}`}
+                  type="button"
+                  className="border-[#10375C] bg-[#10375C]  text-white border py-2 text-center px-4  rounded-lg"
+                >
+                  List a new room
+                </Link>
+              </div>
+
+              {isLoading ? <Spinner /> : null}
+
+              <div className="space-y-8">
+                {rooms?.map((p: RoomProps, index) => {
+                  return <Rooms {...p} key={index} />
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

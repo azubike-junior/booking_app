@@ -1,8 +1,10 @@
 import HeroInput from '@/components/HeroInput'
-import { lato, lora } from '@/utils'
+import { lato, lora, lora_small } from '@/utils'
 import Image from 'next/image'
+import { IoArrowForwardCircleSharp } from 'react-icons/io5'
 
 export default function Home() {
+
   return (
     <main className="bg-white pt-12 ">
       <div className="max-w-[1400px] mx-auto mt-14 px-10">
@@ -47,6 +49,36 @@ export default function Home() {
           // sizes="(min-width: 768px) 80px, 60px, (min-width: 1200px) 1000px, 10000px"
           className="_image"
         />
+      </div>
+
+      <div className="max-w-[1400px] mx-auto mt-24 px-10">
+        <div className="flex justify-between">
+          <div className="w-7/12 pt-10">
+            <p className={`${lora.className} text-4xl `}>About Us</p>
+            <p
+              className={`${lora_small.className} text-[#0F172A] leading-10 text-xl tracking-wide pt-6`}
+            >
+              Amet nunc diam orci duis ut sit diam arcu, nec. Eleifend proin
+              massa tincidunt viverra lectus pulvinar. Nunc ipsum est
+              pellentesque turpis ultricies. Amet nunc diam orci duis ut sit
+              diam arcu, nec. Eleifend proin massa tincidunt viverra lectus
+              pulvinar. Nunc ipsum est pellentesque turpis ultricies.
+            </p>
+
+            <button className="bg-[#F58634] flex items-center space-x-2 px-6 py-4 text-white rounded-lg mt-10">
+              <p>Learn More</p>{' '}
+              <IoArrowForwardCircleSharp size={20} color="white" />{' '}
+            </button>
+          </div>
+
+          <Image
+            src={'/about_img.svg'}
+            width={450}
+            height={100}
+            alt="bg_img"
+            className=""
+          />
+        </div>
       </div>
 
       {/* <div>hlell</div> */}

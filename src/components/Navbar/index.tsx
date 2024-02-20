@@ -11,7 +11,14 @@ export default function Navbar() {
 
   return (
     <div className="flex justify-between items-center max-w-[1400px] mx-auto px-10 pt-10 ">
-      <Image src="/bookteller.svg" width={200} height={200} alt="bookteller" />
+      <Link href={'/'}>
+        <Image
+          src="/bookteller.svg"
+          width={200}
+          height={200}
+          alt="bookteller"
+        />
+      </Link>
 
       {firstname ? (
         <ul

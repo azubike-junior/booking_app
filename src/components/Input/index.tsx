@@ -6,7 +6,7 @@ type InputProp = {
   placeHolder: string
   name: string
   type: string
-  required: boolean
+  required?: boolean
   message?: string | undefined
   errors?: FieldError | undefined
   validate?: any
@@ -50,7 +50,7 @@ export function DisabledField({ label, value }: DisabledFieldProp) {
       <label className="flex text-sm text-[#393F42]" htmlFor="">
         {label}
       </label>
-      <div className="border-[1px] border-[#96A0A5] bg-white w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium">
+      <div  className="border-[0.5px] border-[#96A0A5]  w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium bg-[#F5F5F5]">
         <p>{value}</p>
       </div>
     </div>
