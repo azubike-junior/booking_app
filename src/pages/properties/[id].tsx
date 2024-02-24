@@ -30,6 +30,8 @@ export default function PropertyDetails() {
 
   const { data: rooms } = useGetRoomByPropertyIdQuery(params?.id)
 
+  let img: any = data?.image
+
   return (
     <div className="mt-5">
       {isLoading ? (
@@ -39,7 +41,7 @@ export default function PropertyDetails() {
       ) : null}
 
       <Image
-        src={data?.image}
+        src={img}
         className="_properties -z-10"
         alt="properyImg"
         width={100}
