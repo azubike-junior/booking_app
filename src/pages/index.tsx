@@ -71,7 +71,7 @@ export default function Home() {
           </div>
 
           <Image
-            src={'/about_img.svg'}
+            src={'/left.png'}
             width={450}
             height={100}
             alt="bg_img"
