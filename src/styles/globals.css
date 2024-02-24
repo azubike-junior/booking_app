@@ -29,6 +29,7 @@ html, body {
   }
   ._properties {
     width: 100%;
+    height: 500px;
     z-index: 0;
   }
   ._property-div {

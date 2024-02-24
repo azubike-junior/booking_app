@@ -3,7 +3,10 @@
 import { AuthWrapper } from '@/components/AuthWrapper'
 import { DisabledField } from '@/components/Input'
 import { Rooms } from '@/components/PropertyLists/roomLists'
-import { useGetPropertiesQuery, useGetPropertyQuery, useGetRoomByPropertyIdQuery } from '@/features/property'
+import {
+  useGetPropertyQuery,
+  useGetRoomByPropertyIdQuery,
+} from '@/features/property'
 import { RoomProps } from '@/utils/types'
 import { Spinner } from '@chakra-ui/react'
 import Image from 'next/image'
@@ -25,9 +28,7 @@ export default function PropertyDetails() {
 
   const { data, isLoading } = useGetPropertyQuery(params?.id)
 
-  const { data:rooms } = useGetRoomByPropertyIdQuery(params?.id)
-
-  console.log('>>>>>id', rooms)
+  const { data: rooms } = useGetRoomByPropertyIdQuery(params?.id)
 
   return (
     <div className="mt-5">
@@ -38,7 +39,7 @@ export default function PropertyDetails() {
       ) : null}
 
       <Image
-        src="/property.svg"
+        src={data?.image}
         className="_properties -z-10"
         alt="properyImg"
         width={100}
@@ -53,7 +54,7 @@ export default function PropertyDetails() {
           <IoIosArrowDropleftCircle size={35} />
           <p>Go back</p>
         </div>
-        <div className="bg-[#F5F5F5] pt-14 px-10 mt-10 space-y-10">
+        <div className="bg-[#F5F5F5] py-14 px-10 my-10 space-y-10">
           <div className="flex items-center space-x-4">
             <Image
               src="/bookteller.svg"
@@ -108,7 +109,7 @@ export default function PropertyDetails() {
               <div className="w-full"></div>
             </div>
 
-            <div className="w-full text-sm">
+            {/* <div className="w-full text-sm">
               <p>Upload Image</p>
               <div className="w-60 bg-[#F4F4F4] rounded-lg py-10 flex justify-center mt-2">
                 <div>
@@ -116,7 +117,7 @@ export default function PropertyDetails() {
                   <p className="text-[#2E2E2E]"> SVG, PNG, or JPG </p>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* <div className="flex justify-between">
               <button
@@ -152,6 +153,12 @@ export default function PropertyDetails() {
               </div>
 
               {isLoading ? <Spinner /> : null}
+
+              {rooms?.length === 0 ? (
+                <div>
+                  <p className='text-3xl text-center py-6'>No rooms are available under this property</p>
+                </div>
+              ) : null}
 
               <div className="space-y-8">
                 {rooms?.map((p: RoomProps, index) => {

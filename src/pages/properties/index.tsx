@@ -11,7 +11,7 @@ export default function Properties() {
     <div className="">
       <div className={`${lato.className} bg-[#10375C] w-full h-[400px]`}>
         <div className="max-w-[1400px]  mt-10 px-10 mx-auto text-white">
-          <p className="text-6xl pt-48">Hi {firstname}</p>
+          <p className="text-6xl pt-48">Hi </p>
           <p className="text-4xl pt-10">
             Welcome to Bookteller property listing
           </p>

@@ -4,10 +4,9 @@ import Image from 'next/image'
 import { IoArrowForwardCircleSharp } from 'react-icons/io5'
 
 export default function Home() {
-
   return (
-    <main className="bg-white pt-12 ">
-      <div className="max-w-[1400px] mx-auto mt-14 px-10">
+    <main className="bg-white py-12 ">
+      <div className="max-w-[1300px] mx-auto mt-14 px-10">
         <div className="flex  items-center text-ash">
           <p className={`${lato.className} capitalize pr-4 text-xl`}>
             introducing
@@ -51,7 +50,7 @@ export default function Home() {
         />
       </div>
 
-      <div className="max-w-[1400px] mx-auto mt-24 px-10">
+      <div className="max-w-[1300px] mx-auto mt-36 px-10">
         <div className="flex justify-between">
           <div className="w-7/12 pt-10">
             <p className={`${lora.className} text-4xl `}>About Us</p>
@@ -74,6 +73,97 @@ export default function Home() {
           <Image
             src={'/about_img.svg'}
             width={450}
+            height={100}
+            alt="bg_img"
+            className=""
+          />
+        </div>
+      </div>
+
+      <div className="max-w-[1300px] mx-auto mt-36 px-10">
+        <div className="flex  items-center text-ash">
+          <p className={`${lato.className} capitalize pr-4 text-xl`}>
+            Our Services
+          </p>{' '}
+          <div className="w-20 h-0.5 bg-ash mt-1"></div>
+        </div>
+
+        <div className="space-y-2">
+          <p
+            className={`${lora.className} w-8/12 text-2xl xl:text-4xl space-y-3 text-brand-color pt-4`}
+          >
+            All facilities are ready to meet
+          </p>
+          <p
+            className={`${lora.className} w-8/12 text-2xl xl:text-4xl space-y-3 text-brand-color`}
+          >
+            all your needs
+          </p>
+        </div>
+
+        <div className="flex pt-10 space-x-16">
+          <div className="bg-[#DFDFDF] h-44 w-1"></div>
+          <div
+            className={`${lato.className} capitalize pr-4 text-base pt-6 font-semibold space-y-10`}
+          >
+            <p>Spacious parking area</p>
+
+            <p>Comfortable spaces</p>
+
+            <p className="bg-[#F58634] p-4 w-56 text-white">Cozy cafe</p>
+
+            <p>Child playground</p>
+
+            <p>Outdoor spaces</p>
+          </div>
+
+          <Image
+            src={'/service_img.svg'}
+            width={1000}
+            height={100}
+            alt="bg_img"
+            className=""
+          />
+        </div>
+      </div>
+
+      <div className="max-w-[1300px] mx-auto mt-36 px-10 ">
+        <p
+          className={`${lora.className} text-2xl xl:text-4xl space-y-3 text-brand-color pt-4 text-center`}
+        >
+          Who uses Bookteller?
+        </p>
+        <p
+          className={`${lato.className} capitalize pt-6 text-center text-[#9A9A9A] text-base`}
+        >
+          Big brands, small bussiness, new startup and inividuals
+        </p>
+
+        <div className="flex items-center justify-center space-x-14 mt-8">
+          <Image
+            src={'/google.svg'}
+            width={130}
+            height={100}
+            alt="bg_img"
+            className=""
+          />
+          <Image
+            src={'/microsoft.svg'}
+            width={130}
+            height={100}
+            alt="bg_img"
+            className=""
+          />
+          <Image
+            src={'/toko.svg'}
+            width={130}
+            height={100}
+            alt="bg_img"
+            className=""
+          />{' '}
+          <Image
+            src={'/upwork.svg'}
+            width={130}
             height={100}
             alt="bg_img"
             className=""

@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 import { MutableRefObject, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IoIosArrowDropleftCircle } from 'react-icons/io'
-import { uploadFile } from '../../utils/index'
+import { uploadImage, uploadLogo } from '../../utils/index'
 
 export default function RegisterProperty() {
   const route = useRouter()
@@ -20,8 +20,10 @@ export default function RegisterProperty() {
   } = useForm<PropertyProp>({})
   const [loading, setLoading] = useState(false)
   const toast = useToast()
-
   const [imgUrl, setImgUrl] = useState('')
+  const [logoUrl, setLogoUrl] = useState('')
+  const [logoLoading, setLogoLoading] = useState(false)
+
 
   const [
     createProperty,
@@ -29,6 +31,9 @@ export default function RegisterProperty() {
   ] = useCreatePropertyMutation()
 
   const fileRef = useRef() as MutableRefObject<HTMLInputElement>
+
+  const logoRef = useRef() as MutableRefObject<HTMLInputElement>
+
 
   async function propertyHandler(data: PropertyProp) {
     if (!imgUrl) {
@@ -46,12 +51,15 @@ export default function RegisterProperty() {
     })
   }
 
-  const handleFileChange = (e: any) => {
+  const handleImageChange = (e: any) => {
     setLoading(true)
-    uploadFile(e.target.files[0], setImgUrl, setLoading)
+    uploadImage(e.target.files[0], setImgUrl, setLoading)
   }
 
-  console.log('>>>>>imgUrl', imgUrl)
+   const handleLogoChange = (e: any) => {
+    setLogoLoading(true)
+    uploadLogo(e.target.files[0], setLogoUrl, setLogoLoading)
+  }
 
   return (
     <div className="flex justify-between content_bg">
@@ -203,6 +211,38 @@ export default function RegisterProperty() {
 
             <div className="flex  mb-10 space-x-4 text-sm">
               <button
+                onClick={() => logoRef.current.click()}
+                type="button"
+                className="w-full text-sm"
+              >
+                <p>Upload a Logo</p>
+                <div className="w-full bg-[#F4F4F4] rounded-lg  py-10 flex justify-center mt-2">
+                  <div>
+                    <input
+                      onChange={handleLogoChange}
+                      ref={logoRef}
+                      hidden
+                      type="file"
+                    />
+                    {logoLoading ? (
+                      <Spinner />
+                    ) : (
+                      <>
+                        {logoUrl ? (
+                          <p>Done !</p>
+                        ) : (
+                          <>
+                            <p className="text-[#0B60B0]">Click to Upload</p>
+                            <p className="text-[#2E2E2E]"> SVG, PNG, or JPG </p>
+                          </>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              </button>
+
+              <button
                 onClick={() => fileRef.current.click()}
                 type="button"
                 className="w-full text-sm"
@@ -211,7 +251,7 @@ export default function RegisterProperty() {
                 <div className="w-full bg-[#F4F4F4] rounded-lg  py-10 flex justify-center mt-2">
                   <div>
                     <input
-                      onChange={handleFileChange}
+                      onChange={handleImageChange}
                       ref={fileRef}
                       hidden
                       type="file"
@@ -233,16 +273,6 @@ export default function RegisterProperty() {
                   </div>
                 </div>
               </button>
-
-              <div className="w-full text-sm">
-                <p>Upload Image</p>
-                <div className="w-full bg-[#F4F4F4] rounded-lg py-10 flex justify-center mt-2">
-                  <div>
-                    <p className="text-[#0B60B0]">Click to Upload</p>
-                    <p className="text-[#2E2E2E]"> SVG, PNG, or JPG </p>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div className="">

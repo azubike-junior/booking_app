@@ -1,8 +1,7 @@
-import { Lato, Lora, Open_Sans, Quicksand } from 'next/font/google'
-import { storage } from './firebase';
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import axios from 'axios';
-import { getTimeMeasureUtils } from '@reduxjs/toolkit/dist/utils';
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { Lato, Lora, Open_Sans, Quicksand } from 'next/font/google';
+import { storage } from './firebase';
 
 
 
@@ -101,7 +100,7 @@ export const _http =  axios.create({
 
 export const firstname = getItem('first_name')
 
-export const uploadFile = (file: any, setImgUrl: any, setLoading: any) => {
+export const uploadImage = (file: any, setImgUrl: any, setLoading: any) => {
   // const file = e.target[0]?.files[0]
     if (!file) return;
     const storageRef = ref(storage, `files/${file.name}`);
@@ -109,9 +108,6 @@ export const uploadFile = (file: any, setImgUrl: any, setLoading: any) => {
 
     uploadTask.on("state_changed",
       (snapshot) => {
-        // const progress =
-        //   Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-        // setProgresspercent(progress);
         console.log(snapshot);
         
       },
@@ -123,6 +119,30 @@ export const uploadFile = (file: any, setImgUrl: any, setLoading: any) => {
         setLoading(false)
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImgUrl(downloadURL)
+        });
+      }
+    );
+}
+
+export const uploadLogo = (file: any, setLogoUrl: any, setLogoLoading: any) => {
+  // const file = e.target[0]?.files[0]
+    if (!file) return;
+    const storageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on("state_changed",
+      (snapshot) => {
+        console.log(snapshot);
+        
+      },
+      (error) => {
+        alert(error);
+      },
+
+      () => {
+        setLogoLoading(false)
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setLogoUrl(downloadURL)
         });
       }
     );
