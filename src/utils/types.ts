@@ -47,6 +47,7 @@ export type PropertyProp = {
 export type RoomProps = {
   toast?: any
   route?: any
+  id?: string
   property_id: string,
   name: string,
   size: string,
@@ -62,4 +63,10 @@ export type RoomProps = {
   intercom: number
   bedside_fridge: number
   category: number
+  image_one?: string
+  image_two?: string
+  image_three?: string,
+  reserved?: number
+  published?: number
+  mode_str?: string,
 }

@@ -1,8 +1,17 @@
-import InputField from '@/components/Input'
+import InputField from '@/components/shared/Input'
 import { useCreateRoomMutation } from '@/features/property'
-import { lato, lato_bold, quickSand } from '@/utils'
+import {
+  handleImageChange,
+  handleLogoChange,
+  lato,
+  lato_bold,
+  open_sans,
+  quickSand,
+  uploadImage,
+  uploadLogo,
+} from '@/utils'
 import { RoomProps } from '@/utils/types'
-import { Spinner, useToast } from '@chakra-ui/react'
+import { Checkbox, Spinner, Stack, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
@@ -15,14 +24,39 @@ export default function RegisterRoom() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<RoomProps>({})
   const toast = useToast()
   const params = useParams<{ id: string }>()
   const [createRoom, { isLoading, error, data }] = useCreateRoomMutation()
+  const [loading, setLoading] = useState(false)
+  const [imgUrl, setImgUrl] = useState('')
+  const [logoUrl, setLogoUrl] = useState('')
+  const [logoLoading, setLogoLoading] = useState(false)
+  const fileRef = useRef() as MutableRefObject<HTMLInputElement>
+  const logoRef = useRef() as MutableRefObject<HTMLInputElement>
+
+  const [checks, setchecks] = useState({
+    wakeup_call: false,
+    laundry: false,
+    intercom: false,
+    internet: false,
+    room_service_24h: false,
+    bedside_fridge: false,
+    flat_tv: false,
+  })
+
+  const handleCheckboxChange = (event: any) => {
+    const { name, checked } = event.target
+    setchecks((prevChecks) => ({
+      ...prevChecks,
+      [name]: checked,
+    }))
+  }
 
   async function roomHandler(data: RoomProps) {
-    const { name, size, adults, flat_tv, wakeup_call, laundry, intercom, internet, category, price, mode, children, room_service_24h, bedside_fridge } = data
+    const { name, size, adults, category, price, mode, children } = data
     const _data = {
       route,
       toast,
@@ -31,23 +65,27 @@ export default function RegisterRoom() {
       adults: Number(adults),
       mode: Number(mode),
       children: Number(children),
-      wakeup_call: Number(wakeup_call),
-      flat_tv: Number(flat_tv),
-      laundry: Number(laundry),
-      internet: Number(internet),
-      room_service_24h: Number(room_service_24h),
-      intercom: Number(intercom),
-      bedside_fridge: Number(bedside_fridge),
+      wakeup_call: checks.wakeup_call ? 1 : 0,
+      flat_tv: checks.flat_tv ? 1 : 0,
+      laundry: checks.laundry ? 1 : 0,
+      internet: checks.internet ? 1 : 0,
+      room_service_24h: checks.room_service_24h ? 1 : 0,
+      intercom: checks.intercom ? 1 : 0,
+      bedside_fridge: checks.bedside_fridge ? 1 : 0,
       category: Number(category),
       name,
-      size
+      size,
+      image_one: logoUrl,
+      image_two: imgUrl,
+      image_three: 'imagethree',
     }
+
     createRoom(_data)
   }
 
   return (
-    <div className="flex justify-between content_bg">
-      <div className="w-5/12 ">
+    <div className="flex h-full justify-between">
+       <div className=" hidden lg:block w-1/2 bg-[#00525DB2]">
         <div className="px-24 mt-16">
           <Link href={'/'}>
             <Image
@@ -74,7 +112,7 @@ export default function RegisterRoom() {
           </div>
         </div>
       </div>
-      <div className=" w-7/12 bg-white rounded-l-[40px] px-20">
+      <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-8 lg:px-20">
         <div
           onClick={() => route.back()}
           className="flex mt-20 items-center space-x-2 cursor-pointer"
@@ -93,60 +131,17 @@ export default function RegisterRoom() {
             onSubmit={handleSubmit(roomHandler)}
             className={`${lato.className} space-y-8 pt-14`}
           >
-            <InputField
-              name="name"
-              label="Name"
-              type="text"
-              register={register}
-              required
-              placeHolder="Enter name"
-              errors={errors?.name}
-              message={' Name is required'}
-            />
-
-            <InputField
-              name="size"
-              label="Size"
-              type="text"
-              register={register}
-              required
-              placeHolder="Enter size"
-              errors={errors?.size}
-              message={'Size is required'}
-            />
-
-            <InputField
-              name="price"
-              label="Price"
-              type="text"
-              register={register}
-              required
-              placeHolder="Enter price"
-              errors={errors?.price}
-              message={'Price is required'}
-            />
-
-            <InputField
-              name="adults"
-              label="Adults"
-              type="number"
-              register={register}
-              required
-              placeHolder="Enter number of adults"
-              errors={errors?.adults}
-              message={' numbers of adults is required'}
-            />
-            <InputField
-              name="mode"
-              label="Mode"
-              type="number"
-              register={register}
-              placeHolder="Enter mode"
-              errors={errors?.mode}
-              message={'mode is required'}
-            />
-
             <div className="flex space-x-8">
+              <InputField
+                name="name"
+                label="Name"
+                type="text"
+                register={register}
+                required
+                placeHolder="Enter name"
+                errors={errors?.name}
+                message={' Name is required'}
+              />
               <InputField
                 name="children"
                 label="Children"
@@ -157,102 +152,273 @@ export default function RegisterRoom() {
                 errors={errors?.children}
                 message={'Number of children is required'}
               />
+            </div>
+
+            <div className="flex space-x-8">
               <InputField
-                name="wakeup_call"
-                label="Wakeup Calls"
-                type="number"
+                name="size"
+                label="Size"
+                type="text"
                 register={register}
-                placeHolder="Enter number of wakeup calls"
-                errors={errors?.wakeup_call}
-                message={'number of wakeup calls is required'}
+                required
+                placeHolder="Enter size"
+                errors={errors?.size}
+                message={'Size is required'}
+              />
+
+              <InputField
+                name="price"
+                label="Price"
+                type="text"
+                register={register}
+                required
+                placeHolder="Enter price"
+                errors={errors?.price}
+                message={'Price is required'}
               />
             </div>
 
             <div className="flex space-x-8">
               <InputField
-                name="flat_tv"
-                label="Flat TVs"
+                name="adults"
+                label="Adults"
                 type="number"
                 register={register}
                 required
-                placeHolder="Enter number of flat TVs"
-                errors={errors?.flat_tv}
-                message={'number of flat tvs is required'}
+                placeHolder="Enter number of adults"
+                errors={errors?.adults}
+                message={' numbers of adults is required'}
               />
               <InputField
-                name="laundry"
-                label="Laundry"
+                name="mode"
+                label="Mode"
                 type="number"
                 register={register}
-                required
-                placeHolder="Enter number of laundry"
-                errors={errors?.laundry}
-                message={'number of laundry is required'}
+                placeHolder="Enter mode"
+                errors={errors?.mode}
+                message={'mode is required'}
               />
             </div>
 
-            <div className="flex space-x-8">
-              <InputField
-                name="internet"
-                label="Internet"
-                type="number"
-                register={register}
-                placeHolder="Enter number of internets"
-                errors={errors?.internet}
-                message={'number of internets is required'}
-              />
-              <InputField
-                name="room_service_24h"
-                label="Room Service"
-                type="number"
-                register={register}
-                placeHolder="Enter number of room service"
-                errors={errors?.room_service_24h}
-                message={'number of room service is required'}
-              />
-            </div>
+            <div>
+              <label
+                className="flex text-sm text-[#393F42] font-semibold pb-2"
+                htmlFor=""
+              >
+                Attribute: Room Amenities
+              </label>
 
-            <div className="flex space-x-8">
-              <InputField
-                name="intercom"
-                label="Intercom"
-                type="number"
-                register={register}
-                required
-                placeHolder="Enter number of intercoms"
-                errors={errors?.intercom}
-                message={'number of internets is required'}
-              />
-              <InputField
-                name="room_service_24h"
-                label="Room Service"
-                type="number"
-                register={register}
-                placeHolder="Enter number of room service"
-                errors={errors?.room_service_24h}
-                message={'number of room service is required'}
-              />
-            </div>
+              <div className="bg-[#F4F4F4] border border-[#B9B9B9] rounded-lg p-6">
+                <Stack spacing={3} direction="column">
+                  <Checkbox
+                    onChange={handleCheckboxChange}
+                    isChecked={checks.wakeup_call}
+                    name="wakeup_call"
+                    colorScheme="blue"
+                  >
+                    Wakeup calls
+                  </Checkbox>
+                  <Checkbox
+                    onChange={handleCheckboxChange}
+                    isChecked={checks.flat_tv}
+                    name="flat_tv"
+                    colorScheme="blue"
+                  >
+                    Flat TVs
+                  </Checkbox>
+                  <Checkbox
+                    onChange={handleCheckboxChange}
+                    isChecked={checks.laundry}
+                    name="laundry"
+                    colorScheme="blue"
+                  >
+                    Laundry
+                  </Checkbox>
+                  <Checkbox
+                    onChange={handleCheckboxChange}
+                    isChecked={checks.internet}
+                    name="internet"
+                    colorScheme="blue"
+                  >
+                    Internet
+                  </Checkbox>{' '}
+                  <Checkbox
+                    onChange={handleCheckboxChange}
+                    isChecked={checks.room_service_24h}
+                    name="room_service_24h"
+                    colorScheme="blue"
+                  >
+                    24 hours room service
+                  </Checkbox>
+                  <Checkbox
+                    onChange={handleCheckboxChange}
+                    isChecked={checks.intercom}
+                    name="intercom"
+                    colorScheme="blue"
+                  >
+                    Intercom
+                  </Checkbox>
+                  <Checkbox
+                    onChange={handleCheckboxChange}
+                    isChecked={checks.bedside_fridge}
+                    name="bedside_fridge"
+                    colorScheme="blue"
+                  >
+                    Bedside fridge
+                  </Checkbox>
+                </Stack>
+              </div>
 
-            <div className="flex space-x-8">
-              <InputField
-                name="bedside_fridge"
-                label="Beside Fridge"
-                type="number"
-                register={register}
-                placeHolder=""
-                errors={errors?.bedside_fridge}
-                message={'number of internets is required'}
-              />
-              <InputField
-                name="category"
-                label="Category"
-                type="number"
-                register={register}
-                placeHolder="Enter number of category"
-                errors={errors?.category}
-                message={'number of room service is required'}
-              />
+              <div className="flex mb-10 space-x-6 text-sm pt-4">
+                <button
+                  type="button"
+                  onClick={() => logoRef?.current?.click()}
+                  className=" text-sm "
+                >
+                  <p
+                    className={`${open_sans.className} text-[#737373] text-left font-semibold`}
+                  >
+                    Upload cover
+                  </p>
+                  <div className="rounded-lg h-24 w-36  border border-[#B9B9B9] flex justify-center my-2 items-center text-sm">
+                    <div>
+                      <input
+                        onChange={(e) =>
+                          handleLogoChange({
+                            e,
+                            setLogoLoading,
+                            setLogoUrl,
+                            uploadLogo,
+                          })
+                        }
+                        ref={logoRef}
+                        hidden
+                        type="file"
+                      />
+                      {logoLoading ? (
+                        <Spinner />
+                      ) : (
+                        <>
+                          {logoUrl ? (
+                            <p className=" text-[#10375C]">cover uploaded !</p>
+                          ) : (
+                            <>
+                              <p className="text-[#0B60B0]">Click to Upload</p>
+                              <p className="text-[#2E2E2E]">
+                                {' '}
+                                SVG, PNG, or JPG{' '}
+                              </p>
+                            </>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => fileRef?.current?.click()}
+                  className=" text-sm"
+                >
+                  <p
+                    className={`${open_sans.className} text-[#737373] text-left font-semibold`}
+                  >
+                    Upload Image 1
+                  </p>
+                  <div className="rounded-lg h-24 w-36 border border-[#B9B9B9]  flex justify-center my-2  items-center text-sm">
+                    <div>
+                      <input
+                        onChange={(e) =>
+                          handleImageChange({
+                            e,
+                            setLoading,
+                            setImgUrl,
+                            uploadImage,
+                          })
+                        }
+                        ref={fileRef}
+                        hidden
+                        type="file"
+                      />
+                      {loading ? (
+                        <Spinner />
+                      ) : (
+                        <>
+                          {imgUrl ? (
+                            <p className="text-[#10375C]">Image uploaded !</p>
+                          ) : (
+                            <>
+                              <p className="text-[#0B60B0]">Click to Upload</p>
+                              <p className="text-[#2E2E2E]">
+                                SVG, PNG, or JPG{' '}
+                              </p>
+                            </>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  {/* <div className="flex justify-start">
+                    <div className="border-[#10375C] bg-[#10375C] text-sm  text-white border py-0.5 text-center px-2 items-center  rounded-lg flex space-x-2 ">
+                      <MdOutlinePhotoCamera size={16} color="white" />
+                      <p>Change Image</p>
+                    </div>
+                  </div> */}
+                </button>
+
+                {/* {!data?.image ? (
+                  <div>
+                    <button
+                      onClick={() => logoRef.current.click()}
+                      type="button"
+                      className=" text-sm "
+                    >
+                      <p
+                        className={`${open_sans.className} text-[#737373] text-left font-semibold`}
+                      >
+                        Upload an Image
+                      </p>
+                      <div className="rounded-lg h-44 w-48 bg-[#F4F4F4] border border-[#B9B9B9] flex justify-center items-center my-2">
+                        <div>
+                          <input
+                            onChange={(e) =>
+                              handleLogoChange({
+                                e,
+                                setLogoLoading,
+                                setLogoUrl,
+                                uploadLogo,
+                              })
+                            }
+                            ref={logoRef}
+                            hidden
+                            type="file"
+                          />
+                          {logoLoading ? (
+                            <Spinner />
+                          ) : (
+                            <>
+                              {imgUrl ? (
+                                <p>Done !</p>
+                              ) : (
+                                <>
+                                  <p className="text-[#0B60B0]">
+                                    Click to Upload
+                                  </p>
+                                  <p className="text-[#2E2E2E]">
+                                    {' '}
+                                    SVG, PNG, or JPG{' '}
+                                  </p>
+                                </>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                ) : null} */}
+              </div>
             </div>
 
             <div className="">

@@ -1,6 +1,12 @@
-import InputField from '@/components/Input'
+import InputField from '@/components/shared/Input'
 import { useCreatePropertyMutation } from '@/features/property'
-import { lato, lato_bold, quickSand } from '@/utils'
+import {
+  handleImageChange,
+  handleLogoChange,
+  lato,
+  lato_bold,
+  quickSand,
+} from '@/utils'
 import { PropertyProp } from '@/utils/types'
 import { Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
@@ -24,7 +30,6 @@ export default function RegisterProperty() {
   const [logoUrl, setLogoUrl] = useState('')
   const [logoLoading, setLogoLoading] = useState(false)
 
-
   const [
     createProperty,
     { isLoading, error, data },
@@ -34,9 +39,8 @@ export default function RegisterProperty() {
 
   const logoRef = useRef() as MutableRefObject<HTMLInputElement>
 
-
   async function propertyHandler(data: PropertyProp) {
-    if (!imgUrl) {
+    if (!imgUrl || !logoUrl) {
       return
     }
     const { image, number_of_rooms, country, logo, ...rest } = data
@@ -45,25 +49,28 @@ export default function RegisterProperty() {
       route,
       number_of_rooms: Number(number_of_rooms),
       country: 'Nigeria',
-      logo: imgUrl,
+      logo: logoUrl,
       image: imgUrl,
       ...rest,
     })
+      .unwrap()
+      .then((payload) => {})
+      .catch((error) => {
+        toast({
+          title: error?.data.error,
+          description: '',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+          position: 'top-right',
+        })
+      })
   }
 
-  const handleImageChange = (e: any) => {
-    setLoading(true)
-    uploadImage(e.target.files[0], setImgUrl, setLoading)
-  }
-
-   const handleLogoChange = (e: any) => {
-    setLogoLoading(true)
-    uploadLogo(e.target.files[0], setLogoUrl, setLogoLoading)
-  }
 
   return (
-    <div className="flex justify-between content_bg">
-      <div className="w-5/12 ">
+    <div className="flex justify-between h-full">
+      <div className=" hidden lg:block w-1/2 bg-[#00525DB2]">
         <div className="px-24 mt-16">
           <Link href={'/'}>
             <Image
@@ -90,7 +97,7 @@ export default function RegisterProperty() {
           </div>
         </div>
       </div>
-      <div className=" w-7/12 bg-white rounded-l-[40px] px-20">
+      <div className=" w-full lg:w-7/12 bg-white rounded-l-[40px] px-8 lg:px-20">
         <div
           onClick={() => route.back()}
           className="flex mt-20 items-center space-x-2 cursor-pointer"
@@ -163,7 +170,7 @@ export default function RegisterProperty() {
               message={'Web address is required'}
             />
 
-            <div className="flex space-x-8">
+            <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
               <InputField
                 name="number_of_rooms"
                 label="Number of rooms"
@@ -186,7 +193,7 @@ export default function RegisterProperty() {
               />
             </div>
 
-            <div className="flex space-x-8">
+            <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
               <InputField
                 name="primary_color"
                 label="Primary Color"
@@ -219,7 +226,14 @@ export default function RegisterProperty() {
                 <div className="w-full bg-[#F4F4F4] rounded-lg  py-10 flex justify-center mt-2">
                   <div>
                     <input
-                      onChange={handleLogoChange}
+                      onChange={(e) =>
+                        handleLogoChange({
+                          e,
+                          setLogoLoading,
+                          setLogoUrl,
+                          uploadLogo,
+                        })
+                      }
                       ref={logoRef}
                       hidden
                       type="file"
@@ -251,7 +265,14 @@ export default function RegisterProperty() {
                 <div className="w-full bg-[#F4F4F4] rounded-lg  py-10 flex justify-center mt-2">
                   <div>
                     <input
-                      onChange={handleImageChange}
+                      onChange={(e) =>
+                        handleImageChange({
+                          e,
+                          setLoading,
+                          setImgUrl,
+                          uploadImage,
+                        })
+                      }
                       ref={fileRef}
                       hidden
                       type="file"

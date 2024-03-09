@@ -12,15 +12,43 @@ html, body {
 .container {
   height: 100%;
 }
-.content_bg {
-    background-image: url('../../public/bg.svg');
+
+.slanted {
+    z-index: 0;
     width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color:#F2F7FF;
+    height:850px;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 56%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 76%, 0 100%);
 }
 
-@media (min-width: 768px) {
+.phone-image {
+  position: relative;
+  top: 20px; /* Adjust as needed */
+}
 
+.graph {
+  width: 500px;
+}
+
+
+@media (max-width: 768px) {
+  .content_bg {
+    background-image: none;
+    width: 100%;
+  }
+  .service_img {
+      width:100%;
+    }
+    ._image {
+      width: 100%;
+    }
+    .logo {
+      width:100px
+    }
+     .about_img {
+      width:100%
+    }
 }
 
 @media (min-width: 1024px) {
@@ -28,25 +56,54 @@ html, body {
     width: 700px;
   }
   ._properties {
-    width: 100%;
-    height: 500px;
     z-index: 0;
   }
   ._property-div {
     background-color: white;
     z-index: 99;
   }
+  .content_bg {
+    background-image: url('../../public/bg.svg');
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .service_img {
+    width:800px;
+  }
 }
 
 @media (min-width: 1200px) {
   ._image {
-    width: 1200px;
+    width: 1320px;
+    margin: auto;
+  }
+   .content_bg {
+    background-image: url('../../public/bg.svg');
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .service_img {
+    width:1000px;
   }
 }
 
 @media (min-width: 2560px) {
   ._image {
-    width: 1500px;
+    width: 1400px;
+    margin: auto;
+  }
+  .content_bg {
+    background-image: url('../../public/bg.svg');
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.service_img {
+        width: 1400px;
+
   }
 }
 

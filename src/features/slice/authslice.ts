@@ -18,7 +18,7 @@ export const authSlice = createSlice({
         setItem("access_token", payload.res.access_token)
         setItem("first_name", payload.res.firstname)
         setItem("last_name", payload.res.lastname)
-
+        setItem("user_id", payload.res.id)
       }
     )
   }

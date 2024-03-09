@@ -6,14 +6,14 @@ import dynamic from 'next/dynamic'
 import { useParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 import { Provider } from 'react-redux'
-const Navbar = dynamic(() => import('@/components/Navbar'), { ssr: false })
+const Navbar = dynamic(() => import('@/components/shared/Navbar'), { ssr: false })
 
 export default function App({ Component, pageProps }: any) {
   const { pathname } = useRouter()
   const pathnames = [
     '/auth/login',
     '/auth/signup',
-    '/auth/registerproperty',
+    '/properties/registerproperty',
     `/properties/rooms/[id]`,
   ]
 

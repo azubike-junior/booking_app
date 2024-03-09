@@ -28,9 +28,34 @@ export const propertyApi = api.injectEndpoints({
       },
      invalidatesTags:['Property']
     }),
-     getProperties: builder.query<PropertyProp[], void>({
-      query: () => ({
-        url: `/property/all`,
+    editProperty: builder.mutation<string, PropertyProp>({
+      query: ({id, ...body}) => ({
+        url: `/property/edit/${id}`,
+        method: 'PATCH',
+        body
+      }),
+       transformResponse: (res, meta, arg:PropertyProp): any => {
+         const { toast, route } = arg
+
+         if (meta?.response?.status === 201) {
+           route.push('/properties')
+           toast({
+                title: 'Property has been edited successfully',
+                description: '',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+                position: 'top-right',
+            })
+         }
+         
+        return {res}
+      },
+     invalidatesTags:['Property']
+    }),
+    getProperties: builder.query<PropertyProp[], string>({
+      query: (id) => ({
+        url: `/property/account/${id}`,
         method: 'GET',
        }),
       providesTags: ['Property',]
@@ -50,10 +75,6 @@ export const propertyApi = api.injectEndpoints({
       }),
        transformResponse: (res, meta, arg:RoomProps): any => {
          const { toast, route, property_id } = arg
-
-         console.log(">>>>>properties id", property_id);
-         
-
          if (meta?.response?.status === 201) {
            route.push(`/properties/${property_id}`)
            toast({
@@ -80,5 +101,5 @@ export const propertyApi = api.injectEndpoints({
   })
 })
 
-export const {useCreatePropertyMutation, useGetPropertiesQuery, useGetPropertyQuery, useCreateRoomMutation, useGetRoomByPropertyIdQuery} = propertyApi
+export const {useCreatePropertyMutation, useEditPropertyMutation, useGetPropertiesQuery, useGetPropertyQuery, useCreateRoomMutation, useGetRoomByPropertyIdQuery} = propertyApi
 

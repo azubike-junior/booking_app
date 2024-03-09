@@ -1,10 +1,8 @@
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import axios from 'axios';
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { Lato, Lora, Open_Sans, Quicksand } from 'next/font/google';
 import { storage } from './firebase';
-
-
-
 
 export const lato = Lato({
   weight: '400',
@@ -148,3 +146,39 @@ export const uploadLogo = (file: any, setLogoUrl: any, setLogoLoading: any) => {
     );
 }
 
+export function isFetchBaseQueryError(
+  error: unknown
+): error is FetchBaseQueryError {
+  return typeof error === "object" && error != null && "status" in error;
+}
+
+export function isErrorWithMessage(
+  error: unknown
+): error is { message: string } {
+  return (
+    typeof error === "object" &&
+    error != null &&
+    "message" in error &&
+    typeof (error as any).message === "string"
+  );
+}
+
+interface handlerProp {
+  e: any
+  setLoading?: any
+  setImgUrl?: any
+  uploadImage?: any
+  setLogoLoading?: any
+  setLogoUrl?: any
+  uploadLogo?: any
+}
+
+export const handleImageChange = ({e, setLoading, setImgUrl, uploadImage}: handlerProp) => {
+  setLoading(true)
+  uploadImage(e.target.files[0], setImgUrl, setLoading)
+}
+
+export const handleLogoChange = ({e, setLogoLoading, setLogoUrl, uploadLogo }: handlerProp) => {
+  setLogoLoading(true)
+  uploadLogo(e.target.files[0], setLogoUrl, setLogoLoading)
+}

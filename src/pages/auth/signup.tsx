@@ -1,4 +1,4 @@
-import InputField from '@/components/Input'
+import InputField from '@/components/shared/Input'
 import { useCreateAccountMutation } from '@/features/auth'
 import {
   handleErrorResponse,
@@ -33,7 +33,6 @@ export default function Signup() {
   const { status: error_code, data: rs } = handleErrorResponse(error)
   const { status: success_code } = handleSuccessResponse(response)
 
-
   // if (error_code === 400) {
   //   toast({
   //     title: rs.message,
@@ -49,16 +48,28 @@ export default function Signup() {
     const { confirmPassword, ..._data } = data
     const updated = { toast, router, country_code: '+234', ..._data }
     createAccount(updated)
+      .unwrap()
+      .then((payload) => {})
+      .catch((error) => {
+        toast({
+          title: error?.data.error,
+          description: '',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+          position: 'top-right',
+        })
+      })
   }
 
   return (
-    <div className="flex justify-between h-screen content_bg">
-      <div className="w-5/12 ">
+    <div className="flex justify-between h-screen">
+      <div className="hidden lg:block w-1/2  bg-[#00525DB2] ">
         <div className="px-24 mt-16">
           <Link href={'/'}>
             <Image
               src="/whitelogo.svg"
-              width={200}
+              width={250}
               height={200}
               alt="bookteller"
             />
@@ -74,7 +85,7 @@ export default function Signup() {
           </div>
         </div>
       </div>
-      <div className=" w-7/12 bg-white rounded-l-[40px] px-20">
+      <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-8 lg:px-20">
         <div className="mx-auto mt-16 max-w-[500px]">
           <p
             className={`${quickSand.className} text-center text-[#111827] text-3xl`}
@@ -99,7 +110,7 @@ export default function Signup() {
             onSubmit={handleSubmit(signupHandler)}
             className={`${lato.className} space-y-6`}
           >
-            <div className="flex space-x-6">
+            <div className="block space-y-6 lg:space-y-0 lg:flex lg:space-x-6">
               <InputField
                 name="firstname"
                 label="First Name"

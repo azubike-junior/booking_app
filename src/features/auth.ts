@@ -11,8 +11,6 @@ export const authApi = api.injectEndpoints({
       }),
       transformResponse: (res: LoginResponse, meta, arg:FormValues): any => {
         const { toast, router } = arg
-          console.log(">>>>>meeta", meta, res, arg);
-        
         if (res.access_token) {
             router.push('/properties')
               toast({
@@ -24,17 +22,7 @@ export const authApi = api.injectEndpoints({
                 position: 'top-right',
             })
         }
-        if (!res.access_token) {
-            router.push('/properties')
-              toast({
-              title: 'Invalid Login credentials',
-              description: '',
-              status: 'error',
-              duration: 9000,
-              isClosable: true,
-              position: 'top-right',
-            })
-        }
+       
         return {res}
       },
     }),
@@ -48,11 +36,10 @@ export const authApi = api.injectEndpoints({
         console.log("meerra", meta);
           console.log(">>>>>meeta", meta, res, arg);
 
-
         const { toast, router } = arg
         
         if (meta?.response?.status === 201) {
-            router.push('/properties')
+            router.push('/auth/login')
               toast({
                 title: 'Account created successfully',
                 description: '',
@@ -61,18 +48,7 @@ export const authApi = api.injectEndpoints({
                 isClosable: true,
                 position: 'top-right',
             })
-        } else {
-            toast({
-              title: 'Invalid Login credentials',
-              description: '',
-              status: 'error',
-              duration: 9000,
-              isClosable: true,
-              position: 'top-right',
-            })
-        }
-       
-             
+        } 
         
         return {res: meta?.response?.status}
       },

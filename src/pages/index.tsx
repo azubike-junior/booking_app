@@ -1,177 +1,128 @@
-import HeroInput from '@/components/HeroInput'
-import { lato, lora, lora_small } from '@/utils'
+import SuiteDetail from '@/components/SuiteDetail'
+import { quickSand } from '@/utils'
 import Image from 'next/image'
-import { IoArrowForwardCircleSharp } from 'react-icons/io5'
+import { IoArrowForwardCircle } from 'react-icons/io5'
 
 export default function Home() {
   return (
-    <main className="bg-white py-12 ">
-      <div className="max-w-[1300px] mx-auto mt-14 px-10">
-        <div className="flex  items-center text-ash">
-          <p className={`${lato.className} capitalize pr-4 text-xl`}>
-            introducing
-          </p>{' '}
-          <div className="w-20 h-0.5 bg-ash mt-1"></div>
-        </div>
-
-        <div className="flex pt-6 ">
-          <div
-            className={`${lora.className} w-8/12 text-4xl xl:text-6xl space-y-3 text-brand-color`}
-          >
-            <p className="">
-              <span className="text-primary-color">Revolutionary</span>
-              co-working
-            </p>
-            <p> space to realize your</p>
-            <p> innovation</p>
-          </div>
-          <div className="w-6/12 xl:w-4/12">
-            <p
-              className={`${lato.className} text-base xl:text-2xl leading-9 font-medium text-[#6A6A6A]`}
+    <div className={`${quickSand.className} pb-20`}>
+      <div className="bg-[#F2F7FF] slanted">
+        <div className="px-4 md:pl-10 xl:pl-36 3xl:max-w-[1500px] flex lg:pt-10 ">
+          <div className="pt-10 lg:pt-20 lg:pr-10">
+            <div
+              className={`${quickSand.className} text-[#111827] text-[24px] md:text-[30px]  lg:text-[48px] font-extrabold`}
             >
-              Lorem ipsum dolor sit amet consectetur. Faucibus odio sed nibh
-              sit. Eu nibh sodales mus in. Turpis molestie elit massa quis non
-              et hendrerit vel ultricies. ullamcorper eu.
+              <p>A sales-first approach to </p>
+              <p>travel and hospitality</p>
+            </div>
+
+            <p className="lg:w-[600px] pt-6 text-lg text-[#374151] font-light">
+              An innovative, end-to-end, integrated sales, operations, and
+              distribution management platform bringing the travel industry
+              together.
             </p>
-          </div>
-        </div>
-      </div>
 
-      <div className="flex justify-end mt-10  relative mb-10 mx-auto">
-        <HeroInput />
-        <Image
-          src="/hero.svg"
-          width={500}
-          height={500}
-          alt="bookteller"
-          // layout="responsive"
-          // sizes="(min-width: 768px) 80px, 60px, (min-width: 1200px) 1000px, 10000px"
-          className="_image"
-        />
-      </div>
-
-      <div className="max-w-[1300px] mx-auto mt-36 px-10">
-        <div className="flex justify-between">
-          <div className="w-7/12 pt-10">
-            <p className={`${lora.className} text-4xl `}>About Us</p>
-            <p
-              className={`${lora_small.className} text-[#0F172A] leading-10 text-xl tracking-wide pt-6`}
+            <div
+              className={`${quickSand.className} bg-_green  text-white text-sm  items-center  space-x-3 inline-flex py-3 px-8 rounded-[50px] mt-10 `}
             >
-              Amet nunc diam orci duis ut sit diam arcu, nec. Eleifend proin
-              massa tincidunt viverra lectus pulvinar. Nunc ipsum est
-              pellentesque turpis ultricies. Amet nunc diam orci duis ut sit
-              diam arcu, nec. Eleifend proin massa tincidunt viverra lectus
-              pulvinar. Nunc ipsum est pellentesque turpis ultricies.
-            </p>
+              <p>Get Started</p>
+              <IoArrowForwardCircle color="white" size={26} />
+            </div>
 
-            <button className="bg-[#F58634] flex items-center space-x-2 px-6 py-4 text-white rounded-lg mt-10">
-              <p>Learn More</p>{' '}
-              <IoArrowForwardCircleSharp size={20} color="white" />{' '}
-            </button>
+            <div className="flex justify-between lg:hidden items-center">
+              <img
+                src="/phone.jpg"
+                alt="phone"
+                className="w-[120px] md:w-[250px] mt-10"
+              />
+
+              <img
+                src="/sm-crop.png"
+                alt="phone"
+                className="w-[200px] h-[200px] md:w-[300px] md:h-[300px] mt-10"
+              />
+            </div>
           </div>
 
           <Image
-            src={'/left.png'}
-            width={450}
-            height={100}
+            src={'/phone.jpg'}
+            width={500}
+            height={500}
             alt="bg_img"
-            className=""
+            className="phone-image hidden lg:block"
           />
+
+          <div className="mt-32">
+            <img src="/sm-crop.png" alt="" className="graph hidden xl:block" />
+          </div>
         </div>
       </div>
+      <main className="bg-white mt-28 px-4 md:px-10">
+        <div className="max-w-[1400px] mx-auto mt-4">
+          <p className="text-lg lg:text-[36px] font-bold">
+            A powerful suite to grow your hospitality business
+          </p>
 
-      <div className="max-w-[1300px] mx-auto mt-36 px-10">
-        <div className="flex  items-center text-ash">
-          <p className={`${lato.className} capitalize pr-4 text-xl`}>
-            Our Services
-          </p>{' '}
-          <div className="w-20 h-0.5 bg-ash mt-1"></div>
+          <div className='flex justify-center items-center'>
+            <div className="block mx-auto lg:flex lg:justify-between lg:space-x-5 xl:space-x-24 space-y-6 lg:space-y-0 mt-20">
+              <SuiteDetail />
+              <SuiteDetail />
+              <SuiteDetail />
+            </div>
+          </div>
         </div>
 
-        <div className="space-y-2">
-          <p
-            className={`${lora.className} w-8/12 text-2xl xl:text-4xl space-y-3 text-brand-color pt-4`}
-          >
-            All facilities are ready to meet
+        <div className="max-w-[1400px] mx-auto pt-28">
+          <p className="text-[20px] md:text-[36px] font-bold">
+            Accept secure online payments.
           </p>
-          <p
-            className={`${lora.className} w-8/12 text-2xl xl:text-4xl space-y-3 text-brand-color`}
-          >
-            all your needs
+
+          <p className="text-[16px] font-md pt-6">
+            We accept online payments through;
           </p>
-        </div>
 
-        <div className="flex pt-10 space-x-16">
-          <div className="bg-[#DFDFDF] h-44 w-1"></div>
-          <div
-            className={`${lato.className} capitalize pr-4 text-base pt-6 font-semibold space-y-10`}
-          >
-            <p>Spacious parking area</p>
+          <div className="block md:flex space-y-6  justify-between items-center xl:mt-10">
+            <img
+              src="/paystack.svg"
+              alt="phone"
+              className="w-[160px] md:w-[200px] lg:w-[250px] xl:w-[400px] mt-10"
+            />
+            <img
+              src="/stripe.svg"
+              alt="phone"
+              className="w-[160px] md:w-[200px]  lg:w-[250px] xl:w-[400px] mt-10"
+            />
 
-            <p>Comfortable spaces</p>
-
-            <p className="bg-[#F58634] p-4 w-56 text-white">Cozy cafe</p>
-
-            <p>Child playground</p>
-
-            <p>Outdoor spaces</p>
+            <img
+              src="/flutter.svg"
+              alt="phone"
+              className="w-[160px] md:w-[200px]  lg:w-[250px] xl:w-[400px] mt-10"
+            />
           </div>
 
-          <Image
-            src={'/service_img.svg'}
-            width={1000}
-            height={100}
-            alt="bg_img"
-            className=""
-          />
+          <div className="mt-10 md:mt-36  bg-_green w-full rounded-xl p-5 md:p-20 block lg:flex justify-between items-center shadow-[#0066F440] shadow-xl">
+            <div className="w-full lg:w-6/12 text-[16px] lg:text-[36px] text-white font-semibold">
+              <p className="">
+                Start Investing in assets and business ideas today.
+              </p>
+            </div>
+
+            <div className="w-full lg:w-6/12 mt-4 lg:mt-0">
+              <div className="bg-[#FFFFFF80] h-[64px] rounded-[50px] py-2 px-4 flex">
+                <input
+                  type="text"
+                  className="w-8/12 py-2 bg-transparent outline-none text-white placeholder-white"
+                  placeholder="Your email"
+                />
+
+                <button className="bg-white w-4/12  rounded-[40px] text-_green text-xs md:text-base font-bold">
+                  Explore
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div className="max-w-[1300px] mx-auto mt-36 px-10 ">
-        <p
-          className={`${lora.className} text-2xl xl:text-4xl space-y-3 text-brand-color pt-4 text-center`}
-        >
-          Who uses Bookteller?
-        </p>
-        <p
-          className={`${lato.className} capitalize pt-6 text-center text-[#9A9A9A] text-base`}
-        >
-          Big brands, small bussiness, new startup and inividuals
-        </p>
-
-        <div className="flex items-center justify-center space-x-14 mt-8">
-          <Image
-            src={'/google.svg'}
-            width={130}
-            height={100}
-            alt="bg_img"
-            className=""
-          />
-          <Image
-            src={'/microsoft.svg'}
-            width={130}
-            height={100}
-            alt="bg_img"
-            className=""
-          />
-          <Image
-            src={'/toko.svg'}
-            width={130}
-            height={100}
-            alt="bg_img"
-            className=""
-          />{' '}
-          <Image
-            src={'/upwork.svg'}
-            width={130}
-            height={100}
-            alt="bg_img"
-            className=""
-          />
-        </div>
-      </div>
-
-      {/* <div>hlell</div> */}
-    </main>
+      </main>
+    </div>
   )
 }

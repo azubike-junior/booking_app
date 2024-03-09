@@ -1,4 +1,4 @@
-import InputField from '@/components/Input'
+import InputField from '@/components/shared/Input'
 import { useLoginMutation } from '@/features/auth'
 import { useAppDispatch } from '@/store'
 import { lato, quickSand } from '@/utils'
@@ -7,17 +7,16 @@ import { Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function Login() {
   const router = useRouter()
   const toast = useToast()
   const dispatch = useAppDispatch()
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const [
-    login,
-    { isLoading },
-  ] = useLoginMutation()
+  const [login, { isLoading, error }] = useLoginMutation()
 
   const {
     register,
@@ -27,18 +26,32 @@ export default function Login() {
   } = useForm<FormValues>({})
 
   async function loginHandler(data: FormValues) {
-    const _data = { toast, router, ...data }
-    login(_data)
+    try {
+      const _data = { toast, router, ...data }
+      login(_data)
+        .unwrap()
+        .then((payload) => {})
+        .catch((error) => {
+          toast({
+            title: error?.data.error,
+            description: '',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+            position: 'top-right',
+          })
+        })
+    } catch (err) {}
   }
 
   return (
-    <div className="flex justify-between h-screen content_bg bg-red-300">
-      <div className="w-5/12 ">
+    <div className="flex justify-between h-screen">
+      <div className="hidden lg:block w-1/2 bg-[#00525DB2]">
         <div className="px-24 mt-16">
           <Link href={'/'}>
             <Image
               src="/whitelogo.svg"
-              width={200}
+              width={250}
               height={200}
               alt="bookteller"
             />
@@ -49,7 +62,7 @@ export default function Login() {
           </div>
         </div>
       </div>
-      <div className=" w-7/12 bg-white rounded-l-[40px] px-20">
+      <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-10 md:px-20">
         <div className="mx-auto mt-16 max-w-[500px]">
           <p
             className={`${quickSand.className} text-center text-[#111827] text-3xl`}

@@ -45,7 +45,8 @@ const config: Config = {
         'primary-color': 'rgba(245, 134, 52, 1)',
         'ash': 'rgba(34, 40, 49, 1)',
         'light-ash': 'rgba(106, 106, 106, 1)',
-        'brand-color': 'rgba(16, 55, 92, 1)'
+        'brand-color': 'rgba(16, 55, 92, 1)',
+        '_green': '#00525D'
       }
     },
     
