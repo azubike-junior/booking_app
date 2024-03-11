@@ -14,18 +14,16 @@ html, body {
 }
 
 .slanted {
-    z-index: 0;
+    position: relative;
     width: 100%;
+    height: 700px;
     background-color:#F2F7FF;
-    height:850px;
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 56%, 0 100%);
-    clip-path: polygon(0 0, 100% 0, 100% 76%, 0 100%);
+    margin-bottom: 300px;
 }
 
-.phone-image {
-  position: relative;
-  top: 20px; /* Adjust as needed */
-}
+
+
+
 
 .graph {
   width: 500px;
@@ -71,6 +69,27 @@ html, body {
   .service_img {
     width:800px;
   }
+  .slanted {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    background-color:#F2F7FF;
+    margin-bottom: 300px;
+}
+  .slanted::after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    content:'';
+    background-color:inherit;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform-origin: top right;
+    transform: skewY(-3deg);
+}
 }
 
 @media (min-width: 1200px) {
@@ -88,6 +107,27 @@ html, body {
   .service_img {
     width:1000px;
   }
+  .slanted {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    background-color:#F2F7FF;
+    margin-bottom: 300px;
+}
+  .slanted::after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    content:'';
+    background-color:inherit;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform-origin: top right;
+    transform: skewY(-3deg);
+}
 }
 
 @media (min-width: 2560px) {
@@ -105,6 +145,20 @@ html, body {
         width: 1400px;
 
   }
+  .slanted::after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    content:'';
+    background-color:inherit;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform-origin: top right;
+    transform: skewY(-3deg);
+}
 }
 
 

@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer'
 import SuiteDetail from '@/components/SuiteDetail'
 import { quickSand } from '@/utils'
 import Image from 'next/image'
@@ -6,7 +7,7 @@ import { IoArrowForwardCircle } from 'react-icons/io5'
 export default function Home() {
   return (
     <div className={`${quickSand.className} pb-20`}>
-      <div className="bg-[#F2F7FF] slanted">
+      <div className="bg-[#F2F7FF]  slanted mb-36">
         <div className="px-4 md:pl-10 xl:pl-36 3xl:max-w-[1500px] flex lg:pt-10 ">
           <div className="pt-10 lg:pt-20 lg:pr-10">
             <div
@@ -46,10 +47,10 @@ export default function Home() {
 
           <Image
             src={'/phone.jpg'}
-            width={500}
+            width={400}
             height={500}
             alt="bg_img"
-            className="phone-image hidden lg:block"
+            className="phone-image hidden lg:block shadow-2xl shadow-slate-500"
           />
 
           <div className="mt-32">
@@ -57,13 +58,13 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <main className="bg-white mt-28 px-4 md:px-10">
+      <main className="bg-white mt-44 px-4 md:px-10">
         <div className="max-w-[1400px] mx-auto mt-4">
           <p className="text-lg lg:text-[36px] font-bold">
             A powerful suite to grow your hospitality business
           </p>
 
-          <div className='flex justify-center items-center'>
+          <div className="flex justify-center items-center">
             <div className="block mx-auto lg:flex lg:justify-between lg:space-x-5 xl:space-x-24 space-y-6 lg:space-y-0 mt-20">
               <SuiteDetail />
               <SuiteDetail />
@@ -121,6 +122,10 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="max-w-[1400px] mx-auto pt-28">
+          <Footer />
         </div>
       </main>
     </div>
