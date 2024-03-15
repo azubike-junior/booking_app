@@ -70,3 +70,8 @@ export type RoomProps = {
   published?: number
   mode_str?: string,
 }
+
+export type StepProps = {
+  step: number
+  setStep: (step:number) => void
+}

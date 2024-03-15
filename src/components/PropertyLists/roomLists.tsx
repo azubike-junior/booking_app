@@ -1,8 +1,9 @@
 'use client'
 
+import { useEditRoomMutation } from '@/features/property'
 import { lato } from '@/utils'
 import { RoomProps } from '@/utils/types'
-import { useToast } from '@chakra-ui/react'
+import { Spinner, useToast } from '@chakra-ui/react'
 import { FaBed, FaChildren } from 'react-icons/fa6'
 import { IoManSharp } from 'react-icons/io5'
 import {
@@ -12,28 +13,37 @@ import {
 import { PiPhoneDisconnectBold, PiTelevisionFill } from 'react-icons/pi'
 import { TbBedOff } from 'react-icons/tb'
 
-export const Rooms = ({
-  id,
-  name,
-  size,
-  adults,
-  flat_tv,
-  wakeup_call,
-  laundry,
-  intercom,
-  internet,
-  category,
-  price,
-  mode,
-  children,
-  room_service_24h,
-  bedside_fridge,
-  published,
-  reserved,
-  mode_str,
-  image_one
-}: RoomProps) => {
+interface Room {
+  data: RoomProps
+}
+
+export const Rooms = ({ data }: Room) => {
+  const {
+    id,
+    name,
+    size,
+    adults,
+    flat_tv,
+    wakeup_call,
+    laundry,
+    intercom,
+    internet,
+    category,
+    price,
+    mode,
+    children,
+    room_service_24h,
+    bedside_fridge,
+    published,
+    reserved,
+    mode_str,
+    image_one,
+  } = data
   const toast = useToast()
+
+  const [editRoom, { isLoading: editing }] = useEditRoomMutation()
+
+  console.log('>>>>>>imahee one', image_one)
 
   const publishLink = async () => {
     const base_url = `
@@ -67,16 +77,22 @@ export const Rooms = ({
   }
 
   return (
-    <div className="lg:flex lg:space-x-6">
-      <div className="h-[300px] lg:h-[550px] w-full lg:w-[500px] overflow-hidden  border flex justify-center items-center rounded-t-xl shadow-xl shadow-slate-60 lg:shadow-none ">
-        <img src={image_one} alt="" className="w-[500px]" />
+    <div className="lg:flex lg:space-x-4">
+      <div className=" w-full lg:w-[500px] lg:h-[440px] overflow-hidden  border flex justify-center items-center rounded-t-xl shadow-xl shadow-slate-60 lg:shadow-none ">
+        <img
+          src={!image_one ? '/placeholder.png' : image_one}
+          alt=""
+          className="w-[300px]"
+        />
       </div>
 
       <div
-        className={`${lato.className} bg-white p-4 lg:p-10 w-full lg:w-7/12 font-light`}
+        className={`${lato.className} ${
+          published === 0 ? 'bg-white' : 'bg-green-50'
+        } p-6  w-full lg:w-7/12 font-light`}
       >
-        <p className="text-lg md:text-2xl lg:text-4xl text-[#10375C]">{name}</p>
-        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 lg:gap-12 pt-8 lg:pt-14 text-xs md:text-sm font-md">
+        <p className="text-lg md:text-2xl lg:text-3xl text-[#10375C]">{name}</p>
+        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-8 text-xs md:text-sm font-md">
           {bedside_fridge === 1 ? (
             <div className="">
               <FaBed size={30} className="mx-auto" />
@@ -103,7 +119,7 @@ export const Rooms = ({
             </div>
           ) : null}
         </div>
-        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 lg:gap-12 pt-8 lg:pt-14 text-xs md:text-sm  font-md">
+        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-8 text-xs md:text-sm font-md">
           <div className="">
             <FaChildren size={26} className="text-center mx-auto" />
             <p>{children} children</p>
@@ -139,18 +155,25 @@ export const Rooms = ({
             <p>{mode_str === 'available' ? 'Available' : 'Not available'}</p>
           </div>
         </div>
-        <p className="font-medium text-xs md:text-base pt-6">
+        <p className="font-medium text-xs md:text-sm pt-6">
           A suite with a king bed size, jacuzzi, pair of couches, dining table,
           balcony & 2 smart TVs
         </p>
         <div className="font-semibold texet-sm pt-10 flex items-center justify-between ">
           <p className="text-2xl text-[#10375C]">N {price}</p>
-          <button
-            onClick={publishLink}
-            className="bg-[#F58634] text-white text-center font-md rounded-lg py-2 px-10 cursor-pointer"
-          >
-            {published ? 'published' : 'publish'}
-          </button>
+          {published !== 1 ? (
+            <button
+              onClick={() => {
+                editRoom({  ...data,toast, published:1})
+                publishLink
+              }}
+              className="bg-[#F58634] text-white text-center font-md rounded-lg py-2 px-10 cursor-pointer"
+            >
+              {editing ? <Spinner /> : 'publish'}
+            </button>
+          ) : (
+            <p className="text-lg text-green-600">PUBLISHED</p>
+          )}
         </div>
       </div>
     </div>

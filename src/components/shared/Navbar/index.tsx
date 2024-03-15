@@ -48,18 +48,18 @@ export default function Navbar() {
             <ul
               className={`${lato.className} flex text-black lg:space-x-6 xl:space-x-14 font-poppins text-sm xl:text-base items-center leading font-medium `}
             >
+              <Link className="font-medium " href={'/properties'}>
+                Dashboard
+              </Link>
               <Link
                 className="font-medium "
-                href={'/properties/registerproperty'}
+                href={'/properties/reservations/bookings'}
               >
-                Booking Engine
-              </Link>
-              <Link className="font-medium " href={'/properties'}>
-                Properties
+                Bookings
               </Link>
 
               <Link className="font-medium" href={'/'}>
-                Contact Us
+                Settings
               </Link>
               <Link
                 className="flex items-center font-medium space-x-2"
@@ -76,15 +76,7 @@ export default function Navbar() {
               >
                 Properties
               </Link>
-              <Link className="font-medium " href={'/'}>
-                Account
-              </Link>
-              <Link className="font-medium " href={'/'}>
-                Rooms
-              </Link>
-              <Link className="font-medium" href={'/'}>
-                Bookings
-              </Link>
+
               <Link className="font-medium" href={'/'}>
                 Contact
               </Link>
@@ -163,16 +155,16 @@ export default function Navbar() {
                   <Link
                     onClick={onClose}
                     className=" "
-                    href={'/properties/registerproperty'}
+                    href={'/properties'}
                   >
-                    <p>Booking Engine</p>
+                    <p>Dashboard</p>
                   </Link>
-                  <Link onClick={onClose} className=" " href={'/properties'}>
-                    <p>Properties</p>
+                  <Link onClick={onClose} className=" " href={'/properties/reservations/bookings'}>
+                    <p>Bookings</p>
                   </Link>
 
-                  <Link onClick={onClose} className=" " href={'/properties'}>
-                    <p> Contact Us</p>
+                  <Link onClick={onClose} className=" " href={'/settings'}>
+                    <p>Settings</p>
                   </Link>
                 </div>
               ) : (
@@ -222,7 +214,7 @@ export default function Navbar() {
                   Log In
                 </Link>
 
-                <div className='pt-10'>
+                <div className="pt-10">
                   <Link
                     href="/auth/signup"
                     className={`${quickSand.className} bg-_green rounded-[50px] p-3 px-8 text-white font-md`}

@@ -15,6 +15,7 @@ export default function App({ Component, pageProps }: any) {
     '/auth/signup',
     '/properties/registerproperty',
     `/properties/rooms/[id]`,
+    `/properties/reservations`
   ]
 
   const getLayout = Component.getLayout || ((page: any) => page)

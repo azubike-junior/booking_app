@@ -1,5 +1,6 @@
 'use client'
 
+import Details from '@/components/PropertyLists/propertyDetails'
 import { Rooms } from '@/components/PropertyLists/roomLists'
 import { AuthWrapper } from '@/components/shared/AuthWrapper'
 import {
@@ -47,7 +48,7 @@ export default function PropertyDetails() {
       ) : (
         <>
           <div
-            className="w-full h-[300px] lg:h-[450px] border "
+            className="w-full h-[300px] lg:h-[350px] border "
             style={{
               backgroundImage: `linear-gradient(to bottom, rgba(245, 246, 252, 0.3), rgba(11, 0, 0, 0.60)), url(${img})`,
               backgroundSize: 'cover',
@@ -58,9 +59,9 @@ export default function PropertyDetails() {
           >
             {/* Content inside the div */}
             <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-              <div className={`${lato.className}  w-full h-[400px]`}>
-                <div className="max-w-[1400px]  mt-10 lg:px-10 mx-auto text-white">
-                  <p className="text-3xl lg:text-6xl pt-10 lg:pt-48">
+              <div className={`${lato.className}  w-full h-[350px]`}>
+                <div className="max-w-[1400px]  mt-4 lg:px-10 mx-auto text-white">
+                  <p className="text-3xl lg:text-6xl pt-10 lg:pt-28">
                     {data?.name},{' '}
                   </p>
                   <p className="text-xl lg:text-3xl pt-10">
@@ -80,12 +81,21 @@ export default function PropertyDetails() {
               <IoIosArrowDropleftCircle size={35} />
               <p>Go back</p>
             </div>
+            <div className="max-w-[1400px] mt-10 mx-auto ">
+              <div className="bg-[#F5F5F5] py-10 px-6 lg:px-14 mt-16 space-y-10">
+                <p className="text-[#10375C] text-xl lg:text-3xl">
+                  Your property details
+                </p>
+
+                <Details data={data} />
+              </div>
+            </div>
             <div className="bg-[#F5F5F5] py-10 my-10 space-y-10">
               <div className="max-w-[1400px] mx-auto lg:px-6">
                 <div className="bg-[#F5F5F5] px-6">
                   <div className="lg:flex justify-between items-center pb-8">
                     <p className="text-[#10375C] text-base lg:text-2xl">
-                      Rooms under this property
+                      Rooms in {data?.name}
                     </p>
 
                     <Link
@@ -109,7 +119,7 @@ export default function PropertyDetails() {
 
                   <div className="space-y-8">
                     {rooms?.map((p: RoomProps, index) => {
-                      return <Rooms {...p} key={index} />
+                      return <Rooms data={p} key={index} />
                     })}
                   </div>
                 </div>

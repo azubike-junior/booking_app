@@ -8,10 +8,10 @@ export default function Home() {
   return (
     <div className={`${quickSand.className} pb-20`}>
       <div className="bg-[#F2F7FF]  slanted mb-36">
-        <div className="px-4 md:pl-10 xl:pl-36 3xl:max-w-[1500px] flex lg:pt-10 ">
-          <div className="pt-10 lg:pt-20 lg:pr-10">
+        <div className="px-4 md:pl-10 xl:pl-36 3xl:pl-10 3xl:max-w-[1500px] mx-auto flex lg:pt-10 ">
+          <div className="pt-10 lg:pt-36 lg:pr-10">
             <div
-              className={`${quickSand.className} text-[#111827] text-[24px] md:text-[30px]  lg:text-[48px] font-extrabold`}
+              className={`${quickSand.className} text-[#111827] text-[24px] md:text-[30px] lg:text-[48px] font-extrabold`}
             >
               <p>A sales-first approach to </p>
               <p>travel and hospitality</p>

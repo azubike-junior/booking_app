@@ -85,7 +85,7 @@ export default function RegisterRoom() {
 
   return (
     <div className="flex h-full justify-between">
-       <div className=" hidden lg:block w-1/2 bg-[#00525DB2]">
+      <div className=" hidden lg:block w-1/2 bg-[#00525DB2]">
         <div className="px-24 mt-16">
           <Link href={'/'}>
             <Image
@@ -210,54 +210,63 @@ export default function RegisterRoom() {
 
               <div className="bg-[#F4F4F4] border border-[#B9B9B9] rounded-lg p-6">
                 <Stack spacing={3} direction="column">
-                  <Checkbox
-                    onChange={handleCheckboxChange}
-                    isChecked={checks.wakeup_call}
-                    name="wakeup_call"
-                    colorScheme="blue"
-                  >
-                    Wakeup calls
-                  </Checkbox>
-                  <Checkbox
-                    onChange={handleCheckboxChange}
-                    isChecked={checks.flat_tv}
-                    name="flat_tv"
-                    colorScheme="blue"
-                  >
-                    Flat TVs
-                  </Checkbox>
-                  <Checkbox
-                    onChange={handleCheckboxChange}
-                    isChecked={checks.laundry}
-                    name="laundry"
-                    colorScheme="blue"
-                  >
-                    Laundry
-                  </Checkbox>
-                  <Checkbox
-                    onChange={handleCheckboxChange}
-                    isChecked={checks.internet}
-                    name="internet"
-                    colorScheme="blue"
-                  >
-                    Internet
-                  </Checkbox>{' '}
-                  <Checkbox
-                    onChange={handleCheckboxChange}
-                    isChecked={checks.room_service_24h}
-                    name="room_service_24h"
-                    colorScheme="blue"
-                  >
-                    24 hours room service
-                  </Checkbox>
-                  <Checkbox
-                    onChange={handleCheckboxChange}
-                    isChecked={checks.intercom}
-                    name="intercom"
-                    colorScheme="blue"
-                  >
-                    Intercom
-                  </Checkbox>
+                  <div className="flex justify-between items-center">
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.wakeup_call}
+                      name="wakeup_call"
+                      colorScheme="blue"
+                    >
+                      Wakeup calls
+                    </Checkbox>
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.flat_tv}
+                      name="flat_tv"
+                      colorScheme="blue"
+                    >
+                      Flat TVs
+                    </Checkbox>
+                  </div>
+
+                  <div className='flex justify-between items-center'>
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.laundry}
+                      name="laundry"
+                      colorScheme="blue"
+                    >
+                      Laundry
+                    </Checkbox>
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.internet}
+                      name="internet"
+                      colorScheme="blue"
+                    >
+                      Internet
+                    </Checkbox>{' '}
+                  </div>
+
+                  <div className='flex justify-between items-center '>
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.room_service_24h}
+                      name="room_service_24h"
+                      colorScheme="blue"
+                    >
+                      24 hours room service
+                    </Checkbox>
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.intercom}
+                      name="intercom"
+                      colorScheme="blue"
+                    >
+                      Intercom
+                    </Checkbox>
+                  </div>
+
                   <Checkbox
                     onChange={handleCheckboxChange}
                     isChecked={checks.bedside_fridge}

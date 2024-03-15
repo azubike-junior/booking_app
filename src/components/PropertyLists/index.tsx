@@ -27,19 +27,19 @@ export const Lists = ({
   return (
     <div className="lg:flex lg:space-x-6">
       <div className="w-full lg:w-5/12">
-        <div className="h-[300px] lg:h-[550px] w-full lg:w-[500px] overflow-hidden  border flex justify-center items-center rounded-t-xl shadow-xl shadow-slate-60 lg:shadow-none ">
+        <div className="h-[300px] lg:h-[420px] w-full lg:w-[500px] overflow-hidden  border flex justify-center items-center rounded-t-xl shadow-xl shadow-slate-60 lg:shadow-none ">
           <img src={url} alt="" className="" />
         </div>
       </div>
 
       <div
-        className={`${lato.className} bg-white px-4 py-4 lg:p-10 w-full lg:w-7/12 font-light`}
+        className={`${lato.className} bg-white px-4 py-4 lg:p-6 w-full lg:w-7/12 font-light`}
       >
         <div className="flex justify-between items-center">
           <p className="text-3xl text-[#10375C] capitalize">{name}</p>
           <img src={logo} alt="" className="w-10 h-10" />
         </div>
-        <div className="flex pt-6 lg:pt-14 text-xs lg:text-sm space-x-10 font-light">
+        <div className="flex pt-6 lg:pt-8 text-xs lg:text-sm space-x-10 font-light">
           <div className="">
             <p>Primary Color</p>
             <div className="w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A] bg-[#F58634]"></div>
@@ -54,7 +54,7 @@ export const Lists = ({
           </div>
         </div>
 
-        <div className='space-y-4 lg:space-y-10 pt-10 text-xs lg:text-sm'>
+        <div className='space-y-4 lg:space-y-4 pt-10 text-xs lg:text-sm'>
           <div className="flex items-center space-x-2">
             <HiOutlineMapPin />
             <p className="font-light ">{address}</p>
@@ -73,7 +73,7 @@ export const Lists = ({
           </div>
         </div>
 
-        <div className="flex w-full items-center justify-between space-x-2 pt-10">
+        <div className="flex w-full items-center justify-between space-x-2 pt-4">
           <div className="flex items-center space-x-2 ">
             <MdOutlineBedroomParent />
             <p className="font-light text-sm ">{number_of_rooms}</p>

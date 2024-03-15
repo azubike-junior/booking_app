@@ -42,9 +42,9 @@ export default function EditProperty() {
   const [editProperty, { isLoading: editing }] = useEditPropertyMutation()
 
   async function editPropertyHandler(data: PropertyProp) {
-    if (!imgUrl || !logoUrl) {
-      return
-    }
+    // if (!imgUrl || !logoUrl) {
+    //   return
+    // }
     const { id, image, number_of_rooms, country, logo, ...rest } = data
     editProperty({
       toast,
@@ -59,8 +59,6 @@ export default function EditProperty() {
       .unwrap()
       .then((payload) => {})
       .catch((error) => {
-        console.log('>>>>>>errpr', error)
-
         toast({
           title: error?.data.error,
           description: '',
@@ -408,7 +406,8 @@ export default function EditProperty() {
                 ) : null}
               </div>
 
-              <div className="flex justify-end">
+              <div className="flex justify-end space-x-2">
+                <Button onClick={() => route.push('/properties')}  type="button" name={'Cancel'} />
                 <Button
                   type="submit"
                   name={editing ? <Spinner size={'14'} /> : 'Save changes'}

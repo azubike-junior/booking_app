@@ -1,9 +1,10 @@
+import { classNames } from '@/utils'
 import { FieldError } from 'react-hook-form'
 
 type InputProp = {
   register: any
   label: string
-  placeHolder: string
+  placeHolder?: string
   name: string
   type: string
   required?: boolean
@@ -11,6 +12,9 @@ type InputProp = {
   errors?: FieldError | undefined
   validate?: any
   defaultValue?: string | number
+  selectArray?: []
+  value?: string | number
+  className?: string
 }
 
 export default function InputField({
@@ -34,7 +38,7 @@ export default function InputField({
         defaultValue={defaultValue}
         type={type}
         placeholder={placeHolder}
-        className="border-[0.5px] border-[#96A0A5] bg-white w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium text-[#747F8A]"
+        className="border-[0.5px] border-[#b7bcbe] bg-white w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium text-[#747F8A]"
         {...register(name, { required, validate })}
       />
       {errors ? <p className="text-red-500 text-sm pt-1">{message}</p> : null}
@@ -49,13 +53,48 @@ type DisabledFieldProp = {
 
 export function DisabledField({ label, value }: DisabledFieldProp) {
   return (
-    <div className="w-full">
-      <label className="flex text-sm text-[#393F42]" htmlFor="">
-        {label}
-      </label>
-      <div  className="border-[#96A0A5]  w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium bg-[#F5F5F5]">
-        <p>{value}</p>
+    <div className="bg-white  w-full px-6 rounded-lg py-2">
+      <p className="text-[#737373] text-">{label}</p>
+      <p className="capitalize">{value}</p>
+    </div>
+  )
+}
+
+export const SelectField = ({
+  label,
+  className,
+  selectArray,
+  register,
+  name,
+  required,
+  defaultValue,
+  value,
+  errors,
+  message,
+}: InputProp) => {
+  return (
+    <div className={className}>
+      {label && (
+        <label className="flex text-sm text-[#393F42] font-semibold" htmlFor="">
+          {label}
+        </label>
+      )}
+      <div>
+        <select
+          className={classNames(
+            !errors && 'focus:border-green-600',
+            errors && 'border-red-500',
+            'w-full p-3 rounded-lg outline-none border-[#b7bcbe] bg-white border mt-2 text-black',
+          )}
+          {...register(name, { required })}
+          value={value}
+          name={name}
+          defaultValue={defaultValue}
+        >
+          {selectArray}
+        </select>
       </div>
+      {errors && <span className="text-red-500 text-sm">{message}</span>}
     </div>
   )
 }

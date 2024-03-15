@@ -67,7 +67,6 @@ export default function RegisterProperty() {
       })
   }
 
-
   return (
     <div className="flex justify-between h-full">
       <div className=" hidden lg:block w-1/2 bg-[#00525DB2]">
@@ -116,49 +115,54 @@ export default function RegisterProperty() {
             onSubmit={handleSubmit(propertyHandler)}
             className={`${lato.className} space-y-8 pt-14`}
           >
-            <InputField
-              name="name"
-              label="Name"
-              type="text"
-              register={register}
-              required
-              placeHolder="Enter name"
-              errors={errors?.name}
-              message={' Name is required'}
-            />
+            <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
+              <InputField
+                name="name"
+                label="Name"
+                type="text"
+                register={register}
+                required
+                placeHolder="Enter name"
+                errors={errors?.name}
+                message={' Name is required'}
+              />
 
-            <InputField
-              name="address"
-              label="Address"
-              type="text"
-              register={register}
-              required
-              placeHolder="Enter address"
-              errors={errors?.address}
-              message={'Address is required'}
-            />
+              <InputField
+                name="address"
+                label="Address"
+                type="text"
+                register={register}
+                required
+                placeHolder="Enter address"
+                errors={errors?.address}
+                message={'Address is required'}
+              />
+            </div>
 
-            <InputField
-              name="phone_number"
-              label="Phone Number"
-              type="text"
-              register={register}
-              required
-              placeHolder="Enter first name"
-              errors={errors?.phone_number}
-              message={'Phone is required'}
-            />
+            <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
+              <InputField
+                name="phone_number"
+                label="Phone Number"
+                type="text"
+                register={register}
+                required
+                placeHolder="Enter first name"
+                errors={errors?.phone_number}
+                message={'Phone is required'}
+              />
 
-            <InputField
-              name="email_address"
-              label="Email Address"
-              type="text"
-              register={register}
-              required
-              placeHolder="Enter email"
-              errors={errors?.email_address}
-              message={' Email is required'}
-            />
+              <InputField
+                name="email_address"
+                label="Email Address"
+                type="text"
+                register={register}
+                required
+                placeHolder="Enter email"
+                errors={errors?.email_address}
+                message={' Email is required'}
+              />
+            </div>
+
             <InputField
               name="web_address"
               label="Web address"

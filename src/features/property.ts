@@ -67,7 +67,7 @@ export const propertyApi = api.injectEndpoints({
       }),
       providesTags: ['Property']
     }),
-     createRoom: builder.mutation<string, RoomProps>({
+    createRoom: builder.mutation<string, RoomProps>({
       query: (body) => ({
         url: `/room/create`,
         method: 'POST',
@@ -91,6 +91,32 @@ export const propertyApi = api.injectEndpoints({
       },
      invalidatesTags:['Property']
     }),
+    editRoom: builder.mutation<string, RoomProps>({
+      query: ({id, ...body}) => ({
+        url: `/room/edit/${id}`,
+        method: 'PUT',
+        body
+      }),
+       transformResponse: (res, meta, arg:RoomProps): any => {
+         const { toast, route } = arg
+         console.log(">>>>>>>", meta?.response?.status);
+         
+
+         if (meta?.response?.status === 200) {
+           toast({
+                title: 'Room has been publish successfully',
+                description: '',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+                position: 'top-right',
+            })
+         }
+         
+        return {res}
+      },
+     invalidatesTags:['Property']
+    }),
      getRoomByPropertyId: builder.query<RoomProps[], string>({
       query: (id) => ({
         url: `/room/property/${id}`,
@@ -101,5 +127,5 @@ export const propertyApi = api.injectEndpoints({
   })
 })
 
-export const {useCreatePropertyMutation, useEditPropertyMutation, useGetPropertiesQuery, useGetPropertyQuery, useCreateRoomMutation, useGetRoomByPropertyIdQuery} = propertyApi
+export const {useCreatePropertyMutation, useEditRoomMutation, useEditPropertyMutation, useGetPropertiesQuery, useGetPropertyQuery, useCreateRoomMutation, useGetRoomByPropertyIdQuery} = propertyApi
 
