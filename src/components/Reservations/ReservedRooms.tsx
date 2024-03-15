@@ -55,7 +55,7 @@ export default function ReservedRooms({ step, setStep }: StepProps) {
 
             <div className="space-y-8 h-[900px] overflow-scroll">
               {rooms?.map((p: RoomProps, index) => {
-                return <Rooms {...p} key={index} />
+                return <Rooms data={p} key={index} />
               })}
             </div>
 
