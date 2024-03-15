@@ -56,9 +56,10 @@ export default function Table({
               <tr
                 {...row.getRowProps()}
                 className="border-b-[1px] hover:bg-[#F1F5F9]"
+                key={rowIndex}
               >
                 {row.cells.map((cell, index) => (
-                  <td key={rowIndex} className="py-[14px]">
+                  <td key={index} className="py-[14px]">
                     <div
                       {...cell.getCellProps()}
                       className="text-sm rounded-3xl w-fit px-2 py-1 text-[#667085] font-normal"

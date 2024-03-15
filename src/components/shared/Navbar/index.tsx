@@ -58,7 +58,7 @@ export default function Navbar() {
                 Bookings
               </Link>
 
-              <Link className="font-medium" href={'/'}>
+              <Link className="font-medium" href={'#'}>
                 Settings
               </Link>
               <Link
@@ -72,13 +72,13 @@ export default function Navbar() {
             >
               <Link
                 className="font-medium "
-                href={'/properties/registerproperty'}
+                href={'#'}
               >
-                Properties
+                Contact
               </Link>
 
-              <Link className="font-medium" href={'/'}>
-                Contact
+              <Link className="font-medium" href={'#'}>
+                Settings
               </Link>
             </ul>
           )}
@@ -152,18 +152,18 @@ export default function Navbar() {
                 <div
                   className={`${quickSand.className}   text-black text-base grid gap-6 mt-4 leading font-medium`}
                 >
+                  <Link onClick={onClose} className=" " href={'/properties'}>
+                    <p>Dashboard</p>
+                  </Link>
                   <Link
                     onClick={onClose}
                     className=" "
-                    href={'/properties'}
+                    href={'/properties/reservations/bookings'}
                   >
-                    <p>Dashboard</p>
-                  </Link>
-                  <Link onClick={onClose} className=" " href={'/properties/reservations/bookings'}>
                     <p>Bookings</p>
                   </Link>
 
-                  <Link onClick={onClose} className=" " href={'/settings'}>
+                  <Link onClick={onClose} className=" " href={'#'}>
                     <p>Settings</p>
                   </Link>
                 </div>
@@ -171,20 +171,11 @@ export default function Navbar() {
                 <div
                   className={`${quickSand.className}   text-black text-base grid gap-6 mt-4 leading font-medium`}
                 >
-                  <Link
-                    onClick={onClose}
-                    className=" "
-                    href={'/properties/registerproperty'}
-                  >
-                    <p>Booking Engine</p>
-                  </Link>
-                  <Link onClick={onClose} className=" " href={'/properties'}>
-                    <Link className="" href={'/'}>
-                      Bookings
-                    </Link>
+                  <Link onClick={onClose} className=" " href={'#'}>
+                    <p>Contact</p>
                   </Link>
 
-                  <Link onClick={onClose} className=" " href={'/properties'}>
+                  <Link onClick={onClose} className=" " href={'#'}>
                     <p> Contact</p>
                   </Link>
                 </div>
