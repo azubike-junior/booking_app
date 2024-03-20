@@ -16,7 +16,7 @@ export default function SuiteDetail() {
       <p className='text-sm'>
         When you book directly through our platform, you unlock exclusive deals
         and rates that you won't find anywhere else. Say goodbye to inflated
-        prices and hidden fees – with direct booking, you're getting the best
+        prices and hidden fees - with direct booking, you're getting the best
         value for your stay.
       </p>
     </div>
