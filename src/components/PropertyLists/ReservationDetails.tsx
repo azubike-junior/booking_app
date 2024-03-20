@@ -1,6 +1,5 @@
 'use client'
 
-import { lato, lightQuickSand } from '@/utils'
 import { PropertyProp, RoomProps } from '@/utils/types'
 import { useToast } from '@chakra-ui/react'
 import { useEffect, useLayoutEffect, useState } from 'react'
@@ -66,9 +65,7 @@ export const ReservationDetails = ({ room, property, index, setShowCheckout}: Ro
         </div>
 
         <div
-          className={`${
-            lato.className
-          } pl-2 pt-2  w-full lg:w-8/12 font-light ${
+          className={`lato pl-2 pt-2  w-full lg:w-8/12 font-light ${
             showDetails ? 'text-white' : 'text-black'
           } `}
         >
@@ -111,7 +108,7 @@ export const ReservationDetails = ({ room, property, index, setShowCheckout}: Ro
         <div className="font-light flex justify-between">
           <div className="w-7/12 pt-6">
             <h1
-              className={`${lightQuickSand.className} text-3xl text-${bg}-600 pt-4`}
+              className={`quicksand text-3xl text-${bg}-600 pt-4`}
             >
               {room?.name}
             </h1>
@@ -184,7 +181,7 @@ export const ReservationDetails = ({ room, property, index, setShowCheckout}: Ro
             </div>
           </div>
           <div className="w-4/12 border px-4 mt-10">
-            <form className={`${lato.className}  pt-6 `}>
+            <form className={`lato pt-6 `}>
               <div className=" block  font-semibold space-y-6">
                 <div className="w-full">
                   Check in:{' '}
