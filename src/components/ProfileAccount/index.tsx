@@ -25,16 +25,16 @@ export default function ProfileAccount() {
       </div>
       <div className="lg:flex lg:space-x-8 space-y-4 lg:space-y-0">
         <Input name="Web Address" value="SeanBusiness.com" />
-        <Input name="Text color" value="White" />
+         <div className="w-full px-5"></div>
       </div>
-      <div className="lg:flex lg:space-x-8 space-y-4 lg:space-y-0">
+      {/* <div className="lg:flex lg:space-x-8 space-y-4 lg:space-y-0">
         <Input name="Primary Color" value="Yellow" />
         <Input name="Secondary Color" value="Blue" />
       </div>
       <div className="lg:flex lg:space-x-8 space-y-4 lg:space-y-0">
         <Input name="Number of rooms" value="10" />
         <div className="w-full px-5"></div>
-      </div>
+      </div> */}
     </div>
   )
 }

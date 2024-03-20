@@ -6,7 +6,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { CiLock } from 'react-icons/ci'
 import { MdKeyboardArrowDown } from 'react-icons/md'
-import { Rooms } from '../PropertyLists/roomLists'
+import { Rooms } from '../PropertyLists/roomDetails'
 
 export default function ReservedRooms({ step, setStep }: StepProps) {
   const route = useRouter()

@@ -7,6 +7,17 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "1rem",
+      // screens: {
+      
+      //   lg: "1124px",
+      //   xl: "1300px",
+      //   "2xl": "1300px"
+      // },
+    },
+   
 
     screens: {
       'sm': '640px',
@@ -26,16 +37,12 @@ const config: Config = {
 
       '3xl': '2560px',
     },
+
+
     
-    
-    fontFamily: {
-      'lato': ['Lato', 'sans-serif'],
-      'poppins': ['Poppins', 'sans-serif']
-    },
+
     extend: {
-      fontFamily: {
-        'lato': ['Lato', 'sans-serif']
-      },
+   
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -46,7 +53,7 @@ const config: Config = {
         'ash': 'rgba(34, 40, 49, 1)',
         'light-ash': 'rgba(106, 106, 106, 1)',
         'brand-color': 'rgba(16, 55, 92, 1)',
-        '_green': '#00525D'
+        '_green': '#1A2B47'
       }
     },
     

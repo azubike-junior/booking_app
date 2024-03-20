@@ -28,7 +28,7 @@ export const Lists = ({
     <div className="lg:flex lg:space-x-6">
       <div className="w-full lg:w-5/12">
         <div className="h-[300px] lg:h-[420px] w-full lg:w-[500px] overflow-hidden  border flex justify-center items-center rounded-t-xl shadow-xl shadow-slate-60 lg:shadow-none ">
-          <img src={url} alt="" className="" />
+          <img src={url} alt="" className="w-full h-full" />
         </div>
       </div>
 

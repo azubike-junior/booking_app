@@ -1,160 +1,120 @@
+import { ReservationDetails } from '@/components/PropertyLists/ReservationDetails'
+import Checkout from '@/components/Reservations/Checkout'
 import { AuthWrapper } from '@/components/shared/AuthWrapper'
-import { useGetPropertiesQuery } from '@/features/property'
-import { BOOKINGS_COLUMNS, bookings_data, getItem, lato } from '@/utils'
-import { useRouter } from 'next/router'
-import { useEffect, useMemo, useState } from 'react'
-import { IoIosArrowDown, IoIosArrowDropleftCircle } from 'react-icons/io'
+import {
+  useGetPropertyQuery,
+  useGetRoomByIdQuery,
+  useGetRoomByPropertyIdQuery,
+} from '@/features/property'
+import { Spinner } from '@chakra-ui/react'
+import { useParams } from 'next/navigation'
+import { useLayoutEffect, useState } from 'react'
 
-export default function Inspection() {
-  const { data, isLoading } = useGetPropertiesQuery(getItem('user_id'))
-  const [firstname, setFirstname] = useState('')
-  const route = useRouter()
+export default function BookProperty() {
+  const params = useParams<{ id: string }>()
+  const [bg, setbg] = useState<any>(null)
+  const [showDetails, setShowDetails] = useState(false)
+  const [showCheckout, setShowCheckout] = useState(false)
 
-  useEffect(() => {
-    setFirstname(getItem('first_name'))
-  }, [])
+  const toggleDetails = () => {
+    setShowDetails(!showDetails)
+  }
 
-  const columns = useMemo(() => BOOKINGS_COLUMNS, [])
+  const property_id = params?.id.split('+')[0]
+  const room_id = params?.id.split('+')[1]
 
-  const _bookings = bookings_data
-    .map((b) => {
-      return {
-        name: b.name,
-        checkin: b.checkin,
-        checkout: b.checkout,
-        amount: b.amount,
-      }
-    })
-    .filter(Boolean)
+  const { data: property } = useGetPropertyQuery(property_id)
+  const { data: otherRooms, isLoading } = useGetRoomByPropertyIdQuery(
+    property_id,
+  )
+
+  const {
+    data: roomDetail,
+    isLoading: loadingRoomDetails,
+  } = useGetRoomByIdQuery(room_id)
+
+  let _data: any = []
+
+  if (otherRooms) {
+    _data = [otherRooms[0]]
+  }
+
+  useLayoutEffect(() => {
+    setbg(property?.primary_color)
+  }, [property])
 
   return (
-    <div className={`${lato.className}`}>
-      <div className={` bg-[#10375C] w-full  lg:h-[240px]`}>
-        <div className="max-w-[1400px] mt-4 px-10 py-10 mx-auto text-white">
-          <p className="text-3xl lg:text-5xl lg:pt-10">Hi {firstname}</p>
-          <p className="text-xl lg:text-2xl pt-6">
-            Welcome to your Bookteller administrative dashboard
-          </p>
+    <>
+      {isLoading ? (
+        <div className="flex justify-center items-center pb-6 mt-20">
+          <Spinner />
         </div>
-      </div>
-
-      <div className="max-w-[1400px] mx-auto lg:px-10 mt-16">
-        <div
-          onClick={() => route.back()}
-          className="flex  items-center space-x-2 cursor-pointer px-6 lg:px-0 "
-        >
-          <IoIosArrowDropleftCircle size={35} />
-          <p>Go Back</p>
-        </div>
-
-        <div className="bg-[#F5F5F580] space-y-10 w-full px-16 py-10 mt-14">
-          <div>
-            <div className="flex justify-between items-center w-full space-x-3">
-              <p className=" md:w-2/12 text-lg">Personal Information</p>
-
-              <div className=" bg-[#ccc] hidden  h-0.5 md:block  w-full"></div>
-              <IoIosArrowDown size={24} className="hidden md:block" />
+      ) : (
+        <div className={`font-lato`}>
+          <div className={` w-full  lg:h-[240px]`} style={{ background: bg }}>
+            <div className="max-w-[1400px] px-10 py-10 mx-auto text-white">
+              <p className="text-3xl lg:text-5xl lg:pt-10">{property?.name}</p>
+              <p className="text-xl lg:text-2xl pt-6">{property?.address}</p>
             </div>
+          </div>
 
-            <div className="pt-10 grid grid-cols-1 gap-y-4 lg:gap-y-0  md:grid-cols-3 font-light">
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">FIRST NAME</p>
-                <p>Joe</p>
+          {showCheckout ? (
+            <Checkout property={property} room={roomDetail} />
+          ) : (
+            <div>
+              <div className="max-w-[1000px] mx-auto lg:px-10">
+                {!roomDetail ? (
+                  <div className="flex justify-center items-center pb-6">
+                    <Spinner size="30" color="blue" />{' '}
+                  </div>
+                ) : null}
+
+                <ReservationDetails
+                  property={property}
+                  room={roomDetail || {}}
+                  index={0}
+                  setShowCheckout={setShowCheckout}
+                />
               </div>
 
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">LAST NAME</p>
-                <p>Doe</p>
-              </div>
-
-              <div>
-                <p className="text-[#747F8A] text-sm font-light"> EMAIL</p>
-                <p>pearlthelma299@gmail.com</p>
-              </div>
-            </div>
-            <div className="pt-10 grid grid-cols-1 gap-y-4 lg:gap-y-0  md:grid-cols-3 font-light">
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">COUNTRY</p>
-                <p>Nigeria</p>
-              </div>
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">
-                  PHONE NUMBER
+              <div className="max-w-[1000px] mx-auto lg:px-10 pt-20">
+                <p className="text-2xl text-center">
+                  Other rooms under {property?.name}{' '}
                 </p>
-                <p>+234908744833</p>
-              </div>{' '}
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">CITY</p>
-                <p>Lagos</p>
-              </div>
-            </div>
-            <div className="pt-10 grid grid-cols-1 gap-y-4 lg:gap-y-0  md:grid-cols-3 font-light">
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">ADDRESS</p>
-                <p>Banana Island, Ikoyi, Lagos</p>
-              </div>
-            </div>
-          </div>
+                {isLoading ? (
+                  <div className="flex justify-center items-center pb-6">
+                    <Spinner />{' '}
+                  </div>
+                ) : null}
 
-          <div>
-            <div className="flex justify-between items-center w-full space-x-3">
-              <p className="md:w-2/12 text-lg">Room Information</p>
+                {otherRooms?.length === 0 ? (
+                  <div className="mt-4 flex">
+                    <p className="text-[#7b7c7d] text-xl">
+                      No property has been added
+                    </p>
+                  </div>
+                ) : null}
 
-              <div className=" bg-[#ccc] hidden  h-0.5 md:block  w-full"></div>
-              <IoIosArrowDown size={24} className="hidden md:block" />
-            </div>
-
-            <div className="pt-10 grid grid-cols-1 gap-y-4 lg:gap-y-0  md:grid-cols-3 font-light">
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">ADULTS </p>
-                <p>3</p>
-              </div>
-
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">CHILDREN</p>
-                <p>3</p>
-              </div>
-
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">AMOUNT</p>
-                <p>$ 3,197.00</p>
+                {otherRooms?.map((p: any, index: number) => {
+                  return (
+                    <ReservationDetails
+                      property={property}
+                      room={p}
+                      key={index}
+                      index={index + 1}
+                      setShowCheckout={setShowCheckout}
+                    />
+                  )
+                })}
               </div>
             </div>
-            <div className="pt-10 grid grid-cols-1 gap-y-4 lg:gap-y-0  md:grid-cols-3 font-light">
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">CHECK OUT</p>
-                <p>Mar 3rd, 2024</p>
-              </div>
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">CHECK IN</p>
-                <p>Feb 3rd, 2024</p>
-              </div>
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">ROOM NAME</p>
-                <p>Executive Suite</p>
-              </div>
-            </div>
-            <div className="pt-10 grid grid-cols-1 gap-y-4 lg:gap-y-0  md:grid-cols-3 font-light">
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">DOUBLE BED</p>
-                <p>1</p>
-              </div>
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">KING BED</p>
-                <p>1</p>
-              </div>
-              <div>
-                <p className="text-[#747F8A] text-sm font-light">ROOM SIZE </p>
-                <p>200/CM</p>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
-      </div>
-    </div>
+      )}
+    </>
   )
 }
 
-Inspection.getLayout = function getLayout(page: any) {
+BookProperty.getLayout = function getLayout(page: any) {
   return <AuthWrapper>{page}</AuthWrapper>
 }

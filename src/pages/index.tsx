@@ -6,21 +6,23 @@ import { IoArrowForwardCircle } from 'react-icons/io5'
 
 export default function Home() {
   return (
-    <div className={`${quickSand.className} pb-20`}>
-      <div className="bg-[#F2F7FF]  slanted mb-36">
-        <div className="px-4 md:pl-10 xl:pl-36 3xl:pl-10 3xl:max-w-[1500px] mx-auto flex lg:pt-10 ">
-          <div className="pt-10 lg:pt-36 lg:pr-10">
+    <div className={`pb-20 quicksand`}>
+      <section className="bg-[#F2F7FF] slanted">
+        <div className="px-10 max-w-[1300px] mx-auto flex lg:pt-10 ">
+          <div className="pt-28">
             <div
-              className={`${quickSand.className} text-[#111827] text-[24px] md:text-[30px] lg:text-[48px] font-extrabold`}
+              className={`text-[#111827] text-[24px] quicksand font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}
             >
-              <p>A sales-first approach to </p>
-              <p>travel and hospitality</p>
+              <p>Increase Your Occupancy</p>
+              <p>Rate with Direct Bookings -</p>
+              <p>No Commission Fees</p>
             </div>
 
-            <p className="lg:w-[600px] pt-6 text-lg text-[#374151] font-light">
-              An innovative, end-to-end, integrated sales, operations, and
-              distribution management platform bringing the travel industry
-              together.
+            <p className="lg:w-[48%] pt-6 text-lg text-[#374151] font-light tracking-wider">
+              Increase your direct bookings by up to 20% with Bookteller Booking
+              Engine without paying additional commissions.  Make your hotel's
+              website your most effective source of reservations. Reduce the
+              income split with OTAs and other partners as well.
             </p>
 
             <div
@@ -50,84 +52,116 @@ export default function Home() {
             width={400}
             height={500}
             alt="bg_img"
-            className="phone-image hidden lg:block shadow-2xl shadow-slate-500"
+            className="phone-image hidden lg:block shadow-2xl shadow-slate-500 z-10"
           />
 
           <div className="mt-32">
-            <img src="/sm-crop.png" alt="" className="graph hidden xl:block" />
+            <img
+              src="/sm-crop.png"
+              alt=""
+              className="graph hidden lg:block z-1 w-[30%]"
+            />
           </div>
         </div>
-      </div>
-      <main className="bg-white mt-44 px-4 md:px-10">
-        <div className="max-w-[1400px] mx-auto mt-4">
-          <p className="text-lg lg:text-[36px] font-bold">
-            A powerful suite to grow your hospitality business
-          </p>
+      </section>
+      <section className="max-w-[1300px] mx-auto bg-white mt-28 px-10">
+        <h3 className="text-lg lg:text-[36px]  font-semibold">
+          Why you need direct bookings
+        </h3>
 
-          <div className="flex justify-center items-center">
-            <div className="block mx-auto lg:flex lg:justify-between lg:space-x-5 xl:space-x-24 space-y-6 lg:space-y-0 mt-20">
-              <SuiteDetail />
-              <SuiteDetail />
-              <SuiteDetail />
+        <p className="pt-6 tracking-wide font-medium">
+          Stay ahead of the competition by leveraging the power of Google travel
+          procuts and Microsoft Maps to capture the attention of travelers and
+          drive direct bookings to your properties.
+        </p>
+
+        <div className="md:flex justify-center items-center space-y-10 md:space-y-0  space-x-10 lg:space-x-20">
+          <div className="block mt-20 space-y-10 md:w-1/2">
+            <SuiteDetail />
+            <SuiteDetail />
+            <SuiteDetail />
+          </div>
+
+          <div className="md:w-1/2">
+            <h4 className="font-bold text-lg  pb-2">
+              Build your direct channel
+            </h4>
+
+            <p>
+              When you book directly through our platform, you unlock exclusive
+              deals and rates that you won't find anywhere else. Say good.
+            </p>
+
+            <div
+              className={`${quickSand.className} bg-_green  text-white text-sm  items-center  space-x-3 inline-flex py-3 px-8 rounded-[50px] mt-6 `}
+            >
+              <p>Get Started</p>
+              <IoArrowForwardCircle color="white" size={26} />
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="max-w-[1400px] mx-auto pt-28">
-          <p className="text-[20px] md:text-[36px] font-bold">
+      <section className="bg-[#F2F7FF] mt-20">
+        <div className="max-w-[1300px] mx-auto px-10 py-14 ">
+          <h3 className="text-lg lg:text-[36px]  font-bold text-center">
             Accept secure online payments.
+          </h3>
+
+          <p className="text-[16px] font-medium pt-6 text-center md:w-[60%] mx-auto">
+            Easily and securely accept payments online. Integrate secured
+            payment gateway into your website to provide quick, safe, and easy
+            payment processing for you and your guests
           </p>
 
-          <p className="text-[16px] font-md pt-6">
-            We accept online payments through;
-          </p>
-
-          <div className="block md:flex space-y-6  justify-between items-center xl:mt-10">
+          <div className="block md:flex space-y-6 justify-center md:space-x-10  items-center pt-4 ">
             <img
               src="/paystack.svg"
               alt="phone"
-              className="w-[160px] md:w-[200px] lg:w-[250px] xl:w-[400px] mt-10"
+              className="w-[160px] md:w-[200px] lg:w-[200px]  mt-10"
             />
             <img
               src="/stripe.svg"
               alt="phone"
-              className="w-[160px] md:w-[200px]  lg:w-[250px] xl:w-[400px] mt-10"
+              className="w-[160px] md:w-[200px]  lg:w-[180px]  mt-10"
             />
 
             <img
               src="/flutter.svg"
               alt="phone"
-              className="w-[160px] md:w-[200px]  lg:w-[250px] xl:w-[400px] mt-10"
+              className="w-[160px] md:w-[200px]  lg:w-[200px] mt-10"
             />
           </div>
+        </div>
+      </section>
 
-          <div className="mt-10 md:mt-36  bg-_green w-full rounded-xl p-5 md:p-20 block lg:flex justify-between items-center shadow-[#0066F440] shadow-xl">
-            <div className="w-full lg:w-6/12 text-[16px] lg:text-[36px] text-white font-semibold">
-              <p className="">
-                Start Investing in assets and business ideas today.
-              </p>
-            </div>
+      <section className="max-w-[1300px] px-10 mx-auto">
+        <div className="mt-10 md:mt-36  bg-_green w-full rounded-xl p-5 md:p-20 block lg:flex justify-between items-center shadow-[#0066F440] shadow-xl">
+          <div className="w-full lg:w-6/12 text-[16px] lg:text-[36px] text-white font-semibold">
+            <p className="">
+              Start Investing in assets and business ideas today.
+            </p>
+          </div>
 
-            <div className="w-full lg:w-6/12 mt-4 lg:mt-0">
-              <div className="bg-[#FFFFFF80] h-[64px] rounded-[50px] py-2 px-4 flex">
-                <input
-                  type="text"
-                  className="w-8/12 py-2 bg-transparent outline-none text-white placeholder-white"
-                  placeholder="Your email"
-                />
+          <div className="w-full lg:w-6/12 mt-4 lg:mt-0">
+            <div className="bg-[#FFFFFF80] h-[64px] rounded-[50px] py-2 px-4 flex">
+              <input
+                type="text"
+                className="w-8/12 py-2 bg-transparent outline-none text-white placeholder-white"
+                placeholder="Your email"
+              />
 
-                <button className="bg-white w-4/12  rounded-[40px] text-_green text-xs md:text-base font-bold">
-                  Explore
-                </button>
-              </div>
+              <button className="bg-white w-4/12  rounded-[40px] text-_green text-xs md:text-base font-bold">
+                Explore
+              </button>
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="max-w-[1400px] mx-auto pt-28">
-          <Footer />
-        </div>
-      </main>
+      <div className="max-w-[1300px] mx-auto pt-28 px-10">
+        <Footer />
+      </div>
     </div>
   )
 }

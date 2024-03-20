@@ -4,6 +4,7 @@ import { AuthWrapper } from '@/components/shared/AuthWrapper'
 import { useGetPropertiesQuery } from '@/features/property'
 import { getItem, lato } from '@/utils'
 import { Spinner } from '@chakra-ui/react'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export default function Properties() {
@@ -21,7 +22,7 @@ export default function Properties() {
   }
 
   return (
-    <div className={`${lato.className}`}>
+    <div className={`font-lato`}>
       <div className={` bg-[#10375C] w-full  lg:h-[240px]`}>
         <div className="max-w-[1400px] mt-4 px-10 py-10 mx-auto text-white">
           <p className="text-3xl lg:text-5xl lg:pt-10">Hi {firstname}</p>
@@ -39,12 +40,14 @@ export default function Properties() {
             </p>
 
             {data?.length === 0 ? (
-              <button
-                type="button"
-                className="border-[#10375C] bg-[#10375C]  text-white border py-1 text-center px-6  rounded-lg"
-              >
-                Add Property
-              </button>
+              <Link href={'/properties/registerproperty'}>
+                <button
+                  type="button"
+                  className="border-[#10375C] bg-[#10375C]  text-white border py-1 text-center px-6  rounded-lg"
+                >
+                  Add Property
+                </button>
+              </Link>
             ) : null}
           </div>
 
@@ -60,11 +63,13 @@ export default function Properties() {
                 No property has been added
               </p>
             </div>
-          ) : null}
-
-          {_data?.map((p: any, index: number) => {
-            return <Lists {...p} key={index} />
-          })}
+          ) : (
+            <>
+              {_data?.map((p: any, index: number) => {
+                return <Lists {...p} key={index} />
+              })}
+            </>
+          )}
         </div>
       </div>
 
@@ -77,7 +82,6 @@ export default function Properties() {
           <ProfileAccount />
 
           <div className="flex justify-center space-x-2 items-center lg:justify-end">
-           
             <button
               type="button"
               className="border-[#10375C] bg-[#10375C]  text-white border py-1 text-center px-6  rounded-lg"

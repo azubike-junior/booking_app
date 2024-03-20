@@ -26,11 +26,9 @@ export default function Navbar() {
 
   const pathname = usePathname()
 
-  console.log('>>>>pathname', pathname)
-
   return (
-    <div className={pathname === '/' ? 'bg-[#F2F7FF]' : 'bg-white '}>
-      <div className="flex justify-between items-center max-w-[1500px]  mx-auto px-4 lg:px-10 pt-6 ">
+    <header className={pathname === '/' ? 'bg-[#F2F7FF] ' : 'bg-[#F2F7FF] '}>
+      <nav className="container flex justify-between items-center max-w-[1300px]   mx-auto px-10 pt-6 ">
         <Link href={'/'}>
           <Image
             src="/bookteller.svg"
@@ -41,51 +39,49 @@ export default function Navbar() {
           />
         </Link>
 
-        <IoMdMenu size={30} className="lg:hidden" onClick={onOpen} />
-
-        <div className="hidden lg:block">
-          {firstname ? (
-            <ul
-              className={`${lato.className} flex text-black lg:space-x-6 xl:space-x-14 font-poppins text-sm xl:text-base items-center leading font-medium `}
-            >
-              <Link className="font-medium " href={'/properties'}>
-                Dashboard
-              </Link>
-              <Link
-                className="font-medium "
-                href={'/properties/reservations/bookings'}
-              >
-                Bookings
-              </Link>
-
-              <Link className="font-medium" href={'#'}>
-                Settings
-              </Link>
-              <Link
-                className="flex items-center font-medium space-x-2"
-                href=""
-              ></Link>
-            </ul>
-          ) : (
-            <ul
-              className={`${quickSand.className} flex text-black lg:space-x-6 xl:space-x-10 font-poppins text-sm xl:text-base items-center leading font-medium `}
-            >
-              <Link
-                className="font-medium "
-                href={'#'}
-              >
-                Contact
-              </Link>
-
-              <Link className="font-medium" href={'#'}>
-                Settings
-              </Link>
-            </ul>
-          )}
-        </div>
+        <IoMdMenu size={30} className="flex sm:hidden" onClick={onOpen} />
 
         {firstname ? (
-          <div className="p-2 px-6 hidden lg:flex items-center space-x-6 ">
+          <ul
+            className={`${lato.className} hidden sm:flex flex-1 text-black font-poppins text-sm xl:text-base items-center leading font-medium `}
+          >
+            <Link className="font-medium " href={'/properties'}>
+              Dashboard
+            </Link>
+            <Link
+              className="font-medium "
+              href={'/properties/reservations/bookings'}
+            >
+              Bookings
+            </Link>
+
+            <Link className="font-medium" href={'#'}>
+              Settings
+            </Link>
+            <Link
+              className="flex items-center font-medium space-x-2"
+              href=""
+            ></Link>
+          </ul>
+        ) : (
+          <ul
+            className={`${quickSand.className} hidden  sm:flex text-black space-x-6  font-poppins text-sm xl:text-base items-center leading font-medium `}
+          >
+            <Link className="font-medium " href={'/'}>
+              Home
+            </Link>
+            <Link className="font-medium " href={'/about'}>
+              About
+            </Link>
+
+            <Link className="font-medium" href={'/contact'}>
+              Contact
+            </Link>
+          </ul>
+        )}
+
+        {firstname ? (
+          <div className="p-2 px-6 hidden sm:flex items-center space-x-6 ">
             <div className="flex items-center space-x-2">
               <Image
                 src="/web.svg"
@@ -115,7 +111,7 @@ export default function Navbar() {
             </div>
           </div>
         ) : (
-          <div className="hidden lg:flex space-x-6 items-center">
+          <div className="hidden sm:flex space-x-6 items-center">
             <Link
               href="/auth/login"
               className={`${quickSand.className} text-black font-md`}
@@ -130,7 +126,7 @@ export default function Navbar() {
             </Link>
           </div>
         )}
-      </div>
+      </nav>
 
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
@@ -172,7 +168,11 @@ export default function Navbar() {
                   className={`${quickSand.className}   text-black text-base grid gap-6 mt-4 leading font-medium`}
                 >
                   <Link onClick={onClose} className=" " href={'#'}>
-                    <p>Contact</p>
+                    <p>Home</p>
+                  </Link>
+
+                  <Link onClick={onClose} className=" " href={'#'}>
+                    <p> About</p>
                   </Link>
 
                   <Link onClick={onClose} className=" " href={'#'}>
@@ -236,8 +236,6 @@ export default function Navbar() {
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
-    </div>
-
-    // <></>
+    </header>
   )
 }

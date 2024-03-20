@@ -123,9 +123,16 @@ export const propertyApi = api.injectEndpoints({
         method: 'GET',
       }),
       providesTags: ['Property']
+     }),
+     getRoomById: builder.query<RoomProps[], string>({
+      query: (id) => ({
+        url: `/room/find/${id}`,
+        method: 'GET',
+      }),
+      providesTags: ['Property']
     })
   })
 })
 
-export const {useCreatePropertyMutation, useEditRoomMutation, useEditPropertyMutation, useGetPropertiesQuery, useGetPropertyQuery, useCreateRoomMutation, useGetRoomByPropertyIdQuery} = propertyApi
+export const {useCreatePropertyMutation, useEditRoomMutation, useEditPropertyMutation, useGetPropertiesQuery, useGetPropertyQuery, useCreateRoomMutation, useGetRoomByPropertyIdQuery, useGetRoomByIdQuery} = propertyApi
 

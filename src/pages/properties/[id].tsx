@@ -1,7 +1,7 @@
 'use client'
 
 import Details from '@/components/PropertyLists/propertyDetails'
-import { Rooms } from '@/components/PropertyLists/roomLists'
+import { Rooms } from '@/components/PropertyLists/roomDetails'
 import { AuthWrapper } from '@/components/shared/AuthWrapper'
 import {
   useGetPropertyQuery,
@@ -40,7 +40,7 @@ export default function PropertyDetails() {
   let img: any = data?.image
 
   return (
-    <div className="mt-5">
+    <div className="mt-5 font-lato">
       {isLoading ? (
         <div className="flex justify-center items-center">
           <Spinner />
@@ -59,7 +59,7 @@ export default function PropertyDetails() {
           >
             {/* Content inside the div */}
             <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-              <div className={`${lato.className}  w-full h-[350px]`}>
+              <div className={`font-lato  w-full h-[350px]`}>
                 <div className="max-w-[1400px]  mt-4 lg:px-10 mx-auto text-white">
                   <p className="text-3xl lg:text-6xl pt-10 lg:pt-28">
                     {data?.name},{' '}

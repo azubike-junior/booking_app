@@ -5,29 +5,23 @@ import { Lato, Lora, Open_Sans, Quicksand } from 'next/font/google'
 import { storage } from './firebase'
 
 export const lato = Lato({
-  weight: '400',
+  weight:['300', '400', '700', '900'],
   subsets: ['latin'],
+  variable: '--font-lato'
 })
 
 export const lora = Lora({
-  weight: '700',
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
-})
-
-export const lora_small = Lora({
-  weight: '400',
-  subsets: ['latin'],
+  variable: '--font-lora'
 })
 
 export const quickSand = Quicksand({
-  weight: '500',
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
+  variable: '--font-quicksand'
 })
 
-export const lato_bold = Lato({
-  weight: '700',
-  subsets: ['latin'],
-})
 
 export const open_sans = Open_Sans({
   weight: '500',
