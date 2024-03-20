@@ -4,8 +4,8 @@ import { FaCcMastercard } from 'react-icons/fa6'
 import { LiaCcVisa } from 'react-icons/lia'
 
 interface Room {
-  room: RoomProps
-  property: PropertyProp
+  room: any
+  property: PropertyProp | undefined
 }
 
 export default function Checkout({ room, property }: Room) {
@@ -93,7 +93,7 @@ export default function Checkout({ room, property }: Room) {
 
           <button
             className="w-full text-white mt-4 text-sm py-2"
-            style={{ background: property.primary_color }}
+            style={{ background: property?.primary_color }}
           >
             BOOK NOW
           </button>
