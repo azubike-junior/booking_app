@@ -1,5 +1,4 @@
 import { useGetRoomByPropertyIdQuery } from '@/features/property'
-import { lato, quickSand } from '@/utils'
 import { RoomProps } from '@/utils/types'
 import { useToast } from '@chakra-ui/react'
 import { useParams, useRouter } from 'next/navigation'
@@ -26,14 +25,14 @@ export default function Review() {
     <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-8 lg:px-14">
       <div className="mx-auto mt-16 max-w-[800px]">
         <p
-          className={`${quickSand.className} text-left text-[#111827] text-3xl`}
+          className={`quicksand text-left text-[#111827] text-3xl`}
         >
           Your reservation
         </p>
 
         <p className="pt-8 text-[#10375C] font-semibold text-sm">Step 4 of 4</p>
 
-        <div className={`${lato.className} space-y-8 pt-8`}>
+        <div className={`lato space-y-8 pt-8`}>
           <div className="space-y-8 font-semibold">
             <p>
               Confirmation Number:{' '}

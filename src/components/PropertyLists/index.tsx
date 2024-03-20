@@ -1,6 +1,5 @@
 'use client'
 
-import { lato } from '@/utils'
 import { PropertyProp } from '@/utils/types'
 import Link from 'next/link'
 import { CiMail } from 'react-icons/ci'
@@ -33,7 +32,7 @@ export const Lists = ({
       </div>
 
       <div
-        className={`${lato.className} bg-white px-4 py-4 lg:p-6 w-full lg:w-7/12 font-light`}
+        className={`lato bg-white px-4 py-4 lg:p-6 w-full lg:w-7/12 font-light`}
       >
         <div className="flex justify-between items-center">
           <p className="text-3xl text-[#10375C] capitalize">{name}</p>

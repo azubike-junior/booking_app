@@ -7,7 +7,7 @@ import {
   useEditPropertyMutation,
   useGetPropertyQuery,
 } from '@/features/property'
-import { handleImageChange, handleLogoChange, lato, open_sans } from '@/utils'
+import { handleImageChange, handleLogoChange} from '@/utils'
 import { PropertyProp } from '@/utils/types'
 import { Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
@@ -90,7 +90,7 @@ export default function EditProperty() {
       >
         {/* Content inside the div */}
         <div className="max-w-[1400px] mx-auto px-10">
-          <div className={`${lato.className} w-full h-[400px]`}>
+          <div className={`lato w-full h-[400px]`}>
             <div className="max-w-[1400px]  mt-10 lg:px-10 mx-auto text-white">
               <p className="text-3xl lg:text-6xl pt-10 lg:pt-48">
                 {data?.name},{' '}
@@ -128,7 +128,7 @@ export default function EditProperty() {
           <div className="bg-white rounded-lg p-10 ">
             <form
               onSubmit={handleSubmit(editPropertyHandler)}
-              className={`${lato.className} space-y-8 pt-6 lg:px-6`}
+              className={`lato space-y-8 pt-6 lg:px-6`}
             >
               <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-12">
                 <InputField
@@ -255,7 +255,7 @@ export default function EditProperty() {
                   className=" text-sm "
                 >
                   <p
-                    className={`${open_sans.className} text-[#737373] text-left font-semibold`}
+                    className={`lato text-[#737373] text-left font-semibold`}
                   >
                     Upload a Logo
                   </p>
@@ -307,7 +307,7 @@ export default function EditProperty() {
                   className=" text-sm"
                 >
                   <p
-                    className={`${open_sans.className} text-[#737373] text-left font-semibold`}
+                    className={`lato text-[#737373] text-left font-semibold`}
                   >
                     Upload Image
                   </p>
@@ -361,7 +361,7 @@ export default function EditProperty() {
                       className=" text-sm "
                     >
                       <p
-                        className={`${open_sans.className} text-[#737373] text-left font-semibold`}
+                        className={`lato text-[#737373] text-left font-semibold`}
                       >
                         Upload an Image
                       </p>

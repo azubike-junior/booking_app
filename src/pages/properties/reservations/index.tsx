@@ -3,7 +3,6 @@ import GuestInfo from '@/components/Reservations/GuestInfo'
 import GuestRooms from '@/components/Reservations/GuestRooms'
 import ReservedRooms from '@/components/Reservations/ReservedRooms'
 import Review from '@/components/Reservations/Review'
-import { lato, lato_bold } from '@/utils'
 import { RoomProps } from '@/utils/types'
 import { useToast } from '@chakra-ui/react'
 import Image from 'next/image'
@@ -56,14 +55,14 @@ export default function Reservations() {
           </Link>
 
           <div
-            className={`${lato_bold.className} text-5xl text-white font-bold mt-44`}
+            className={`lato  text-5xl text-white font-bold mt-44`}
           >
             <p>Become </p>
             <p>future-ready</p>
           </div>
 
           <div
-            className={`${lato.className} text-white text-xl leading-7 tracking-widest pt-10 `}
+            className={`lato text-white text-xl leading-7 tracking-widest pt-10 `}
           >
             <p>Boost your online sales streamline,</p>
             <p>your operations, and engage with</p>

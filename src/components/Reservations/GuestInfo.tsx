@@ -1,5 +1,4 @@
 import { useGetRoomByPropertyIdQuery } from '@/features/property'
-import { lato, quickSand } from '@/utils'
 import { PropertyProp, StepProps } from '@/utils/types'
 import { useToast } from '@chakra-ui/react'
 import { useParams, useRouter } from 'next/navigation'
@@ -21,13 +20,11 @@ export default function GuestInfo({ step, setStep }: StepProps) {
     '1a50e45a-e06d-4929-ba76-422734d91c24',
   )
 
-  console.log('>>>>>rrooms', rooms)
-
   return (
     <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-8 lg:px-14">
       <div className="mx-auto mt-16 max-w-[800px]">
         <p
-          className={`${quickSand.className} text-left text-[#111827] text-3xl`}
+          className={`quicksand text-left text-[#111827] text-3xl`}
         >
           Guest Information
         </p>
@@ -36,7 +33,7 @@ export default function GuestInfo({ step, setStep }: StepProps) {
 
         <form
           // onSubmit={handleSubmit(propertyHandler)}
-          className={`${lato.className} space-y-8 pt-14`}
+          className={`lato space-y-8 pt-14`}
         >
           <InputField
             name="name"

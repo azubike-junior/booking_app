@@ -1,4 +1,3 @@
-import { lato, quickSand } from '@/utils'
 import { RoomProps, StepProps } from '@/utils/types'
 import { Checkbox, useToast } from '@chakra-ui/react'
 import { useParams, useRouter } from 'next/navigation'
@@ -20,7 +19,7 @@ export default function GuestRooms({step, setStep} : StepProps) {
     <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-8 lg:px-14">
       <div className="mx-auto mt-16 max-w-[800px]">
         <p
-          className={`${quickSand.className} text-left text-[#111827] text-3xl`}
+          className={`quicksand text-left text-[#111827] text-3xl`}
         >
           Guests & Rooms
         </p>
@@ -29,7 +28,7 @@ export default function GuestRooms({step, setStep} : StepProps) {
           Step 1 of 4
         </p>
 
-        <form className={`${lato.className} space-y-8 pt-14`}>
+        <form className={`lato space-y-8 pt-14`}>
           <div className="space-y-8">
             <SelectField
               label="Adults"

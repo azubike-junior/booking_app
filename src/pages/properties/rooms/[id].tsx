@@ -3,10 +3,6 @@ import { useCreateRoomMutation } from '@/features/property'
 import {
   handleImageChange,
   handleLogoChange,
-  lato,
-  lato_bold,
-  open_sans,
-  quickSand,
   uploadImage,
   uploadLogo,
 } from '@/utils'
@@ -97,14 +93,14 @@ export default function RegisterRoom() {
           </Link>
 
           <div
-            className={`${lato_bold.className} text-5xl text-white font-bold mt-44`}
+            className={`lato text-5xl text-white font-bold mt-44`}
           >
             <p>Become </p>
             <p>future-ready</p>
           </div>
 
           <div
-            className={`${lato.className} text-white text-xl leading-7 tracking-widest pt-10 `}
+            className={`lato text-white text-xl leading-7 tracking-widest pt-10 `}
           >
             <p>Boost your online sales streamline,</p>
             <p>your operations, and engage with</p>
@@ -122,14 +118,14 @@ export default function RegisterRoom() {
         </div>
         <div className="mx-auto mt-16 max-w-[500px]">
           <p
-            className={`${quickSand.className} text-center text-[#111827] text-3xl`}
+            className={`quicksand text-center text-[#111827] text-3xl`}
           >
             Register your room here!
           </p>
 
           <form
             onSubmit={handleSubmit(roomHandler)}
-            className={`${lato.className} space-y-8 pt-14`}
+            className={`lato space-y-8 pt-14`}
           >
             <div className="flex space-x-8">
               <InputField
@@ -285,7 +281,7 @@ export default function RegisterRoom() {
                   className=" text-sm "
                 >
                   <p
-                    className={`${open_sans.className} text-[#737373] text-left font-semibold`}
+                    className={`quicksand text-[#737373] text-left font-semibold`}
                   >
                     Upload cover
                   </p>
@@ -331,7 +327,7 @@ export default function RegisterRoom() {
                   className=" text-sm"
                 >
                   <p
-                    className={`${open_sans.className} text-[#737373] text-left font-semibold`}
+                    className={`quicksand text-[#737373] text-left font-semibold`}
                   >
                     Upload Image 1
                   </p>

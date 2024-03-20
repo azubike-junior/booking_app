@@ -1,6 +1,6 @@
 import { AuthWrapper } from '@/components/shared/AuthWrapper'
 import { useGetPropertiesQuery } from '@/features/property'
-import { BOOKINGS_COLUMNS, bookings_data, getItem, lato } from '@/utils'
+import { BOOKINGS_COLUMNS, bookings_data, getItem } from '@/utils'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useState } from 'react'
 import { IoIosArrowDown, IoIosArrowDropleftCircle } from 'react-icons/io'
@@ -28,7 +28,7 @@ export default function Inspection() {
     .filter(Boolean)
 
   return (
-    <div className={`${lato.className}`}>
+    <div className={`lato`}>
       <div className={` bg-[#10375C] w-full  lg:h-[240px]`}>
         <div className="max-w-[1400px] mt-4 px-10 py-10 mx-auto text-white">
           <p className="text-3xl lg:text-5xl lg:pt-10">Hi {firstname}</p>

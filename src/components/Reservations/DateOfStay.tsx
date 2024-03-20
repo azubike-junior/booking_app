@@ -1,4 +1,3 @@
-import { lato, quickSand } from '@/utils'
 import { RoomProps, StepProps } from '@/utils/types'
 import {  useToast } from '@chakra-ui/react'
 import { useParams, useRouter } from 'next/navigation'
@@ -19,7 +18,7 @@ export default function DateOfStay({step, setStep} : StepProps) {
     <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-8 lg:px-14">
       <div className="mx-auto mt-16 max-w-[800px]">
         <p
-          className={`${quickSand.className} text-left text-[#111827] text-3xl`}
+          className={`quicksand text-left text-[#111827] text-3xl`}
         >
           Date of Stay
         </p>
@@ -28,7 +27,7 @@ export default function DateOfStay({step, setStep} : StepProps) {
           Step 2 of 4
         </p>
 
-        <form className={`${lato.className} space-y-8 pt-14`}>
+        <form className={`lato space-y-8 pt-14`}>
           <div className="space-y-8">
             <div className="flex justify-between space-x-6 font-semibold">
               <div className="w-full">

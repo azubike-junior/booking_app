@@ -1,4 +1,4 @@
-import { getItem, lato, open_sans, quickSand } from '@/utils'
+import { getItem } from '@/utils'
 import {
   Button,
   Drawer,
@@ -43,7 +43,7 @@ export default function Navbar() {
 
         {firstname ? (
           <ul
-            className={`${lato.className} hidden sm:flex flex-1 text-black font-poppins text-sm xl:text-base items-center leading font-medium `}
+            className={`lato hidden sm:flex flex-1 text-black font-poppins text-sm xl:text-base items-center leading font-medium `}
           >
             <Link className="font-medium " href={'/properties'}>
               Dashboard
@@ -65,7 +65,7 @@ export default function Navbar() {
           </ul>
         ) : (
           <ul
-            className={`${quickSand.className} hidden  sm:flex text-black space-x-6  font-poppins text-sm xl:text-base items-center leading font-medium `}
+            className={`quicksand hidden  sm:flex text-black space-x-6  font-poppins text-sm xl:text-base items-center leading font-medium `}
           >
             <Link className="font-medium " href={'/'}>
               Home
@@ -103,7 +103,7 @@ export default function Navbar() {
               {firstname.charAt(0).toUpperCase()}
               {lastname.charAt(0).toUpperCase()}
             </p>
-            <div className={`${open_sans.className} font-semibold`}>
+            <div className={`quicksand font-semibold`}>
               <p>
                 Hi, {firstname} {lastname}
               </p>
@@ -114,13 +114,13 @@ export default function Navbar() {
           <div className="hidden sm:flex space-x-6 items-center">
             <Link
               href="/auth/login"
-              className={`${quickSand.className} text-black font-md`}
+              className={`quicksand text-black font-md`}
             >
               Log In
             </Link>
             <Link
               href="/auth/signup"
-              className={`${quickSand.className} bg-_green rounded-[50px] p-3 px-8 text-white font-md`}
+              className={`quicksand bg-_green rounded-[50px] p-3 px-8 text-white font-md`}
             >
               Sign Up
             </Link>
@@ -146,7 +146,7 @@ export default function Navbar() {
             <div className="">
               {firstname ? (
                 <div
-                  className={`${quickSand.className}   text-black text-base grid gap-6 mt-4 leading font-medium`}
+                  className={`quicksand   text-black text-base grid gap-6 mt-4 leading font-medium`}
                 >
                   <Link onClick={onClose} className=" " href={'/properties'}>
                     <p>Dashboard</p>
@@ -165,7 +165,7 @@ export default function Navbar() {
                 </div>
               ) : (
                 <div
-                  className={`${quickSand.className}   text-black text-base grid gap-6 mt-4 leading font-medium`}
+                  className={`quicksand   text-black text-base grid gap-6 mt-4 leading font-medium`}
                 >
                   <Link onClick={onClose} className=" " href={'#'}>
                     <p>Home</p>
@@ -200,7 +200,7 @@ export default function Navbar() {
               <div className="block pt-6">
                 <Link
                   href="/auth/login"
-                  className={`${quickSand.className} text-black font-md`}
+                  className={`quicksand text-black font-md`}
                 >
                   Log In
                 </Link>
@@ -208,7 +208,7 @@ export default function Navbar() {
                 <div className="pt-10">
                   <Link
                     href="/auth/signup"
-                    className={`${quickSand.className} bg-_green rounded-[50px] p-3 px-8 text-white font-md`}
+                    className={`quicksand bg-_green rounded-[50px] p-3 px-8 text-white font-md`}
                   >
                     Sign Up
                   </Link>
@@ -218,7 +218,7 @@ export default function Navbar() {
           </DrawerBody>
 
           <DrawerFooter className="flex space-x-10">
-            <div className={`${open_sans.className} font-semibold`}>
+            <div className={`quicksandfont-semibold`}>
               <p>
                 Hi, {firstname} {lastname}
               </p>

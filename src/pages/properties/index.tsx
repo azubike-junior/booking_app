@@ -2,7 +2,7 @@ import ProfileAccount from '@/components/ProfileAccount'
 import { Lists } from '@/components/PropertyLists'
 import { AuthWrapper } from '@/components/shared/AuthWrapper'
 import { useGetPropertiesQuery } from '@/features/property'
-import { getItem, lato } from '@/utils'
+import { getItem } from '@/utils'
 import { Spinner } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -22,7 +22,7 @@ export default function Properties() {
   }
 
   return (
-    <div className={`font-lato`}>
+    <div className={`lato`}>
       <div className={` bg-[#10375C] w-full  lg:h-[240px]`}>
         <div className="max-w-[1400px] mt-4 px-10 py-10 mx-auto text-white">
           <p className="text-3xl lg:text-5xl lg:pt-10">Hi {firstname}</p>

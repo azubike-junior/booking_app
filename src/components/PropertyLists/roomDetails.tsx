@@ -1,7 +1,6 @@
 'use client'
 
 import { useEditRoomMutation } from '@/features/property'
-import { lato } from '@/utils'
 import { RoomProps } from '@/utils/types'
 import { Spinner, useToast } from '@chakra-ui/react'
 import { useState } from 'react'
@@ -90,7 +89,7 @@ export const Rooms = ({ data }: Room) => {
       </div>
 
       <div
-        className={`${lato.className} ${
+        className={`lato ${
           published === 0 ? 'bg-white' : 'bg-green-50'
         } p-6  w-full lg:w-7/12 font-light`}
       >
