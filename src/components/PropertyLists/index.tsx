@@ -41,15 +41,15 @@ export const Lists = ({
         <div className="flex pt-6 lg:pt-8 text-xs lg:text-sm space-x-10 font-light">
           <div className="">
             <p>Primary Color</p>
-            <div className="w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A] bg-[#F58634]"></div>
+            <div style={{background: primary_color}} className={`w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A]`}></div>
           </div>
           <div className="">
             <p className="">Secondary Color</p>
-            <div className="w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A] bg-[#10375C]"></div>
+            <div style={{background: secondary_color}} className={`w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A] `}></div>
           </div>
           <div className="">
             <p>Text Color</p>
-            <div className="w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A] bg-[#747F8A]"></div>
+            <div style={{background: text_color}} className={`w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A] `}></div>
           </div>
         </div>
 

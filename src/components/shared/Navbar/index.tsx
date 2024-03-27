@@ -28,7 +28,7 @@ export default function Navbar() {
 
   return (
     <header className={pathname === '/' ? 'bg-[#F2F7FF] ' : 'bg-[#F2F7FF] '}>
-      <nav className="container flex justify-between items-center max-w-[1300px]   mx-auto px-10 pt-6 ">
+      <nav className="container flex justify-between  items-center max-w-[1062px]   mx-auto px-6 md:px-10 pt-6 pb-4 axiforma-light">
         <Link href={'/'}>
           <Image
             src="/bookteller.svg"
@@ -43,7 +43,7 @@ export default function Navbar() {
 
         {firstname ? (
           <ul
-            className={`lato hidden sm:flex flex-1 text-black font-poppins text-sm xl:text-base items-center leading font-medium `}
+            className={` hidden  sm:flex text-black space-x-6  text-sm xl:text-base items-center leading font-medium `}
           >
             <Link className="font-medium " href={'/properties'}>
               Dashboard
@@ -58,23 +58,19 @@ export default function Navbar() {
             <Link className="font-medium" href={'#'}>
               Settings
             </Link>
-            <Link
-              className="flex items-center font-medium space-x-2"
-              href=""
-            ></Link>
           </ul>
         ) : (
           <ul
-            className={`quicksand hidden  sm:flex text-black space-x-6  font-poppins text-sm xl:text-base items-center leading font-medium `}
+            className={` hidden  sm:flex text-black space-x-6  font-poppins text-sm xl:text-base items-center leading font-light `}
           >
-            <Link className="font-medium " href={'/'}>
+            <Link className=" " href={'/'}>
               Home
             </Link>
-            <Link className="font-medium " href={'/about'}>
+            <Link className=" " href={'/about'}>
               About
             </Link>
 
-            <Link className="font-medium" href={'/contact'}>
+            <Link className="" href={'/contact'}>
               Contact
             </Link>
           </ul>
@@ -112,15 +108,12 @@ export default function Navbar() {
           </div>
         ) : (
           <div className="hidden sm:flex space-x-6 items-center">
-            <Link
-              href="/auth/login"
-              className={`quicksand text-black font-md`}
-            >
+            <Link href="/auth/login" className={`quicksand text-black font-md`}>
               Log In
             </Link>
             <Link
               href="/auth/signup"
-              className={`quicksand bg-_green rounded-[50px] p-3 px-8 text-white font-md`}
+              className={` bg-_green rounded-[50px] p-3 px-8 text-white font-md`}
             >
               Sign Up
             </Link>
@@ -146,7 +139,7 @@ export default function Navbar() {
             <div className="">
               {firstname ? (
                 <div
-                  className={`quicksand   text-black text-base grid gap-6 mt-4 leading font-medium`}
+                  className={`   text-black text-base grid gap-6 mt-4 leading font-medium`}
                 >
                   <Link onClick={onClose} className=" " href={'/properties'}>
                     <p>Dashboard</p>
@@ -165,7 +158,7 @@ export default function Navbar() {
                 </div>
               ) : (
                 <div
-                  className={`quicksand   text-black text-base grid gap-6 mt-4 leading font-medium`}
+                  className={`   text-black text-base grid gap-6 mt-4 leading font-medium`}
                 >
                   <Link onClick={onClose} className=" " href={'#'}>
                     <p>Home</p>
@@ -198,17 +191,14 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="block pt-6">
-                <Link
-                  href="/auth/login"
-                  className={`quicksand text-black font-md`}
-                >
+                <Link href="/auth/login" className={` text-black font-md`}>
                   Log In
                 </Link>
 
                 <div className="pt-10">
                   <Link
                     href="/auth/signup"
-                    className={`quicksand bg-_green rounded-[50px] p-3 px-8 text-white font-md`}
+                    className={` bg-_green rounded-[50px] p-3 px-8 text-white font-md`}
                   >
                     Sign Up
                   </Link>
@@ -218,7 +208,7 @@ export default function Navbar() {
           </DrawerBody>
 
           <DrawerFooter className="flex space-x-10">
-            <div className={`quicksandfont-semibold`}>
+            <div className={`font-semibold`}>
               <p>
                 Hi, {firstname} {lastname}
               </p>

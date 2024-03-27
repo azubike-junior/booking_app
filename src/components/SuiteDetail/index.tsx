@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function SuiteDetail() {
   return (
-    <div className="w-full shadow-lg shadow-[#ccc] px-6 rounded-lg py-10">
+    <div className="w-full shadow-lg shadow-[#ccc] bg-white px-6 rounded-lg py-10 z-50">
       <Image
         src={'/best_1.svg'}
         width={50}
@@ -11,7 +11,7 @@ export default function SuiteDetail() {
         className="flex justify-start"
       />
 
-      <h4 className="font-bold text-lg  py-4">Seamless User Experience</h4>
+      <h4 className="font-bold text-lg tahoma  py-4">Seamless User Experience</h4>
 
       <p className='text-sm'>
         When you book directly through our platform, you unlock exclusive deals

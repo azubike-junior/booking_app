@@ -1,6 +1,7 @@
 import ProfileAccount from '@/components/ProfileAccount'
 import { Lists } from '@/components/PropertyLists'
 import { AuthWrapper } from '@/components/shared/AuthWrapper'
+import Banner from '@/components/shared/Banner'
 import { useGetPropertiesQuery } from '@/features/property'
 import { getItem } from '@/utils'
 import { Spinner } from '@chakra-ui/react'
@@ -23,17 +24,10 @@ export default function Properties() {
 
   return (
     <div className={`lato`}>
-      <div className={` bg-[#10375C] w-full  lg:h-[240px]`}>
-        <div className="max-w-[1400px] mt-4 px-10 py-10 mx-auto text-white">
-          <p className="text-3xl lg:text-5xl lg:pt-10">Hi {firstname}</p>
-          <p className="text-xl lg:text-2xl pt-6">
-            Welcome to your Bookteller administrative dashboard
-          </p>
-        </div>
-      </div>
+      <Banner firstname={firstname} />
 
-      <div className="max-w-[1400px] mx-auto lg:px-10">
-        <div className="bg-[#F5F5F5] py-10 px-2 md:px-10 lg:px-10 mt-8 space-y-10">
+      <div className="max-w-[1062px] mx-auto lg:px-10">
+        <div className="bg-[#F5F5F5] py-10 px-6 md:px-10 lg:px-10 mt-8 space-y-10">
           <div className="flex justify-between items-center">
             <p className="text-[#10375C] text-xl lg:text-3xl">
               Your properties on Bookteller
@@ -73,7 +67,7 @@ export default function Properties() {
         </div>
       </div>
 
-      <div className="max-w-[1400px] mt-10 mx-auto lg:px-10">
+      <div className="max-w-[1062px] mt-10 mx-auto lg:px-10">
         <div className="bg-[#F5F5F5] py-10 px-6 lg:px-14 mt-16 space-y-10">
           <p className="text-[#10375C] text-xl lg:text-3xl">
             Your acccount information

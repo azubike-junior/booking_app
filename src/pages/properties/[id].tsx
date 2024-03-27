@@ -39,7 +39,7 @@ export default function PropertyDetails() {
   let img: any = data?.image
 
   return (
-    <div className="mt-5 lato">
+    <div className="lato">
       {isLoading ? (
         <div className="flex justify-center items-center">
           <Spinner />
@@ -57,9 +57,9 @@ export default function PropertyDetails() {
             }}
           >
             {/* Content inside the div */}
-            <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+            <div className="max-w-[1062px] px-10 mx-auto">
               <div className={`lato  w-full h-[350px]`}>
-                <div className="max-w-[1400px]  mt-4 lg:px-10 mx-auto text-white">
+                <div className="mt-4   text-white">
                   <p className="text-3xl lg:text-6xl pt-10 lg:pt-28">
                     {data?.name},{' '}
                   </p>
@@ -72,7 +72,7 @@ export default function PropertyDetails() {
             </div>
           </div>
 
-          <div className="max-w-[1400px] mt-10 mx-auto lg:px-10">
+          <div className="max-w-[1062px] mt-10 mx-auto md:px-10">
             <div
               onClick={() => route.back()}
               className="flex  items-center space-x-2 cursor-pointer"
@@ -80,8 +80,8 @@ export default function PropertyDetails() {
               <IoIosArrowDropleftCircle size={35} />
               <p>Go back</p>
             </div>
-            <div className="max-w-[1400px] mt-10 mx-auto ">
-              <div className="bg-[#F5F5F5] py-10 px-6 lg:px-14 mt-16 space-y-10">
+            <div className="mt-10 mx-auto ">
+              <div className="bg-[#F5F5F5] py-10 px-10 mt-16 space-y-10">
                 <p className="text-[#10375C] text-xl lg:text-3xl">
                   Your property details
                 </p>
@@ -90,8 +90,8 @@ export default function PropertyDetails() {
               </div>
             </div>
             <div className="bg-[#F5F5F5] py-10 my-10 space-y-10">
-              <div className="max-w-[1400px] mx-auto lg:px-6">
-                <div className="bg-[#F5F5F5] px-6">
+              <div className="max-w-[1400px] mx-auto px-10">
+                <div className="bg-[#F5F5F5]">
                   <div className="lg:flex justify-between items-center pb-8">
                     <p className="text-[#10375C] text-base lg:text-2xl">
                       Rooms in {data?.name}

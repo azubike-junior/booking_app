@@ -51,10 +51,19 @@ export default function BookProperty() {
         </div>
       ) : (
         <div className={`font-lato`}>
-          <div className={` w-full  lg:h-[240px]`} style={{ background: bg }}>
-            <div className="max-w-[1400px] px-10 py-10 mx-auto text-white">
-              <p className="text-3xl lg:text-5xl lg:pt-10">{property?.name}</p>
-              <p className="text-xl lg:text-2xl pt-6">{property?.address}</p>
+          <div
+            className={` w-full  lg:h-[240px]`}
+            style={{ background: bg }}
+          >
+            <div className="max-w-[1062px] px-10 pb-10 pt-16 mx-auto text-white flex justify-between items-center">
+              <div className=" text-white">
+                <p className="text-3xl lg:text-5xl">
+                  {property?.name}
+                </p>
+                <p className="text-xl lg:text-2xl pt-6">{property?.address}</p>
+              </div>
+
+              <img src={property?.logo} alt="" className='w-20 h-20' />
             </div>
           </div>
 
@@ -62,7 +71,7 @@ export default function BookProperty() {
             <Checkout property={property} room={roomDetail} />
           ) : (
             <div>
-              <div className="max-w-[1000px] mx-auto lg:px-10">
+              <div className="max-w-[1062px] mx-auto lg:px-10 mt-20">
                 {!roomDetail ? (
                   <div className="flex justify-center items-center pb-6">
                     <Spinner size="30" color="blue" />{' '}
@@ -77,7 +86,7 @@ export default function BookProperty() {
                 />
               </div>
 
-              <div className="max-w-[1000px] mx-auto lg:px-10 pt-20">
+              <div className="max-w-[1200px] mx-auto lg:px-10 pt-20">
                 <p className="text-2xl text-center">
                   Other rooms under {property?.name}{' '}
                 </p>

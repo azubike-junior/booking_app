@@ -8,17 +8,29 @@ export default function Home() {
   return (
     <div className={`pb-20 quicksand`}>
       <section className="bg-[#F2F7FF] slanted">
-        <div className="px-10 max-w-[1300px] mx-auto flex lg:pt-10 ">
-          <div className="pt-28">
+        <div className="px-6 md:px-10 max-w-[1062px] mx-auto flex lg:pt-10 ">
+          <div className="pt-10 lg:pt-28">
             <div
-              className={`text-[#111827] text-[24px] quicksand font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}
+              className={`text-[#111827] tahoma font-black  tracking-wider  space-y-1 md:space-y-3.5`}
             >
-              <p>Increase Your Occupancy</p>
-              <p>Rate with Direct Bookings -</p>
-              <p>No Commission Fees</p>
+              <p className="text-base md:text-xl axiforma ">Increase Your </p>
+              <p className=" text-[24px] md:text-3xl lg:text-4xl roboto  xl:text-4xl font-extrabold uppercase">
+                Occupancy <span className="text-[#F58634]">Rate</span> with
+              </p>
+              <p className=" text-[24px] md:text-3xl lg:text-4xl xl:text-4xl uppercase roboto font-extrabold">
+                {' '}
+                <span className="text-[#F58634] roboto font-extrabold">
+                  Direct
+                </span>{' '}
+                Bookings{' '}
+              </p>
+
+              <p className="text-base md:text-xl axiforma ">
+                No Commission Fees
+              </p>
             </div>
 
-            <p className="lg:w-[48%] pt-6 text-lg text-[#374151] font-light tracking-wider">
+            <p className="lg:w-[48%] pt-6 text-base text-[#374151] font-medium text-left tracking-wider">
               Increase your direct bookings by up to 20% with Bookteller Booking
               Engine without paying additional commissions.  Make your hotel's
               website your most effective source of reservations. Reduce the
@@ -32,24 +44,26 @@ export default function Home() {
               <IoArrowForwardCircle color="white" size={26} />
             </div>
 
-            <div className="flex justify-between lg:hidden items-center">
-              <img
-                src="/phone.jpg"
-                alt="phone"
-                className="w-[120px] md:w-[250px] mt-10"
+            <div className=" justify-between lg:hidden items-center mt-10">
+              <Image
+                src={'/phone.jpg'}
+                width={200}
+                height={500}
+                alt="bg_img"
+                className="p-image lg:block shadow-2xl shadow-slate-500 z-10"
               />
 
               <img
                 src="/sm-crop.png"
                 alt="phone"
-                className="w-[200px] h-[200px] md:w-[300px] md:h-[300px] mt-10"
+                className="hidden md:flex w-[30%] _graph"
               />
             </div>
           </div>
 
           <Image
             src={'/phone.jpg'}
-            width={400}
+            width={200}
             height={500}
             alt="bg_img"
             className="phone-image hidden lg:block shadow-2xl shadow-slate-500 z-10"
@@ -64,47 +78,53 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="max-w-[1300px] mx-auto bg-white mt-28 px-10">
-        <h3 className="text-lg lg:text-[36px]  font-semibold">
-          Why you need direct bookings
-        </h3>
 
-        <p className="pt-6 tracking-wide font-medium">
-          Stay ahead of the competition by leveraging the power of Google travel
-          procuts and Microsoft Maps to capture the attention of travelers and
-          drive direct bookings to your properties.
-        </p>
+      <section className='w-full relative z-40'>
+          <div className="bg-[#F2F7FF] skew-slant w-full h-72 absolute -z-10 bottom-44 -skew-y-12"></div>
 
-        <div className="md:flex justify-center items-center space-y-10 md:space-y-0  space-x-10 lg:space-x-20">
-          <div className="block mt-20 space-y-10 md:w-1/2">
-            <SuiteDetail />
-            <SuiteDetail />
-            <SuiteDetail />
-          </div>
+        <div className="max-w-[1062px] mx-auto bg-transparent mt-20 lg:mt-28 px-6 md:px-10 z-50">
+          <h3 className="text-lg lg:text-[30px] tahoma font-bold ">
+            Why you need direct bookings
+          </h3>
 
-          <div className="md:w-1/2">
-            <h4 className="font-bold text-lg  pb-2">
-              Build your direct channel
-            </h4>
+          <p className="pt-4 tracking-wide font-medium">
+            Stay ahead of the competition by leveraging the power of Google
+            travel procuts and Microsoft Maps to capture the attention of
+            travelers and drive direct bookings to your properties.
+          </p>
 
-            <p>
-              When you book directly through our platform, you unlock exclusive
-              deals and rates that you won't find anywhere else. Say good.
-            </p>
+          <div className="md:flex justify-center items-center space-y-10 md:space-y-0  md:space-x-10 lg:space-x-20">
+            <div className="block mt-20 space-y-10 md:w-1/2 ">
+              <SuiteDetail />
+              <SuiteDetail />
+              <SuiteDetail />
+            </div>
 
-            <div
-              className={`${quickSand.className} bg-_green  text-white text-sm  items-center  space-x-3 inline-flex py-3 px-8 rounded-[50px] mt-6 `}
-            >
-              <p>Get Started</p>
-              <IoArrowForwardCircle color="white" size={26} />
+            <div className="md:w-1/2">
+              <h4 className="text-lg font-bold tahoma md:text-2xl  pb-2">
+                Build your direct channel
+              </h4>
+
+              <p>
+                When you book directly through our platform, you unlock
+                exclusive deals and rates that you won't find anywhere else. Say
+                good.
+              </p>
+
+              <div
+                className={`${quickSand.className} bg-_green  text-white text-sm  items-center  space-x-3 inline-flex py-3 px-8 rounded-[50px] mt-6 `}
+              >
+                <p>Get Started</p>
+                <IoArrowForwardCircle color="white" size={26} />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#F2F7FF] mt-20">
-        <div className="max-w-[1300px] mx-auto px-10 py-14 ">
-          <h3 className="text-lg lg:text-[36px]  font-bold text-center">
+      <section className="bg-[#F2F7FF] mt-28">
+        <div className="max-w-[1062px] mx-auto px-6 md:px-10 py-14 ">
+          <h3 className="text-lg lg:text-[32px] tahoma  font-bold text-center">
             Accept secure online payments.
           </h3>
 
@@ -135,10 +155,35 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="max-w-[1300px] px-10 mx-auto">
-        <div className="mt-10 md:mt-36  bg-_green w-full rounded-xl p-5 md:p-20 block lg:flex justify-between items-center shadow-[#0066F440] shadow-xl">
-          <div className="w-full lg:w-6/12 text-[16px] lg:text-[36px] text-white font-semibold">
-            <p className="">
+      <section className="max-w-[1062px] mx-auto bg-white mt-20 lg:mt-28 px-6 md:px-10">
+        <h3 className="text-xl lg:text-[32px] tahoma  font-bold text-center">
+          Why you need direct bookings
+        </h3>
+
+        <p className="text-sm lg:text-[16px] font-medium pt-6 text-center md:w-[60%] mx-auto">
+          Stay ahead of the competition by leveraging the power of Google free
+          booking links and Microsoft Maps to capture the attention of travelers
+          and drive direct bookings to your properties.
+        </p>
+
+        <div className="block md:flex space-y-6 justify-center md:space-x-10  items-center pt-4 ">
+          <img
+            src="/google.svg"
+            alt="phone"
+            className="w-[160px] md:w-[200px] lg:w-[180px]  mt-10"
+          />
+          <img
+            src="/microsoft.svg"
+            alt="phone"
+            className="w-[160px] md:w-[200px]  lg:w-[180px]  mt-10"
+          />
+        </div>
+      </section>
+
+      <section className="max-w-[1062px] mx-auto px-6 md:px-10">
+        <div className="mt-10 md:mt-28  bg-_green w-full rounded-xl p-5 md:p-14 block lg:flex justify-between items-center shadow-[#0066F440] shadow-xl md:space-x-4">
+          <div className="w-full lg:w-6/12 text-[16px] lg:text-[32px] text-white font-semibold">
+            <p className="tahoma">
               Start Investing in assets and business ideas today.
             </p>
           </div>
@@ -159,9 +204,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="max-w-[1300px] mx-auto pt-28 px-10">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   )
 }

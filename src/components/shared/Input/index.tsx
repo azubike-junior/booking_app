@@ -15,6 +15,9 @@ type InputProp = {
   selectArray?: []
   value?: string | number
   className?: string
+  min?: string
+  max?: string
+
 }
 
 export default function InputField({
@@ -28,6 +31,8 @@ export default function InputField({
   message,
   errors,
   validate,
+  min,
+  max
 }: InputProp) {
   return (
     <div className="w-full">
@@ -37,8 +42,10 @@ export default function InputField({
       <input
         defaultValue={defaultValue}
         type={type}
+        min={min}
+        max={max}
         placeholder={placeHolder}
-        className="border-[0.5px] border-[#b7bcbe] bg-white w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium text-[#747F8A]"
+        className="border-[0.5px] border-[#b7bcbe] w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium text-[#747F8A]"
         {...register(name, { required, validate })}
       />
       {errors ? <p className="text-red-500 text-sm pt-1">{message}</p> : null}

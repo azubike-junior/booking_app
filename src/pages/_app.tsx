@@ -1,7 +1,7 @@
 // import Navbar from '@/components/Navbar'
 import { store } from '@/store'
 import '@/styles/globals.css'
-import { lato, lora, quickSand } from '@/utils'
+import { lato, lora, quickSand, roboto } from '@/utils'
 import { ChakraProvider } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: any) {
   return (
     <Provider store={store}>
       <ChakraProvider>
-        <main className={`${quickSand.variable} ${lora.variable} ${lato.variable}`}>
+        <main className={`${quickSand.variable} ${lora.variable} ${lato.variable} ${roboto.variable}`}>
           {!pathnames.includes(pathname) ? <Navbar /> : null}
           {getLayout(<Component {...pageProps} />)}
         </main>

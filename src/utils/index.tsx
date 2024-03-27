@@ -1,7 +1,7 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import axios from 'axios'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
-import { Lato, Lora, Open_Sans, Quicksand } from 'next/font/google'
+import { Lato, Lora, Open_Sans, Quicksand, Roboto} from 'next/font/google'
 import { storage } from './firebase'
 
 export const lato = Lato({
@@ -20,6 +20,13 @@ export const quickSand = Quicksand({
   weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
   variable: '--font-quicksand'
+})
+
+
+export const roboto = Roboto({
+  weight: ['400', '500', '700', '900'],
+  subsets: ['latin'],
+  variable: '--font-roboto'
 })
 
 

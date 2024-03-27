@@ -80,7 +80,7 @@ export const Rooms = ({ data }: Room) => {
 
   return (
     <div className="lg:flex lg:space-x-4">
-      <div className=" w-full lg:w-[500px] lg:h-[440px] overflow-hidden  border flex justify-center items-center rounded-xl shadow-xl shadow-slate-60 lg:shadow-none ">
+      <div className=" w-full lg:w-[500px] lg:h-[350px] overflow-hidden  border flex justify-center items-center rounded-xl shadow-xl shadow-slate-60 lg:shadow-none ">
         <img
           src={!image_one ? '/placeholder.png' : image_one}
           alt=""
@@ -162,7 +162,7 @@ export const Rooms = ({ data }: Room) => {
           </div>
         </div>
 
-        {published === 1 ? (
+        {/* {published === 1 ? (
           <>
             <p className="pt-3 text-[#969393]">Booking link for this room</p>
             <div
@@ -172,7 +172,7 @@ export const Rooms = ({ data }: Room) => {
               <p>{base_url}</p> <FaCopy size={20} onClick={publishLink} />
             </div>
           </>
-        ) : null}
+        ) : null} */}
 
         <div className="font-semibold texet-sm pt-6 flex items-center justify-between ">
           <p className="text-2xl text-[#10375C]">N {price}</p>

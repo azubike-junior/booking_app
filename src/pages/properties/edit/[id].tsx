@@ -71,7 +71,7 @@ export default function EditProperty() {
   }
 
   return (
-    <div className="mt-5">
+    <div className="">
       {isLoading ? (
         <div className="flex justify-center items-center">
           <Spinner />
@@ -89,9 +89,9 @@ export default function EditProperty() {
         }}
       >
         {/* Content inside the div */}
-        <div className="max-w-[1400px] mx-auto px-10">
+        <div className="max-w-[1062px] mx-auto px-6 md:px-10">
           <div className={`lato w-full h-[400px]`}>
-            <div className="max-w-[1400px]  mt-10 lg:px-10 mx-auto text-white">
+            <div className=" mt-10 mx-auto text-white">
               <p className="text-3xl lg:text-6xl pt-10 lg:pt-48">
                 {data?.name},{' '}
               </p>
@@ -103,7 +103,7 @@ export default function EditProperty() {
         </div>
       </div>
 
-      <div className="max-w-[1400px] mt-10 mx-auto md:px-10">
+      <div className="max-w-[1062px] mt-10 mx-auto px-6 md:px-10">
         <div
           onClick={() => route.back()}
           className="flex  items-center space-x-2 cursor-pointer"

@@ -1,15 +1,21 @@
+import Button from '@/components/shared/Button'
 import InputField from '@/components/shared/Input'
 import { useCreatePropertyMutation } from '@/features/property'
-import {
-  handleImageChange,
-  handleLogoChange
-} from '@/utils'
+import { handleImageChange, handleLogoChange } from '@/utils'
 import { PropertyProp } from '@/utils/types'
-import { Spinner, useToast } from '@chakra-ui/react'
+import {
+  Modal,
+  ModalContent,
+  ModalOverlay,
+  Spinner,
+  useToast,
+} from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { MutableRefObject, useRef, useState } from 'react'
+import { ColorPicker, useColor } from 'react-color-palette'
+import 'react-color-palette/css'
 import { useForm } from 'react-hook-form'
 import { IoIosArrowDropleftCircle } from 'react-icons/io'
 import { uploadImage, uploadLogo } from '../../utils/index'
@@ -26,6 +32,23 @@ export default function RegisterProperty() {
   const [imgUrl, setImgUrl] = useState('')
   const [logoUrl, setLogoUrl] = useState('')
   const [logoLoading, setLogoLoading] = useState(false)
+  const [colorModals, setColorModals] = useState({
+    primaryColor: false,
+    secondaryColor: false,
+    textColor: false,
+  })
+  const [secondaryColor, setSecondaryColor] = useColor('#fff')
+  const [primaryColor, setPrimaryColor] = useColor('#fff')
+  const [textColor, setTextColor] = useColor('#fff')
+
+  console.log('>>>>>>>seconday', secondaryColor)
+
+  const updateColorModal = (key: string, value: boolean) => {
+    setColorModals((prevState) => ({
+      ...prevState,
+      [key]: value,
+    }))
+  }
 
   const [
     createProperty,
@@ -38,9 +61,42 @@ export default function RegisterProperty() {
 
   async function propertyHandler(data: PropertyProp) {
     if (!imgUrl || !logoUrl) {
+      toast({
+        title: 'please upload the following images listed',
+        description: '',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+        position: 'top-right',
+      })
       return
     }
-    const { image, number_of_rooms, country, logo, ...rest } = data
+
+    if (
+      secondaryColor.hex === '#ffffff' ||
+      textColor.hex === '#ffffff' ||
+      primaryColor.hex === '#ffffff'
+    ) {
+      toast({
+        title: 'please select colors to continue',
+        description: '',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+        position: 'top-right',
+      })
+      return
+    }
+    const {
+      image,
+      number_of_rooms,
+      country,
+      logo,
+      secondary_color,
+      text_color,
+      primary_color,
+      ...rest
+    } = data
     createProperty({
       toast,
       route,
@@ -48,6 +104,9 @@ export default function RegisterProperty() {
       country: 'Nigeria',
       logo: logoUrl,
       image: imgUrl,
+      secondary_color: secondaryColor.hex,
+      primary_color: primaryColor.hex,
+      text_color: textColor.hex,
       ...rest,
     })
       .unwrap()
@@ -77,9 +136,7 @@ export default function RegisterProperty() {
             />
           </Link>
 
-          <div
-            className={`lato text-5xl text-white font-bold mt-44`}
-          >
+          <div className={`lato text-5xl text-white font-bold mt-44`}>
             <p>Become </p>
             <p>future-ready</p>
           </div>
@@ -102,9 +159,7 @@ export default function RegisterProperty() {
           <p>Go back</p>
         </div>
         <div className="mx-auto mt-16 max-w-[500px]">
-          <p
-            className={`quicksand text-center text-[#111827] text-3xl`}
-          >
+          <p className={`quicksand text-center text-[#111827] text-3xl`}>
             Register your property here!
           </p>
 
@@ -143,7 +198,7 @@ export default function RegisterProperty() {
                 type="text"
                 register={register}
                 required
-                placeHolder="Enter first name"
+                placeHolder="Enter Phone"
                 errors={errors?.phone_number}
                 message={'Phone is required'}
               />
@@ -166,35 +221,12 @@ export default function RegisterProperty() {
               type="text"
               register={register}
               required
-              placeHolder="Enter first name"
+              placeHolder="Enter web address"
               errors={errors?.web_address}
               message={'Web address is required'}
             />
 
-            <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
-              <InputField
-                name="number_of_rooms"
-                label="Number of rooms"
-                type="number"
-                register={register}
-                required
-                placeHolder="Enter last name"
-                errors={errors?.number_of_rooms}
-                message={'Number of rooms is required'}
-              />
-              <InputField
-                name="text_color"
-                label="Text Color"
-                type="text"
-                register={register}
-                required
-                placeHolder="Enter last name"
-                errors={errors?.text_color}
-                message={'Text color is required'}
-              />
-            </div>
-
-            <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
+            {/* <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
               <InputField
                 name="primary_color"
                 label="Primary Color"
@@ -215,6 +247,111 @@ export default function RegisterProperty() {
                 errors={errors?.secondary_color}
                 message={'Secondary color is required'}
               />
+            </div> */}
+
+            <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
+              {/* <InputField
+                name="number_of_rooms"
+                label="Number of rooms"
+                type="number"
+                register={register}
+                min="0"
+                max="20"
+                required
+                placeHolder="Enter last name"
+                errors={errors?.number_of_rooms}
+                message={'Number of rooms is required'}
+              />
+              <InputField
+                name="text_color"
+                label="Text Color"
+                type="text"
+                register={register}
+                required
+                placeHolder="Enter last name"
+                errors={errors?.text_color}
+                message={'Text color is required'}
+              /> */}
+
+              {/* <div className='w-full'>
+                <label htmlFor="text-xs ">Number of rooms</label>
+                <input type="number" className="p-1 w-20 border outline-none rounded-lg" />
+              </div> */}
+              <div className="w-full">
+                <label
+                  className="flex text-sm text-[#393F42] font-semibold"
+                  htmlFor=""
+                >
+                  No. of rooms
+                </label>
+                <input
+                  placeholder="Enter no."
+                  type="number"
+                  className="border-[0.5px] border-[#b7bcbe] w-full mt-2 rounded-lg p-[2.5px] px-2 outline-none font-medium text-[#747F8A]"
+                  {...register('number_of_rooms', { required: true })}
+                />
+                {/* {errors?.number_of_rooms ? ( */}
+                <p className="text-red-500 text-xs pt-1">
+                  {errors?.number_of_rooms?.message}
+                </p>
+                {/* ) : null} */}
+              </div>
+
+              <div className="w-full">
+                <label
+                  className="flex text-sm text-[#393F42] font-semibold pb-2"
+                  htmlFor=""
+                >
+                  Secondary color
+                </label>
+                <Button
+                  onClick={() =>
+                    updateColorModal(
+                      'secondaryColor',
+                      !colorModals.secondaryColor,
+                    )
+                  }
+                  bg={secondaryColor.hex}
+                  name="select color"
+                  type="button"
+                  className={`border-[#b7bcbe] text-sm  text-[#747F8A] border py-1 text-center px-2 items-center  rounded-lg flex space-x-2`}
+                />
+              </div>
+              <div className="w-full">
+                <label
+                  className="flex text-sm text-[#393F42] font-semibold pb-2"
+                  htmlFor=""
+                >
+                  Primary color
+                </label>
+                <Button
+                  onClick={() =>
+                    updateColorModal('primaryColor', !colorModals.primaryColor)
+                  }
+                  bg={primaryColor.hex}
+                  name="select color"
+                  type="button"
+                  className="border-[#b7bcbe] text-sm  text-[#747F8A] border py-1 text-center px-2 items-center  rounded-lg flex space-x-2"
+                />
+              </div>
+
+              <div className="w-full">
+                <label
+                  className="flex text-sm text-[#393F42] font-semibold pb-2"
+                  htmlFor=""
+                >
+                  text color
+                </label>
+                <Button
+                  onClick={() =>
+                    updateColorModal('textColor', !colorModals.textColor)
+                  }
+                  bg={textColor.hex}
+                  name="select color"
+                  type="button"
+                  className="border-[#b7bcbe] text-sm text-[#747F8A] border py-1 text-center px-2 items-center  rounded-lg flex space-x-2"
+                />
+              </div>
             </div>
 
             <div className="flex  mb-10 space-x-4 text-sm">
@@ -308,6 +445,36 @@ export default function RegisterProperty() {
           </form>
         </div>
       </div>
+
+      <Modal
+        isOpen={colorModals.secondaryColor}
+        onClose={() => updateColorModal('secondaryColor', false)}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ColorPicker color={secondaryColor} onChange={setSecondaryColor} />;
+        </ModalContent>
+      </Modal>
+
+      <Modal
+        isOpen={colorModals.primaryColor}
+        onClose={() => updateColorModal('primaryColor', false)}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ColorPicker color={primaryColor} onChange={setPrimaryColor} />;
+        </ModalContent>
+      </Modal>
+
+      <Modal
+        isOpen={colorModals.textColor}
+        onClose={() => updateColorModal('textColor', false)}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ColorPicker color={textColor} onChange={setTextColor} />;
+        </ModalContent>
+      </Modal>
     </div>
   )
 }

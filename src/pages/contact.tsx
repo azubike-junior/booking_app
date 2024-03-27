@@ -13,19 +13,19 @@ export default function Contact() {
   return (
     <div className={`pb-20 quicksand`}>
       <section className="bg-[#F2F7FF] pb-28">
-        <div className="px-10 max-w-[1300px] mx-auto lg:flex lg:pt-10 justify-between lg:space-x-10 block">
+        <div className="px-6 md:px-10 max-w-[1062px] mx-auto lg:flex lg:pt-10 justify-between lg:space-x-10 block">
           <div className="pt-2 lg:w-1/2">
             <div
-              className={`text-[#111827] text-[24px] quicksand font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}
+              className={`text-[#111827] text-[24px] tahoma font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}
             >
-              <p>Contact us</p>
+              <p>Get in touch</p>
             </div>
 
             <p className="w-full pt-4 text-lg text-[#374151] font-light tracking-wider">
               Our friendly team would love to hear from you.
             </p>
 
-            <div className="space-y-4 pt-10">
+            <div className="space-y-10 pt-10">
               <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
                 <InputField
                   name="phone_number"
@@ -90,15 +90,13 @@ export default function Contact() {
             <img
               src="/contact.png"
               alt=""
-              className=" about-img lg:block z-1 w-[30%]"
+              className=" about-img lg:block z-1 w-[20%]"
             />
           </div>
         </div>
       </section>
 
-      <div className="max-w-[1300px] mx-auto pt-28 px-10">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   )
 }
