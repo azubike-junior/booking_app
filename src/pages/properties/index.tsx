@@ -67,7 +67,7 @@ export default function Properties() {
         </div>
       </div>
 
-      <div className="max-w-[1062px] mt-10 mx-auto lg:px-10">
+      {/* <div className="max-w-[1062px] mt-10 mx-auto lg:px-10">
         <div className="bg-[#F5F5F5] py-10 px-6 lg:px-14 mt-16 space-y-10">
           <p className="text-[#10375C] text-xl lg:text-3xl">
             Your acccount information
@@ -84,7 +84,7 @@ export default function Properties() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -3,16 +3,26 @@
 import { useEditRoomMutation } from '@/features/property'
 import { RoomProps } from '@/utils/types'
 import { Spinner, useToast } from '@chakra-ui/react'
-import { useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { FaCopy } from 'react-icons/fa'
 import { FaBed, FaChildren } from 'react-icons/fa6'
+import { GiMirrorMirror, GiTrousers } from 'react-icons/gi'
 import { IoManSharp } from 'react-icons/io5'
 import {
+  MdFreeBreakfast,
   MdLocalLaundryService,
+  MdOutlineBalcony,
+  MdOutlineBathroom,
   MdSignalWifiStatusbarConnectedNoInternet3,
+  MdSmokeFree,
 } from 'react-icons/md'
-import { PiPhoneDisconnectBold, PiTelevisionFill } from 'react-icons/pi'
-import { TbBedOff } from 'react-icons/tb'
+import {
+  PiPhoneDisconnectBold,
+  PiTelevisionFill,
+  PiUserCirclePlusFill,
+} from 'react-icons/pi'
+import { TbAirConditioningDisabled, TbBedOff } from 'react-icons/tb'
 
 interface Room {
   data: RoomProps
@@ -27,6 +37,7 @@ export const Rooms = ({ data }: Room) => {
     flat_tv,
     wakeup_call,
     laundry,
+    description,
     intercom,
     internet,
     property_id,
@@ -35,6 +46,14 @@ export const Rooms = ({ data }: Room) => {
     mode,
     children,
     room_service_24h,
+    air_conditioner,
+    balcony,
+    bathroom_telephone,
+    bed_breakfast,
+    smoke_detector,
+    guest_amenities,
+    magnifying_mirror,
+    hair_dryer,
     bedside_fridge,
     published,
     reserved,
@@ -44,10 +63,11 @@ export const Rooms = ({ data }: Room) => {
   const toast = useToast()
 
   const [editRoom, { isLoading: editing }] = useEditRoomMutation()
-  const [publishedLink, setPublishedLink] = useState('')
+
+  const pathname= usePathname()
 
   const base_url = `
-    http://localhost:3000/properties/reservations/${property_id}+${id}
+    https://candid-sherbet-40f282.netlify.app/properties/reservations/${property_id}+${id}
     `
 
   const publishLink = async () => {
@@ -79,8 +99,8 @@ export const Rooms = ({ data }: Room) => {
   }
 
   return (
-    <div className="lg:flex lg:space-x-4">
-      <div className=" w-full lg:w-[500px] lg:h-[350px] overflow-hidden  border flex justify-center items-center rounded-xl shadow-xl shadow-slate-60 lg:shadow-none ">
+    <div className="w-full">
+      <div className=" w-full  lg:h-[500px] overflow-hidden  border flex justify-center items-center rounded-xl shadow-xl shadow-slate-60 lg:shadow-none ">
         <img
           src={!image_one ? '/placeholder.png' : image_one}
           alt=""
@@ -91,14 +111,27 @@ export const Rooms = ({ data }: Room) => {
       <div
         className={`lato ${
           published === 0 ? 'bg-white' : 'bg-green-50'
-        } p-6  w-full lg:w-7/12 font-light`}
+        } px-6 py-6  w-full  font-light`}
       >
-        <p className="text-lg md:text-2xl lg:text-3xl text-[#10375C]">{name}</p>
-        <p className="font-medium text-xs md:text-sm pt-2">
-          A suite with a king bed size, jacuzzi, pair of couches, dining table,
-          balcony & 2 smart TVs
+        <div className="flex justify-between items-center">
+          <p className="text-lg md:text-2xl lg:text-3xl text-[#10375C]">
+            {name}
+          </p>
+
+          {published ? (
+            <Link
+              href={`/properties/rooms/bookings/${id}`}
+              type="button"
+              className="border-[#10375C] bg-[#10375C]  text-white border py-1 text-xs mt-2 lg:mt-0 lg:text-sm text-center px-2 rounded-lg"
+            >
+              View bookings
+            </Link>
+          ) : null}
+        </div>
+        <p className="font-medium text-xs md:text-base pt-2">
+         {description}
         </p>
-        <div className="flex flex-wrap  items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-4 text-xs md:text-sm font-md">
+        <div className="flex flex-wrap  items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:py-4 text-xs md:text-sm font-md">
           {bedside_fridge === 1 ? (
             <div className="">
               <FaBed size={20} className="mx-auto" />
@@ -124,8 +157,12 @@ export const Rooms = ({ data }: Room) => {
               <p> internet</p>
             </div>
           ) : null}
-        </div>
-        <div className="flex flex-wrap items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-4 text-xs md:text-sm font-md">
+          {air_conditioner ? (
+            <div>
+              <TbAirConditioningDisabled size={28} className="mx-auto" />
+              <p> air condition</p>
+            </div>
+          ) : null}
           <div className="">
             <FaChildren size={20} className="text-center mx-auto" />
             <p>{children} children</p>
@@ -142,11 +179,61 @@ export const Rooms = ({ data }: Room) => {
               <p> Laundry</p>
             </div>
           ) : null}
-
           {wakeup_call ? (
             <div>
               <TbBedOff size={24} className=" mx-auto" />
               <p> Wakeup call</p>
+            </div>
+          ) : null}
+          {balcony ? (
+            <div>
+              <MdOutlineBalcony size={20} className="mx-auto" />
+              <p> balcony</p>
+            </div>
+          ) : null}
+        </div>
+
+        {/* <div className="flex flex-wrap items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-4 text-xs md:text-sm font-md"></div> */}
+        <div className="flex flex-wrap items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-4 text-xs md:text-sm font-md">
+          {bed_breakfast ? (
+            <div>
+              <MdFreeBreakfast size={20} className="mx-auto" />
+              <p> bed breakfast</p>
+            </div>
+          ) : null}
+
+          {bathroom_telephone ? (
+            <div>
+              <MdOutlineBathroom size={20} className="mx-auto" />
+              <p> bathroom telephone</p>
+            </div>
+          ) : null}
+
+          {guest_amenities ? (
+            <div>
+              <PiUserCirclePlusFill size={20} className=" mx-auto" />
+              <p> Guest amenities</p>
+            </div>
+          ) : null}
+
+          {magnifying_mirror ? (
+            <div>
+              <GiMirrorMirror size={20} className=" mx-auto" />
+              <p> Magnifying mirror</p>
+            </div>
+          ) : null}
+
+          {smoke_detector ? (
+            <div>
+              <MdSmokeFree size={20} className=" mx-auto" />
+              <p> Smoke detector</p>
+            </div>
+          ) : null}
+
+          {hair_dryer ? (
+            <div>
+              <GiTrousers size={20} className=" mx-auto" />
+              <p> Hair Dryer</p>
             </div>
           ) : null}
         </div>
@@ -162,9 +249,9 @@ export const Rooms = ({ data }: Room) => {
           </div>
         </div>
 
-        {/* {published === 1 ? (
+        {published === 1 ? (
           <>
-            <p className="pt-3 text-[#969393]">Booking link for this room</p>
+            <p className="pt-3 text-[#656363]">Booking link for this room</p>
             <div
               onClick={publishLink}
               className="border w-full p-1 px-3 mt-1 flex justify-between items-center text-base rounded-lg bg-green-300 cursor-pointer "
@@ -172,10 +259,10 @@ export const Rooms = ({ data }: Room) => {
               <p>{base_url}</p> <FaCopy size={20} onClick={publishLink} />
             </div>
           </>
-        ) : null} */}
+        ) : null}
 
         <div className="font-semibold texet-sm pt-6 flex items-center justify-between ">
-          <p className="text-2xl text-[#10375C]">N {price}</p>
+          <p className="text-2xl text-[#10375C]">N {price.toLocaleString()}</p>
           {published !== 1 ? (
             <button
               onClick={() => {

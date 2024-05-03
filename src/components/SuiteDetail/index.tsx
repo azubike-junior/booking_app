@@ -11,9 +11,9 @@ export default function SuiteDetail() {
         className="flex justify-start"
       />
 
-      <h4 className="font-bold text-lg tahoma  py-4">Seamless User Experience</h4>
+      <h4 className="font-bold text-lg roboto  py-4">Seamless User Experience</h4>
 
-      <p className='text-sm'>
+      <p className='text-sm tahoma-light'>
         When you book directly through our platform, you unlock exclusive deals
         and rates that you won't find anywhere else. Say goodbye to inflated
         prices and hidden fees - with direct booking, you're getting the best

@@ -1,34 +1,33 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import axios from 'axios'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
-import { Lato, Lora, Open_Sans, Quicksand, Roboto} from 'next/font/google'
+import moment from 'moment'
+import { Lato, Lora, Open_Sans, Quicksand, Roboto } from 'next/font/google'
 import { storage } from './firebase'
 
 export const lato = Lato({
-  weight:['300', '400', '700', '900'],
+  weight: ['300', '400', '700', '900'],
   subsets: ['latin'],
-  variable: '--font-lato'
+  variable: '--font-lato',
 })
 
 export const lora = Lora({
   weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
-  variable: '--font-lora'
+  variable: '--font-lora',
 })
 
 export const quickSand = Quicksand({
   weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
-  variable: '--font-quicksand'
+  variable: '--font-quicksand',
 })
-
 
 export const roboto = Roboto({
-  weight: ['400', '500', '700', '900'],
+  weight: ['100', '300', '400', '500', '700', '900'],
   subsets: ['latin'],
-  variable: '--font-roboto'
+  variable: '--font-roboto',
 })
-
 
 export const open_sans = Open_Sans({
   weight: '500',
@@ -197,21 +196,74 @@ export function classNames(...classes: any) {
 
 export const BOOKINGS_COLUMNS = [
   {
-    Header: 'Full Name ',
+    Header: 'Room name',
+    accessor: 'room_name',
+  },
+  {
+    Header: 'Username',
     accessor: 'name',
+     Cell: (row: any) => (
+      <span className="flex items-center justify-center">
+        <span className="whitespace-nowrap">
+          {row.row.original?.first_name} {row.row.original?.last_name}
+        </span>
+      </span>
+    ),
+  },
+  {
+    Header: 'Phone ',
+    accessor: 'phone',
   },
   {
     Header: 'Check In',
-    accessor: 'checkin',
+    accessor: 'start_date',
+    Cell: ({ value }: any) => {
+      return (
+        <span className="whitespace-nowrap">
+          {moment(value).format('MMM Do YYYY, HH:mm')}
+        </span>
+      )
+    },
   },
   {
     Header: 'Check out',
-    accessor: 'checkout',
+    accessor: 'end_date',
+    Cell: ({ value }: any) => {
+      return (
+        <span className="whitespace-nowrap">
+          {moment(value).format('MMM Do YYYY, HH:mm')}
+        </span>
+      )
+    },
   },
   {
-    Header: 'Total amount',
-    accessor: 'amount',
+    Header: 'Status',
+    accessor: 'status',
+    Cell: ({ value }: any) => {
+      return (
+        <>
+          <span
+            className={
+              value === 1
+                ? 'text-green-600 whitespace-nowrap'
+                : 'text-red-600 whitespace-nowrap'
+            }
+          >
+            {value === 1 ? 'Active' : 'Inactive'}
+          </span>
+        </>
+      )
+    },
   },
+  {
+    accessor: "id",
+    Cell: (row: any) => (
+      <>
+        <span style={{ display: "none", visibility: "hidden", width: "0" }}>{""}</span>{" "}
+      </>
+    ),
+  }
+  
 ]
 
 export const bookings_data = [

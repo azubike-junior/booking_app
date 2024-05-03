@@ -20,6 +20,7 @@ export const Lists = ({
   image: url,
   logo,
   country,
+  description,
   number_of_rooms,
   name,
 }: PropertyProp) => {
@@ -38,22 +39,32 @@ export const Lists = ({
           <p className="text-3xl text-[#10375C] capitalize">{name}</p>
           <img src={logo} alt="" className="w-10 h-10" />
         </div>
+        <p className="text-lg text-[#10375C] capitalize">{description}</p>
         <div className="flex pt-6 lg:pt-8 text-xs lg:text-sm space-x-10 font-light">
           <div className="">
             <p>Primary Color</p>
-            <div style={{background: primary_color}} className={`w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A]`}></div>
+            <div
+              style={{ background: primary_color }}
+              className={`w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A]`}
+            ></div>
           </div>
           <div className="">
             <p className="">Secondary Color</p>
-            <div style={{background: secondary_color}} className={`w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A] `}></div>
+            <div
+              style={{ background: secondary_color }}
+              className={`w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A] `}
+            ></div>
           </div>
           <div className="">
             <p>Text Color</p>
-            <div style={{background: text_color}} className={`w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A] `}></div>
+            <div
+              style={{ background: text_color }}
+              className={`w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A] `}
+            ></div>
           </div>
         </div>
 
-        <div className='space-y-4 lg:space-y-4 pt-10 text-xs lg:text-sm'>
+        <div className="space-y-4 lg:space-y-4 pt-10 text-xs lg:text-sm">
           <div className="flex items-center space-x-2">
             <HiOutlineMapPin />
             <p className="font-light ">{address}</p>
@@ -84,13 +95,6 @@ export const Lists = ({
               className="bg-[#10375C] text-white text-center text-xs lg:text-sm font-md rounded-lg py-1.5 px-2"
             >
               Manage property
-            </Link>
-
-            <Link
-              href={`/properties/edit/${id}`}
-              className="bg-[#10375C] text-white text-center text-xs lg:text-sm font-md rounded-lg py-1.5 px-4"
-            >
-              Edit
             </Link>
           </div>
         </div>

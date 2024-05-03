@@ -11,7 +11,12 @@
 @font-face {
   font-family: tahoma;
   src: url('../../public/tahoma/TAHOMABD.TTF');
-  font-weight: bold;
+  /* font-weight: bold; */
+}
+
+@font-face {
+  font-family: tahoma-light;
+  src: url('../../public/tahoma/Tahoma\ Regular\ font.ttf');
 }
 
 @font-face {
@@ -28,6 +33,10 @@
 
 .tahoma {
   font-family: tahoma
+}
+
+.tahoma-light {
+  font-family: tahoma-light
 }
 
 .axiforma {

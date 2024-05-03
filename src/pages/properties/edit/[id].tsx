@@ -7,7 +7,7 @@ import {
   useEditPropertyMutation,
   useGetPropertyQuery,
 } from '@/features/property'
-import { handleImageChange, handleLogoChange} from '@/utils'
+import { handleImageChange, handleLogoChange } from '@/utils'
 import { PropertyProp } from '@/utils/types'
 import { Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
@@ -156,6 +156,19 @@ export default function EditProperty() {
                 />
               </div>
 
+              <InputField
+                name="description"
+                label="Description"
+                textarea
+                type="text"
+                register={register}
+                required
+                placeHolder="Enter description"
+                errors={errors?.description}
+                message={'Description is required'}
+                defaultValue={data?.description}
+              />
+
               <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-12">
                 <InputField
                   name="phone_number"
@@ -254,9 +267,7 @@ export default function EditProperty() {
                   onClick={() => logoRef?.current?.click()}
                   className=" text-sm "
                 >
-                  <p
-                    className={`lato text-[#737373] text-left font-semibold`}
-                  >
+                  <p className={`lato text-[#737373] text-left font-semibold`}>
                     Upload a Logo
                   </p>
                   <div className="rounded-lg h-44 w-48  border border-[#B9B9B9] flex justify-center my-2 items-center">
@@ -306,9 +317,7 @@ export default function EditProperty() {
                   onClick={() => fileRef?.current?.click()}
                   className=" text-sm"
                 >
-                  <p
-                    className={`lato text-[#737373] text-left font-semibold`}
-                  >
+                  <p className={`lato text-[#737373] text-left font-semibold`}>
                     Upload Image
                   </p>
                   <div className="rounded-lg h-44 w-48 border border-[#B9B9B9]  flex justify-center my-2  items-center">
@@ -407,7 +416,11 @@ export default function EditProperty() {
               </div>
 
               <div className="flex justify-end space-x-2">
-                <Button onClick={() => route.push('/properties')}  type="button" name={'Cancel'} />
+                <Button
+                  onClick={() => route.push('/properties')}
+                  type="button"
+                  name={'Cancel'}
+                />
                 <Button
                   type="submit"
                   name={editing ? <Spinner size={'14'} /> : 'Save changes'}

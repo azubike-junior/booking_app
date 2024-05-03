@@ -10,26 +10,28 @@ export type FormValues = {
 }
 
 export type LoginResponse = {
+    toast?: any, 
     id: string
     firstname: string
     lastname: string
     email: string
-    country_code: string
+    country_code?: string
     mobilenumber: string
-    access_token: string
-    refresh_token: string
-    account_type: number
-    type: string
-    account_status: number,
-    status:  string
-    verification_status: number
-    ver_status: string
+    access_token?: string
+    refresh_token?: string
+    account_type?: number
+    type?: string
+    account_status?: number,
+    status?:  string
+    verification_status?: number
+    ver_status?: string
 }
 
 export type PropertyProp = {
   toast?: any
   route?: any
   id: string
+    description: string
     address: string
     name: string
     number_of_rooms: number
@@ -44,16 +46,18 @@ export type PropertyProp = {
     country: string
 }
 
+
 export type RoomProps = {
   toast?: any
   route?: any
   id?: string
   property_id: string,
+    description: string
   name: string,
   size: string,
   price: number,
   adults: number,
-  mode: number,
+  mode?: number,
   children: number,
   wakeup_call: number,
   flat_tv: number
@@ -69,9 +73,58 @@ export type RoomProps = {
   reserved?: number
   published?: number
   mode_str?: string,
+  air_conditioner:  number
+  balcony:  number
+  bed_breakfast:  number
+  bathroom_telephone:  number
+  smoke_detector:  number
+  hair_dryer:  number
+  guest_amenities:  number
+  magnifying_mirror: number
 }
 
 export type StepProps = {
   step: number
   setStep: (step:number) => void
+}
+
+export type PaymentProps = {
+  toast?: any
+  route?: any
+    email: string
+    phonenumber: string,
+    amount: string,
+    room_id: string,
+    property_id: string | any,
+    start_date: string
+    end_date: string
+    name: string
+    first_name: string
+    last_name: string,
+    other_names: string
+  }
+
+export type ReservationProps = {
+    id: string
+    room_id:string
+    property_id: string
+    room_name: string
+    start_date:string
+    end_date:string
+    status: number
+    status_str: string
+    first_name: string
+    last_name: string
+    other_names: string
+    phone: string
+    email: string
+    created_at: string
+    updated_at: string
+    payment_reference: string
+    payment_status:string
+}
+
+export type ReservationRes = {
+  data: ReservationProps[]
+  message: string
 }

@@ -124,7 +124,7 @@ export const propertyApi = api.injectEndpoints({
       }),
       providesTags: ['Property']
      }),
-     getRoomById: builder.query<RoomProps[], string>({
+     getRoomById: builder.query<RoomProps, string>({
       query: (id) => ({
         url: `/room/find/${id}`,
         method: 'GET',

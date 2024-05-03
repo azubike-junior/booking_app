@@ -1,6 +1,5 @@
 import { ReservationDetails } from '@/components/PropertyLists/ReservationDetails'
 import Checkout from '@/components/Reservations/Checkout'
-import { AuthWrapper } from '@/components/shared/AuthWrapper'
 import {
   useGetPropertyQuery,
   useGetRoomByIdQuery,
@@ -15,6 +14,8 @@ export default function BookProperty() {
   const [bg, setbg] = useState<any>(null)
   const [showDetails, setShowDetails] = useState(false)
   const [showCheckout, setShowCheckout] = useState(false)
+  const [checkIn, setCheckIn] = useState('')
+  const [checkOut, setCheckOut] = useState('')
 
   const toggleDetails = () => {
     setShowDetails(!showDetails)
@@ -51,24 +52,25 @@ export default function BookProperty() {
         </div>
       ) : (
         <div className={`font-lato`}>
-          <div
-            className={` w-full  lg:h-[240px]`}
-            style={{ background: bg }}
-          >
+          <div className={` w-full  lg:h-[240px]`} style={{ background: bg }}>
             <div className="max-w-[1062px] px-10 pb-10 pt-16 mx-auto text-white flex justify-between items-center">
               <div className=" text-white">
-                <p className="text-3xl lg:text-5xl">
-                  {property?.name}
-                </p>
+                <p className="text-3xl lg:text-5xl">{property?.name}</p>
                 <p className="text-xl lg:text-2xl pt-6">{property?.address}</p>
               </div>
 
-              <img src={property?.logo} alt="" className='w-20 h-20' />
+              <img src={property?.logo} alt="" className="w-20 h-20" />
             </div>
           </div>
 
           {showCheckout ? (
-            <Checkout property={property} room={roomDetail} />
+            <Checkout
+              property={property}
+              room={roomDetail}
+              setShowCheckout={setShowCheckout}
+              checkIn={checkIn}
+              checkOut={checkOut}
+            />
           ) : (
             <div>
               <div className="max-w-[1062px] mx-auto lg:px-10 mt-20">
@@ -83,10 +85,14 @@ export default function BookProperty() {
                   room={roomDetail || {}}
                   index={0}
                   setShowCheckout={setShowCheckout}
+                  checkIn={checkIn}
+                  checkOut={checkOut}
+                  setCheckIn={setCheckIn}
+                  setCheckOut={setCheckOut}
                 />
               </div>
 
-              <div className="max-w-[1200px] mx-auto lg:px-10 pt-20">
+              <div className="max-w-[1062px] mx-auto lg:px-10 pt-20">
                 <p className="text-2xl text-center">
                   Other rooms under {property?.name}{' '}
                 </p>
@@ -112,6 +118,10 @@ export default function BookProperty() {
                       key={index}
                       index={index + 1}
                       setShowCheckout={setShowCheckout}
+                      checkIn={checkIn}
+                      checkOut={checkOut}
+                      setCheckIn={setCheckIn}
+                      setCheckOut={setCheckOut}
                     />
                   )
                 })}
@@ -124,6 +134,6 @@ export default function BookProperty() {
   )
 }
 
-BookProperty.getLayout = function getLayout(page: any) {
-  return <AuthWrapper>{page}</AuthWrapper>
-}
+// BookProperty.getLayout = function getLayout(page: any) {
+//   return <AuthWrapper>{page}</AuthWrapper>
+// }

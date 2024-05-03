@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: any) {
     '/auth/login',
     '/auth/signup',
     '/properties/registerproperty',
-    `/properties/rooms/[id]`,
+    `/properties/rooms/create/[id]`,
     `/properties/reservations`,
     `/properties/reservations/[id]`,
   ]

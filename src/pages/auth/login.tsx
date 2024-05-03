@@ -33,7 +33,7 @@ export default function Login() {
         .then((payload) => {})
         .catch((error) => {
           toast({
-            title: error?.data.error,
+            title: error?.data?.error,
             description: '',
             status: 'error',
             duration: 9000,

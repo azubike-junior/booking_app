@@ -6,7 +6,7 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
+  Box
 } from '@chakra-ui/react'
 import { IoArrowForwardCircle } from 'react-icons/io5'
 import { PiMinusCircleDuotone } from 'react-icons/pi'
@@ -18,12 +18,12 @@ export default function About() {
         <div className="px-6 md:px-10 max-w-[1062px]  mx-auto  lg:flex lg:pt-10 justify-between lg:space-x-10 space-y-10 lg:space-y-0 ">
           <div className="pt-10 lg:w-1/2">
             <div
-              className={`text-[#111827] text-[24px] tahoma font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}
+              className={`text-[#111827] text-[24px] roboto font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}
             >
               <p>About us</p>
             </div>
 
-            <p className="w-full pt-6 text-lg text-[#374151] font-light tracking-wider">
+            <p className="w-full pt-6 text-lg text-[#374151] tahoma-light font-light tracking-wider">
               Bookteller Nigeria is a prime provider of innovative solutions in
               the hospitality industry. As a Google Hotel connectivity partner
               and Microsoft hotel ads expert, we specialize in empowering hotels
@@ -31,7 +31,7 @@ export default function About() {
               from travelers worldwide.
             </p>
 
-            <p className="w-full pt-6 text-lg text-[#374151] font-light tracking-wider">
+            <p className="w-full pt-6 text-lg text-[#374151] tahoma-light font-light tracking-wider">
               At Bookteller Nigeria, we offer a state-of-the-art booking engine
               that seamlessly integrates with hotel websites, enabling them to
               efficiently attract and convert potential guests into confirmed
@@ -48,7 +48,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="lg:w-1/2">
+          <div className="lg:w-1/2 pt-14">
             <img
               src="/about2.png"
               alt=""
@@ -59,9 +59,9 @@ export default function About() {
       </section>
       <section className="max-w-[1062px] mx-auto bg-white mt-28 px-6 md:px-10 space-y-20">
         <div>
-          <h3 className={`text-[#111827] text-[24px] tahoma font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}>Our Mission</h3>
+          <h3 className={`text-[#111827] text-[24px] roboto font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}>Our Mission</h3>
 
-          <p className="pt-6 tracking-wide font-medium">
+          <p className="pt-6 tracking-wide font-medium tahoma-light">
             At The Peoples POS System, we are dedicated to providing access to
             swift, secure, and transparent payment solutions. We believe in a
             future where everyone, regardless of location, enjoys access to fair
@@ -69,7 +69,7 @@ export default function About() {
             your contribution and opens doors to your financial freedom.
           </p>
 
-          <p className="pt-6 tracking-wide font-medium">
+          <p className="pt-6 tracking-wide font-medium tahoma-light">
             We remain committed to supporting your business in every possible
             ramification either through face-to-face transactions or
             facilitating seamless payments across continents. PPOS remains your
@@ -78,15 +78,15 @@ export default function About() {
         </div>
 
         <div>
-           <h3 className={`text-[#111827] text-[24px] tahoma font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}>Our Vision</h3>
+           <h3 className={`text-[#111827] text-[24px] roboto font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}>Our Vision</h3>
 
-          <p className="pt-6 tracking-wide font-medium">
+          <p className="pt-6 tracking-wide font-medium tahoma-light">
             Stay ahead of the competition by leveraging the power of Google
             travel procuts and Microsoft Maps to capture the attention of
             travelers and drive direct bookings to your properties.
           </p>
 
-          <p className="pt-6 tracking-wide font-medium">
+          <p className="pt-6 tracking-wide font-medium tahoma-light">
             We remain committed to supporting your business in every possible
             ramification either through face-to-face transactions or
             facilitating seamless payments across continents. PPOS remains your
@@ -106,7 +106,7 @@ export default function About() {
           </div>
           <div className=" lg:w-1/2">
            
-            <h3 className={`text-[#111827] text-[24px] tahoma font-bold text-lg lg:text-2xl xl:text-3xl tracking-wider space-y-3`}>Frequently asked questions</h3>
+            <h3 className={`text-[#111827] text-[24px] roboto font-bold text-lg lg:text-2xl xl:text-3xl tracking-wider space-y-3`}>Frequently asked questions</h3>
            
 
             <div className="pt-8 quicksand">

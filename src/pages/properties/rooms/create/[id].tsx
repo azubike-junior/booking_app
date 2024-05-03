@@ -7,7 +7,7 @@ import {
   uploadLogo,
 } from '@/utils'
 import { RoomProps } from '@/utils/types'
-import { Checkbox, Spinner, Stack, useToast } from '@chakra-ui/react'
+import { Checkbox, Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
@@ -41,6 +41,14 @@ export default function RegisterRoom() {
     room_service_24h: false,
     bedside_fridge: false,
     flat_tv: false,
+    air_conditioner: false,
+    balcony: false,
+    bed_breakfast: false,
+    bathroom_telephone: false,
+    smoke_detector: false,
+    hair_dryer: false,
+    guest_amenities: false,
+    magnifying_mirror: false,
   })
 
   const handleCheckboxChange = (event: any) => {
@@ -52,14 +60,14 @@ export default function RegisterRoom() {
   }
 
   async function roomHandler(data: RoomProps) {
-    const { name, size, adults, category, price, mode, children } = data
+    const { name, size, adults, category, price, mode, children, description } = data
     const _data = {
       route,
       toast,
+      description,
       price: Number(price),
       property_id: params.id,
       adults: Number(adults),
-      mode: Number(mode),
       children: Number(children),
       wakeup_call: checks.wakeup_call ? 1 : 0,
       flat_tv: checks.flat_tv ? 1 : 0,
@@ -68,6 +76,14 @@ export default function RegisterRoom() {
       room_service_24h: checks.room_service_24h ? 1 : 0,
       intercom: checks.intercom ? 1 : 0,
       bedside_fridge: checks.bedside_fridge ? 1 : 0,
+      air_conditioner: checks.air_conditioner ? 1 : 0,
+      balcony: checks.balcony ? 1 : 0,
+      bed_breakfast: checks.bed_breakfast ? 1 : 0,
+      bathroom_telephone: checks.bathroom_telephone ? 1 : 0,
+      smoke_detector: checks.smoke_detector ? 1 : 0,
+      hair_dryer: checks.hair_dryer ? 1 : 0,
+      guest_amenities: checks.guest_amenities ? 1 : 0,
+      magnifying_mirror: checks.magnifying_mirror ? 1 : 0,
       category: Number(category),
       name,
       size,
@@ -92,9 +108,7 @@ export default function RegisterRoom() {
             />
           </Link>
 
-          <div
-            className={`lato text-5xl text-white font-bold mt-44`}
-          >
+          <div className={`lato text-5xl text-white font-bold mt-44`}>
             <p>Become </p>
             <p>future-ready</p>
           </div>
@@ -117,9 +131,7 @@ export default function RegisterRoom() {
           <p>Go back</p>
         </div>
         <div className="mx-auto mt-16 max-w-[500px]">
-          <p
-            className={`quicksand text-center text-[#111827] text-3xl`}
-          >
+          <p className={`quicksand text-center text-[#111827] text-3xl`}>
             Register your room here!
           </p>
 
@@ -149,6 +161,18 @@ export default function RegisterRoom() {
                 message={'Number of children is required'}
               />
             </div>
+
+            <InputField
+              name="description"
+              label="Description"
+              textarea
+              type="text"
+              register={register}
+              required
+              placeHolder="Enter description"
+              errors={errors?.description}
+              message={'Description is required'}
+            />
 
             <div className="flex space-x-8">
               <InputField
@@ -185,7 +209,7 @@ export default function RegisterRoom() {
                 errors={errors?.adults}
                 message={' numbers of adults is required'}
               />
-              <InputField
+              {/* <InputField
                 name="mode"
                 label="Mode"
                 type="number"
@@ -193,7 +217,7 @@ export default function RegisterRoom() {
                 placeHolder="Enter mode"
                 errors={errors?.mode}
                 message={'mode is required'}
-              />
+              /> */}
             </div>
 
             <div>
@@ -205,8 +229,8 @@ export default function RegisterRoom() {
               </label>
 
               <div className="bg-[#F4F4F4] border border-[#B9B9B9] rounded-lg p-6">
-                <Stack spacing={3} direction="column">
-                  <div className="flex justify-between items-center">
+                <div className="grid grid-cols-2">
+                  <div className="grid grid-cols-1">
                     <Checkbox
                       onChange={handleCheckboxChange}
                       isChecked={checks.wakeup_call}
@@ -223,9 +247,7 @@ export default function RegisterRoom() {
                     >
                       Flat TVs
                     </Checkbox>
-                  </div>
 
-                  <div className='flex justify-between items-center'>
                     <Checkbox
                       onChange={handleCheckboxChange}
                       isChecked={checks.laundry}
@@ -234,6 +256,75 @@ export default function RegisterRoom() {
                     >
                       Laundry
                     </Checkbox>
+
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.air_conditioner}
+                      name="air_conditioner"
+                      colorScheme="blue"
+                    >
+                      Air Condition
+                    </Checkbox>
+
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.balcony}
+                      name="balcony"
+                      colorScheme="blue"
+                    >
+                      Balcony
+                    </Checkbox>
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.bed_breakfast}
+                      name="bed_breakfast"
+                      colorScheme="blue"
+                    >
+                      Bed Breakfast
+                    </Checkbox>
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.guest_amenities}
+                      name="guest_amenities"
+                      colorScheme="blue"
+                    >
+                      Guest amenities
+                    </Checkbox>
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.magnifying_mirror}
+                      name="magnifying_mirror"
+                      colorScheme="blue"
+                    >
+                      Magnifying mirror
+                    </Checkbox>
+                  </div>
+
+                  <div className="grid grid-cols-1">
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.bathroom_telephone}
+                      name="bathroom_telephone"
+                      colorScheme="blue"
+                    >
+                      Bathroom telephone
+                    </Checkbox>
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.smoke_detector}
+                      name="smoke_detector"
+                      colorScheme="blue"
+                    >
+                      Smoke detector
+                    </Checkbox>
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.hair_dryer}
+                      name="hair_dryer"
+                      colorScheme="blue"
+                    >
+                      Hair_dryer
+                    </Checkbox>
                     <Checkbox
                       onChange={handleCheckboxChange}
                       isChecked={checks.internet}
@@ -241,10 +332,7 @@ export default function RegisterRoom() {
                       colorScheme="blue"
                     >
                       Internet
-                    </Checkbox>{' '}
-                  </div>
-
-                  <div className='flex justify-between items-center '>
+                    </Checkbox>
                     <Checkbox
                       onChange={handleCheckboxChange}
                       isChecked={checks.room_service_24h}
@@ -261,17 +349,17 @@ export default function RegisterRoom() {
                     >
                       Intercom
                     </Checkbox>
-                  </div>
 
-                  <Checkbox
-                    onChange={handleCheckboxChange}
-                    isChecked={checks.bedside_fridge}
-                    name="bedside_fridge"
-                    colorScheme="blue"
-                  >
-                    Bedside fridge
-                  </Checkbox>
-                </Stack>
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={checks.bedside_fridge}
+                      name="bedside_fridge"
+                      colorScheme="blue"
+                    >
+                      Bedside fridge
+                    </Checkbox>
+                  </div>
+                </div>
               </div>
 
               <div className="flex mb-10 space-x-6 text-sm pt-4">

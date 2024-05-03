@@ -3,7 +3,7 @@ import { FieldError } from 'react-hook-form'
 
 type InputProp = {
   register: any
-  label: string
+  label?: string
   placeHolder?: string
   name: string
   type: string
@@ -17,7 +17,7 @@ type InputProp = {
   className?: string
   min?: string
   max?: string
-
+  textarea?: boolean
 }
 
 export default function InputField({
@@ -32,22 +32,33 @@ export default function InputField({
   errors,
   validate,
   min,
-  max
+  textarea,
+  max,
 }: InputProp) {
   return (
     <div className="w-full">
       <label className="flex text-sm text-[#393F42] font-semibold" htmlFor="">
         {label}
       </label>
-      <input
-        defaultValue={defaultValue}
-        type={type}
-        min={min}
-        max={max}
-        placeholder={placeHolder}
-        className="border-[0.5px] border-[#b7bcbe] w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium text-[#747F8A]"
-        {...register(name, { required, validate })}
-      />
+      {textarea ? (
+        <textarea
+          className="border-[0.5px] border-[#b7bcbe] w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium text-[#747F8A]"
+          
+          defaultValue={defaultValue}
+          placeholder={placeHolder}
+          {...register(name, { required, validate })}
+        ></textarea>
+      ) : (
+        <input
+          defaultValue={defaultValue}
+          type={type}
+          min={min}
+          max={max}
+          placeholder={placeHolder}
+          className="border-[0.5px] border-[#b7bcbe] w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium text-[#747F8A]"
+          {...register(name, { required, validate })}
+        />
+      )}
       {errors ? <p className="text-red-500 text-sm pt-1">{message}</p> : null}
     </div>
   )
@@ -102,6 +113,28 @@ export const SelectField = ({
         </select>
       </div>
       {errors && <span className="text-red-500 text-sm">{message}</span>}
+    </div>
+  )
+}
+
+export function PaymentField({
+  type,
+  register,
+  placeHolder,
+  name,
+  required,
+  message,
+  errors,
+}: InputProp) {
+  return (
+    <div className="w-full">
+      <input
+        type={type}
+        placeholder={placeHolder}
+        className="w-full outline-none bg-white border-none p-2 text-sm "
+        {...register(name, { required })}
+      />
+      {errors ? <p className="text-red-500 text-sm pt-1">{message}</p> : null}
     </div>
   )
 }

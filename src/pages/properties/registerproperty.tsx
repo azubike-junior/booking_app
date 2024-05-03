@@ -191,6 +191,18 @@ export default function RegisterProperty() {
               />
             </div>
 
+            <InputField
+              name="description"
+              label="Description"
+              textarea
+              type="text"
+              register={register}
+              required
+              placeHolder="Enter description"
+              errors={errors?.description}
+              message={'Description is required'}
+            />
+
             <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
               <InputField
                 name="phone_number"

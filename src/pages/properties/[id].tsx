@@ -64,8 +64,7 @@ export default function PropertyDetails() {
                     {data?.name},{' '}
                   </p>
                   <p className="text-xl lg:text-3xl pt-10">
-                    Lorem ipsum dolor sit amet consectetur. Integer volutpat nam
-                    facilisis facilisis id porta adipiscing a neque.
+                   {data?.description}
                   </p>
                 </div>
               </div>
@@ -82,9 +81,17 @@ export default function PropertyDetails() {
             </div>
             <div className="mt-10 mx-auto ">
               <div className="bg-[#F5F5F5] py-10 px-10 mt-16 space-y-10">
-                <p className="text-[#10375C] text-xl lg:text-3xl">
-                  Your property details
-                </p>
+                <div className='flex justify-between items-center'>
+                  <p className="text-[#10375C] text-xl lg:text-3xl">
+                    Your property details
+                  </p>
+                  <Link
+                    href={`/properties/edit/${params?.id}`}
+                    className="bg-[#10375C] text-white text-center text-xs lg:text-sm font-md rounded-lg py-1.5 px-4"
+                  >
+                    Edit
+                  </Link>
+                </div>
 
                 <Details data={data} />
               </div>
@@ -98,7 +105,7 @@ export default function PropertyDetails() {
                     </p>
 
                     <Link
-                      href={`/properties/rooms/${params?.id}`}
+                      href={`/properties/rooms/create/${params?.id}`}
                       type="button"
                       className="border-[#10375C] bg-[#10375C]  text-white border py-1.5 text-xs mt-2 lg:mt-0 lg:text-sm text-center px-4 rounded-lg"
                     >

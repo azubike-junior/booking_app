@@ -1,5 +1,5 @@
+import Link from 'next/link'
 import { PropertyProp } from '../../utils/types'
-import { DisabledField } from '../shared/Input'
 
 type Prop = {
   data: PropertyProp | undefined
@@ -7,26 +7,57 @@ type Prop = {
 
 export default function Details({ data }: Prop) {
   return (
-    <div className="space-y-4  lg:space-y-6">
-      <div className="lg:flex lg:space-x-4 space-y-4 lg:space-y-0">
-        <DisabledField label="Name" value={data?.name} />
-        <DisabledField label="Address" value={data?.address} />
-        <DisabledField label="Email Address" value={data?.email_address} />
-      </div>
+    <div className="quicksand w-8/12">
+      <h3 className="font-semibold pt-4">Property Name</h3>
+      <p>{data?.name}</p>
 
-      <div className="lg:flex lg:space-x-4 space-y-4 lg:space-y-0">
-        <DisabledField label="Web Address" value={data?.web_address} />
-        <DisabledField label="Text Color" value={data?.text_color} />
-        <DisabledField label="Phone Address" value={data?.phone_number} />
-      </div>
-      <div className="lg:flex lg:space-x-4 space-y-4 lg:space-y-0">
-        <DisabledField label="Primary Color" value={data?.primary_color} />
-        <DisabledField label="Number of rooms" value={data?.number_of_rooms} />
-        <DisabledField label="Secondary Color" value={data?.secondary_color} />
-      </div>
+      <h3 className="font-semibold pt-4">Description</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit
+        laborum omnis ullam consectetur sapiente aliquam tempore et eligendi,
+        perferendis excepturi officiis reiciendis veritatis quod iusto delectus
+        doloribus! Sunt, et porro.
+      </p>
 
-      <div className="flex space-x-14">
-        <div className="w-full"></div>
+      <h3 className="font-semibold pt-4">Email Address</h3>
+      <p>{data?.email_address}</p>
+
+      <h3 className="font-semibold pt-4">Address</h3>
+      <p>{data?.address}</p>
+
+      <h3 className="font-semibold pt-4">Web Address</h3>
+      <p className="text-[#10375C] hover:underline">
+        <Link href={data?.web_address || ''}>{data?.web_address}</Link>{' '}
+      </p>
+
+      <h3 className="font-semibold pt-4">Phone Number</h3>
+      <p>{data?.phone_number}</p>
+
+      <h3 className="font-semibold pt-4">Number of rooms</h3>
+      <p>{data?.number_of_rooms}</p>
+
+      <div className="flex  space-x-5 ">
+        <div className="">
+          <h3 className="font-semibold pt-4">Primary Color</h3>
+          <div
+            style={{ background: data?.primary_color }}
+            className={`w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A]`}
+          ></div>
+        </div>
+        <div className="">
+          <h3 className="font-semibold pt-4">Secondary Color</h3>
+          <div
+            style={{ background: data?.secondary_color }}
+            className={`w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A] `}
+          ></div>
+        </div>
+        <div className="">
+          <h3 className="font-semibold pt-4">Text Color</h3>
+          <div
+            style={{ background: data?.text_color }}
+            className={`w-8 h-8 rounded-lg border mx-auto mt-2 border-[#747F8A] `}
+          ></div>
+        </div>
       </div>
     </div>
   )

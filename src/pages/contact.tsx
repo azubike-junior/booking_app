@@ -16,12 +16,12 @@ export default function Contact() {
         <div className="px-6 md:px-10 max-w-[1062px] mx-auto lg:flex lg:pt-10 justify-between lg:space-x-10 block">
           <div className="pt-2 lg:w-1/2">
             <div
-              className={`text-[#111827] text-[24px] tahoma font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}
+              className={`text-[#111827] text-[24px] roboto font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}
             >
               <p>Get in touch</p>
             </div>
 
-            <p className="w-full pt-4 text-lg text-[#374151] font-light tracking-wider">
+            <p className="w-full pt-4 text-lg text-[#374151] tahoma-light font-light tracking-wider">
               Our friendly team would love to hear from you.
             </p>
 

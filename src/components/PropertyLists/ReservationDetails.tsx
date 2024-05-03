@@ -5,11 +5,22 @@ import { useToast } from '@chakra-ui/react'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { FaBed, FaRulerCombined } from 'react-icons/fa'
 import { FaChildren } from 'react-icons/fa6'
-import { IoIosBed } from 'react-icons/io'
+import { GiMirrorMirror, GiTrousers } from 'react-icons/gi'
 import { IoManSharp } from 'react-icons/io5'
-import { MdLocalLaundryService } from 'react-icons/md'
-import { PiPhoneDisconnectBold, PiTelevisionFill } from 'react-icons/pi'
-import { TbBedOff } from 'react-icons/tb'
+import {
+  MdFreeBreakfast,
+  MdLocalLaundryService,
+  MdOutlineBalcony,
+  MdOutlineBathroom,
+  MdSignalWifiStatusbarConnectedNoInternet3,
+  MdSmokeFree,
+} from 'react-icons/md'
+import {
+  PiPhoneDisconnectBold,
+  PiTelevisionFill,
+  PiUserCirclePlusFill,
+} from 'react-icons/pi'
+import { TbAirConditioningDisabled, TbBedOff } from 'react-icons/tb'
 import { TfiRulerAlt2 } from 'react-icons/tfi'
 
 interface Room {
@@ -17,14 +28,26 @@ interface Room {
   property?: PropertyProp
   index: number
   setShowCheckout: (show: boolean) => void
+  setCheckIn: (checkIn: string) => void
+  setCheckOut: (checkOut: string) => void
+  checkIn: string
+  checkOut: string
 }
 
-export const ReservationDetails = ({ room, property, index, setShowCheckout}: Room) => {
+export const ReservationDetails = ({
+  room,
+  property,
+  index,
+  setShowCheckout,
+  checkIn,
+  checkOut,
+  setCheckIn,
+  setCheckOut
+}: Room) => {
   const [bg, setbg] = useState<any>(null)
   const [showDetails, setShowDetails] = useState(false)
   const toast = useToast()
-  const [checkIn, setCheckIn] = useState('')
-  const [checkOut, setCheckOut] = useState('')
+
 
   useLayoutEffect(() => {
     setbg(property?.primary_color)
@@ -82,10 +105,12 @@ export const ReservationDetails = ({ room, property, index, setShowCheckout}: Ro
               <TfiRulerAlt2 size={20} className="mx-auto" />
               <p>550 ft2 / 51 m2</p>
             </div>
-            <div>
-              <IoIosBed size={20} className="mx-auto" />
-              <p>1 King Bed</p>
-            </div>
+            {room?.bedside_fridge === 1 ? (
+              <div className="">
+                <FaBed size={20} className="mx-auto" />
+                <p>Bedside Fridge</p>
+              </div>
+            ) : null}
           </div>
           <p className="font-medium text-xs md:text-sm w-[270px] pt-6">
             A suite with a king bed size, jacuzzi, pair of couches, dining
@@ -97,8 +122,8 @@ export const ReservationDetails = ({ room, property, index, setShowCheckout}: Ro
           </p>
 
           <div className="flex justify-end">
-            <p className="p-2 px-4 border text-end w-fit bg-[#4d4c4c] text-white">
-              $ {room?.price}
+            <p className="p-2 px-4 border text-end w-fit bg-[#4d4c4c] text-white rounded-lg">
+              &#8358; {room?.price?.toLocaleString()}
             </p>
           </div>
         </div>
@@ -107,9 +132,7 @@ export const ReservationDetails = ({ room, property, index, setShowCheckout}: Ro
       {showDetails ? (
         <div className="font-light flex justify-between">
           <div className="w-7/12 pt-6">
-            <h1
-              className={`quicksand text-3xl text-${bg}-600 pt-4`}
-            >
+            <h1 className={`quicksand text-3xl text-${bg}-600 pt-4`}>
               {room?.name}
             </h1>
             <p className="pt-2 text-[#7a7878]">
@@ -117,66 +140,126 @@ export const ReservationDetails = ({ room, property, index, setShowCheckout}: Ro
               table, balcony & 2 smart TVs
             </p>
             <p className="pt-6 text-xs font-semibold">ROOMS DETAILS</p>
-            <div className="flex flex-wrap justify-between font-light items-center gap-4 md:gap-8 lg:gap-6 pt-4 text-xs md:text-base font-md">
-              <div className="flex space-x-3">
-                <IoManSharp size={30} className="mx-auto" />
+
+            <div className="flex flex-wrap  items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:py-4 text-xs md:text-sm font-md">
+              {room?.bedside_fridge === 1 ? (
+                <div className="">
+                  <FaBed size={20} className="mx-auto" />
+                  <p>Bedside Fridge</p>
+                </div>
+              ) : null}
+              <div>
+                <IoManSharp size={20} className="mx-auto" />
                 <p>{room?.adults} adult</p>
               </div>
-              <div className="flex space-x-3">
-                <IoIosBed size={30} className="mx-auto" />
-                <p>1 King Bed</p>
+              {room?.flat_tv ? (
+                <div>
+                  <PiTelevisionFill size={20} className="mx-auto" />
+                  <p> flat tv</p>
+                </div>
+              ) : null}
+              {room?.internet ? (
+                <div>
+                  <MdSignalWifiStatusbarConnectedNoInternet3
+                    size={20}
+                    className="mx-auto"
+                  />
+                  <p> internet</p>
+                </div>
+              ) : null}
+              {room?.air_conditioner ? (
+                <div>
+                  <TbAirConditioningDisabled size={28} className="mx-auto" />
+                  <p> air condition</p>
+                </div>
+              ) : null}
+              <div className="">
+                <FaChildren size={20} className="text-center mx-auto" />
+                <p>{room?.children} children</p>
               </div>
-
-              <div className="flex space-x-3">
-                <FaRulerCombined size={26} className="mx-auto" />
-                <p>550 ft2 / 51 m2</p>
-              </div>
+              {room?.intercom ? (
+                <div>
+                  <PiPhoneDisconnectBold size={20} className=" mx-auto" />
+                  <p> Intercom</p>
+                </div>
+              ) : null}
+              {room?.laundry ? (
+                <div>
+                  <MdLocalLaundryService size={20} className=" mx-auto" />
+                  <p> Laundry</p>
+                </div>
+              ) : null}
+              {room?.wakeup_call ? (
+                <div>
+                  <TbBedOff size={24} className=" mx-auto" />
+                  <p> Wakeup call</p>
+                </div>
+              ) : null}
+              {room?.balcony ? (
+                <div>
+                  <MdOutlineBalcony size={20} className="mx-auto" />
+                  <p> balcony</p>
+                </div>
+              ) : null}
             </div>
 
             <p className="pt-10 text-xs font-semibold">ROOMS AMENITIES</p>
-            <div className="flex flex-wrap justify-between font-light items-center gap-4 md:gap-8 lg:gap-6 text-xs md:text-base font-md">
-              <div className="flex flex-wrap justify-between  items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-4">
-                {room?.bedside_fridge === 1 ? (
-                  <div className="flex space-x-3">
-                    <FaBed size={30} className="mx-auto" />
-                    <p>Bedside Fridge</p>
-                  </div>
-                ) : null}
-                <div className="flex space-x-3">
-                  <IoManSharp size={30} className="mx-auto" />
-                  <p>{room?.adults} adult</p>
+            <div className="flex flex-wrap items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-4 text-xs md:text-sm font-md">
+              {room?.bed_breakfast ? (
+                <div>
+                  <MdFreeBreakfast size={20} className="mx-auto" />
+                  <p> bed breakfast</p>
                 </div>
-                {room?.flat_tv ? (
-                  <div className="flex space-x-3">
-                    <PiTelevisionFill size={30} className="mx-auto" />
-                    <p> flat tv</p>
-                  </div>
-                ) : null}
-              </div>
-              <div className="flex flex-wrap justify-between items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-8">
-                <div className="flex space-x-3">
-                  <FaChildren size={30} className="text-center mx-auto" />
-                  <p>{room?.children} children</p>
-                </div>
-                {room?.intercom ? (
-                  <div className="flex space-x-3">
-                    <PiPhoneDisconnectBold size={30} className=" mx-auto" />
-                    <p> Intercom</p>
-                  </div>
-                ) : null}
-                {room?.laundry ? (
-                  <div className="flex space-x-3">
-                    <MdLocalLaundryService size={30} className=" mx-auto" />
-                    <p> Laundry</p>
-                  </div>
-                ) : null}
+              ) : null}
 
-                {room?.wakeup_call ? (
-                  <div className="flex space-x-3">
-                    <TbBedOff size={30} className=" mx-auto" />
-                    <p> Wakeup call</p>
-                  </div>
-                ) : null}
+              {room?.bathroom_telephone ? (
+                <div>
+                  <MdOutlineBathroom size={20} className="mx-auto" />
+                  <p> bathroom telephone</p>
+                </div>
+              ) : null}
+
+              {room?.guest_amenities ? (
+                <div>
+                  <PiUserCirclePlusFill size={20} className=" mx-auto" />
+                  <p> Guest amenities</p>
+                </div>
+              ) : null}
+
+              {room?.magnifying_mirror ? (
+                <div>
+                  <GiMirrorMirror size={20} className=" mx-auto" />
+                  <p> Magnifying mirror</p>
+                </div>
+              ) : null}
+
+              {room?.smoke_detector ? (
+                <div>
+                  <MdSmokeFree size={20} className=" mx-auto" />
+                  <p> Smoke detector</p>
+                </div>
+              ) : null}
+
+              {room?.hair_dryer ? (
+                <div>
+                  <GiTrousers size={20} className=" mx-auto" />
+                  <p> Hair Dryer</p>
+                </div>
+              ) : null}
+
+              <div className="flex space-x-3">
+                <IoManSharp size={20} className="mx-auto" />
+                <p>{room?.adults} adult</p>
+              </div>
+
+              {/* <div className="flex space-x-3">
+                <IoIosBed size={30} className="mx-auto" />
+                <p>1 King Bed</p>
+              </div> */}
+
+              <div className="flex space-x-3">
+                <FaRulerCombined size={20} className="mx-auto" />
+                <p>550 ft2 / 51 m2</p>
               </div>
             </div>
           </div>
@@ -201,9 +284,7 @@ export const ReservationDetails = ({ room, property, index, setShowCheckout}: Ro
                 </div>
                 <div className="w-full ">
                   Check out:{' '}
-                  <span className="text-[#10375C] pl-2">
-                    {checkOut}
-                  </span>
+                  <span className="text-[#10375C] pl-2">{checkOut}</span>
                   <div className="w-full border-2 border-stone-300 flex p-1 mt-4 rounded-lg">
                     <input
                       type="date"

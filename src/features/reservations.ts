@@ -1,107 +1,18 @@
-import { PropertyProp, RoomProps } from '../utils/types'
-import { api } from './api'
+import { PaymentProps, ReservationProps, ReservationRes } from '../utils/types';
+import { api } from './api';
 
 export const reservationApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    createProperty: builder.mutation<string, PropertyProp>({
+    makePayment: builder.mutation<string, PaymentProps>({
       query: (body) => ({
-        url: `/property/create`,
+        url: `/payment/paystack/initiate`,
         method: 'POST',
         body
       }),
-       transformResponse: (res, meta, arg:PropertyProp): any => {
+       transformResponse: (res: any, meta, arg:PaymentProps): any => {
          const { toast, route } = arg
-
-         if (meta?.response?.status === 201) {
-           route.push('/properties')
-           toast({
-                title: 'Property was created successfully',
-                description: '',
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
-                position: 'top-right',
-            })
-         }
+         route.replace(res.data.authorization_url)
          
-        return {res}
-      },
-     invalidatesTags:['Property']
-    }),
-    editProperty: builder.mutation<string, PropertyProp>({
-      query: ({id, ...body}) => ({
-        url: `/property/edit/${id}`,
-        method: 'PATCH',
-        body
-      }),
-       transformResponse: (res, meta, arg:PropertyProp): any => {
-         const { toast, route } = arg
-
-         if (meta?.response?.status === 201) {
-           route.push('/properties')
-           toast({
-                title: 'Property has been edited successfully',
-                description: '',
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
-                position: 'top-right',
-            })
-         }
-         
-        return {res}
-      },
-     invalidatesTags:['Property']
-    }),
-    getProperties: builder.query<PropertyProp[], string>({
-      query: (id) => ({
-        url: `/property/account/${id}`,
-        method: 'GET',
-       }),
-      providesTags: ['Property',]
-     }),
-    getProperty: builder.query<PropertyProp, string>({
-      query: (id) => ({
-        url: `/property/find/${id}`,
-        method: 'GET',
-      }),
-      providesTags: ['Property']
-    }),
-    createRoom: builder.mutation<string, RoomProps>({
-      query: (body) => ({
-        url: `/room/create`,
-        method: 'POST',
-        body
-      }),
-       transformResponse: (res, meta, arg:RoomProps): any => {
-         const { toast, route, property_id } = arg
-         if (meta?.response?.status === 201) {
-           route.push(`/properties/${property_id}`)
-           toast({
-                title: 'Room was created successfully',
-                description: '',
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
-                position: 'top-right',
-            })
-         }
-         
-        return {res}
-      },
-     invalidatesTags:['Property']
-    }),
-    editRoom: builder.mutation<string, RoomProps>({
-      query: ({id, ...body}) => ({
-        url: `/room/edit/${id}`,
-        method: 'PUT',
-        body
-      }),
-       transformResponse: (res, meta, arg:RoomProps): any => {
-         const { toast, route } = arg
-         console.log(">>>>>>>", meta?.response?.status);
-         
-
          if (meta?.response?.status === 200) {
            toast({
                 title: 'Room has been publish successfully',
@@ -117,22 +28,28 @@ export const reservationApi = api.injectEndpoints({
       },
      invalidatesTags:['Property']
     }),
-     getRoomByPropertyId: builder.query<RoomProps[], string>({
-      query: (id) => ({
-        url: `/room/property/${id}`,
+     getReservationsByRoomID: builder.query<ReservationProps[], {id: string, page: number}>({
+      query: ({id, page}) => ({
+        url: `/reservation/room/${id}?page=${page}&pageSize=${10}`,
         method: 'GET',
-      }),
-      providesTags: ['Property']
+       }),
+        transformResponse: (res: ReservationRes, meta): any => {
+        return res.data
+      },
+      providesTags: ['Property',]
      }),
-     getRoomById: builder.query<RoomProps[], string>({
+      getReservation: builder.query<ReservationProps, string>({
       query: (id) => ({
-        url: `/room/find/${id}`,
+        url: `/reservation/find/${id}`,
         method: 'GET',
-      }),
-      providesTags: ['Property']
-    })
+        }),
+        transformResponse: (res:{data: ReservationProps, message: string}, meta): any => {
+          return res.data
+        },
+      providesTags: ['Property',]
+     }),
   })
 })
 
-export const {} = reservationApi
+export const {useMakePaymentMutation, useGetReservationsByRoomIDQuery, useGetReservationQuery} = reservationApi
 

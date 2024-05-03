@@ -1,28 +1,46 @@
+import Profile from '@/components/Profile'
+import { useGetAccountQuery } from '@/features/auth'
 import { getItem } from '@/utils'
 import {
-  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   useDisclosure,
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { IoMdMenu } from 'react-icons/io'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [userId, setUserId] = useState('')
+
   const router = useRouter()
   const firstname = getItem('first_name')
   const lastname = getItem('last_name')
   const btnRef = useRef()
+
+  useEffect(() => {
+    setUserId(getItem('user_id'))
+  }, [])
+
+  const { data, isLoading } = useGetAccountQuery(userId)
+
+  const {
+    isOpen: isProfileOpen,
+    onOpen: openProfile,
+    onClose: closeProfile,
+  } = useDisclosure()
 
   const pathname = usePathname()
 
@@ -30,13 +48,15 @@ export default function Navbar() {
     <header className={pathname === '/' ? 'bg-[#F2F7FF] ' : 'bg-[#F2F7FF] '}>
       <nav className="container flex justify-between  items-center max-w-[1062px]   mx-auto px-6 md:px-10 pt-6 pb-4 axiforma-light">
         <Link href={'/'}>
-          <Image
+          {/* <Image
             src="/bookteller.svg"
-            width={200}
+            width={300}
             height={200}
             alt="bookteller"
             className="logo"
-          />
+          /> */}
+
+          <img src="/bookteller.svg" alt="" className=' w-32 md:w-40'/>
         </Link>
 
         <IoMdMenu size={30} className="flex sm:hidden" onClick={onOpen} />
@@ -77,7 +97,7 @@ export default function Navbar() {
         )}
 
         {firstname ? (
-          <div className="p-2 px-6 hidden sm:flex items-center space-x-6 ">
+          <div className="p-2 px-6 hidden sm:flex items-center space-x-6 z-40">
             <div className="flex items-center space-x-2">
               <Image
                 src="/web.svg"
@@ -89,22 +109,34 @@ export default function Navbar() {
               <p> EN</p>
               <MdKeyboardArrowDown size={20} />
             </div>
-            <p
-              onClick={() => {
-                localStorage.clear()
-                router.push('/auth/login')
-              }}
-              className="bg-[#FAFAFA] cursor-pointer"
-            >
-              {firstname.charAt(0).toUpperCase()}
-              {lastname.charAt(0).toUpperCase()}
+            <p className="bg-[#d1d0d0] cursor-pointer p-1.5 rounded-full">
+              {data?.firstname.charAt(0).toUpperCase()}
+              {data?.lastname.charAt(0).toUpperCase()}
             </p>
-            <div className={`quicksand font-semibold`}>
-              <p>
-                Hi, {firstname} {lastname}
-              </p>
-              <p className="text-[#8B8B8B] text-xs">You are welcome</p>
-            </div>
+            <Menu>
+              <MenuButton>
+                <div className={`quicksand font-semibold`}>
+                  <p>
+                    Hi, {firstname} {lastname}
+                  </p>
+                  <p className="text-[#8B8B8B] text-xs text-left">
+                    You are welcome
+                  </p>
+                </div>
+              </MenuButton>
+
+              <MenuList>
+                <MenuItem onClick={() => openProfile()}>Profile</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    localStorage.clear()
+                    router.push('/auth/login')
+                  }}
+                >
+                  Logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
           </div>
         ) : (
           <div className="hidden sm:flex space-x-6 items-center">
@@ -119,6 +151,8 @@ export default function Navbar() {
             </Link>
           </div>
         )}
+
+        <Profile isOpen={isProfileOpen} onClose={closeProfile} />
       </nav>
 
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
@@ -207,7 +241,7 @@ export default function Navbar() {
             )}
           </DrawerBody>
 
-          <DrawerFooter className="flex space-x-10">
+          {/* <DrawerFooter className="flex space-x-10">
             <div className={`font-semibold`}>
               <p>
                 Hi, {firstname} {lastname}
@@ -223,7 +257,7 @@ export default function Navbar() {
             >
               Log out
             </Button>
-          </DrawerFooter>
+          </DrawerFooter> */}
         </DrawerContent>
       </Drawer>
     </header>
