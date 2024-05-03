@@ -23,15 +23,22 @@ import { MdKeyboardArrowDown } from 'react-icons/md'
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [userId, setUserId] = useState('')
+  // const [userId, setUserId] = useState('')
 
   const router = useRouter()
   const firstname = getItem('first_name')
   const lastname = getItem('last_name')
-  const btnRef = useRef()
+  const userId = getItem('user_id')
+
+  console.log(">>>>userIdd", userId);
+  
+
 
   useEffect(() => {
-    setUserId(getItem('user_id'))
+    if (!userId) {
+      localStorage.clear()
+      router.push('/auth/login')
+    }
   }, [])
 
   const { data, isLoading } = useGetAccountQuery(userId)
@@ -48,14 +55,6 @@ export default function Navbar() {
     <header className={pathname === '/' ? 'bg-[#F2F7FF] ' : 'bg-[#F2F7FF] '}>
       <nav className="container flex justify-between  items-center max-w-[1062px]   mx-auto px-6 md:px-10 pt-6 pb-4 axiforma-light">
         <Link href={'/'}>
-          {/* <Image
-            src="/bookteller.svg"
-            width={300}
-            height={200}
-            alt="bookteller"
-            className="logo"
-          /> */}
-
           <img src="/bookteller.svg" alt="" className=' w-32 md:w-40'/>
         </Link>
 
