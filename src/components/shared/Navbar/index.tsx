@@ -30,16 +30,12 @@ export default function Navbar() {
   const lastname = getItem('last_name')
   const userId = getItem('user_id')
 
-  console.log(">>>>userIdd", userId);
-  
-
-
-  useEffect(() => {
-    if (!userId) {
-      localStorage.clear()
-      router.push('/auth/login')
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (!userId) {
+  //     localStorage.clear()
+  //     router.push('/auth/login')
+  //   }
+  // }, [])
 
   const { data, isLoading } = useGetAccountQuery(userId)
 
@@ -67,12 +63,12 @@ export default function Navbar() {
             <Link className="font-medium " href={'/properties'}>
               Dashboard
             </Link>
-            <Link
+            {/* <Link
               className="font-medium "
               href={'/properties/reservations/bookings'}
             >
               Bookings
-            </Link>
+            </Link> */}
 
             <Link className="font-medium" href={'#'}>
               Settings
@@ -177,13 +173,13 @@ export default function Navbar() {
                   <Link onClick={onClose} className=" " href={'/properties'}>
                     <p>Dashboard</p>
                   </Link>
-                  <Link
+                  {/* <Link
                     onClick={onClose}
                     className=" "
                     href={'/properties/reservations/bookings'}
                   >
                     <p>Bookings</p>
-                  </Link>
+                  </Link> */}
 
                   <Link onClick={onClose} className=" " href={'#'}>
                     <p>Settings</p>

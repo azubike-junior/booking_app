@@ -1,4 +1,3 @@
-import ProfileAccount from '@/components/ProfileAccount'
 import { Lists } from '@/components/PropertyLists'
 import { AuthWrapper } from '@/components/shared/AuthWrapper'
 import Banner from '@/components/shared/Banner'
@@ -22,6 +21,9 @@ export default function Properties() {
     _data = [data[0]]
   }
 
+  console.log(">>>>data", _data);
+  
+
   return (
     <div className={`lato`}>
       <Banner firstname={firstname} />
@@ -42,7 +44,16 @@ export default function Properties() {
                   Add Property
                 </button>
               </Link>
-            ) : null}
+            ) : (
+              <Link href={`/properties/reservations/bookings/${_data[0]?.id}`}>
+                <button
+                  type="button"
+                  className="border-[#10375C] bg-[#10375C]  text-white border py-1 text-center px-6  rounded-lg"
+                >
+                  View Reservations
+                </button>
+              </Link>
+            )}
           </div>
 
           {isLoading ? (

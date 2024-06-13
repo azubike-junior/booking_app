@@ -24,12 +24,12 @@ import {
   MdOutlineBalcony,
   MdOutlineBathroom,
   MdSignalWifiStatusbarConnectedNoInternet3,
-  MdSmokeFree
+  MdSmokeFree,
 } from 'react-icons/md'
 import {
   PiPhoneDisconnectBold,
   PiTelevisionFill,
-  PiUserCirclePlusFill
+  PiUserCirclePlusFill,
 } from 'react-icons/pi'
 import { TbAirConditioningDisabled, TbBedOff } from 'react-icons/tb'
 
@@ -93,8 +93,7 @@ export default function RoomBookings() {
                     {room?.name},{' '}
                   </p>
                   <p className="text-xl lg:text-3xl pt-10">
-                    Lorem ipsum dolor sit amet consectetur. Integer volutpat nam
-                    facilisis facilisis id porta adipiscing a neque.
+                   {room?.description}
                   </p>
                 </div>
               </div>
@@ -114,7 +113,7 @@ export default function RoomBookings() {
             >
               <h2 className="text-lg font-medium">Room Details</h2>
               <p className="font-light text-xs md:text-lg pt-2">
-               {room?.description}
+                {room?.description}
               </p>
               <div className="flex flex-wrap  items-center gap-4 md:gap-8 lg:gap-10 pt-8 lg:pt-4 text-xs md:text-sm font-md">
                 {room?.bedside_fridge === 1 ? (
@@ -284,7 +283,9 @@ export default function RoomBookings() {
                 </div>
 
                 {loadingReservations ? (
-                  <Spinner />
+                  <div className="flex justify-center items-center pt-6">
+                    <Spinner />
+                  </div>
                 ) : (
                   <div className="mt-10">
                     {reservations?.length === 0 ? (
@@ -293,18 +294,18 @@ export default function RoomBookings() {
                       </div>
                     ) : (
                       <>
-                        <Table columns={columns} data={reservations} />
+                        {/* <Table columns={columns} data={reservations} /> */}
                       </>
-                        )}
-                        
-                         <Pagination
-                          totalRows={reservations?.length}
-                          pageChangeHandler={setCurrentPage}
-                          rowsPerPage={20}
-                          currentPage={currentPage}
-                          slicePageNo={page}
-                          setSlicePageNo={setPage}
-                        />
+                    )}
+
+                    <Pagination
+                      totalRows={reservations?.length}
+                      pageChangeHandler={setCurrentPage}
+                      rowsPerPage={20}
+                      currentPage={currentPage}
+                      slicePageNo={page}
+                      setSlicePageNo={setPage}
+                    />
                   </div>
                 )}
               </div>

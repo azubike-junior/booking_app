@@ -127,7 +127,7 @@ export function PaymentField({
   errors,
 }: InputProp) {
   return (
-    <div className="w-full">
+    <div className="w-full shadow-sm shadow-[#ccc]">
       <input
         type={type}
         placeholder={placeHolder}

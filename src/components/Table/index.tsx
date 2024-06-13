@@ -8,6 +8,7 @@ import {
   PopoverArrow,
   PopoverContent,
   PopoverTrigger,
+  Spinner,
   useDisclosure,
 } from '@chakra-ui/react'
 import moment from 'moment'
@@ -17,10 +18,12 @@ import { usePagination, useTable } from 'react-table'
 
 interface TableProps {
   data: any
+  setOpenRoomOrder: (open: boolean) => void
+  setReservationId: (res: string) => void
   columns: any[] // Replace with the appropriate type for your columns
 }
 
-export default function Table({ data, columns }: TableProps) {
+export default function Table({ data, columns, setOpenRoomOrder, setReservationId }: TableProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const {
@@ -38,9 +41,9 @@ export default function Table({ data, columns }: TableProps) {
     usePagination,
   )
 
-  const [reservationId, setReservationId] = useState('')
+  // const [reservationId, setReservatioId] = useState('')
 
-  const { data: reservation, isLoading } = useGetReservationQuery(reservationId)
+  // const { data: reservation, isLoading } = useGetReservationQuery(reservationId)
 
   return (
     <>
@@ -97,7 +100,7 @@ export default function Table({ data, columns }: TableProps) {
 
                     <div className="p-2 py-0 bg-red-200  absolute z-10 left-10 -top-10 border border-[#E6E6E6] flex flex-col gap-3 rounded-[8px]">
                       <PopoverContent
-                        width={'24'}
+                        width={'38'}
                         position={'absolute'}
                         left={-25}
                         top={-10}
@@ -110,12 +113,13 @@ export default function Table({ data, columns }: TableProps) {
 
                         <div
                           onClick={() => {
-                            onOpen()
+                            // onOpen()
                             setReservationId(row.values.id)
+                            setOpenRoomOrder(true)
                           }}
                           className=" py-[5px] whitespace-nowrap  text-sm px-4"
                         >
-                          <button>Inspect</button>
+                          <button>View Room Order</button>
                         </div>
 
                         <div className="cursor-pointer py-[5px] whitespace-nowrap text-red-500 text-sm px-4">
@@ -131,66 +135,72 @@ export default function Table({ data, columns }: TableProps) {
         </tbody>
       </table>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      {/* <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent className="p-4 space-y-3">
-          <div>
-            <h4 className=" text-sm">Room Name</h4>
-            <p className="font-light text-sm">{reservation?.room_name}</p>
-          </div>
-          <div>
-            <h4 className=" text-sm">Email</h4>
-            <p className="font-light text-sm">{reservation?.email}</p>
-          </div>
-          <div>
-            <h4 className=" text-sm">First Name</h4>
-            <p className="font-light text-sm">{reservation?.first_name}</p>
-          </div>
-          <div>
-            <h4 className=" text-sm">Last Name</h4>
-            <p className="font-light text-sm">{reservation?.last_name}</p>
-          </div>
-          <div>
-            <h4 className=" text-sm">Other Names</h4>
-            <p className="font-light text-sm">{reservation?.other_names}</p>
-          </div>
-          <div>
-            <h4 className=" text-sm">Start Date</h4>
-            <p className="font-light text-sm">
-              {moment(reservation?.start_date).format('MMM Do YYYY, HH:mm')}
-            </p>
-          </div>
-          <div>
-            <h4 className=" text-sm">End Date</h4>
-            <p className="font-light text-sm">
-              {moment(reservation?.end_date).format('MMM Do YYYY, HH:mm')}
-            </p>
-          </div>
-          <div>
-            <h4 className=" text-sm">Phone</h4>
-            <p className="font-light text-sm">{reservation?.phone}</p>
-          </div>
-          <div>
-            <h4 className=" text-sm">Date Created</h4>
-            <p className="font-light text-sm">
-              {moment(reservation?.created_at).format('MMM Do YYYY, HH:mm')}
-            </p>
-          </div>
-          <div>
-            <h4 className=" text-sm">Payment Ref</h4>
-            <p className="font-light text-sm">
-              {reservation?.payment_reference}
-            </p>
-          </div>
 
-          <div>
-            <h4 className=" text-sm">Booking Status</h4>
-            <p className="font-light text-sm">
-              {reservation?.status_str}
-            </p>
+        {isLoading ? (
+          <div className="flex justify-center items-center pt-6">
+            <Spinner />
           </div>
-        </ModalContent>
-      </Modal>
+        ) : (
+          <ModalContent className="p-6 space-y-3">
+            <h4 className="text-center text-lg">Booking Detail</h4>
+            <div>
+              <h4 className=" text-sm">Room Name</h4>
+              <p className="font-light text-sm">{reservation?.room_name}</p>
+            </div>
+            <div>
+              <h4 className=" text-sm">Email</h4>
+              <p className="font-light text-sm">{reservation?.email}</p>
+            </div>
+            <div>
+              <h4 className=" text-sm">First Name</h4>
+              <p className="font-light text-sm">{reservation?.first_name}</p>
+            </div>
+            <div>
+              <h4 className=" text-sm">Last Name</h4>
+              <p className="font-light text-sm">{reservation?.last_name}</p>
+            </div>
+            <div>
+              <h4 className=" text-sm">Other Names</h4>
+              <p className="font-light text-sm">{reservation?.other_names}</p>
+            </div>
+            <div>
+              <h4 className=" text-sm">Start Date</h4>
+              <p className="font-light text-sm">
+                {moment(reservation?.start_date).format('MMM Do YYYY, HH:mm')}
+              </p>
+            </div>
+            <div>
+              <h4 className=" text-sm">End Date</h4>
+              <p className="font-light text-sm">
+                {moment(reservation?.end_date).format('MMM Do YYYY, HH:mm')}
+              </p>
+            </div>
+            <div>
+              <h4 className=" text-sm">Phone</h4>
+              <p className="font-light text-sm">{reservation?.phone}</p>
+            </div>
+            <div>
+              <h4 className=" text-sm">Date Created</h4>
+              <p className="font-light text-sm">
+                {moment(reservation?.created_at).format('MMM Do YYYY, HH:mm')}
+              </p>
+            </div>
+            <div>
+              <h4 className=" text-sm">Payment Ref</h4>
+              <p className="font-light text-sm">
+                {reservation?.payment_reference}
+              </p>
+            </div>
+
+            <div>
+              <h4 className=" text-sm">Booking Status</h4>
+              <p className="font-light text-sm">{reservation?.status_str}</p>
+            </div>
+          </ModalContent>
+        )}
+      </Modal> */}
     </>
   )
 }

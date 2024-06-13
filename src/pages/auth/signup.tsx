@@ -1,3 +1,4 @@
+import Subscription from '@/components/Modal'
 import InputField from '@/components/shared/Input'
 import { useCreateAccountMutation } from '@/features/auth'
 import {
@@ -31,17 +32,6 @@ export default function Signup() {
 
   const { status: error_code, data: rs } = handleErrorResponse(error)
   const { status: success_code } = handleSuccessResponse(response)
-
-  // if (error_code === 400) {
-  //   toast({
-  //     title: rs.message,
-  //     description: '',
-  //     status: 'error',
-  //     duration: 9000,
-  //     isClosable: true,
-  //     position: 'top-right',
-  //   })
-  // }
 
   async function signupHandler(data: FormValues) {
     const { confirmPassword, ..._data } = data
@@ -192,6 +182,8 @@ export default function Signup() {
           </form>
         </div>
       </div>
+
+     
     </div>
   )
 }

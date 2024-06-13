@@ -15,9 +15,7 @@ export const AuthWrapper = ({ children }: Props) => {
 
   useEffect(() => {
     if (!token) {
-      push('/auth/login')
-      // will explain this in a moment
-      // dispatch(logout())
+      push('/')
       localStorage.clear()
     }
   }, [token, push])

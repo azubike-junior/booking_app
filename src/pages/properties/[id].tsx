@@ -41,7 +41,7 @@ export default function PropertyDetails() {
   return (
     <div className="lato">
       {isLoading ? (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center pt-10">
           <Spinner />
         </div>
       ) : (
@@ -63,7 +63,7 @@ export default function PropertyDetails() {
                   <p className="text-3xl lg:text-6xl pt-10 lg:pt-28">
                     {data?.name},{' '}
                   </p>
-                  <p className="text-xl lg:text-3xl pt-10">
+                  <p className="text-xl lg:text-xl pt-10 capitalize">
                    {data?.description}
                   </p>
                 </div>

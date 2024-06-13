@@ -1,8 +1,12 @@
-import { useMakePaymentMutation } from '@/features/reservations'
-import { PaymentProps, PropertyProp } from '@/utils/types'
+import {
+  useMakePaymentMutation,
+  useMakePaymentOnArrivalMutation,
+} from '@/features/reservations'
+import { getItem } from '@/utils'
+import { PaymentProps, PropertyProp, RoomOrderProp } from '@/utils/types'
 import { Spinner, useToast } from '@chakra-ui/react'
 import moment from 'moment'
-import { useRouter, redirect} from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { IoIosArrowDropleftCircle } from 'react-icons/io'
 import { PaymentField } from '../shared/Input'
@@ -10,17 +14,21 @@ import { PaymentField } from '../shared/Input'
 interface Room {
   room: any
   property: PropertyProp | undefined
-  setShowCheckout: (bool: boolean) => void
+  setOpenCheckout: (bool: boolean) => void
   checkIn: string
   checkOut: string
+  cartItems: RoomOrderProp[]
+  total: number
 }
 
 export default function Checkout({
   room,
   property,
-  setShowCheckout,
+  setOpenCheckout,
   checkIn,
   checkOut,
+  cartItems,
+  total,
 }: Room) {
   const {
     register,
@@ -28,67 +36,109 @@ export default function Checkout({
     formState: { errors },
   } = useForm<PaymentProps>({})
 
+  //   useEffect(() => {
+  //   setFirstname(getItem('first_name'))
+  // }, [])
 
   const toast = useToast()
 
   const [makePayment, { isLoading }] = useMakePaymentMutation()
+  const [
+    makePaymentOnArrival,
+    { isLoading: loadingPaymentOnArrivalResponse },
+  ] = useMakePaymentOnArrivalMutation()
 
   const route = useRouter()
 
-  const paymentHandler = (data: PaymentProps) => {
-    const {email, phonenumber, first_name, last_name, other_names} = data
+  const orders = cartItems.map((c) => {
+    return {
+      ...c,
+      start_date: moment(c.start_date).format('YYYY-MM-DDTHH:mm:ssZ'),
+      end_date: moment(c.end_date).format('YYYY-MM-DDTHH:mm:ssZ'),
+    }
+  })
+
+  const onlinePaymentHandler = (data: PaymentProps) => {
+    const { email, phonenumber, first_name, last_name } = data
     const newData = {
       toast,
       route,
       email,
       phonenumber,
-      amount: room?.price,
-      room_id: room?.id,
+      amount: total,
       property_id: property?.id,
-      start_date: moment(checkIn).format('YYYY-MM-DDTHH:mm:ssZ'),
-      end_date: moment(checkOut).format('YYYY-MM-DDTHH:mm:ssZ'),
-      name: room?.name,
       first_name,
       last_name,
-      other_names,
+      orders,
+      type: 'booking',
+      account_id: getItem('user_id'),
     }
 
     makePayment(newData)
   }
 
+  const onArrivalPaymentHandler = (data: PaymentProps) => {
+    const { email, phonenumber, first_name, last_name } = data
+    const newData = {
+      toast,
+      route,
+      email,
+      phonenumber,
+      amount: total,
+      property_id: property?.id,
+      first_name,
+      last_name,
+      orders,
+      type: 'booking',
+      account_id: getItem('user_id'),
+    }
+
+    makePaymentOnArrival(newData)
+  }
+
   return (
     <div className="max-w-[1000px] mx-auto pt-10">
       <div
-        onClick={() => setShowCheckout(false)}
+        onClick={() => setOpenCheckout(false)}
         className="flex  items-center space-x-2 cursor-pointer"
       >
         <IoIosArrowDropleftCircle size={35} />
         <p>Go back</p>
       </div>
       <div className="mt-10 quicksand bg-[#F5F5F5] px-2 py-8">
-        <form onSubmit={handleSubmit(paymentHandler)} className="flex justify-center ">
+        <form
+          // onSubmit={handleSubmit(paymentHandler)}
+          className="flex justify-center "
+        >
           <div className="w-full text-lg px-10 border-dashed border-r">
             <h1 className="text-xl text-slate-500 font-medium">
               Your Reservation
             </h1>
             <div className=" border-dashed border-b pb-3 space-y-2 mt-10 text-[#747171] font-medium">
-              <div className="text-sm flex justify-between space-x-4">
-                <p>Room name:</p>
-                <p>{room?.name}</p>
-              </div>
-              <div className="text-sm flex justify-between">
-                <p>Check in date:</p>
-                <p>{moment(checkIn).format('ddd, Do YYYY')}</p>
+              <div className="text-sm space-y-2">
+                <p className="font-bold ">Room orders:</p>
+                <hr />
+                {/* <p>{room?.name}</p> */}
+                {cartItems.map((c) => {
+                  return (
+                    <div key={c.room_id} className="text-sm flex justify-between ">
+                      <p className="w-24">{c?.room_name}</p>
+                      <div className="w-28">
+                        <p>&#8358; {c.price.toLocaleString()}</p>
+                        <p className="text-xs">
+                           {moment(c?.start_date).format('ddd, Do YYYY')} -   {moment(c?.end_date).format('ddd, Do YYYY')}
+                        </p>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
 
-              <div className="text-sm flex justify-between">
-                <p>Check out date:</p>
-                <p>{moment(checkOut).format('ddd, Do YYYY')}</p>
-              </div>
+              <hr />
 
-              <div className="text-sm flex justify-between">
-                <p>Subtotal:</p>
-                <p> &#8358; {room?.price.toLocaleString()}</p>
+              <div className="text-sm flex justify-between font-bold">
+                <p className="w-24">Subtotal:</p>
+                <p className="w-28"> &#8358; {total?.toLocaleString()}</p>
               </div>
             </div>
           </div>
@@ -108,7 +158,7 @@ export default function Checkout({
                 register={register}
               />
 
-               <PaymentField
+              <PaymentField
                 type="name"
                 errors={errors?.last_name}
                 message="required"
@@ -118,17 +168,7 @@ export default function Checkout({
                 register={register}
               />
 
-               <PaymentField
-                type="name"
-                errors={errors.other_names}
-                message="required"
-                placeHolder="Other names"
-                name="other_names"
-                required
-                register={register}
-              />
-
-               <PaymentField
+              <PaymentField
                 type="name"
                 errors={errors.email}
                 message="required"
@@ -138,7 +178,7 @@ export default function Checkout({
                 register={register}
               />
 
-               <PaymentField
+              <PaymentField
                 type="name"
                 errors={errors.phonenumber}
                 message="required"
@@ -147,8 +187,6 @@ export default function Checkout({
                 required
                 register={register}
               />
-
-        
             </div>
           </div>
           <div className="text-lg px-10 w-full">
@@ -156,33 +194,26 @@ export default function Checkout({
               Payment Method
             </h1>
 
-            {/* <div className="flex space-x-4 mt-10">
-              <LiaCcVisa size={30} />
-              <FaCcMastercard size={28} />
-            </div> */}
-
-            {/* <div className="pt-4 space-y-4">
-              <input
-                className="w-full outline-none bg-white border-none p-2 text-sm "
-                placeholder="Name on Card"
-              />
-
-              <input
-                className="w-full outline-none bg-white border-none p-2 text-sm "
-                placeholder="Card Number"
-              />
-
-              <input
-                className="w-full outline-none bg-white border-none p-2 text-sm "
-                placeholder="MM/YY"
-              />
-            </div> */}
-
             <button
+              onClick={handleSubmit(onlinePaymentHandler)}
+              type="button"
               className="w-full text-white mt-10 text-sm py-2 rounded-lg"
               style={{ background: property?.primary_color }}
             >
-             {isLoading ? <Spinner/> :  'Make Payment' }
+              {isLoading ? <Spinner /> : 'Make payment'}
+            </button>
+
+            <button
+              onClick={handleSubmit(onArrivalPaymentHandler)}
+              type="button"
+              className={`w-full text-white mt-6 text-sm py-2 rounded-lg  shadow-md shadow-[#ccc]`}
+              style={{ background: 'white', color: property?.primary_color }}
+            >
+              {loadingPaymentOnArrivalResponse ? (
+                <Spinner />
+              ) : (
+                'Make payment on arrival'
+              )}
             </button>
           </div>
         </form>

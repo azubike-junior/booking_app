@@ -2,7 +2,14 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import axios from 'axios'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import moment from 'moment'
-import { Lato, Lora, Open_Sans, Quicksand, Roboto } from 'next/font/google'
+import {
+  Lato,
+  Lora,
+  Open_Sans,
+  Poppins,
+  Quicksand,
+  Roboto,
+} from 'next/font/google'
 import { storage } from './firebase'
 
 export const lato = Lato({
@@ -32,6 +39,12 @@ export const roboto = Roboto({
 export const open_sans = Open_Sans({
   weight: '500',
   subsets: ['latin'],
+})
+
+export const poppins = Poppins({
+  weight: ['100', '300', '400', '500', '700', '900'],
+  subsets: ['latin'],
+  variable: '--font-poppins',
 })
 
 interface Response {
@@ -194,15 +207,11 @@ export function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export const BOOKINGS_COLUMNS = [
+export const RESERVATION_COLUMNS = [
   {
-    Header: 'Room name',
-    accessor: 'room_name',
-  },
-  {
-    Header: 'Username',
+    Header: 'Name',
     accessor: 'name',
-     Cell: (row: any) => (
+    Cell: (row: any) => (
       <span className="flex items-center justify-center">
         <span className="whitespace-nowrap">
           {row.row.original?.first_name} {row.row.original?.last_name}
@@ -213,6 +222,86 @@ export const BOOKINGS_COLUMNS = [
   {
     Header: 'Phone ',
     accessor: 'phone',
+    Cell: ({ value }: any) => {
+      return (
+        <>
+          <span className={'text-blue-600 whitespace-nowrap'}>{value}</span>
+        </>
+      )
+    },
+  },
+
+  {
+    Header: 'Email ',
+    accessor: 'email',
+  },
+  {
+    Header: 'Amount ',
+    accessor: 'amount',
+    Cell: ({ value }: any) => {
+      return (
+        <>
+          <span className={'text-blue-600 whitespace-nowrap'}>
+            &#8358; {value.toLocaleString()}
+          </span>
+        </>
+      )
+    },
+  },
+  {
+    Header: 'Payment Status',
+    accessor: 'payment_status_str',
+    Cell: ({ value }: any) => {
+      return (
+        <>
+          <span
+            className={
+              value === 'Pending'
+                ? 'text-blue-400 whitespace-nowrap'
+                : value === 'Failed'
+                ? 'text-red-600 whitespace-nowrap'
+                : 'text-green-600'
+            }
+          >
+            {value}
+          </span>
+        </>
+      )
+    },
+  },
+  {
+    accessor: 'id',
+    Cell: (row: any) => (
+      <>
+        <span style={{ display: 'none', visibility: 'hidden', width: '0' }}>
+          {''}
+        </span>{' '}
+      </>
+    ),
+  },
+]
+
+export const BOOKINGS_COLUMNS = [
+  {
+    Header: 'Room name',
+    accessor: 'room_name',
+  },
+  {
+    Header: 'Price ',
+    accessor: 'price',
+    Cell: ({ value }: any) => {
+      return (
+        <>
+          <span className={'text-blue-600 whitespace-nowrap'}>
+            &#8358; {value.toLocaleString()}
+          </span>
+        </>
+      )
+    },
+  },
+  {
+    Header: 'Quantity ',
+    accessor: 'quantity',
   },
   {
     Header: 'Check In',
@@ -236,34 +325,6 @@ export const BOOKINGS_COLUMNS = [
       )
     },
   },
-  {
-    Header: 'Status',
-    accessor: 'status',
-    Cell: ({ value }: any) => {
-      return (
-        <>
-          <span
-            className={
-              value === 1
-                ? 'text-green-600 whitespace-nowrap'
-                : 'text-red-600 whitespace-nowrap'
-            }
-          >
-            {value === 1 ? 'Active' : 'Inactive'}
-          </span>
-        </>
-      )
-    },
-  },
-  {
-    accessor: "id",
-    Cell: (row: any) => (
-      <>
-        <span style={{ display: "none", visibility: "hidden", width: "0" }}>{""}</span>{" "}
-      </>
-    ),
-  }
-  
 ]
 
 export const bookings_data = [

@@ -33,7 +33,7 @@ export const Lists = ({
       </div>
 
       <div
-        className={`lato bg-white px-4 py-4 lg:p-6 w-full lg:w-7/12 font-light`}
+        className={`lato bg-white px-4 py-4 lg:p-6 w-full lg:w-7/12 font-light h-[300px] lg:h-[420px] overflow-scroll`}
       >
         <div className="flex justify-between items-center">
           <p className="text-3xl text-[#10375C] capitalize">{name}</p>

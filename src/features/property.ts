@@ -1,4 +1,4 @@
-import { PropertyProp, RoomProps } from '../utils/types'
+import { PropertyProp, PublishProp, RoomProps } from '../utils/types'
 import { api } from './api'
 
 export const propertyApi = api.injectEndpoints({
@@ -67,6 +67,13 @@ export const propertyApi = api.injectEndpoints({
       }),
       providesTags: ['Property']
     }),
+     getPropertyByUserId: builder.query<PropertyProp[], string>({
+      query: (id) => ({
+        url: `/property/account/${id}`,
+        method: 'GET',
+      }),
+      providesTags: ['Property']
+    }),
     createRoom: builder.mutation<string, RoomProps>({
       query: (body) => ({
         url: `/room/create`,
@@ -99,15 +106,56 @@ export const propertyApi = api.injectEndpoints({
       }),
        transformResponse: (res, meta, arg:RoomProps): any => {
          const { toast, route } = arg
-         console.log(">>>>>>>", meta?.response?.status);
-         
-
          if (meta?.response?.status === 200) {
            toast({
                 title: 'Room has been publish successfully',
                 description: '',
                 status: 'success',
                 duration: 9000,
+                isClosable: true,
+                position: 'top-right',
+            })
+         }
+         
+        return {res}
+      },
+     invalidatesTags:['Property']
+    }),
+    publishRoom: builder.mutation<string, PublishProp>({
+      query: ({id}) => ({
+        url: `/room/publish/${id}`,
+        method: 'PUT',
+      }),
+       transformResponse: (res, meta, arg:PublishProp): any => {
+         const { toast} = arg
+         if (meta?.response?.status === 200) {
+           toast({
+                title: 'Room has been published successfully',
+                description: '',
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+                position: 'top-right',
+            })
+         }
+         
+        return {res}
+      },
+     invalidatesTags:['Property']
+    }),
+    unpublishRoom: builder.mutation<string, PublishProp>({
+      query: ({id}) => ({
+        url: `/room/unpublish/${id}`,
+        method: 'PUT',
+      }),
+       transformResponse: (res, meta, arg:PublishProp): any => {
+         const { toast} = arg
+         if (meta?.response?.status === 200) {
+           toast({
+                title: 'Room has been unpublished successfully',
+                description: '',
+                status: 'success',
+                duration: 5000,
                 isClosable: true,
                 position: 'top-right',
             })
@@ -134,5 +182,5 @@ export const propertyApi = api.injectEndpoints({
   })
 })
 
-export const {useCreatePropertyMutation, useEditRoomMutation, useEditPropertyMutation, useGetPropertiesQuery, useGetPropertyQuery, useCreateRoomMutation, useGetRoomByPropertyIdQuery, useGetRoomByIdQuery} = propertyApi
+export const {useCreatePropertyMutation, useEditRoomMutation, useEditPropertyMutation, useGetPropertiesQuery, useGetPropertyQuery, useCreateRoomMutation, useGetRoomByPropertyIdQuery, useGetRoomByIdQuery, useGetPropertyByUserIdQuery, usePublishRoomMutation, useUnpublishRoomMutation} = propertyApi
 

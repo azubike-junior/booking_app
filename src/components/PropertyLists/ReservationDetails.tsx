@@ -1,8 +1,14 @@
 'use client'
 
-import { PropertyProp, RoomProps } from '@/utils/types'
+import { PropertyProp, RoomOrderProp, RoomProps } from '@/utils/types'
 import { useToast } from '@chakra-ui/react'
-import { useEffect, useLayoutEffect, useState } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useLayoutEffect,
+  useState
+} from 'react'
 import { FaBed, FaRulerCombined } from 'react-icons/fa'
 import { FaChildren } from 'react-icons/fa6'
 import { GiMirrorMirror, GiTrousers } from 'react-icons/gi'
@@ -13,12 +19,12 @@ import {
   MdOutlineBalcony,
   MdOutlineBathroom,
   MdSignalWifiStatusbarConnectedNoInternet3,
-  MdSmokeFree,
+  MdSmokeFree
 } from 'react-icons/md'
 import {
   PiPhoneDisconnectBold,
   PiTelevisionFill,
-  PiUserCirclePlusFill,
+  PiUserCirclePlusFill
 } from 'react-icons/pi'
 import { TbAirConditioningDisabled, TbBedOff } from 'react-icons/tb'
 import { TfiRulerAlt2 } from 'react-icons/tfi'
@@ -27,27 +33,34 @@ interface Room {
   room: RoomProps | any
   property?: PropertyProp
   index: number
-  setShowCheckout: (show: boolean) => void
   setCheckIn: (checkIn: string) => void
   setCheckOut: (checkOut: string) => void
   checkIn: string
   checkOut: string
+  setOpenCheckout: (open: boolean) => void
+  setCartItems: Dispatch<SetStateAction<RoomOrderProp[]>>
+  cartItems: RoomOrderProp[]
+  setOpenCart: (open: boolean) => void
 }
 
 export const ReservationDetails = ({
   room,
   property,
   index,
-  setShowCheckout,
+  setOpenCart,
   checkIn,
   checkOut,
   setCheckIn,
-  setCheckOut
+  setCheckOut,
+  setOpenCheckout,
+  setCartItems,
+  cartItems,
 }: Room) => {
   const [bg, setbg] = useState<any>(null)
   const [showDetails, setShowDetails] = useState(false)
   const toast = useToast()
 
+  // console.log(">>>>>cart----", cart);
 
   useLayoutEffect(() => {
     setbg(property?.primary_color)
@@ -62,6 +75,14 @@ export const ReservationDetails = ({
       setShowDetails(true)
     }
   }, [index])
+
+  const checkItemAdded = (id: string) =>
+    cartItems.some((item) => {
+      console.log(item.room_id, id)
+
+      return item.room_id === id
+    })
+  console.log('>>>>>chekcc', checkItemAdded(room.id))
 
   return (
     <div className="pb-10">
@@ -113,11 +134,15 @@ export const ReservationDetails = ({
             ) : null}
           </div>
           <p className="font-medium text-xs md:text-sm w-[270px] pt-6">
-            A suite with a king bed size, jacuzzi, pair of couches, dining
-            table, balcony & 2 smart TVs
+            {room?.description}
           </p>
 
-          <p className="underline text-sm pt-6">
+          <p
+            onClick={() => {
+              toggleDetails()
+            }}
+            className="underline text-sm pt-6 cursor-pointer"
+          >
             View Room Details and Enhancement
           </p>
 
@@ -135,10 +160,7 @@ export const ReservationDetails = ({
             <h1 className={`quicksand text-3xl text-${bg}-600 pt-4`}>
               {room?.name}
             </h1>
-            <p className="pt-2 text-[#7a7878]">
-              A suite with a king bed size, jacuzzi, pair of couches, dining
-              table, balcony & 2 smart TVs
-            </p>
+            <p className="pt-2 text-[#7a7878]">{room?.description}</p>
             <p className="pt-6 text-xs font-semibold">ROOMS DETAILS</p>
 
             <div className="flex flex-wrap  items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:py-4 text-xs md:text-sm font-md">
@@ -270,7 +292,8 @@ export const ReservationDetails = ({
                   Check in:{' '}
                   <span className="text-[#10375C] pl-2">
                     {/* February 3rd, 2024 */}
-                    {checkIn}
+
+                    {cartItems[index]?.start_date}
                   </span>
                   <div className="w-full border-2 border-stone-300 flex p-1 mt-4 rounded-lg">
                     <input
@@ -284,7 +307,9 @@ export const ReservationDetails = ({
                 </div>
                 <div className="w-full ">
                   Check out:{' '}
-                  <span className="text-[#10375C] pl-2">{checkOut}</span>
+                  <span className="text-[#10375C] pl-2">
+                    {cartItems[index]?.end_date}
+                  </span>
                   <div className="w-full border-2 border-stone-300 flex p-1 mt-4 rounded-lg">
                     <input
                       type="date"
@@ -297,12 +322,32 @@ export const ReservationDetails = ({
 
                 <div className="flex justify-center items-center">
                   <button
+                    disabled={
+                      (!checkIn && !checkOut) || checkItemAdded(room.id)
+                    }
                     type="button"
                     className=" text-white text-center text-xs lg:text-sm font-md rounded-lg py-1.5 px-2 w-full"
                     style={{ background: bg }}
-                    onClick={() => setShowCheckout(true)}
+                    onClick={() => {
+                      // setShowCheckout(true)
+                      setOpenCart(true)
+
+                      const cart = {
+                        image: room.image_one,
+                        room_id: room.id,
+                        index,
+                        room_name: room?.name,
+                        price: room.price,
+                        quality: 0,
+                        start_date: checkIn,
+                        end_date: checkOut
+                      }
+                      setCartItems((prev: any) => [...prev, cart])
+                    }}
                   >
-                    Confirm booking
+                    {checkItemAdded(room.id)
+                      ? 'Room added'
+                      : 'Add room to cart'}
                   </button>
                 </div>
               </div>

@@ -13,10 +13,7 @@ export default function Details({ data }: Prop) {
 
       <h3 className="font-semibold pt-4">Description</h3>
       <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit
-        laborum omnis ullam consectetur sapiente aliquam tempore et eligendi,
-        perferendis excepturi officiis reiciendis veritatis quod iusto delectus
-        doloribus! Sunt, et porro.
+       {data?.description}
       </p>
 
       <h3 className="font-semibold pt-4">Email Address</h3>

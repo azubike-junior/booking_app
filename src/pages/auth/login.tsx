@@ -48,7 +48,7 @@ export default function Login() {
     <div className="flex justify-between h-screen">
       <div className="hidden lg:block w-1/2 bg-[#00525DB2]">
         <div className="px-24 mt-16">
-          <Link href={'/'}>
+          <Link href='/'>
             <Image
               src="/whitelogo.svg"
               width={250}
