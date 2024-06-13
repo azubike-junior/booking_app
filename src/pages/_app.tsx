@@ -6,9 +6,9 @@ import { ChakraProvider } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { Provider } from 'react-redux'
-const Navbar = dynamic(() => import('@/components/shared/Navbar'), {
-  ssr: false,
-})
+// const Navbar = dynamic(() => import('@/components/shared/Navbar'), {
+//   ssr: false,
+// })
 
 export default function App({ Component, pageProps }: any) {
   const { pathname } = useRouter()
@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }: any) {
   return (
     <Provider store={store}>
       <ChakraProvider>
-        {shouldRenderNavbar && <Navbar />}
+        {/* {shouldRenderNavbar && <Navbar />} */}
 
         <main
           className={`${quickSand.variable} ${lora.variable} ${lato.variable} ${roboto.variable} ${poppins.variable}`}
