@@ -1,6 +1,5 @@
 import Profile from '@/components/Profile'
 import { useGetAccountQuery } from '@/features/auth'
-import { getItem } from '@/utils'
 import {
   Drawer,
   DrawerBody,
@@ -17,7 +16,6 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
 import { IoMdMenu } from 'react-icons/io'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 
@@ -26,9 +24,9 @@ export default function Navbar() {
   // const [userId, setUserId] = useState('')
 
   const router = useRouter()
-  const firstname = getItem('first_name')
-  const lastname = getItem('last_name')
-  const userId = getItem('user_id')
+  // const firstname = getItem('first_name')
+  // const lastname = getItem('last_name')
+  // const userId = getItem('user_id')
 
   // useEffect(() => {
   //   if (!userId) {
@@ -37,7 +35,7 @@ export default function Navbar() {
   //   }
   // }, [])
 
-  const { data, isLoading } = useGetAccountQuery(userId)
+  // const { data, isLoading } = useGetAccountQuery(userId)
 
   const {
     isOpen: isProfileOpen,
@@ -49,9 +47,9 @@ export default function Navbar() {
 
   return (
     <header className={pathname === '/' ? 'bg-[#F2F7FF] ' : 'bg-[#F2F7FF] '}>
-      <nav className="container flex justify-between  items-center max-w-[1062px]   mx-auto px-6 md:px-10 pt-6 pb-4 axiforma-light">
+      {/* <nav className="container flex justify-between  items-center max-w-[1062px]   mx-auto px-6 md:px-10 pt-6 pb-4 axiforma-light">
         <Link href={'/'}>
-          <img src="/bookteller.svg" alt="" className=' w-32 md:w-40'/>
+          <img src="/bookteller.svg" alt="" className=" w-32 md:w-40" />
         </Link>
 
         <IoMdMenu size={30} className="flex sm:hidden" onClick={onOpen} />
@@ -63,12 +61,6 @@ export default function Navbar() {
             <Link className="font-medium " href={'/properties'}>
               Dashboard
             </Link>
-            {/* <Link
-              className="font-medium "
-              href={'/properties/reservations/bookings'}
-            >
-              Bookings
-            </Link> */}
 
             <Link className="font-medium" href={'#'}>
               Settings
@@ -173,13 +165,6 @@ export default function Navbar() {
                   <Link onClick={onClose} className=" " href={'/properties'}>
                     <p>Dashboard</p>
                   </Link>
-                  {/* <Link
-                    onClick={onClose}
-                    className=" "
-                    href={'/properties/reservations/bookings'}
-                  >
-                    <p>Bookings</p>
-                  </Link> */}
 
                   <Link onClick={onClose} className=" " href={'#'}>
                     <p>Settings</p>
@@ -235,26 +220,8 @@ export default function Navbar() {
               </div>
             )}
           </DrawerBody>
-
-          {/* <DrawerFooter className="flex space-x-10">
-            <div className={`font-semibold`}>
-              <p>
-                Hi, {firstname} {lastname}
-              </p>
-              <p className="text-[#8B8B8B] text-xs">You are welcome</p>
-            </div>
-            <Button
-              onClick={() => {
-                localStorage.clear()
-                router.push('/auth/login')
-              }}
-              colorScheme="blue"
-            >
-              Log out
-            </Button>
-          </DrawerFooter> */}
         </DrawerContent>
-      </Drawer>
+      </Drawer> */}
     </header>
   )
 }
