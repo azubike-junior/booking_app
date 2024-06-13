@@ -87,7 +87,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* <section className="w-full relative z-40">
+        <section className="w-full relative z-40">
           <div className="bg-[#F2F7FF] skew-slant w-full h-72 absolute -z-10 bottom-44 -skew-y-12"></div>
 
           <div className="max-w-[1062px] mx-auto bg-transparent mt-20 lg:mt-28 px-6 md:px-10 z-50">
@@ -210,7 +210,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section> */}
+        </section>
 
         <Footer />
       </div>
