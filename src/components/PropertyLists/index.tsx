@@ -36,10 +36,10 @@ export const Lists = ({
         className={`lato bg-white px-4 py-4 lg:p-6 w-full lg:w-7/12 font-light h-[300px] lg:h-[420px] overflow-scroll`}
       >
         <div className="flex justify-between items-center">
-          <p className="text-3xl text-[#10375C] capitalize">{name}</p>
+          <p className="text-xl lg:text-3xl text-[#10375C] capitalize">{name}</p>
           <img src={logo} alt="" className="w-10 h-10" />
         </div>
-        <p className="text-lg text-[#10375C] capitalize">{description}</p>
+        <p className="text-base md:text-lg text-[#10375C] capitalize">{description}</p>
         <div className="flex pt-6 lg:pt-8 text-xs lg:text-sm space-x-10 font-light">
           <div className="">
             <p>Primary Color</p>

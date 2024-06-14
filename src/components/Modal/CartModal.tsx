@@ -1,5 +1,5 @@
 import { RoomOrderProp } from '@/utils/types'
-import { Drawer, DrawerContent } from '@chakra-ui/react'
+import { Drawer, DrawerCloseButton, DrawerContent } from '@chakra-ui/react'
 import { IoCloseCircle } from 'react-icons/io5'
 import Button from '../shared/Button'
 
@@ -26,7 +26,9 @@ export const CartModal = ({
 
   return (
     <Drawer isOpen={openCart} onClose={() => setOpenCart(false)} size="md">
+    
       <DrawerContent className="py-10 px-4">
+        <DrawerCloseButton/>
         <h1 className="quicksand text-xl leading-8 tracking-wider text-center  font-medium ">
           Rooms In cart
         </h1>

@@ -100,7 +100,7 @@ export default function Checkout({
     <div className="max-w-[1000px] mx-auto pt-10">
       <div
         onClick={() => setOpenCheckout(false)}
-        className="flex  items-center space-x-2 cursor-pointer"
+        className="flex  items-center space-x-2 cursor-pointer px-8 lg:px-0"
       >
         <IoIosArrowDropleftCircle size={35} />
         <p>Go back</p>
@@ -108,13 +108,13 @@ export default function Checkout({
       <div className="mt-10 quicksand bg-[#F5F5F5] px-2 py-8">
         <form
           // onSubmit={handleSubmit(paymentHandler)}
-          className="flex justify-center "
+          className="lg:flex justify-center space-y-4 lg:space-y-0"
         >
           <div className="w-full text-lg px-10 border-dashed border-r">
             <h1 className="text-xl text-slate-500 font-medium">
               Your Reservation
             </h1>
-            <div className=" border-dashed border-b pb-3 space-y-2 mt-10 text-[#747171] font-medium">
+            <div className=" border-dashed border-b pb-3 space-y-2 mt-6 lg:mt-10 text-[#747171] font-medium">
               <div className="text-sm space-y-2">
                 <p className="font-bold ">Room orders:</p>
                 <hr />
@@ -122,8 +122,8 @@ export default function Checkout({
                 {cartItems.map((c) => {
                   return (
                     <div key={c.room_id} className="text-sm flex justify-between ">
-                      <p className="w-24">{c?.room_name}</p>
-                      <div className="w-28">
+                      <p className="w-44 lg:w-24">{c?.room_name}</p>
+                      <div className="w-44 lg:w-28">
                         <p>&#8358; {c.price.toLocaleString()}</p>
                         <p className="text-xs">
                            {moment(c?.start_date).format('ddd, Do YYYY')} -   {moment(c?.end_date).format('ddd, Do YYYY')}
@@ -137,8 +137,8 @@ export default function Checkout({
               <hr />
 
               <div className="text-sm flex justify-between font-bold">
-                <p className="w-24">Subtotal:</p>
-                <p className="w-28"> &#8358; {total?.toLocaleString()}</p>
+                <p className="w-44 lg:w-24">Subtotal:</p>
+                <p className="w-44 lg:w-28"> &#8358; {total?.toLocaleString()}</p>
               </div>
             </div>
           </div>
@@ -147,7 +147,7 @@ export default function Checkout({
               Guest Information
             </h1>
 
-            <div className="space-y-4 mt-10">
+            <div className="space-y-4 mt-6 lg:mt-10">
               <PaymentField
                 type="name"
                 errors={errors?.first_name}
@@ -197,7 +197,7 @@ export default function Checkout({
             <button
               onClick={handleSubmit(onlinePaymentHandler)}
               type="button"
-              className="w-full text-white mt-10 text-sm py-2 rounded-lg"
+              className="w-full text-white mt-6 lg:mt-10 text-sm py-2 rounded-lg"
               style={{ background: property?.primary_color }}
             >
               {isLoading ? <Spinner /> : 'Make payment'}

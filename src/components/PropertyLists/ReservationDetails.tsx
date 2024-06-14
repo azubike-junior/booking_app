@@ -155,8 +155,8 @@ export const ReservationDetails = ({
       </div>
 
       {showDetails ? (
-        <div className="font-light flex justify-between">
-          <div className="w-7/12 pt-6">
+        <div className="font-light block lg:flex justify-between px-5 lg:px-0">
+          <div className="w-full lg:w-7/12 pt-6">
             <h1 className={`quicksand text-3xl text-${bg}-600 pt-4`}>
               {room?.name}
             </h1>
@@ -285,7 +285,7 @@ export const ReservationDetails = ({
               </div>
             </div>
           </div>
-          <div className="w-4/12 border px-4 mt-10">
+          <div className="w-full lg:w-4/12 border px-4 mt-10">
             <form className={`lato pt-6 `}>
               <div className=" block  font-semibold space-y-6">
                 <div className="w-full">

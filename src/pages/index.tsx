@@ -52,13 +52,13 @@ export default function Home() {
                 <IoArrowForwardCircle color="white" size={26} />
               </div>
 
-              <div className=" justify-between lg:hidden items-center mt-10">
+              <div className=" flex justify-center md:justify-between lg:hidden items-center mt-10">
                 <Image
                   src={'/phone.jpg'}
-                  width={200}
+                  width={300}
                   height={500}
                   alt="bg_img"
-                  className="p-image lg:block shadow-2xl shadow-slate-500 z-10"
+                  className=" lg:block shadow-2xl shadow-slate-500 z-10"
                 />
 
                 <img

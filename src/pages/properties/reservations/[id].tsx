@@ -106,7 +106,7 @@ export default function BookProperty() {
                   </div>
                 ) : null}
 
-                <div className="flex justify-end">
+                <div className="flex justify-end px-6 lg:px-0">
                   <Button
                     onClick={() => setOpenCart(true)}
                     type="button"

@@ -285,9 +285,9 @@ export const Rooms = ({ data }: Room) => {
             <p className="pt-6 text-[#656363]">Booking link for this room</p>
             <div
               onClick={publishLink}
-              className="border w-full p-2 px-3 mt-1 flex justify-between items-center text-base font-semibold rounded-lg bg-green-200 cursor-pointer "
+              className="border w-full p-2 px-3 mt-1 lg:flex justify-between items-center text-base font-light md:font-semibold rounded-lg bg-green-200 cursor-pointer "
             >
-              <p>{base_url}</p> <FaCopy size={20} onClick={publishLink} />
+              <p className='w-full'>{base_url}</p> <FaCopy size={20} onClick={publishLink} />
             </div>
             <p className="text-sm pt-2 font-medium">
               Add this link to your website or advert. Users will be able to
@@ -298,7 +298,7 @@ export const Rooms = ({ data }: Room) => {
         ) : null}
 
         <div className="font-semibold texet-sm pt-6 flex items-center justify-between ">
-          <p className="text-2xl text-[#10375C]">N {price.toLocaleString()}</p>
+          <p className="text-xl md:text-2xl text-[#10375C]">&#8358; {price.toLocaleString()}</p>
           {published !== 1 ? (
             <button
               onClick={() => {
@@ -306,14 +306,14 @@ export const Rooms = ({ data }: Room) => {
                 publishLink
                 publishARoom()
               }}
-              className="bg-[#F58634] text-white text-center font-md rounded-lg py-2 px-10 cursor-pointer"
+              className="bg-[#F58634] text-white text-center font-md rounded-lg py-1 md:py-2 px-3 md:px-6 lg:px-10 cursor-pointer"
             >
               {publishing ? <Spinner /> : 'publish'}
             </button>
           ) : (
             <div className="flex items-center space-x-3">
-              <p className="text-base text-green-600 font-medium">
-                This room has been published, you can{' '}
+              <p className="text-base text-green-600 font-medium flex space-x-2">
+               <span className='hidden md:flex'>This room has been published, you can</span> {' '}
                 <span
                   onClick={() => unpublishRoom({ toast, id })}
                   className="font-semibold underline cursor-pointer text-red-800"

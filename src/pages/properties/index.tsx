@@ -21,9 +21,6 @@ export default function Properties() {
     _data = [data[0]]
   }
 
-  console.log(">>>>data", _data);
-  
-
   return (
     <div className={`lato`}>
       <Banner firstname={firstname} />
@@ -31,7 +28,7 @@ export default function Properties() {
       <div className="max-w-[1062px] mx-auto lg:px-10">
         <div className="bg-[#F5F5F5] py-10 px-6 md:px-10 lg:px-10 mt-8 space-y-10">
           <div className="flex justify-between items-center">
-            <p className="text-[#10375C] text-xl lg:text-3xl">
+            <p className="text-[#10375C] text-base md:text-xl lg:text-3xl">
               Your properties on Bookteller
             </p>
 
@@ -48,9 +45,9 @@ export default function Properties() {
               <Link href={`/properties/reservations/bookings/${_data[0]?.id}`}>
                 <button
                   type="button"
-                  className="border-[#10375C] bg-[#10375C]  text-white border py-1 text-center px-6  rounded-lg"
+                  className="border-[#10375C] bg-[#10375C]  text-white border py-1 text-center px-3 lg:px-6 font-light rounded-lg text-sm"
                 >
-                  View Reservations
+                  Reservations
                 </button>
               </Link>
             )}

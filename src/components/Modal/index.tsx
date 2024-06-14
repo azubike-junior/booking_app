@@ -61,12 +61,12 @@ const Subscription = ({ openSubscription, setOpenSubscription }: Sub) => {
       size={'6xl'}
     >
       <ModalCloseButton />
-      <ModalContent className="py-10 px-10">
-        <h1 className="quicksand text-5xl leading-8 tracking-wider text-center  font-medium ">
+      <ModalContent className="py-10 px-6 lg:px-10">
+        <h1 className="quicksand text-xl md:text-3xl lg:text-5xl leading-8 tracking-wider text-center  font-medium ">
           Choose your plan
         </h1>
 
-        <div className="grid grid-cols-3 gap-10 mt-48 text-white">
+        <div className="block space-y-6 lg:space-y-0  md:grid md:grid-cols-3 gap-4 lg:gap-10 mt-10 lg:mt-38 text-white">
           {data?.map((s) => {
             const {
               annual_cost,
