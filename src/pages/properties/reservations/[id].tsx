@@ -11,6 +11,7 @@ import { RoomOrderProp } from '@/utils/types'
 import { Spinner } from '@chakra-ui/react'
 import { useParams } from 'next/navigation'
 import { useLayoutEffect, useState } from 'react'
+import { FaShoppingCart } from 'react-icons/fa'
 
 export default function BookProperty() {
   const params = useParams<{ id: string }>()
@@ -23,8 +24,6 @@ export default function BookProperty() {
   const [openCart, setOpenCart] = useState(false)
 
   const [cartItems, setCartItems] = useState<RoomOrderProp[] | any>([])
-
-  console.log('>>>>cartItems', cartItems)
 
   const toggleDetails = () => {
     setShowDetails(!showDetails)
@@ -106,13 +105,14 @@ export default function BookProperty() {
                   </div>
                 ) : null}
 
-                <div className="flex justify-end px-6 lg:px-0">
-                  <Button
+                <div className="flex justify-end px-6 lg:px-0 space-x-2 items-center">
+                  <p>{cartItems.length} item in cart</p ><Button
                     onClick={() => setOpenCart(true)}
                     type="button"
                     name="View Cart"
-                    className="border-[#10375C] bg-[#10375C]  text-white border py-1.5 text-xs mt-2 lg:mt-0 lg:text-sm text-center px-4 rounded-lg"
+                    className="border-[#10375C] bg-[#10375C]  text-white border py-1.5 text-xs mt-2 lg:mt-0 lg:text-sm text-center px-4 rounded-lg flex items-center space-x-2"
                     bg={bg}
+                    icon={<FaShoppingCart color='white'/>}
                   />
                 </div>
 
@@ -184,6 +184,7 @@ export default function BookProperty() {
         cartItems={cartItems}
         removeItem={removeItem}
         openCart={openCart}
+        bg={bg}
       />
     </>
   )

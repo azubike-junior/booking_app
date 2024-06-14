@@ -70,7 +70,7 @@ export default function Login() {
             Login
           </p>
 
-          <div className="border border-[#96A0A5]  space-x-2 flex justify-center items-center py-2 mt-16 rounded-lg">
+          {/* <div className="border border-[#96A0A5]  space-x-2 flex justify-center items-center py-2 mt-16 rounded-lg">
             <Image src="/googlee.svg" width={22} height={22} alt="bookteller" />
             <p className={`${quickSand.className} text-xs`}>
               Sign up with Google
@@ -81,11 +81,11 @@ export default function Login() {
             className={`${quickSand.className} text-center text-[#717E83] pt-10 pb-6`}
           >
             OR
-          </p>
+          </p> */}
 
           <form
             onSubmit={handleSubmit(loginHandler)}
-            className={`${lato.className} space-y-6`}
+            className={`${lato.className} space-y-6 mt-20`}
           >
             <InputField
               name="email"

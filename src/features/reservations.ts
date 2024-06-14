@@ -99,8 +99,14 @@ export const reservationApi = api.injectEndpoints({
           method: 'GET',
           }),
      }),
+     subscriptionPlan: builder.query < SubscriptionProp, string|undefined>({
+        query: (id) => ({
+          url: `/subscription/find/${id}`,
+          method: 'GET',
+          }),
+     }),
   })
 })
 
-export const {useMakePaymentMutation, useMakePaymentOnArrivalMutation, useGetReservationsByRoomIDQuery, useGetReservationQuery, useGetReservationsByPropertyIdQuery, useGetRoomOrderByReservationIdQuery, useSubscriptionPlansQuery} = reservationApi
+export const {useMakePaymentMutation, useMakePaymentOnArrivalMutation, useGetReservationsByRoomIDQuery, useGetReservationQuery, useGetReservationsByPropertyIdQuery, useGetRoomOrderByReservationIdQuery, useSubscriptionPlansQuery, useSubscriptionPlanQuery} = reservationApi
 

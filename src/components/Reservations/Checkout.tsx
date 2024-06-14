@@ -1,3 +1,4 @@
+import { useGetAccountQuery } from '@/features/auth'
 import {
   useMakePaymentMutation,
   useMakePaymentOnArrivalMutation,
@@ -75,9 +76,26 @@ export default function Checkout({
     }
 
     makePayment(newData)
+     .unwrap()
+      .then((payload) => {})
+      .catch((error) => {
+        console.log(">>>>>>>e");
+        
+        toast({
+          title: error?.data?.error,
+          description: '',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+          position: 'top-right',
+        })
+      })
   }
 
+  const { data: user } = useGetAccountQuery(getItem('user_id'))
+
   const onArrivalPaymentHandler = (data: PaymentProps) => {
+     try {
     const { email, phonenumber, first_name, last_name } = data
     const newData = {
       toast,
@@ -94,6 +112,22 @@ export default function Checkout({
     }
 
     makePaymentOnArrival(newData)
+      .unwrap()
+      .then((payload) => {})
+      .catch((error) => {
+        console.log(">>>>>>>e");
+        
+        toast({
+          title: error?.data?.error,
+          description: '',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+          position: 'top-right',
+        })
+      })
+    } catch (err) {}
+       
   }
 
   return (
@@ -121,12 +155,16 @@ export default function Checkout({
                 {/* <p>{room?.name}</p> */}
                 {cartItems.map((c) => {
                   return (
-                    <div key={c.room_id} className="text-sm flex justify-between ">
+                    <div
+                      key={c.room_id}
+                      className="text-sm flex justify-between "
+                    >
                       <p className="w-44 lg:w-24">{c?.room_name}</p>
                       <div className="w-44 lg:w-28">
                         <p>&#8358; {c.price.toLocaleString()}</p>
                         <p className="text-xs">
-                           {moment(c?.start_date).format('ddd, Do YYYY')} -   {moment(c?.end_date).format('ddd, Do YYYY')}
+                          {moment(c?.start_date).format('ddd, Do YYYY')} -{' '}
+                          {moment(c?.end_date).format('ddd, Do YYYY')}
                         </p>
                       </div>
                     </div>
@@ -138,7 +176,10 @@ export default function Checkout({
 
               <div className="text-sm flex justify-between font-bold">
                 <p className="w-44 lg:w-24">Subtotal:</p>
-                <p className="w-44 lg:w-28"> &#8358; {total?.toLocaleString()}</p>
+                <p className="w-44 lg:w-28">
+                  {' '}
+                  &#8358; {total?.toLocaleString()}
+                </p>
               </div>
             </div>
           </div>
@@ -200,21 +241,30 @@ export default function Checkout({
               className="w-full text-white mt-6 lg:mt-10 text-sm py-2 rounded-lg"
               style={{ background: property?.primary_color }}
             >
-              {isLoading ? <Spinner /> : 'Make payment'}
+              {isLoading ? <Spinner /> : 'Make payment online'}
             </button>
 
-            <button
-              onClick={handleSubmit(onArrivalPaymentHandler)}
-              type="button"
-              className={`w-full text-white mt-6 text-sm py-2 rounded-lg  shadow-md shadow-[#ccc]`}
-              style={{ background: 'white', color: property?.primary_color }}
-            >
-              {loadingPaymentOnArrivalResponse ? (
-                <Spinner />
-              ) : (
-                'Make payment on arrival'
-              )}
-            </button>
+            {user?.subscription === 'Premium' ||
+              (user?.subscription === 'Business' && (
+                <>
+                  <p className="text-center py-2 text-black">OR</p>
+                  <button
+                    onClick={handleSubmit(onArrivalPaymentHandler)}
+                    type="button"
+                    className={`w-full text-white mt-6 text-sm py-2 rounded-lg  shadow-md shadow-[#ccc]`}
+                    style={{
+                      background: 'white',
+                      color: property?.primary_color,
+                    }}
+                  >
+                    {loadingPaymentOnArrivalResponse ? (
+                      <Spinner />
+                    ) : (
+                      'Make payment on arrival'
+                    )}
+                  </button>
+                </>
+              ))}
           </div>
         </form>
       </div>

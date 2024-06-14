@@ -8,6 +8,7 @@ import {
   Modal,
   ModalCloseButton,
   ModalContent,
+  ModalOverlay,
   Spinner,
   useToast,
 } from '@chakra-ui/react'
@@ -61,6 +62,7 @@ const Subscription = ({ openSubscription, setOpenSubscription }: Sub) => {
       size={'6xl'}
     >
       <ModalCloseButton />
+      <ModalOverlay />
       <ModalContent className="py-10 px-6 lg:px-10">
         <h1 className="quicksand text-xl md:text-3xl lg:text-5xl leading-8 tracking-wider text-center  font-medium ">
           Choose your plan
@@ -92,20 +94,18 @@ const Subscription = ({ openSubscription, setOpenSubscription }: Sub) => {
             return (
               <div
                 key={s.id}
-                className={`bg-[#1A2B47] rounded-[26px] w-full h-fit ${
+                className={`bg-[#1A2B47] rounded-[26px] w-full h-[600px] ${
                   name === 'Premium' && '-mt-28'
                 }`}
               >
                 <div className="">
-                  {name === 'Premium' && (
-                    <p className="font-bold uppercase text-center text-lg py-6 pt-10 border-b-[0.5px] border-[#a09e9e]">
-                      Most Popular
-                    </p>
-                  )}
+                  <p className="font-bold uppercase text-center text-lg py-6 pt-10 border-b-[0.5px] border-[#a09e9e]">
+                    {name}
+                  </p>
+                </div>
 
-                  <div className={`px-6 ${name !== 'Premium' && 'pt-10'}`}>
-                    <p className="font-bold text-lg pt-2">{name}</p>
-
+                <div className="py-5 px-6 overflow-scroll h-[370px] ">
+                  <div className=" space-y-4">
                     <p className="font-bold text-lg pt-2">
                       ${annual_cost}
                       <span className="font-light">/Year</span>
@@ -115,11 +115,6 @@ const Subscription = ({ openSubscription, setOpenSubscription }: Sub) => {
                       ${monthly_cost}
                       <span className="font-light">/mo</span>
                     </p>
-                  </div>
-                </div>
-
-                <div className="py-5 px-6 ">
-                  <div className=" space-y-4">
                     <p className="flex items-center space-x-2">
                       <FaCheckCircle />
                       <span>{room_category_allowed} categories allowed</span>
@@ -205,12 +200,14 @@ const Subscription = ({ openSubscription, setOpenSubscription }: Sub) => {
                       </p>
                     )}
                   </div>
+                </div>
 
+                <div className='px-6'>
                   <Button
                     onClick={() => {
                       paymentHandler(id, annual_cost)
                       setClicked(name)
-                    }} 
+                    }}
                     name={
                       loadingPaymentResponse && name === clicked ? (
                         <Spinner />
@@ -221,7 +218,7 @@ const Subscription = ({ openSubscription, setOpenSubscription }: Sub) => {
                       )
                     }
                     bg="#F58634"
-                    className="w-full mt-24 py-2.5 text-black font-semibold rounded-[10px] "
+                    className="w-full mt-10 py-2.5 text-black font-semibold rounded-[10px] "
                     type="button"
                   />
                 </div>

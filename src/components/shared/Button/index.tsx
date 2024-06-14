@@ -4,7 +4,7 @@ import { MdOutlinePhotoCamera } from 'react-icons/md'
 
 type btnProp = {
   name: string | ReactElement
-  icon?: boolean
+  icon?: any
   onClick?: () => void
   type: 'button' | 'submit'
   className?: string
@@ -19,7 +19,7 @@ export default function Button({ name, icon, onClick, type, className, bg}: Read
       type={type}
       className={className}
     >
-      {icon && <MdOutlinePhotoCamera size={16} color="white" />} <p>{name}</p>
+      {icon && icon} <p>{name}</p>
     </button>
   )
 }

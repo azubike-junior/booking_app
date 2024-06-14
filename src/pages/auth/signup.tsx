@@ -1,11 +1,6 @@
-import Subscription from '@/components/Modal'
 import InputField from '@/components/shared/Input'
 import { useCreateAccountMutation } from '@/features/auth'
-import {
-  handleErrorResponse,
-  handleSuccessResponse,
- 
-} from '@/utils'
+import { handleErrorResponse, handleSuccessResponse } from '@/utils'
 import { FormValues } from '@/utils/types'
 import { Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
@@ -76,13 +71,11 @@ export default function Signup() {
       </div>
       <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-8 lg:px-20">
         <div className="mx-auto mt-16 max-w-[500px]">
-          <p
-            className={`quicksand text-center text-[#111827] text-3xl`}
-          >
+          <p className={`quicksand text-center text-[#111827] text-3xl`}>
             Create Account
           </p>
 
-          <div className="border border-[#96A0A5]  space-x-2 flex justify-center items-center py-2 mt-12 rounded-lg">
+          {/* <div className="border border-[#96A0A5]  space-x-2 flex justify-center items-center py-2 mt-12 rounded-lg">
             <Image src="/googlee.svg" width={22} height={22} alt="bookteller" />
             <p className={`quicksand text-xs`}>
               Sign up with Google
@@ -93,11 +86,11 @@ export default function Signup() {
             className={`quicksand text-center text-[#717E83] pt-6 pb-6`}
           >
             OR
-          </p>
+          </p> */}
 
           <form
             onSubmit={handleSubmit(signupHandler)}
-            className={`lato space-y-6`}
+            className={`lato space-y-6 mt-20`}
           >
             <div className="block space-y-6 lg:space-y-0 lg:flex lg:space-x-6">
               <InputField
@@ -182,8 +175,6 @@ export default function Signup() {
           </form>
         </div>
       </div>
-
-     
     </div>
   )
 }
