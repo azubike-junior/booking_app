@@ -359,3 +359,20 @@ export const bookings_data = [
     amount: '200000',
   },
 ]
+
+export function convertDateFormat(dateString: string) {
+  // Split the input date string
+  const [day, month, year] = dateString.split('/');
+
+  // Return the formatted date string in yyyy-MM-dd format
+  return `${year}-${month}-${day}`;
+}
+
+export function _convertDateFormat(dateString: string) {
+  // Split the input date string
+  const [day, month, year] = dateString?.split('-');
+
+  // Return the formatted date string in yyyy-MM-dd format
+  return `${year}/${month}/${day}`;
+}
+

@@ -64,7 +64,7 @@ export default function PropertyDetails() {
                     {data?.name},{' '}
                   </p>
                   <p className="text-xl lg:text-xl pt-10 capitalize">
-                   {data?.description}
+                    {data?.description}
                   </p>
                 </div>
               </div>
@@ -81,7 +81,7 @@ export default function PropertyDetails() {
             </div>
             <div className="mt-10 mx-auto ">
               <div className="bg-[#F5F5F5] py-10 px-10 mt-16 space-y-10">
-                <div className='flex justify-between items-center'>
+                <div className="flex justify-between items-center">
                   <p className="text-[#10375C] text-xl lg:text-3xl">
                     Your property details
                   </p>

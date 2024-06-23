@@ -143,6 +143,8 @@ export type RoomOrderProp = {
   price: number
   quantity: number
   image: string
+  adults?: number
+  children?: number
 }
 
 export type SubscriptionProp = {

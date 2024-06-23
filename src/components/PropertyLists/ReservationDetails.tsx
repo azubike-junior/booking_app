@@ -1,5 +1,6 @@
 'use client'
 
+import { convertDateFormat } from '@/utils'
 import { PropertyProp, RoomOrderProp, RoomProps } from '@/utils/types'
 import { useToast } from '@chakra-ui/react'
 import {
@@ -7,40 +8,45 @@ import {
   SetStateAction,
   useEffect,
   useLayoutEffect,
-  useState
+  useState,
 } from 'react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import { FaBed, FaRulerCombined } from 'react-icons/fa'
 import { FaChildren } from 'react-icons/fa6'
 import { GiMirrorMirror, GiTrousers } from 'react-icons/gi'
-import { IoManSharp } from 'react-icons/io5'
+import { IoCloseSharp, IoManSharp } from 'react-icons/io5'
 import {
   MdFreeBreakfast,
   MdLocalLaundryService,
   MdOutlineBalcony,
   MdOutlineBathroom,
   MdSignalWifiStatusbarConnectedNoInternet3,
-  MdSmokeFree
+  MdSmokeFree,
 } from 'react-icons/md'
 import {
   PiPhoneDisconnectBold,
   PiTelevisionFill,
-  PiUserCirclePlusFill
+  PiUserCirclePlusFill,
 } from 'react-icons/pi'
 import { TbAirConditioningDisabled, TbBedOff } from 'react-icons/tb'
 import { TfiRulerAlt2 } from 'react-icons/tfi'
+import Button from '../shared/Button'
 
 interface Room {
   room: RoomProps | any
   property?: PropertyProp
   index: number
-  setCheckIn: (checkIn: string) => void
-  setCheckOut: (checkOut: string) => void
-  checkIn: string
-  checkOut: string
+  setCheckIn: (checkIn: any) => void
+  setCheckOut: (checkOut: any) => void
+  checkIn: any
+  checkOut: any
   setOpenCheckout: (open: boolean) => void
   setCartItems: Dispatch<SetStateAction<RoomOrderProp[]>>
   cartItems: RoomOrderProp[]
   setOpenCart: (open: boolean) => void
+  textColor: string
+  removeItem: (id: any) => void
 }
 
 export const ReservationDetails = ({
@@ -55,6 +61,8 @@ export const ReservationDetails = ({
   setOpenCheckout,
   setCartItems,
   cartItems,
+  textColor,
+  removeItem,
 }: Room) => {
   const [bg, setbg] = useState<any>(null)
   const [showDetails, setShowDetails] = useState(false)
@@ -82,15 +90,15 @@ export const ReservationDetails = ({
 
       return item.room_id === id
     })
-  console.log('>>>>>chekcc', checkItemAdded(room.id))
+  console.log('>>>>>chekcc', checkOut.toLocaleDateString())
 
   return (
-    <div className="pb-10">
+    <div className="shadow px-2 rounded-lg  w-full ">
       <div
-        className={` pt-2 pl-2 mt-8 lg:flex lg:space-x-2 border`}
+        className={`py-2 px-2 mt-8 lg:flex lg:space-x-2 `}
         style={{ background: showDetails ? bg : 'white' }}
       >
-        <div className=" group w-full lg:w-[300px] lg:h-[260px] border flex justify-center items-center  cursor-pointer relative overflow-hidden ">
+        <div className=" group w-full lg:w-[300px] lg:h-[260px] border flex justify-center items-center  cursor-pointer relative overflow-hidden rounded-lg ">
           <img
             src={!room?.image_one ? '/placeholder.png' : room?.image_one}
             alt=""
@@ -109,6 +117,7 @@ export const ReservationDetails = ({
         </div>
 
         <div
+          style={{ color: textColor }}
           className={`lato pl-2 pt-2  w-full lg:w-8/12 font-light ${
             showDetails ? 'text-white' : 'text-black'
           } `}
@@ -117,7 +126,10 @@ export const ReservationDetails = ({
             {room?.name}
           </p>
 
-          <div className="flex flex-wrap  items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-4 text-xs md:text-xs font-md">
+          <div
+            style={{ color: textColor }}
+            className="flex flex-wrap  items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-4 text-xs md:text-xs font-md"
+          >
             <div>
               <IoManSharp size={20} className="mx-auto" />
               <p>{room?.adults} adult</p>
@@ -133,8 +145,11 @@ export const ReservationDetails = ({
               </div>
             ) : null}
           </div>
-          <p className="font-medium text-xs md:text-sm w-[270px] pt-6">
-            {room?.description}
+          <p
+            style={{ color: textColor }}
+            className="font-medium text-xs md:text-sm w-[270px] pt-6"
+          >
+            {room?.description?.substring(40).concat('....')}
           </p>
 
           <p
@@ -156,11 +171,11 @@ export const ReservationDetails = ({
 
       {showDetails ? (
         <div className="font-light block lg:flex justify-between px-5 lg:px-0">
-          <div className="w-full lg:w-7/12 pt-6">
+          <div style={{ color: textColor }} className="w-full lg:w-7/12 pt-6">
             <h1 className={`quicksand text-3xl text-${bg}-600 pt-4`}>
               {room?.name}
             </h1>
-            <p className="pt-2 text-[#7a7878]">{room?.description}</p>
+            <p className="pt-2">{room?.description}</p>
             <p className="pt-6 text-xs font-semibold">ROOMS DETAILS</p>
 
             <div className="flex flex-wrap  items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:py-4 text-xs md:text-sm font-md">
@@ -223,10 +238,6 @@ export const ReservationDetails = ({
                   <p> balcony</p>
                 </div>
               ) : null}
-            </div>
-
-            <p className="pt-10 text-xs font-semibold">ROOMS AMENITIES</p>
-            <div className="flex flex-wrap items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-4 text-xs md:text-sm font-md">
               {room?.bed_breakfast ? (
                 <div>
                   <MdFreeBreakfast size={20} className="mx-auto" />
@@ -274,35 +285,28 @@ export const ReservationDetails = ({
                 <p>{room?.adults} adult</p>
               </div>
 
-              {/* <div className="flex space-x-3">
-                <IoIosBed size={30} className="mx-auto" />
-                <p>1 King Bed</p>
-              </div> */}
-
               <div className="flex space-x-3">
                 <FaRulerCombined size={20} className="mx-auto" />
-                <p>550 ft2 / 51 m2</p>
+                <p>{room?.size}</p>
               </div>
             </div>
           </div>
-          <div className="w-full lg:w-4/12 border px-4 mt-10">
-            <form className={`lato pt-6 `}>
+          <div className="w-full lg:w-4/12 border px-4 mt-10 rounded-lg">
+            <form className={`lato pt-6  flex justify-center items-center`}>
               <div className=" block  font-semibold space-y-6">
                 <div className="w-full">
                   Check in:{' '}
                   <span className="text-[#10375C] pl-2">
-                    {/* February 3rd, 2024 */}
-
                     {cartItems[index]?.start_date}
                   </span>
-                  <div className="w-full border-2 border-stone-300 flex p-1 mt-4 rounded-lg">
-                    <input
-                      type="date"
-                      placeholder="Check in"
-                      className="flex-1 p-2 outline-none border-none"
-                      onChange={(e) => setCheckIn(e.target.value)}
+                  <div className="  flex  mt-2 rounded-lg">
+                    <DatePicker
+                      className="w-full py-1 px-2 outline-none flex-1 border-2 rounded-lg border-stone-300"
+                      selected={checkIn}
+                      onChange={(date) => setCheckIn(date)}
+                      minDate={new Date()}
+                      dateFormat="yyyy-MM-dd"
                     />
-                    {/* <CiCalendarDate size={24} /> */}
                   </div>
                 </div>
                 <div className="w-full ">
@@ -310,12 +314,17 @@ export const ReservationDetails = ({
                   <span className="text-[#10375C] pl-2">
                     {cartItems[index]?.end_date}
                   </span>
-                  <div className="w-full border-2 border-stone-300 flex p-1 mt-4 rounded-lg">
-                    <input
-                      type="date"
-                      placeholder="Check in"
-                      className="flex-1 p-2"
-                      onChange={(e) => setCheckOut(e.target.value)}
+                  <div className="  flex mt-2 rounded-lg">
+                    <DatePicker
+                      className="w-full py-1 px-2 outline-none flex-1 border-2 rounded-lg border-stone-300"
+                      selected={checkOut}
+                      onChange={(date) => setCheckOut(date)}
+                      minDate={
+                        checkIn
+                          ? new Date(checkIn.getTime() + 24 * 60 * 60 * 1000)
+                          : new Date()
+                      }
+                      dateFormat="yyyy-MM-dd"
                     />
                   </div>
                 </div>
@@ -339,15 +348,19 @@ export const ReservationDetails = ({
                         room_name: room?.name,
                         price: room.price,
                         quality: 0,
-                        start_date: checkIn,
-                        end_date: checkOut
+                        start_date: convertDateFormat(
+                          checkIn.toLocaleDateString(),
+                        ),
+                        end_date: convertDateFormat(
+                          checkOut.toLocaleDateString(),
+                        ),
+                        adults: room?.adults,
+                        children: room?.children,
                       }
                       setCartItems((prev: any) => [...prev, cart])
                     }}
                   >
-                    {checkItemAdded(room.id)
-                      ? 'Room added'
-                      : 'Add room to cart'}
+                    {checkItemAdded(room.id) ? 'Room added' : 'Add room'}
                   </button>
                 </div>
               </div>
@@ -355,6 +368,56 @@ export const ReservationDetails = ({
           </div>
         </div>
       ) : null}
+
+      {cartItems[index]?.room_id && (
+        <div className="pt-4 xl:hidden">
+          <hr />
+          <div className="text-xs md:flex space-y-2 md:space-x-10 items-center justify-between py-4 lato">
+            <p className="text-[#666666] text-xs">Room 1</p>
+
+            <div className="text-xs md:text-sm flex space-x-4 items-center">
+              <div className="flex items-center space-x-2">
+                <p>Name:</p>
+                <span className="border border-1 rounded-lg p-2">
+                  {cartItems[index]?.room_name}
+                </span>{' '}
+              </div>
+              <div className="flex items-center space-x-2">
+                <p>Adult:</p>
+                <span className="border border-1 rounded-lg p-2">
+                  {cartItems[index]?.adults}
+                </span>{' '}
+              </div>
+              <div className="flex items-center space-x-2">
+                <p>child:</p>
+                <span className="border border-1 rounded-lg p-2">
+                  {cartItems[index]?.children}
+                </span>{' '}
+              </div>
+
+              <IoCloseSharp
+                className=" cursor-pointer "
+                size={18}
+                color="red"
+                onClick={() => removeItem(cartItems[index]?.room_id)}
+              />
+            </div>
+
+            <div className="flex justify-end px-2">
+              <Button
+                onClick={() => {
+                  setOpenCheckout(true)
+                  // setOpenCart(false)
+                }}
+                type="button"
+                name="Checkout "
+                bg={bg}
+                className={`border-[#10375C]  text-white border py-1.5 text-xs lg:text-sm text-center px-4 rounded-lg w-full`}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

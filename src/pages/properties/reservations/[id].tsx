@@ -1,4 +1,3 @@
-import { CartModal } from '@/components/Modal/CartModal'
 import { ReservationDetails } from '@/components/PropertyLists/ReservationDetails'
 import Checkout from '@/components/Reservations/Checkout'
 import Button from '@/components/shared/Button'
@@ -7,19 +6,26 @@ import {
   useGetRoomByIdQuery,
   useGetRoomByPropertyIdQuery,
 } from '@/features/property'
+import { _convertDateFormat } from '@/utils'
 import { RoomOrderProp } from '@/utils/types'
 import { Spinner } from '@chakra-ui/react'
 import { useParams } from 'next/navigation'
 import { useLayoutEffect, useState } from 'react'
-import { FaShoppingCart } from 'react-icons/fa'
+import { IoCloseSharp } from 'react-icons/io5'
 
 export default function BookProperty() {
   const params = useParams<{ id: string }>()
   const [bg, setbg] = useState<any>(null)
   const [textColor, setTextColor] = useState<any>(null)
   const [showDetails, setShowDetails] = useState(false)
-  const [checkIn, setCheckIn] = useState('')
-  const [checkOut, setCheckOut] = useState('')
+
+  const defaultCheckInDate = new Date()
+  const defaultCheckOutDate = new Date(
+    defaultCheckInDate.getTime() + 24 * 60 * 60 * 1000,
+  )
+
+  const [checkIn, setCheckIn] = useState<any>(defaultCheckInDate)
+  const [checkOut, setCheckOut] = useState<any>(defaultCheckOutDate)
   const [openCheckout, setOpenCheckout] = useState(false)
   const [openCart, setOpenCart] = useState(false)
 
@@ -71,12 +77,12 @@ export default function BookProperty() {
           <Spinner />
         </div>
       ) : (
-        <div className={`font-lato`}>
+        <div className={`font-lato `}>
           <div
-            className={` w-full  lg:h-[240px]`}
+            className={` w-full  lg:h-[240px] `}
             style={{ background: bg, color: textColor }}
           >
-            <div className="max-w-[1062px] px-10 pb-10 pt-16 mx-auto flex justify-between items-center">
+            <div className="max-w-[1200px] px-10 pb-10 pt-16 mx-auto flex justify-between items-center">
               <div className="">
                 <p className="text-3xl lg:text-5xl">{property?.name}</p>
                 <p className="text-xl lg:text-2xl pt-6">{property?.address}</p>
@@ -97,99 +103,151 @@ export default function BookProperty() {
               total={total}
             />
           ) : (
-            <div>
-              <div className="max-w-[1062px] mx-auto lg:px-10 mt-20">
-                {!roomDetail ? (
-                  <div className="flex justify-center items-center pb-6">
-                    <Spinner size="30" color="blue" />{' '}
-                  </div>
-                ) : null}
+            <div className="max-w-[1200px] w-full  mx-auto mt-20 flex px-5 relative ">
+              <div className="max-w-[1200px] w-full mx-auto lg:px-5">
+                <div className=" ">
+                  {!roomDetail ? (
+                    <div className="flex justify-center items-center pb-6">
+                      <Spinner size="30" color="blue" />{' '}
+                    </div>
+                  ) : null}
 
-                <div className="flex justify-end px-6 lg:px-0 space-x-2 items-center">
-                  <p>{cartItems.length} item in cart</p ><Button
-                    onClick={() => setOpenCart(true)}
-                    type="button"
-                    name="View Cart"
-                    className="border-[#10375C] bg-[#10375C]  text-white border py-1.5 text-xs mt-2 lg:mt-0 lg:text-sm text-center px-4 rounded-lg flex items-center space-x-2"
-                    bg={bg}
-                    icon={<FaShoppingCart color='white'/>}
+                  <ReservationDetails
+                    // setOpenCheckout={setOpenCheckout}
+                    setOpenCart={setOpenCart}
+                    property={property}
+                    room={roomDetail || {}}
+                    index={0}
+                    checkIn={checkIn}
+                    checkOut={checkOut}
+                    setCheckIn={setCheckIn}
+                    setCheckOut={setCheckOut}
+                    setCartItems={setCartItems}
+                    cartItems={cartItems}
+                    setOpenCheckout={setOpenCheckout}
+                    textColor={textColor}
+                    removeItem={removeItem}
                   />
                 </div>
 
-                <ReservationDetails
-                  // setOpenCheckout={setOpenCheckout}
-                  setOpenCart={setOpenCart}
-                  property={property}
-                  room={roomDetail || {}}
-                  index={0}
-                  checkIn={checkIn}
-                  checkOut={checkOut}
-                  setCheckIn={setCheckIn}
-                  setCheckOut={setCheckOut}
-                  setCartItems={setCartItems}
-                  cartItems={cartItems}
-                  setOpenCheckout={setOpenCheckout}
-                />
+                <div className="max-w-[900px] mx-auto pt-20">
+                  <p className="text-2xl text-center">
+                    Other rooms under {property?.name}{' '}
+                  </p>
+                  {isLoading ? (
+                    <div className="flex justify-center items-center pb-6">
+                      <Spinner />{' '}
+                    </div>
+                  ) : null}
+
+                  {otherRooms?.length === 0 ? (
+                    <div className="mt-4 flex">
+                      <p className="text-[#7b7c7d] text-xl">
+                        No property has been added
+                      </p>
+                    </div>
+                  ) : null}
+
+                  {otherRooms
+                    ?.filter((r) => r.id !== roomDetail?.id)
+                    ?.map((p: any, index: number) => {
+                      return (
+                        <ReservationDetails
+                          property={property}
+                          // setOpenCheckout={setOpenCheckout}
+                          room={p}
+                          key={index}
+                          index={index + 1}
+                          checkIn={checkIn}
+                          checkOut={checkOut}
+                          setCheckIn={setCheckIn}
+                          setCheckOut={setCheckOut}
+                          setCartItems={setCartItems}
+                          cartItems={cartItems}
+                          setOpenCart={setOpenCart}
+                          setOpenCheckout={setOpenCheckout}
+                          textColor={textColor}
+                          removeItem={removeItem}
+                        />
+                      )
+                    })}
+                </div>
               </div>
+              <div className="border w-[300px] mt-8 lato hidden xl:block sticky ">
+                <div className="bg-[#f1efef] text-xs text-center py-2">
+                  Booking Summary
+                </div>
 
-              <div className="max-w-[1062px] mx-auto lg:px-10 pt-20">
-                <p className="text-2xl text-center">
-                  Other rooms under {property?.name}{' '}
-                </p>
-                {isLoading ? (
-                  <div className="flex justify-center items-center pb-6">
-                    <Spinner />{' '}
-                  </div>
-                ) : null}
+                {cartItems.length === 0 ? (
+                  <p className="text-center mt-10">No items in your cart</p>
+                ) : (
+                  <div className="  rounded-xl py-2 space-y-4">
+                    {cartItems?.map((c: RoomOrderProp) => {
+                      return (
+                        <div
+                          key={c.room_id}
+                          className=" px-2 py-4  items-center text-xl rounded-xl relative"
+                        >
+                          <div className="text-sm items-center flex space-x-4 border-b pb-1">
+                            <p className="font-medium text-[#7c7a7a]">Date</p>
+                            <div>
+                              <p className="text-black text-xs">
+                                {_convertDateFormat(c.start_date)} -{' '}
+                                {_convertDateFormat(c.end_date)}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex justify-between space-x-3 items-center pt-2">
+                            <p className=" text-sm capitalize">{c.room_name}</p>
 
-                {otherRooms?.length === 0 ? (
-                  <div className="mt-4 flex">
-                    <p className="text-[#7b7c7d] text-xl">
-                      No property has been added
-                    </p>
-                  </div>
-                ) : null}
+                            <IoCloseSharp
+                              className=" cursor-pointer"
+                              size={18}
+                              color="red"
+                              onClick={() => removeItem(c.room_id)}
+                            />
+                          </div>
 
-                {otherRooms
-                  ?.filter((r) => r.id !== roomDetail?.id)
-                  ?.map((p: any, index: number) => {
-                    return (
-                      <ReservationDetails
-                        property={property}
-                        // setOpenCheckout={setOpenCheckout}
-                        room={p}
-                        key={index}
-                        index={index + 1}
-                        checkIn={checkIn}
-                        checkOut={checkOut}
-                        setCheckIn={setCheckIn}
-                        setCheckOut={setCheckOut}
-                        setCartItems={setCartItems}
-                        cartItems={cartItems}
-                        setOpenCart={setOpenCart}
-                        setOpenCheckout={setOpenCheckout}
+                          <div className="text-sm flex justify-between">
+                            <div>
+                              {c?.adults} adult, {c?.children} child, 1 room
+                            </div>
+
+                            <p> &#8358; {c.price.toLocaleString()}</p>
+                          </div>
+
+                          <div></div>
+                        </div>
+                      )
+                    })}
+
+                    <hr />
+
+                    <div className="flex justify-between px-4">
+                      <p>Total:</p>
+
+                      <p> &#8358; {total.toLocaleString()}</p>
+                    </div>
+
+                    <div className="flex justify-end px-2">
+                      <Button
+                        onClick={() => {
+                          setOpenCheckout(true)
+                          setOpenCart(false)
+                        }}
+                        type="button"
+                        name="Checkout "
+                        bg={bg}
+                        className={`border-[#10375C]  text-white border py-1.5 text-xs mt-2 lg:mt-4 lg:text-sm text-center px-4 rounded-lg w-full`}
                       />
-                    )
-                  })}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
         </div>
       )}
-
-      <CartModal
-        openCheckout={openCheckout}
-        setOpenCheckout={setOpenCheckout}
-        setOpenCart={setOpenCart}
-        cartItems={cartItems}
-        removeItem={removeItem}
-        openCart={openCart}
-        bg={bg}
-      />
     </>
   )
 }
-
-// BookProperty.getLayout = function getLayout(page: any) {
-//   return <AuthWrapper>{page}</AuthWrapper>
-// }
