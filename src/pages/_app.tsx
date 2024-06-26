@@ -6,6 +6,8 @@ import { ChakraProvider } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { Provider } from 'react-redux'
+import "react-responsive-carousel/lib/styles/carousel.min.css"; 
+
 const Navbar = dynamic(() => import('@/components/shared/Navbar'), {
   ssr: false,
 })

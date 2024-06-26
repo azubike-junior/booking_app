@@ -31,6 +31,7 @@ import {
 } from 'react-icons/pi'
 import { TbAirConditioningDisabled, TbBedOff } from 'react-icons/tb'
 import { TfiRulerAlt2 } from 'react-icons/tfi'
+import { Carousel } from 'react-responsive-carousel'
 import Button from '../shared/Button'
 
 interface Room {
@@ -127,11 +128,30 @@ export const ReservationDetails = ({
         }}
       >
         <div className=" group w-full lg:w-[300px] lg:h-[260px] border flex justify-center items-center  cursor-pointer relative overflow-hidden rounded-lg ">
-          <img
-            src={!room?.image_one ? '/placeholder.png' : room?.image_one}
-            alt=""
-            className="w-full h-full z-0"
-          />
+          <Carousel
+          // swipeable={true}
+          // autoPlay={true}
+          // interval={4000}
+          // infiniteLoop={true}
+            showThumbs={false}
+          >
+            <div>
+              <img
+                src={!room?.image_one ? '/placeholder.png' : room?.image_one}
+                alt=""
+                className="w-full h-full z-0"
+              />
+            </div>
+
+            <div>
+              <img
+                src={!room?.image_two ? '/placeholder.png' : room?.image_two}
+                alt=""
+                className="w-full h-full z-0"
+              />
+            </div>
+          </Carousel>
+
           <div className="absolute h-full w-full bg-black/20 flex justify-center items-center -bottom-10 group-hover:bottom-0 opacity-0  group-hover:opacity-100 transition-all duration-300">
             <button
               onClick={() => {

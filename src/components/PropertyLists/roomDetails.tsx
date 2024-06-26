@@ -27,6 +27,7 @@ import {
   PiUserCirclePlusFill,
 } from 'react-icons/pi'
 import { TbAirConditioningDisabled, TbBedOff } from 'react-icons/tb'
+import { Carousel } from 'react-responsive-carousel'
 import Subscription from '../Modal'
 
 interface Room {
@@ -64,6 +65,7 @@ export const Rooms = ({ data }: Room) => {
     reserved,
     mode_str,
     image_one,
+    image_two,
   } = data
   const toast = useToast()
 
@@ -134,11 +136,24 @@ export const Rooms = ({ data }: Room) => {
   return (
     <div className="w-full">
       <div className=" w-full  lg:h-[500px] overflow-hidden  border flex justify-center items-center rounded-xl shadow-xl shadow-slate-60 lg:shadow-none ">
-        <img
-          src={!image_one ? '/placeholder.png' : image_one}
-          alt=""
-          className="w-full h-full"
-        />
+        <Carousel
+          swipeable={true}
+          autoPlay={true}
+          interval={4000}
+          infiniteLoop={true}
+        >
+          <img
+            src={!image_one ? '/placeholder.png' : image_one}
+            alt=""
+            className="w-full h-full"
+          />
+
+          <img
+            src={!image_two ? '/placeholder.png' : image_two}
+            alt=""
+            className="w-full h-full"
+          />
+        </Carousel>
       </div>
 
       <div
@@ -287,7 +302,8 @@ export const Rooms = ({ data }: Room) => {
               onClick={publishLink}
               className="border w-full p-2 px-3 mt-1 lg:flex justify-between items-center text-base font-light md:font-semibold rounded-lg bg-green-200 cursor-pointer "
             >
-              <p className='w-full'>{base_url}</p> <FaCopy size={20} onClick={publishLink} />
+              <p className="w-full">{base_url}</p>{' '}
+              <FaCopy size={20} onClick={publishLink} />
             </div>
             <p className="text-sm pt-2 font-medium">
               Add this link to your website or advert. Users will be able to
@@ -298,7 +314,9 @@ export const Rooms = ({ data }: Room) => {
         ) : null}
 
         <div className="font-semibold texet-sm pt-6 flex items-center justify-between ">
-          <p className="text-xl md:text-2xl text-[#10375C]">&#8358; {price.toLocaleString()}</p>
+          <p className="text-xl md:text-2xl text-[#10375C]">
+            &#8358; {price.toLocaleString()}
+          </p>
           {published !== 1 ? (
             <button
               onClick={() => {
@@ -313,7 +331,9 @@ export const Rooms = ({ data }: Room) => {
           ) : (
             <div className="flex items-center space-x-3">
               <p className="text-base text-green-600 font-medium flex space-x-2">
-               <span className='hidden md:flex'>This room has been published, you can</span> {' '}
+                <span className="hidden md:flex">
+                  This room has been published, you can
+                </span>{' '}
                 <span
                   onClick={() => unpublishRoom({ toast, id })}
                   className="font-semibold underline cursor-pointer text-red-800"
