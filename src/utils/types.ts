@@ -32,19 +32,23 @@ export type PropertyProp = {
   toast?: any
   route?: any
   id: string
-    description: string
-    address: string
-    name: string
-    number_of_rooms: number
-    logo: string
-    primary_color: string
-    text_color: string,
-    secondary_color: string
-    phone_number: string,
-    email_address: string,
-    web_address: string
-    image:string
-    country: string
+  description: string
+  address: string
+  name: string
+  number_of_rooms: number
+  logo: string
+  primary_color: string
+  text_color: string,
+  secondary_color: string
+  phone_number: string,
+  email_address: string,
+  web_address: string
+  image:string
+  country: string
+  account_number: string
+  currency: string
+  payment_link: string
+  bank: string
 }
 
 

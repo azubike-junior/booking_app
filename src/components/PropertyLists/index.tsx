@@ -7,6 +7,9 @@ import { FiPhone } from 'react-icons/fi'
 import { HiOutlineMapPin } from 'react-icons/hi2'
 import { MdOutlineBedroomParent } from 'react-icons/md'
 import { SiWebauthn } from 'react-icons/si'
+import { GrCurrency } from "react-icons/gr";
+import { MdOutlineAccountBalance } from "react-icons/md";
+import { LuLink } from "react-icons/lu";
 
 export const Lists = ({
   id,
@@ -20,6 +23,9 @@ export const Lists = ({
   image: url,
   logo,
   country,
+  account_number,
+  payment_link,
+  currency,
   description,
   number_of_rooms,
   name,
@@ -80,6 +86,18 @@ export const Lists = ({
           <div className="flex items-center space-x-2">
             <SiWebauthn />
             <p className="font-light ">{web_address}</p>
+          </div>
+          <div className="flex items-center space-x-2">
+            <LuLink />
+            <p className="font-light ">{payment_link}</p>
+          </div>
+           <div className="flex items-center space-x-2">
+            <MdOutlineAccountBalance />
+            <p className="font-light ">{account_number}</p>
+          </div>
+           <div className="flex items-center space-x-2">
+            <GrCurrency />
+            <p className="font-light ">{currency}</p>
           </div>
         </div>
 

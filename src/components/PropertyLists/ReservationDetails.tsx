@@ -13,7 +13,7 @@ import {
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { FaBed, FaRulerCombined } from 'react-icons/fa'
-import { FaChildren } from 'react-icons/fa6'
+import { FaChildren, FaMinus, FaPlus } from 'react-icons/fa6'
 import { GiMirrorMirror, GiTrousers } from 'react-icons/gi'
 import { IoCloseSharp, IoManSharp } from 'react-icons/io5'
 import {
@@ -47,6 +47,8 @@ interface Room {
   setOpenCart: (open: boolean) => void
   textColor: string
   removeItem: (id: any) => void
+  quantity: number
+  setQuantity: (quan: number) => void
 }
 
 export const ReservationDetails = ({
@@ -63,6 +65,8 @@ export const ReservationDetails = ({
   cartItems,
   textColor,
   removeItem,
+  quantity,
+  setQuantity,
 }: Room) => {
   const [bg, setbg] = useState<any>(null)
   const [showDetails, setShowDetails] = useState(false)
@@ -86,17 +90,41 @@ export const ReservationDetails = ({
 
   const checkItemAdded = (id: string) =>
     cartItems.some((item) => {
-      console.log(item.room_id, id)
-
+      // console.log(item.room_id, id)
       return item.room_id === id
     })
-  console.log('>>>>>chekcc', checkOut.toLocaleDateString())
+
+  const changeQuantity = (room_id: string, action: string) => {
+    setCartItems((prev) => {
+      return prev.map((item: RoomOrderProp) => {
+        console.log('>>>>prev', item)
+
+        if (action === 'inc') {
+          return item.room_id === room_id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        }
+        if (action === 'dec') {
+          return item.room_id === room_id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        }
+
+        return item
+      })
+    })
+  }
+
+  // console.log('>>>>>cartItem', cartItems)
 
   return (
     <div className="shadow px-2 rounded-lg  w-full ">
       <div
         className={`py-2 px-2 mt-8 lg:flex lg:space-x-2 `}
-        style={{ background: showDetails ? bg : 'white' }}
+        style={{
+          background: showDetails ? bg : 'white',
+          color: showDetails ? textColor : '#000000',
+        }}
       >
         <div className=" group w-full lg:w-[300px] lg:h-[260px] border flex justify-center items-center  cursor-pointer relative overflow-hidden rounded-lg ">
           <img
@@ -117,7 +145,7 @@ export const ReservationDetails = ({
         </div>
 
         <div
-          style={{ color: textColor }}
+          style={{ color: showDetails ? textColor : '#000000' }}
           className={`lato pl-2 pt-2  w-full lg:w-8/12 font-light ${
             showDetails ? 'text-white' : 'text-black'
           } `}
@@ -126,10 +154,7 @@ export const ReservationDetails = ({
             {room?.name}
           </p>
 
-          <div
-            style={{ color: textColor }}
-            className="flex flex-wrap  items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-4 text-xs md:text-xs font-md"
-          >
+          <div className="flex flex-wrap  items-center gap-4 md:gap-8 lg:gap-6 pt-8 lg:pt-4 text-xs md:text-xs font-md">
             <div>
               <IoManSharp size={20} className="mx-auto" />
               <p>{room?.adults} adult</p>
@@ -145,10 +170,7 @@ export const ReservationDetails = ({
               </div>
             ) : null}
           </div>
-          <p
-            style={{ color: textColor }}
-            className="font-medium text-xs md:text-sm w-[270px] pt-6"
-          >
+          <p className="font-medium text-xs md:text-sm w-[270px] pt-6">
             {room?.description?.substring(40).concat('....')}
           </p>
 
@@ -171,7 +193,7 @@ export const ReservationDetails = ({
 
       {showDetails ? (
         <div className="font-light block lg:flex justify-between px-5 lg:px-0">
-          <div style={{ color: textColor }} className="w-full lg:w-7/12 pt-6">
+          <div className="w-full lg:w-7/12 pt-6">
             <h1 className={`quicksand text-3xl text-${bg}-600 pt-4`}>
               {room?.name}
             </h1>
@@ -335,8 +357,10 @@ export const ReservationDetails = ({
                       (!checkIn && !checkOut) || checkItemAdded(room.id)
                     }
                     type="button"
-                    className=" text-white text-center text-xs lg:text-sm font-md rounded-lg py-1.5 px-2 w-full"
-                    style={{ background: bg }}
+                    className=" text-white text-center text-xs lg:text-sm font-md rounded-lg py-1.5 px-2 w-full "
+                    style={{
+                      background: checkItemAdded(room.id) ? '#a9a4a4cc' : bg,
+                    }}
                     onClick={() => {
                       // setShowCheckout(true)
                       setOpenCart(true)
@@ -348,6 +372,7 @@ export const ReservationDetails = ({
                         room_name: room?.name,
                         price: room.price,
                         quality: 0,
+                        quantity: 1,
                         start_date: convertDateFormat(
                           checkIn.toLocaleDateString(),
                         ),
@@ -363,6 +388,41 @@ export const ReservationDetails = ({
                     {checkItemAdded(room.id) ? 'Room added' : 'Add room'}
                   </button>
                 </div>
+
+                {cartItems[index]?.quantity > 0 && (
+                  <>
+                    <hr />
+                    <div className="flex space-x-4 items-center">
+                      <p className="text-red-600 text-xs">No rooms left</p>
+                      <div className="flex justify-between border-[1px] items-center rounded-md shadow-lg px-2 text-xs space-x-2 shadow-lg">
+                        <div
+                          onClick={() => {
+                            if (cartItems[index]?.quantity === 1) {
+                              removeItem(cartItems[index]?.room_id)
+                            }
+                            console.log('>>>>>infx', cartItems[index]?.quantity)
+
+                            changeQuantity(cartItems[index]?.room_id, 'dec')
+                          }}
+                          className="py-2 cursor-pointer"
+                        >
+                          <FaMinus />
+                        </div>
+                        <span className="border-l border-r px-3">
+                          {cartItems[index]?.quantity}
+                        </span>
+                        <div
+                          onClick={() => {
+                            changeQuantity(cartItems[index]?.room_id, 'inc')
+                          }}
+                          className="py-1 cursor-pointer"
+                        >
+                          <FaPlus />
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </form>
           </div>

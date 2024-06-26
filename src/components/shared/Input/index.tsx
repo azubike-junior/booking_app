@@ -1,4 +1,3 @@
-import { classNames } from '@/utils'
 import { FieldError } from 'react-hook-form'
 
 type InputProp = {
@@ -12,7 +11,7 @@ type InputProp = {
   errors?: FieldError | undefined
   validate?: any
   defaultValue?: string | number
-  selectArray?: []
+  selectArray?: any
   value?: string | number
   className?: string
   min?: string
@@ -42,8 +41,7 @@ export default function InputField({
       </label>
       {textarea ? (
         <textarea
-          className="border-[0.5px] border-[#b7bcbe] w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium text-[#747F8A]"
-          
+          className="border-[0.5px] border-[#b7bcbe] w-full mt-2 py-2 rounded-lg px-4 outline-none font-medium text-[#747F8A]"
           defaultValue={defaultValue}
           placeholder={placeHolder}
           {...register(name, { required, validate })}
@@ -55,7 +53,7 @@ export default function InputField({
           min={min}
           max={max}
           placeholder={placeHolder}
-          className="border-[0.5px] border-[#b7bcbe] w-full mt-2 py-3 rounded-lg px-4 outline-none font-medium text-[#747F8A]"
+          className="border-[0.5px] border-[#b7bcbe] w-full mt-2 py-2 rounded-lg px-4 outline-none font-medium text-[#747F8A]"
           {...register(name, { required, validate })}
         />
       )}
@@ -99,11 +97,9 @@ export const SelectField = ({
       )}
       <div>
         <select
-          className={classNames(
-            !errors && 'focus:border-green-600',
-            errors && 'border-red-500',
-            'w-full p-3 rounded-lg outline-none border-[#b7bcbe] bg-white border mt-2 text-black',
-          )}
+          className={
+           "border-[0.5px] border-[#b7bcbe] w-full mt-2 py-2 rounded-lg px-4 outline-none font-medium text-[#747F8A]"
+          }
           {...register(name, { required })}
           value={value}
           name={name}

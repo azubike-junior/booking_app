@@ -1,5 +1,5 @@
 import Button from '@/components/shared/Button'
-import InputField from '@/components/shared/Input'
+import InputField, { SelectField } from '@/components/shared/Input'
 import { useCreatePropertyMutation } from '@/features/property'
 import { handleImageChange, handleLogoChange } from '@/utils'
 import { PropertyProp } from '@/utils/types'
@@ -41,7 +41,7 @@ export default function RegisterProperty() {
   const [primaryColor, setPrimaryColor] = useColor('#fff')
   const [textColor, setTextColor] = useColor('#fff')
 
-  console.log('>>>>>>>seconday', secondaryColor)
+  const currencies = ['NGN', 'USD', 'EURO']
 
   const updateColorModal = (key: string, value: boolean) => {
     setColorModals((prevState) => ({
@@ -60,6 +60,9 @@ export default function RegisterProperty() {
   const logoRef = useRef() as MutableRefObject<HTMLInputElement>
 
   async function propertyHandler(data: PropertyProp) {
+
+
+
     if (!imgUrl || !logoUrl) {
       toast({
         title: 'please upload the following images listed',
@@ -97,6 +100,10 @@ export default function RegisterProperty() {
       primary_color,
       ...rest
     } = data
+
+    // console.log(">>>>>dataa", data);
+    
+
     createProperty({
       toast,
       route,
@@ -165,7 +172,7 @@ export default function RegisterProperty() {
 
           <form
             onSubmit={handleSubmit(propertyHandler)}
-            className={`lato space-y-8 pt-14`}
+            className={`lato space-y-4 pt-14`}
           >
             <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
               <InputField
@@ -227,68 +234,66 @@ export default function RegisterProperty() {
               />
             </div>
 
-            <InputField
-              name="web_address"
-              label="Web address"
-              type="text"
-              register={register}
-              required
-              placeHolder="Enter web address"
-              errors={errors?.web_address}
-              message={'Web address is required'}
-            />
+            <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
+              <InputField
+                name="web_address"
+                label="Web address"
+                type="text"
+                register={register}
+                required
+                placeHolder="Enter web address"
+                errors={errors?.web_address}
+                message={'Web address is required'}
+              />
 
-            {/* <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
               <InputField
-                name="primary_color"
-                label="Primary Color"
+                name="bank"
+                label="Bank"
                 type="text"
                 register={register}
                 required
-                placeHolder="Enter last name"
-                errors={errors?.primary_color}
-                message={'Primary color is required'}
+                placeHolder="Enter bank name"
+                errors={errors?.bank}
+                message={'bank is required'}
               />
-              <InputField
-                name="secondary_color"
-                label="Secondary Color"
-                type="text"
-                register={register}
-                required
-                placeHolder="Enter last name"
-                errors={errors?.secondary_color}
-                message={'Secondary color is required'}
-              />
-            </div> */}
+            </div>
 
             <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
-              {/* <InputField
-                name="number_of_rooms"
-                label="Number of rooms"
-                type="number"
-                register={register}
-                min="0"
-                max="20"
-                required
-                placeHolder="Enter last name"
-                errors={errors?.number_of_rooms}
-                message={'Number of rooms is required'}
-              />
               <InputField
-                name="text_color"
-                label="Text Color"
+                name="account_number"
+                label="Account Number"
                 type="text"
                 register={register}
                 required
-                placeHolder="Enter last name"
-                errors={errors?.text_color}
-                message={'Text color is required'}
-              /> */}
+                placeHolder="Enter account"
+                errors={errors?.account_number}
+                message={'Account no. is required'}
+              />
 
-              {/* <div className='w-full'>
-                <label htmlFor="text-xs ">Number of rooms</label>
-                <input type="number" className="p-1 w-20 border outline-none rounded-lg" />
-              </div> */}
+              <InputField
+                name="payment_link"
+                label="Payment Link"
+                type="text"
+                register={register}
+                placeHolder="Enter payment link"
+                errors={errors?.payment_link}
+              />
+            </div>
+
+            <SelectField
+              name="currency"
+              label="Currency"
+              type="text"
+              register={register}
+              errors={errors?.payment_link}
+              selectArray={
+                currencies.map((c) => (
+                  <option value={c} key="">{c}</option>
+                ))
+              }
+            />
+
+            <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
               <div className="w-full">
                 <label
                   className="flex text-sm text-[#393F42] font-semibold"

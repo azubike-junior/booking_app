@@ -51,6 +51,9 @@ export default function Checkout({
 
   const route = useRouter()
 
+  console.log(">>>>>>cartItems", cartItems);
+  
+
   const orders = cartItems.map((c) => {
     return {
       ...c,
@@ -161,7 +164,7 @@ export default function Checkout({
                     >
                       <p className="w-44 lg:w-24">{c?.room_name}</p>
                       <div className="w-44 lg:w-28">
-                        <p>&#8358; {c.price.toLocaleString()}</p>
+                        <p>&#8358; {(c.price * c.quantity).toLocaleString()}</p>
                         <p className="text-xs">
                           {moment(c?.start_date).format('ddd, Do YYYY')} -{' '}
                           {moment(c?.end_date).format('ddd, Do YYYY')}

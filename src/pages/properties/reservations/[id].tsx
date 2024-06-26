@@ -28,8 +28,11 @@ export default function BookProperty() {
   const [checkOut, setCheckOut] = useState<any>(defaultCheckOutDate)
   const [openCheckout, setOpenCheckout] = useState(false)
   const [openCart, setOpenCart] = useState(false)
+  const [quantity, setQuantity] = useState(0)
 
   const [cartItems, setCartItems] = useState<RoomOrderProp[] | any>([])
+
+
 
   const toggleDetails = () => {
     setShowDetails(!showDetails)
@@ -67,7 +70,7 @@ export default function BookProperty() {
   }
 
   const total = cartItems.reduce((acc: number, cur: RoomOrderProp) => {
-    return cur.price + acc
+    return cur.price * cur.quantity + acc 
   }, 0)
 
   return (
@@ -103,7 +106,7 @@ export default function BookProperty() {
               total={total}
             />
           ) : (
-            <div className="max-w-[1200px] w-full  mx-auto mt-20 flex px-5 relative ">
+            <div className="max-w-[1200px] w-full  mx-auto mt-6 flex px-5 relative ">
               <div className="max-w-[1200px] w-full mx-auto lg:px-5">
                 <div className=" ">
                   {!roomDetail ? (
@@ -127,6 +130,8 @@ export default function BookProperty() {
                     setOpenCheckout={setOpenCheckout}
                     textColor={textColor}
                     removeItem={removeItem}
+                    quantity={quantity}
+                    setQuantity={setQuantity}
                   />
                 </div>
 
@@ -168,6 +173,8 @@ export default function BookProperty() {
                           setOpenCheckout={setOpenCheckout}
                           textColor={textColor}
                           removeItem={removeItem}
+                          quantity={quantity}
+                          setQuantity={setQuantity}
                         />
                       )
                     })}
@@ -186,7 +193,8 @@ export default function BookProperty() {
                       return (
                         <div
                           key={c.room_id}
-                          className=" px-2 py-4  items-center text-xl rounded-xl relative"
+                          style={{ borderTop: '3px', borderColor: bg }}
+                          className=" px-2 py-4 items-center text-xl rounded-xl relative"
                         >
                           <div className="text-sm items-center flex space-x-4 border-b pb-1">
                             <p className="font-medium text-[#7c7a7a]">Date</p>
@@ -213,7 +221,7 @@ export default function BookProperty() {
                               {c?.adults} adult, {c?.children} child, 1 room
                             </div>
 
-                            <p> &#8358; {c.price.toLocaleString()}</p>
+                            <p> &#8358; {(c.price * c.quantity).toLocaleString()}</p>
                           </div>
 
                           <div></div>

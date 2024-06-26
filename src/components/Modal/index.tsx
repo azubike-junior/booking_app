@@ -94,7 +94,7 @@ const Subscription = ({ openSubscription, setOpenSubscription }: Sub) => {
             return (
               <div
                 key={s.id}
-                className={`bg-[#1A2B47] rounded-[26px] w-full h-[600px] ${
+                className={`bg-[#1A2B47] rounded-[26px] w-full h-[550px] ${
                   name === 'Premium' && '-mt-28'
                 }`}
               >
@@ -104,7 +104,7 @@ const Subscription = ({ openSubscription, setOpenSubscription }: Sub) => {
                   </p>
                 </div>
 
-                <div className="py-5 px-6 overflow-scroll h-[370px] ">
+                <div className="py-5 px-6 overflow-scroll h-[340px] ">
                   <div className=" space-y-4">
                     <p className="font-bold text-lg pt-2">
                       ${annual_cost}
