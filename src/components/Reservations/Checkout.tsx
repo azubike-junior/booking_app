@@ -250,7 +250,7 @@ export default function Checkout({
             {/* {user?.subscription === 'Premium' ||
               (user?.subscription === 'Business' && (
                 <> */}
-                  <p className="text-center py-2 text-black">OR</p>
+                  {/* <p className="text-center py-2 text-black">OR</p> */}
                   <button
                     onClick={handleSubmit(onArrivalPaymentHandler)}
                     type="button"
