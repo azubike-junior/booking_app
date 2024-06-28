@@ -32,8 +32,6 @@ export default function BookProperty() {
 
   const [cartItems, setCartItems] = useState<RoomOrderProp[] | any>([])
 
-
-
   const toggleDetails = () => {
     setShowDetails(!showDetails)
   }
@@ -63,15 +61,37 @@ export default function BookProperty() {
   }, [property])
 
   const removeItem = (id: string) => {
-    const newItems = cartItems.filter(
-      (item: RoomOrderProp) => item.room_id !== id,
-    )
+    const newItems = cartItems.filter((item: RoomOrderProp) => {
+      if (item.room_id !== id) {
+        return item
+      }
+    })
     setCartItems(newItems)
   }
 
   const total = cartItems.reduce((acc: number, cur: RoomOrderProp) => {
-    return cur.price * cur.quantity + acc 
+    return cur.price * cur.quantity + acc
   }, 0)
+
+  const checkRooms = (arr: any) => {
+    const roomIndex: any = otherRooms?.findIndex((r) => r.id === roomDetail?.id)
+    const [selectedRoom] = arr?.splice(roomIndex, 1)
+
+    arr?.unshift(selectedRoom)
+
+    return arr
+  }
+
+  let allRooms
+
+  if (otherRooms) {
+    // console.log('......allRooms', checkRooms([...otherRooms]))
+
+    allRooms = checkRooms([...otherRooms])
+  }
+
+  // console.log('......allRooms----', allRooms)
+  console.log('>>>cartItems', cartItems)
 
   return (
     <>
@@ -108,43 +128,7 @@ export default function BookProperty() {
           ) : (
             <div className="max-w-[1200px] w-full  mx-auto mt-6 flex px-5 relative ">
               <div className="max-w-[1200px] w-full mx-auto lg:px-5">
-                <div className=" ">
-                  {!roomDetail ? (
-                    <div className="flex justify-center items-center pb-6">
-                      <Spinner size="30" color="blue" />{' '}
-                    </div>
-                  ) : null}
-
-                  <ReservationDetails
-                    // setOpenCheckout={setOpenCheckout}
-                    setOpenCart={setOpenCart}
-                    property={property}
-                    room={roomDetail || {}}
-                    index={0}
-                    checkIn={checkIn}
-                    checkOut={checkOut}
-                    setCheckIn={setCheckIn}
-                    setCheckOut={setCheckOut}
-                    setCartItems={setCartItems}
-                    cartItems={cartItems}
-                    setOpenCheckout={setOpenCheckout}
-                    textColor={textColor}
-                    removeItem={removeItem}
-                    quantity={quantity}
-                    setQuantity={setQuantity}
-                  />
-                </div>
-
-                <div className="max-w-[900px] mx-auto pt-20">
-                  <p className="text-2xl text-center">
-                    Other rooms under {property?.name}{' '}
-                  </p>
-                  {isLoading ? (
-                    <div className="flex justify-center items-center pb-6">
-                      <Spinner />{' '}
-                    </div>
-                  ) : null}
-
+                <div className="max-w-[900px] mx-auto">
                   {otherRooms?.length === 0 ? (
                     <div className="mt-4 flex">
                       <p className="text-[#7b7c7d] text-xl">
@@ -153,31 +137,26 @@ export default function BookProperty() {
                     </div>
                   ) : null}
 
-                  {otherRooms
-                    ?.filter((r) => r.id !== roomDetail?.id)
-                    ?.map((p: any, index: number) => {
-                      return (
-                        <ReservationDetails
-                          property={property}
-                          // setOpenCheckout={setOpenCheckout}
-                          room={p}
-                          key={index}
-                          index={index + 1}
-                          checkIn={checkIn}
-                          checkOut={checkOut}
-                          setCheckIn={setCheckIn}
-                          setCheckOut={setCheckOut}
-                          setCartItems={setCartItems}
-                          cartItems={cartItems}
-                          setOpenCart={setOpenCart}
-                          setOpenCheckout={setOpenCheckout}
-                          textColor={textColor}
-                          removeItem={removeItem}
-                          quantity={quantity}
-                          setQuantity={setQuantity}
-                        />
-                      )
-                    })}
+                  {allRooms?.map((p: any, index: number) => {
+                    return (
+                      <ReservationDetails
+                        property={property}
+                        room={p}
+                        key={index}
+                        index={index}
+                        checkIn={checkIn}
+                        checkOut={checkOut}
+                        setCheckIn={setCheckIn}
+                        setCheckOut={setCheckOut}
+                        setCartItems={setCartItems}
+                        cartItems={cartItems}
+                        setOpenCart={setOpenCart}
+                        setOpenCheckout={setOpenCheckout}
+                        textColor={textColor}
+                        removeItem={removeItem}
+                      />
+                    )
+                  })}
                 </div>
               </div>
               <div className="border w-[300px] mt-8 lato hidden xl:block sticky ">
@@ -221,7 +200,10 @@ export default function BookProperty() {
                               {c?.adults} adult, {c?.children} child, 1 room
                             </div>
 
-                            <p> &#8358; {(c.price * c.quantity).toLocaleString()}</p>
+                            <p>
+                              {' '}
+                              &#8358; {(c.price * c.quantity).toLocaleString()}
+                            </p>
                           </div>
 
                           <div></div>

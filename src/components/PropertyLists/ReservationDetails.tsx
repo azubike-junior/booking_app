@@ -48,8 +48,6 @@ interface Room {
   setOpenCart: (open: boolean) => void
   textColor: string
   removeItem: (id: any) => void
-  quantity: number
-  setQuantity: (quan: number) => void
 }
 
 export const ReservationDetails = ({
@@ -66,14 +64,10 @@ export const ReservationDetails = ({
   cartItems,
   textColor,
   removeItem,
-  quantity,
-  setQuantity,
 }: Room) => {
   const [bg, setbg] = useState<any>(null)
   const [showDetails, setShowDetails] = useState(false)
   const toast = useToast()
-
-  // console.log(">>>>>cart----", cart);
 
   useLayoutEffect(() => {
     setbg(property?.primary_color)
@@ -91,23 +85,20 @@ export const ReservationDetails = ({
 
   const checkItemAdded = (id: string) =>
     cartItems.some((item) => {
-      // console.log(item.room_id, id)
       return item.room_id === id
     })
 
-  const changeQuantity = (room_id: string, action: string) => {
+  const changeQuantity = (room_id: any, action: string) => {
     setCartItems((prev) => {
       return prev.map((item: RoomOrderProp) => {
-        console.log('>>>>prev', item)
-
         if (action === 'inc') {
           return item.room_id === room_id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity++ }
             : item
         }
         if (action === 'dec') {
           return item.room_id === room_id
-            ? { ...item, quantity: item.quantity - 1 }
+            ? { ...item, quantity: item.quantity-- }
             : item
         }
 
@@ -116,7 +107,9 @@ export const ReservationDetails = ({
     })
   }
 
-  // console.log('>>>>>cartItem', cartItems)
+  const chosenItem = (id: string): any => {
+    return cartItems.find((item) => item?.room_id === id)
+  }
 
   return (
     <div className="shadow px-2 rounded-lg  w-full ">
@@ -129,10 +122,10 @@ export const ReservationDetails = ({
       >
         <div className=" group w-full lg:w-[300px] lg:h-[260px] border flex justify-center items-center  cursor-pointer relative overflow-hidden rounded-lg ">
           <Carousel
-          // swipeable={true}
-          // autoPlay={true}
-          // interval={4000}
-          // infiniteLoop={true}
+            // swipeable={true}
+            // autoPlay={true}
+            // interval={4000}
+            // infiniteLoop={true}
             showThumbs={false}
           >
             <div>
@@ -339,7 +332,7 @@ export const ReservationDetails = ({
                 <div className="w-full">
                   Check in:{' '}
                   <span className="text-[#10375C] pl-2">
-                    {cartItems[index]?.start_date}
+                    {chosenItem(room.id)?.start_date}
                   </span>
                   <div className="  flex  mt-2 rounded-lg">
                     <DatePicker
@@ -354,7 +347,7 @@ export const ReservationDetails = ({
                 <div className="w-full ">
                   Check out:{' '}
                   <span className="text-[#10375C] pl-2">
-                    {cartItems[index]?.end_date}
+                    {chosenItem(room.id)?.end_date}
                   </span>
                   <div className="  flex mt-2 rounded-lg">
                     <DatePicker
@@ -373,18 +366,14 @@ export const ReservationDetails = ({
 
                 <div className="flex justify-center items-center">
                   <button
-                    disabled={
-                      (!checkIn && !checkOut) || checkItemAdded(room.id)
-                    }
+                    disabled={(!checkIn && !checkOut) || checkItemAdded(room.id)}
                     type="button"
                     className=" text-white text-center text-xs lg:text-sm font-md rounded-lg py-1.5 px-2 w-full "
                     style={{
                       background: checkItemAdded(room.id) ? '#a9a4a4cc' : bg,
                     }}
                     onClick={() => {
-                      // setShowCheckout(true)
                       setOpenCart(true)
-
                       const cart = {
                         image: room.image_one,
                         room_id: room.id,
@@ -409,31 +398,29 @@ export const ReservationDetails = ({
                   </button>
                 </div>
 
-                {cartItems[index]?.quantity > 0 && (
+                {checkItemAdded(room.id) && chosenItem(room?.id)?.quantity > 0 && (
                   <>
                     <hr />
                     <div className="flex space-x-4 items-center">
                       <p className="text-red-600 text-xs">No rooms left</p>
-                      <div className="flex justify-between border-[1px] items-center rounded-md shadow-lg px-2 text-xs space-x-2 shadow-lg">
+                      <div className="flex justify-between border-[1px] items-center rounded-md shadow-lg px-2 text-xs space-x-2 ">
                         <div
                           onClick={() => {
-                            if (cartItems[index]?.quantity === 1) {
-                              removeItem(cartItems[index]?.room_id)
+                            if (chosenItem(room?.id)?.quantity === 1) {
+                              removeItem(chosenItem(room?.id)?.room_id)
                             }
-                            console.log('>>>>>infx', cartItems[index]?.quantity)
-
-                            changeQuantity(cartItems[index]?.room_id, 'dec')
+                            changeQuantity(chosenItem(room.id)?.room_id, 'dec')
                           }}
                           className="py-2 cursor-pointer"
                         >
                           <FaMinus />
                         </div>
                         <span className="border-l border-r px-3">
-                          {cartItems[index]?.quantity}
+                          {chosenItem(room.id)?.quantity}
                         </span>
                         <div
                           onClick={() => {
-                            changeQuantity(cartItems[index]?.room_id, 'inc')
+                            changeQuantity(chosenItem(room.id)?.room_id, 'inc')
                           }}
                           className="py-1 cursor-pointer"
                         >

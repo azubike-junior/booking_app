@@ -238,26 +238,26 @@ export default function Checkout({
               Payment Method
             </h1>
 
-            <button
+            {/* <button
               onClick={handleSubmit(onlinePaymentHandler)}
               type="button"
               className="w-full text-white mt-6 lg:mt-10 text-sm py-2 rounded-lg"
               style={{ background: property?.primary_color }}
             >
               {isLoading ? <Spinner /> : 'Make payment online'}
-            </button>
+            </button> */}
 
-            {user?.subscription === 'Premium' ||
+            {/* {user?.subscription === 'Premium' ||
               (user?.subscription === 'Business' && (
-                <>
+                <> */}
                   <p className="text-center py-2 text-black">OR</p>
                   <button
                     onClick={handleSubmit(onArrivalPaymentHandler)}
                     type="button"
                     className={`w-full text-white mt-6 text-sm py-2 rounded-lg  shadow-md shadow-[#ccc]`}
                     style={{
-                      background: 'white',
-                      color: property?.primary_color,
+                     background: property?.primary_color ,
+                      color: 'white',
                     }}
                   >
                     {loadingPaymentOnArrivalResponse ? (
@@ -266,8 +266,8 @@ export default function Checkout({
                       'Make payment on arrival'
                     )}
                   </button>
-                </>
-              ))}
+                {/* </>
+              ))} */}
           </div>
         </form>
       </div>
