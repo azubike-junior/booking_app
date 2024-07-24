@@ -1,4 +1,4 @@
-import Subscription from '@/components/Modal'
+// import Subscription from '@/components/Modal'
 import { useState } from 'react'
 import Button from '../Button'
 
@@ -27,10 +27,10 @@ export default function Banner({ firstname }: BannerProp) {
           type="button"
         />
 
-        <Subscription
+        {/* <Subscription
           openSubscription={openSubscription}
           setOpenSubscription={setOpenSubscription}
-        />
+        /> */}
       </div>
     </div>
   )
