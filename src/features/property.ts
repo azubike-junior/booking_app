@@ -34,10 +34,10 @@ export const propertyApi = api.injectEndpoints({
         method: 'PATCH',
         body
       }),
-       transformResponse: (res, meta, arg:PropertyProp): any => {
+       transformResponse: (res: any, meta, arg:PropertyProp): any => {
          const { toast, route } = arg
 
-         if (meta?.response?.status === 201) {
+         if (res?.status === 201) {
            route.push('/properties')
            toast({
                 title: 'Property has been edited successfully',
@@ -80,9 +80,9 @@ export const propertyApi = api.injectEndpoints({
         method: 'POST',
         body
       }),
-       transformResponse: (res, meta, arg:RoomProps): any => {
+       transformResponse: (res: any, meta, arg:RoomProps): any => {
          const { toast, route, property_id } = arg
-         if (meta?.response?.status === 201) {
+         if (res.status === 201) {
            route.push(`/properties/${property_id}`)
            toast({
                 title: 'Room was created successfully',
@@ -104,9 +104,9 @@ export const propertyApi = api.injectEndpoints({
         method: 'PUT',
         body
       }),
-       transformResponse: (res, meta, arg:RoomProps): any => {
+       transformResponse: (res: any, meta, arg:RoomProps): any => {
          const { toast, route } = arg
-         if (meta?.response?.status === 200) {
+         if (res.status === 200) {
            toast({
                 title: 'Room has been publish successfully',
                 description: '',
@@ -126,9 +126,9 @@ export const propertyApi = api.injectEndpoints({
         url: `/room/publish/${id}`,
         method: 'PUT',
       }),
-       transformResponse: (res, meta, arg:PublishProp): any => {
+       transformResponse: (res: any, meta, arg:PublishProp): any => {
          const { toast} = arg
-         if (meta?.response?.status === 200) {
+         if (res?.status === 200) {
            toast({
                 title: 'Room has been published successfully',
                 description: '',
@@ -148,9 +148,9 @@ export const propertyApi = api.injectEndpoints({
         url: `/room/unpublish/${id}`,
         method: 'PUT',
       }),
-       transformResponse: (res, meta, arg:PublishProp): any => {
+       transformResponse: (res: any, meta, arg:PublishProp): any => {
          const { toast} = arg
-         if (meta?.response?.status === 200) {
+         if (res?.status === 200) {
            toast({
                 title: 'Room has been unpublished successfully',
                 description: '',

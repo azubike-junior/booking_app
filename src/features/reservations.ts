@@ -13,7 +13,7 @@ export const reservationApi = api.injectEndpoints({
         const { toast, route } = arg
         route.replace(res.data.authorization_url)
          
-        if (meta?.response?.status === 200) {
+        if (res?.status === 200) {
           toast({
             title: 'Room has been publish successfully',
             description: '',
@@ -37,7 +37,7 @@ export const reservationApi = api.injectEndpoints({
       transformResponse: (res: any, meta, arg: PaymentProps): any => {
         const { toast, route } = arg
          
-        if (meta?.response?.status === 200) {
+        if (res?.status === 200) {
           route.push('/properties')
           toast({
             title: 'Room has been publish successfully',
