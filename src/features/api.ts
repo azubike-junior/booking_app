@@ -3,6 +3,26 @@ import { BaseQueryFn, createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import toast from 'react-hot-toast';
 
+const axiosInstance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+});
+
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      config.headers['token'] = token;
+    }
+    config.headers['Authorization'] = 'Basic ' + btoa('bookingengine:secretbookingenginesecret');
+
+    return config;
+  },
+  (error) => {
+    // Handle the error
+    return Promise.reject(error);
+  }
+);
+
 const axiosBaseQuery = (
   { baseUrl }: { baseUrl: string } = { baseUrl: '' }
 ): BaseQueryFn<
@@ -15,20 +35,20 @@ const axiosBaseQuery = (
   unknown
   > => async ({ url, method, data }) => {
   
-  try {
-    let headers: AxiosRequestConfig['headers'] = {};
-    headers['Authorization'] = `Basic ${btoa('bookingengine:secretbookingenginesecret')}`;
-    const token = localStorage.getItem('accessToken'); 
-     if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
-    }
-     if (url === "/file-upload") {
-      headers['Content-Type'] = 'multipart/form-data';
-     }
+    try {
+     let headers: AxiosRequestConfig['headers'] = {};
+      const token = localStorage.getItem("access_token");
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
 
-    const result = await axios({ url: baseUrl + url, method, data, headers });
-    console.log(">>>>ok", result);
-    
+    headers.Authorization = 'Basic ' + btoa('bookingengine:secretbookingenginesecret');
+
+
+      if (url === "/file-upload") {
+        headers['Content-Type'] = 'multipart/form-data';
+      }
+    const result = await axiosInstance({ url: baseUrl + url, method, data });
     return { data: result };
   } catch (axiosError) {
     let err: any = axiosError as AxiosError;

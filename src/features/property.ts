@@ -1,5 +1,7 @@
-import { PropertyProp, PublishProp, RoomProps } from '../utils/types'
-import { api } from './api'
+import toast from 'react-hot-toast';
+import { PropertyProp, PublishProp, RoomProps } from '../utils/types';
+import { api } from './api';
+
 
 export const propertyApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -14,14 +16,7 @@ export const propertyApi = api.injectEndpoints({
 
          if (res?.status === 201) {
            route.push('/dashboard/property')
-           toast({
-                title: 'Property was created successfully',
-                description: '',
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
-                position: 'top-right',
-            })
+           toast.success('Property was created successfully')
          }
          
         return {res}
@@ -35,18 +30,11 @@ export const propertyApi = api.injectEndpoints({
         body
       }),
        transformResponse: (res: any, meta, arg:PropertyProp): any => {
-         const { toast, route } = arg
+         const { route } = arg
 
          if (res?.status === 201) {
-           route.push('/properties')
-           toast({
-                title: 'Property has been edited successfully',
-                description: '',
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
-                position: 'top-right',
-            })
+           route.push('/dashboard/property')
+           toast.success('Property has been edited successfully')
          }
          
         return {res}
@@ -57,7 +45,10 @@ export const propertyApi = api.injectEndpoints({
       query: (id) => ({
         url: `/property/account/${id}`,
         method: 'GET',
-       }),
+      }),
+       transformResponse: (res: any): any => {
+        return res.data
+      },
       providesTags: ['Property',]
      }),
     getProperty: builder.query<PropertyProp, string>({
@@ -71,27 +62,27 @@ export const propertyApi = api.injectEndpoints({
       query: (id) => ({
         url: `/property/account/${id}`,
         method: 'GET',
-      }),
+       }),
+        transformResponse: (res: any): any => {
+        return res.data
+      },
       providesTags: ['Property']
     }),
     createRoom: builder.mutation<string, RoomProps>({
-      query: (body) => ({
+      query: (data) => ({
         url: `/room/create`,
         method: 'POST',
-        body
+        data
       }),
        transformResponse: (res: any, meta, arg:RoomProps): any => {
          const { toast, route, property_id } = arg
          if (res.status === 201) {
-           route.push(`/properties/${property_id}`)
-           toast({
-                title: 'Room was created successfully',
-                description: '',
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
-                position: 'top-right',
-            })
+           route.push(`/dashboard/property`)
+
+           toast.success( 'Room was created successfully')
+
+           
+          
          }
          
         return {res}
@@ -107,14 +98,8 @@ export const propertyApi = api.injectEndpoints({
        transformResponse: (res: any, meta, arg:RoomProps): any => {
          const { toast, route } = arg
          if (res.status === 200) {
-           toast({
-                title: 'Room has been publish successfully',
-                description: '',
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
-                position: 'top-right',
-            })
+           route.push(`/dashboard/property`)
+           toast.success( 'Room was edited successfully')
          }
          
         return {res}
@@ -126,19 +111,7 @@ export const propertyApi = api.injectEndpoints({
         url: `/room/publish/${id}`,
         method: 'PUT',
       }),
-       transformResponse: (res: any, meta, arg:PublishProp): any => {
-         const { toast} = arg
-         if (res?.status === 200) {
-           toast({
-                title: 'Room has been published successfully',
-                description: '',
-                status: 'success',
-                duration: 5000,
-                isClosable: true,
-                position: 'top-right',
-            })
-         }
-         
+       transformResponse: (res: any): any => {
         return {res}
       },
      invalidatesTags:['Property']
@@ -148,19 +121,7 @@ export const propertyApi = api.injectEndpoints({
         url: `/room/unpublish/${id}`,
         method: 'PUT',
       }),
-       transformResponse: (res: any, meta, arg:PublishProp): any => {
-         const { toast} = arg
-         if (res?.status === 200) {
-           toast({
-                title: 'Room has been unpublished successfully',
-                description: '',
-                status: 'success',
-                duration: 5000,
-                isClosable: true,
-                position: 'top-right',
-            })
-         }
-         
+       transformResponse: (res: any, meta): any => {
         return {res}
       },
      invalidatesTags:['Property']
@@ -169,14 +130,20 @@ export const propertyApi = api.injectEndpoints({
       query: (id) => ({
         url: `/room/property/${id}`,
         method: 'GET',
-      }),
+       }),
+       transformResponse: (res: any,): any => {
+        return res.data
+      },
       providesTags: ['Property']
      }),
      getRoomById: builder.query<RoomProps, string>({
       query: (id) => ({
         url: `/room/find/${id}`,
         method: 'GET',
-      }),
+       }),
+        transformResponse: (res: any): any => {
+        return res.data
+      },
       providesTags: ['Property']
     })
   })

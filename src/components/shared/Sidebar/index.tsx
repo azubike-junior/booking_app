@@ -36,11 +36,14 @@ export default function Sidebar() {
   // const getRoute = jwt ? _protected : _public
 
   return (
-    <div className='w-2/12 fixed h-full'>
+    <div className="w-2/12 fixed h-full">
       <ul className=" text-[#858C94] text-base py-8 px-4 pl-10 shadow-lg shadow-slate-200 lato h-full">
         {_protected.map((r, index) => {
           return (
-            <Link key={index} href={r.name === 'Home' ? '/' : `/dashboard/${r.route}`}>
+            <Link
+              key={index}
+              href={r.name === 'Home' ? '/' : `/dashboard/${r.route}`}
+            >
               <li className=" py-4 flex items-center space-x-6">
                 <span>{r.icon}</span> <span>{r.name}</span>{' '}
               </li>

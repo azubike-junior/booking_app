@@ -4,27 +4,44 @@ import Properties from '@/components/PropertySections'
 import Rooms from '@/components/PropertySections/Rooms'
 import Settings from '@/components/PropertySections/Settings'
 import PropertyToggle from '@/components/PropertyToggle'
+import { useGetPropertiesQuery } from '@/features/property'
+import { getItem } from '@/utils'
+import { Spinner } from '@chakra-ui/react'
 import { useState } from 'react'
 import { MdOutlineMapsHomeWork } from 'react-icons/md'
 
 export default function Property() {
-  const [clickedSection, setClickedSection] = useState('settings')
+  const [clickedSection, setClickedSection] = useState('properties')
 
-  const prop = false
+  const { data: properties, isLoading } = useGetPropertiesQuery(
+    getItem('user_id'),
+  )
+
+  let property: any = []
+
+  if (properties) {
+    property = [properties[0]]
+  }
 
   return (
     <div className="lato">
       <div className="flex justify-between ">
-        {prop ? (
-          <div>
-            <h3 className="text-2xl font-semibold">Beauty Room</h3>
-            <div className="flex items-center space-x-2">
-              <MdOutlineMapsHomeWork />
-              <p className="text-sm">Ajah, Lekki, Lagos state</p>
-            </div>
+        {isLoading ? (
+          <div className="flex justify-center items-center">
+            <Spinner size="34" />
           </div>
         ) : (
-          <div></div>
+          <>
+            {property && (
+              <div>
+                <h3 className="text-2xl font-semibold">{property[0]?.name}</h3>
+                <div className="flex items-center space-x-2">
+                  <MdOutlineMapsHomeWork />
+                  <p className="text-sm">{property[0]?.address}</p>
+                </div>
+              </div>
+            )}
+          </>
         )}
 
         <PropertyToggle
@@ -34,8 +51,10 @@ export default function Property() {
       </div>
 
       <div className="py-10">
-        {clickedSection === 'properties' && <Properties />}
-        {clickedSection === 'rooms' && <Rooms />}
+        {clickedSection === 'properties' && (
+          <Properties property={property[0]} isLoading={isLoading} />
+        )}
+        {clickedSection === 'rooms' && <Rooms property={property[0]} />}
         {clickedSection === 'settings' && <Settings />}
       </div>
     </div>

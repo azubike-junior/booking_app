@@ -1,23 +1,47 @@
-import Image from "next/image";
-import { IoCheckmark } from "react-icons/io5";
+import { useGetRoomByIdQuery } from '@/features/property'
+import { RoomProps } from '@/utils/types'
+import { IoCheckmark } from 'react-icons/io5'
 
-export default function RoomCard() {
+type prop = {
+  room: RoomProps
+  setRoomID: (room: string) => void
+  roomID: string
+}
+
+export default function RoomCard({ room, setRoomID, roomID }: prop) {
+  const { data: _room, isLoading } = useGetRoomByIdQuery(room?.id)
+
   return (
-    <div>
-      <div className="bg-[#FEF3EB] p-3 py-4 shadow-md shadow-slate-300 flex justify-between items-center rounded-lg">
+    <div onClick={() => setRoomID(room?.id)}>
+      <div
+        className={`p-3 py-4 shadow-md shadow-slate-300 flex justify-between items-center rounded-lg cursor-pointer ${
+          room.id === roomID ? 'bg-[#FEF3EB]' : 'bg-white'
+        }`}
+      >
         <div>
-          <h3 className="">Beauty Room</h3>
-          <div className="flex space-x-3 items-center bg-[#F58634] text-white text-sm mt-3 py-1 px-3 rounded-xl">
-            <IoCheckmark /> <span>Published</span>
+          <h3 className="">{room.name}</h3>
+          <div
+            className={`flex space-x-2 items-center bg-[#F58634] text-white text-sm mt-3 py-1 px-3 rounded-xl ${
+              room.published ? 'bg-[#F58634]' : 'bg-[#FCD9C0]'
+            }`}
+          >
+            {room.published ? <IoCheckmark /> : ''}{' '}
+            <span>{room.published ? 'published' : 'unpublished'}</span>
           </div>
         </div>
 
-        <Image
-          src={'/prop1.jpg'}
+        {/* <Image
+          src={room?.image_one}
           width={100}
           height={100}
           alt="property"
           className=" rounded-lg"
+        /> */}
+
+        <img
+          src={room?.image_one}
+          className="w-24 h-16 rounded-lg"
+          alt="room"
         />
       </div>
     </div>

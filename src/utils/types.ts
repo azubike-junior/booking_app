@@ -29,6 +29,7 @@ export type LoginResponse = {
 }
 
 export type PropertyProp = {
+  length: number
   toast?: any
   route?: any
   id: string
@@ -55,7 +56,7 @@ export type PropertyProp = {
 export type RoomProps = {
   toast?: any
   route?: any
-  id?: string
+  id: string
   property_id: string,
     description: string
   name: string,
@@ -90,7 +91,6 @@ export type RoomProps = {
 
 export type PublishProp = {
   id?: string 
-  toast?: any
 }
 
 export type StepProps = {
