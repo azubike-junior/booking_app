@@ -91,8 +91,8 @@ export default function Navbar() {
               <MdKeyboardArrowDown size={20} />
             </div>
             <p className="bg-[#d1d0d0] cursor-pointer p-1.5 rounded-full">
-              {data?.firstname.charAt(0).toUpperCase()}
-              {data?.lastname.charAt(0).toUpperCase()}
+              {data?.firstname?.charAt(0).toUpperCase()}
+              {data?.lastname?.charAt(0).toUpperCase()}
             </p>
             <Menu>
               <MenuButton>
