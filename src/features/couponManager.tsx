@@ -1,5 +1,5 @@
 import toast from 'react-hot-toast'
-import { Coupon, CouponProp, SubscriptionProp } from '../utils/types'
+import {  CouponProp, SubscriptionProp, _Coupon } from '../utils/types'
 import { api } from './api'
 
 export const couponApi = api.injectEndpoints({
@@ -24,7 +24,7 @@ export const couponApi = api.injectEndpoints({
       invalidatesTags: ['Coupon'],
     }),
 
-    couponsByPropertyId: builder.query<Coupon[], string>({
+    couponsByPropertyId: builder.query<_Coupon[], string>({
       query: (id) => ({
         url: `/coupon/property/${id}`,
         method: 'GET',

@@ -182,7 +182,7 @@ export type CouponProp = {
   setOpenCoupon: (open: boolean) => void
 }
 
-export type Coupon = {
+export type _Coupon = {
   name: string
   description: string
   property_id: string

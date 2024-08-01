@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react'
 type prop = {
   openSubDetails: boolean
   setOpenSubDetails: (open: boolean) => void
-  subSelected: SubscriptionProp
+  subSelected: any
 }
 
 type cardProp = {

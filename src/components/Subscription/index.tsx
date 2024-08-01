@@ -79,6 +79,7 @@ export default function Subscription({
 
           return (
             <div
+              key={index}
               className={` border-[#DDDDE5] border-[0.4px] p-6 px-8 w-full rounded-xl  ${
                 index === 2 ? 'linear text-white ' : 'bg-[#FDFDFF] '
               } ${scroll === index ? 'h-full' : 'h-fit'} `}

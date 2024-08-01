@@ -1,5 +1,5 @@
 import { useCreateCouponMutation } from '@/features/couponManager'
-import { Coupon, CouponProp, PropertyProp } from '@/utils/types'
+import { CouponProp, PropertyProp, _Coupon } from '@/utils/types'
 import {
   Modal,
   ModalCloseButton,
@@ -21,11 +21,11 @@ export default function Coupon({ setOpenCoupon, openCoupon, property }: prop) {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<Coupon>({})
+  } = useForm<_Coupon>({})
 
   const [createCoupon, { isLoading }] = useCreateCouponMutation()
 
-  const submitCoupon = (data: Coupon) => {
+  const submitCoupon = (data: _Coupon) => {
     const { property_id, discount_percentage, ..._data } = data
     createCoupon({
       property_id: property.id,
