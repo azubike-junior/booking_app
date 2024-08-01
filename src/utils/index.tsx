@@ -327,6 +327,25 @@ export const BOOKINGS_COLUMNS = [
   },
 ]
 
+export const COUPON_COLUMNS = [
+  {
+    Header: 'Name',
+    accessor: 'name',
+  },
+  {
+    Header: 'Descriptin ',
+    accessor: 'description',
+  },
+  {
+    Header: 'Percentage Discount ',
+    accessor: 'discount_percentage',
+  },
+  {
+    Header: 'Code',
+    accessor: 'coupon_code',
+  },
+]
+
 export const bookings_data = [
   {
     name: 'Orji Kalu',
@@ -362,17 +381,16 @@ export const bookings_data = [
 
 export function convertDateFormat(dateString: string) {
   // Split the input date string
-  const [day, month, year] = dateString.split('/');
+  const [day, month, year] = dateString.split('/')
 
   // Return the formatted date string in yyyy-MM-dd format
-  return `${year}-${month}-${day}`;
+  return `${year}-${month}-${day}`
 }
 
 export function _convertDateFormat(dateString: string) {
   // Split the input date string
-  const [day, month, year] = dateString?.split('-');
+  const [day, month, year] = dateString?.split('-')
 
   // Return the formatted date string in yyyy-MM-dd format
-  return `${year}/${month}/${day}`;
+  return `${year}/${month}/${day}`
 }
-

@@ -55,7 +55,7 @@ export default function Property() {
           <Properties property={property[0]} isLoading={isLoading} />
         )}
         {clickedSection === 'rooms' && <Rooms property={property[0]} />}
-        {clickedSection === 'settings' && <Settings />}
+        {clickedSection === 'settings' && <Settings property={property[0]} />}
       </div>
     </div>
   )

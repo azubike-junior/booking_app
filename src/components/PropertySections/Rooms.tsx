@@ -64,7 +64,7 @@ export default function Rooms({ property, room }: prop) {
   }
 
   const base_url = `
-    https://candid-sherbet-40f282.netlify.app/properties/reservations/${property.id}+${room?.id}
+    https://candid-sherbet-40f282.netlify.app/properties/reservations/${property.id}+${details?.id}
     `
 
   const publishLink = async () => {

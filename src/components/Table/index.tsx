@@ -41,9 +41,9 @@ export default function Table({ data, columns, setOpenRoomOrder, setReservationI
     usePagination,
   )
 
-  // const [reservationId, setReservatioId] = useState('')
+  const [reservationId, setReservatioId] = useState('')
 
-  // const { data: reservation, isLoading } = useGetReservationQuery(reservationId)
+  const { data: reservation, isLoading } = useGetReservationQuery(reservationId)
 
   return (
     <>

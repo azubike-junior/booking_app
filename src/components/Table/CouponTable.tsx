@@ -5,11 +5,10 @@ import { usePagination, useTable } from 'react-table'
 
 interface TableProps {
   data: any
-  setOpenRoomOrder: (open:boolean) => void
-  columns: any[] // Replace with the appropriate type for your columns
+  columns: any[]
 }
 
-export default function RoomOrderTable({ data, columns }: TableProps) {
+export default function CouponTable({ data, columns }: TableProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const {
@@ -33,7 +32,7 @@ export default function RoomOrderTable({ data, columns }: TableProps) {
 
   return (
     <>
-      <table {...getTableProps()} className="w-full bg-white rounded-xl">
+      <table {...getTableProps()} className="w-full bg-white rounded-xl shadow">
         <thead className="">
           {headerGroups.map((headerGroup, index) => (
             <tr

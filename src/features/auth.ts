@@ -12,7 +12,6 @@ export const authApi = api.injectEndpoints({
       }),
       transformResponse: (res: any, meta, arg:FormValues): any => {
         const { router } = arg
-        console.log(">>>>>>res", res.status);
         if (res.status === 200) {
             router.push('/dashboard')
               toast.success(
@@ -45,6 +44,10 @@ export const authApi = api.injectEndpoints({
         url: `/account/find/${id}`,
         method: 'GET',
        }),
+        transformResponse: (res: any, meta): any => {
+        return res.data
+      },
+
        providesTags: ['Accounts']
      }),
     editAccount: build.mutation<string, LoginResponse>({

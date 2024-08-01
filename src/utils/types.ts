@@ -25,7 +25,7 @@ export type LoginResponse = {
     status?:  string
     verification_status?: number
     ver_status?: string
-    subscription?: string
+    current_subscription?: string
 }
 
 export type PropertyProp = {
@@ -172,4 +172,19 @@ export type SubscriptionProp = {
   free_dedicated_ads: number
   support_google_note: number
   support_microsoft_note: number
+}
+
+export type CouponProp = {
+  name: string
+  description: string
+  property_id: string
+  discount_percentage: number
+  setOpenCoupon: (open: boolean) => void
+}
+
+export type Coupon = {
+  name: string
+  description: string
+  property_id: string
+  discount_percentage: number
 }

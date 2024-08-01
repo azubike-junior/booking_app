@@ -78,8 +78,8 @@ export const reservationApi = api.injectEndpoints({
         url: `/room-order/reservation/${id}`,
         method: 'GET',
       }),
-      transformResponse: (res: { data: ReservationProps, message: string }, meta): any => {
-        return res.data
+      transformResponse: (res: any, meta): any => {
+        return res.data.data
       },
       providesTags: ['Property',]
     }),
@@ -88,8 +88,8 @@ export const reservationApi = api.injectEndpoints({
           url: `/reservation/property/${id}?page=0&pageSize=10`,
           method: 'GET',
           }),
-          transformResponse: (res: ReservationRes, meta): any => {
-        return res.data
+          transformResponse: (res: any, meta): any => {
+        return res.data.data
       },
       providesTags: ['Property',]
     }),
@@ -97,14 +97,21 @@ export const reservationApi = api.injectEndpoints({
         query: () => ({
           url: `/subscription/all`,
           method: 'GET',
-          }),
+       }),
+       transformResponse: (res: any): any => {
+         return res.data
+       }
      }),
-     subscriptionPlan: builder.query < SubscriptionProp, string|undefined>({
+     subscriptionPlan: builder.query <SubscriptionProp, string|undefined>({
         query: (id) => ({
           url: `/subscription/find/${id}`,
           method: 'GET',
-          }),
+       }),
+         transformResponse: (res: any): any => {
+        return res.data
+      },
      }),
+     
   })
 })
 
