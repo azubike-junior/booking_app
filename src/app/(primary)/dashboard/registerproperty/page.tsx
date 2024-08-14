@@ -425,8 +425,8 @@ export default function RegisterProperty() {
                       onChange={(e) =>
                         handleImageChange({
                           e,
-                          setLoading,
-                          setImgUrl,
+                          setImageLoading:setLoading,
+                          setImage: setImgUrl,
                           uploadImage,
                         })
                       }

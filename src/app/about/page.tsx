@@ -10,6 +10,7 @@ import {
   AccordionPanel,
   Box,
 } from '@chakra-ui/react'
+import Link from 'next/link'
 import { IoArrowForwardCircle } from 'react-icons/io5'
 import { PiMinusCircleDuotone } from 'react-icons/pi'
 
@@ -27,15 +28,15 @@ export default function About() {
               </div>
 
               <p className="w-full pt-6 text-lg text-[#374151] tahoma-light font-light tracking-wider">
-                Bookteller Nigeria is a prime provider of innovative solutions
-                in the hospitality industry. As a Google Hotel connectivity
-                partner and Microsoft hotel ads expert, we specialize in
-                empowering hotels to optimize their online presence and maximize
-                direct bookings from travelers worldwide.
+                Bookteller International is a prime provider of innovative
+                solutions in the hospitality industry. As a Google Hotel
+                connectivity partner and Microsoft hotel ads expert, we
+                specialize in empowering hotels to optimize their online
+                presence and maximize direct bookings from travelers worldwide.
               </p>
 
               <p className="w-full pt-6 text-lg text-[#374151] tahoma-light font-light tracking-wider">
-                At Bookteller Nigeria, we offer a state-of-the-art booking
+                At Bookteller International, we offer a state-of-the-art booking
                 engine that seamlessly integrates with hotel websites, enabling
                 them to efficiently attract and convert potential guests into
                 confirmed bookings. Our technology is designed to streamline the
@@ -43,12 +44,13 @@ export default function About() {
                 growth for our hotel partners.
               </p>
 
-              <div
+              <Link
+                href={"/signup"}
                 className={`${quickSand.className} bg-_green  text-white text-sm  items-center  space-x-3 inline-flex py-3 px-8 rounded-[50px] mt-10 `}
               >
                 <p>Get Started</p>
                 <IoArrowForwardCircle color="white" size={26} />
-              </div>
+              </Link>
             </div>
 
             <div className="lg:w-1/2 pt-14">
@@ -60,7 +62,7 @@ export default function About() {
             </div>
           </div>
         </section>
-        <section className="max-w-[1062px] mx-auto bg-white mt-28 px-6 md:px-10 space-y-20">
+        <section className="max-w-[1062px] flex  mx-auto bg-white mt-28 px-6 md:px-10 space-x-6">
           <div>
             <h3
               className={`text-[#111827] text-[24px] roboto font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}
@@ -69,19 +71,9 @@ export default function About() {
             </h3>
 
             <p className="pt-6 tracking-wide font-medium tahoma-light">
-              At The Peoples POS System, we are dedicated to providing access to
-              swift, secure, and transparent payment solutions. We believe in a
-              future where everyone, regardless of location, enjoys access to
-              fair compensation for their efforts.  Our partnership structure
-              rewards your contribution and opens doors to your financial
-              freedom.
-            </p>
-
-            <p className="pt-6 tracking-wide font-medium tahoma-light">
-              We remain committed to supporting your business in every possible
-              ramification either through face-to-face transactions or
-              facilitating seamless payments across continents. PPOS remains
-              your trusted and transparent payment processor.
+              Commitment to transforming how travelers connect with
+              accommodations, ensuring a seamless and enjoyable booking
+              experience for everyone, everywhere.
             </p>
           </div>
 
@@ -93,17 +85,17 @@ export default function About() {
             </h3>
 
             <p className="pt-6 tracking-wide font-medium tahoma-light">
-              Stay ahead of the competition by leveraging the power of Google
-              travel procuts and Microsoft Maps to capture the attention of
-              travelers and drive direct bookings to your properties.
+              To become the go-to destination for travelers worldwide, ensuring
+              they find and book accommodations with ease, confidence, and
+              satisfaction every time.
             </p>
 
-            <p className="pt-6 tracking-wide font-medium tahoma-light">
+            {/* <p className="pt-6 tracking-wide font-medium tahoma-light">
               We remain committed to supporting your business in every possible
               ramification either through face-to-face transactions or
               facilitating seamless payments across continents. PPOS remains
               your trusted and transparent payment processor.
-            </p>
+            </p> */}
           </div>
         </section>
 

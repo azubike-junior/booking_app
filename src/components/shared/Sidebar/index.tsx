@@ -26,11 +26,11 @@ export default function Sidebar() {
       route: '/settings',
       icon: <IoSettingsOutline size={20} />,
     },
-    {
-      name: 'Log out',
-      route: '/Log out',
-      icon: <RiLogoutCircleRLine size={20} />,
-    },
+    // {
+    //   name: 'Log out',
+    //   route: '/Log out',
+    //   icon: <RiLogoutCircleRLine size={20} />,
+    // },
   ]
 
   // const getRoute = jwt ? _protected : _public

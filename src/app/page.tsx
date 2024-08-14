@@ -4,12 +4,13 @@ import SharedLayout from '@/components/shared/SharedLayout'
 import SuiteDetail from '@/components/SuiteDetail'
 import { quickSand } from '@/utils'
 import Image from 'next/image'
+import Link from 'next/link'
 import { IoArrowForwardCircle } from 'react-icons/io5'
 
 export default function Home() {
   return (
     <SharedLayout>
-      <div className={`pb-20 quicksand`}>
+      <div className={`pb-20 quicksand flex-grow`}>
         <section className="bg-[#F2F7FF] slanted">
           <div className="px-6 md:px-10 max-w-[1062px] mx-auto flex lg:pt-10 ">
             <div className="pt-10 lg:pt-28">
@@ -40,20 +41,21 @@ export default function Home() {
                 Reduce the income split with OTAs and other partners as well.
               </p>
 
-              <div
+              <Link
+                href={'/signup'}
                 className={`${quickSand.className} bg-_green  text-white text-sm  items-center  space-x-3 inline-flex py-3 px-8 rounded-[50px] mt-10 `}
               >
                 <p>Get Started</p>
                 <IoArrowForwardCircle color="white" size={26} />
-              </div>
+              </Link>
 
               <div className=" flex justify-center md:justify-between lg:hidden items-center mt-10">
                 <Image
-                  src={'/phone.jpg'}
+                  src={'/phone_1.svg'}
                   width={300}
                   height={500}
                   alt="bg_img"
-                  className=" lg:block shadow-2xl shadow-slate-500 z-10"
+                  className=" lg:block z-10"
                 />
 
                 <img
@@ -65,11 +67,11 @@ export default function Home() {
             </div>
 
             <Image
-              src={'/phone.jpg'}
-              width={200}
+              src={'/phone_1.svg'}
+              width={400}
               height={500}
               alt="bg_img"
-              className="phone-image hidden lg:block shadow-2xl shadow-slate-500 z-10"
+              className="phone-image hidden lg:block  z-10"
             />
 
             <div className="mt-32">
@@ -82,7 +84,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-full relative z-40">
+        <section className="w-full relative">
           <div className="bg-[#F2F7FF] skew-slant w-full h-72 absolute -z-10 bottom-44 -skew-y-12"></div>
 
           <div className="max-w-[1062px] mx-auto bg-transparent mt-20 lg:mt-28 px-6 md:px-10 z-50">
@@ -98,9 +100,22 @@ export default function Home() {
 
             <div className="md:flex justify-center items-center space-y-10 md:space-y-0  md:space-x-10 lg:space-x-20">
               <div className="block mt-20 space-y-10 md:w-1/2 ">
-                <SuiteDetail />
-                <SuiteDetail />
-                <SuiteDetail />
+                <SuiteDetail
+                  img={'/bookPrice.svg'}
+                  title=" Innovate Continuously"
+                  subtitle="By leveraging cutting-edge technology, we aim to provide intuitive and efficient booking solutions that cater to the evolving needs of both travelers and hoteliers.
+"
+                />
+                <SuiteDetail
+                  img={'/personalize.svg'}
+                  title="Personalized Experience"
+                  subtitle="Direct booking lets guests communicate directly with the hotel, ensuring their needs and preferences are met. Whether it's room preferences, special requests, or additional amenities, this ensures satisfaction tailored to their stay."
+                />
+                <SuiteDetail
+                  img="./flex.svg"
+                  title="Flexibility and Transparency"
+                  subtitle="With direct booking, you have full control over your reservation, from making changes to cancellations. Enjoy peace of mind knowing that your booking details are transparent and easily accessible, without the hassle of intermediaries."
+                />
               </div>
 
               <div className="md:w-1/2">
@@ -114,12 +129,13 @@ export default function Home() {
                   Say good.
                 </p>
 
-                <div
+                <Link
+                  href={'/signup'}
                   className={`${quickSand.className} bg-_green  text-white text-sm  items-center  space-x-3 inline-flex py-3 px-8 rounded-[50px] mt-6 `}
                 >
                   <p>Get Started</p>
                   <IoArrowForwardCircle color="white" size={26} />
-                </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -132,9 +148,8 @@ export default function Home() {
             </h3>
 
             <p className="text-[16px] tahoma-light font-medium pt-6 text-center md:w-[60%] mx-auto">
-              Easily and securely accept payments online. Integrate secured
-              payment gateway into your website to provide quick, safe, and easy
-              payment processing for you and your guests
+              Integrate a secured payment gateway into your website to provide
+              quick, safe, and easy payment processing for you and your guests
             </p>
 
             <div className="block md:flex space-y-6 justify-center md:space-x-10  items-center pt-4 ">

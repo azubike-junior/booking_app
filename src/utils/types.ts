@@ -32,24 +32,27 @@ export type PropertyProp = {
   length: number
   toast?: any
   route?: any
-  id: string
-  description: string
-  address: string
-  name: string
-  number_of_rooms: number
-  logo: string
-  primary_color: string
-  text_color: string,
-  secondary_color: string
-  phone_number: string,
-  email_address: string,
-  web_address: string
-  image:string
-  country: string
+  id?: string
+  description?: string
+  address?: string
+  name?: string
+  number_of_rooms?: number
+  logo?: string
+  primary_color?: string
+  text_color?: string,
+  secondary_color?: string
+  phone_number?: string,
+  email_address?: string,
+  web_address?: string
+  image?: string
+  image_two?:string
+  image_three?:string
+  country?: string
   account_number: string
   currency: string
-  payment_link: string
+  payment_link?: string
   bank: string
+  setEdit?: any
 }
 
 
@@ -177,7 +180,7 @@ export type SubscriptionProp = {
 export type CouponProp = {
   name: string
   description: string
-  property_id: string
+  property_id?: string
   discount_percentage: number
   setOpenCoupon: (open: boolean) => void
 }

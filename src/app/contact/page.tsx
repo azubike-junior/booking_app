@@ -74,8 +74,9 @@ export default function Contact() {
                 />
 
                 <InputField
+                  textarea
                   name="email_address"
-                  label="Address"
+                  label="Message"
                   type="text"
                   register={register}
                   required
@@ -95,7 +96,7 @@ export default function Contact() {
               <img
                 src="/contact.png"
                 alt=""
-                className=" about-img lg:block z-1 w-[20%]"
+                className=" about-img lg:block z-1  h-full"
               />
             </div>
           </div>

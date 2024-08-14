@@ -21,7 +21,7 @@ type prop = {
 }
 
 export default function Rooms({ property, room }: prop) {
-  const { data: rooms, isLoading } = useGetRoomByPropertyIdQuery(property?.id)
+  const { data: rooms, isLoading } = useGetRoomByPropertyIdQuery(property?.id || '')
 
   const [roomID, setRoomID] = useState<string>(rooms ? rooms[0].id : '')
 

@@ -46,7 +46,7 @@ export default function Login() {
             />
           </Link>
 
-          <div className="mt-56">
+          <div className="mt-36">
             <Image src="/login.svg" width={400} height={400} alt="bookteller" />
           </div>
         </div>

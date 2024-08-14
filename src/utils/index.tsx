@@ -108,9 +108,45 @@ export const _http = axios.create({
 
 export const firstname = getItem('first_name')
 
-export const uploadImage = (file: any, setImgUrl: any, setLoading: any) => {
-  // const file = e.target[0]?.files[0]
-  if (!file) return
+interface handlerProp {
+  e: any
+  setLoading?: any
+  setImgUrl?: any
+  uploadImage?: any
+  setLogoLoading?: any
+  setLogoUrl?: any
+  uploadLogo?: any
+}
+
+type prop = {
+  name?: string
+  logoFunc?: any
+  logoRef?: any
+  loadingLogo?: boolean
+}
+
+type imageProp = {
+  e?: any
+  setImage: any
+  setImageLoading?: any
+  uploadImage: any
+}
+
+type imageTwoProp = {
+  e?: any
+  setImageTwo: any
+  uploadImageTwo: any
+  setImageTwoLoading?: any
+}
+
+type imageThreeProp = {
+  e?: any
+  setImageThree: any
+  uploadImageThree: any
+  setImageThreeLoading?: any
+}
+
+const storeImageInBucket = (file: any, setUrl: any, setLoading: any) => {
   const storageRef = ref(storage, `files/${file.name}`)
   const uploadTask = uploadBytesResumable(storageRef, file)
 
@@ -126,10 +162,33 @@ export const uploadImage = (file: any, setImgUrl: any, setLoading: any) => {
     () => {
       setLoading(false)
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        setImgUrl(downloadURL)
+        setUrl(downloadURL)
       })
     },
   )
+}
+
+export const uploadImage = (file: any, setImage: any, setImageLoading: any) => {
+  if (!file) return
+  storeImageInBucket(file, setImage, setImageLoading)
+}
+
+export const uploadImageTwo = (
+  file: any,
+  setImageTwo: any,
+  setImageTwoLoading: any,
+) => {
+  if (!file) return
+  storeImageInBucket(file, setImageTwo, setImageTwoLoading)
+}
+
+export const uploadImageThree = (
+  file: any,
+  setImageThree: any,
+  setImageThreeLoading: any,
+) => {
+  if (!file) return
+  storeImageInBucket(file, setImageThree, setImageThreeLoading)
 }
 
 export const uploadLogo = (file: any, setLogoUrl: any, setLogoLoading: any) => {
@@ -173,24 +232,34 @@ export function isErrorWithMessage(
   )
 }
 
-interface handlerProp {
-  e: any
-  setLoading?: any
-  setImgUrl?: any
-  uploadImage?: any
-  setLogoLoading?: any
-  setLogoUrl?: any
-  uploadLogo?: any
-}
-
 export const handleImageChange = ({
   e,
-  setLoading,
-  setImgUrl,
+  setImageLoading,
   uploadImage,
-}: handlerProp) => {
-  setLoading(true)
-  uploadImage(e.target.files[0], setImgUrl, setLoading)
+  setImage
+}: imageProp) => {
+  setImageLoading(true)
+  uploadImage(e.target.files[0], setImage, setImageLoading)
+}
+
+export const handleImageTwoChange = ({
+  e,
+  setImageTwo,
+  setImageTwoLoading,
+  uploadImageTwo,
+}: imageTwoProp) => {
+  setImageTwoLoading(true)
+  uploadImageTwo(e.target.files[0], setImageTwo, setImageTwoLoading)
+}
+
+export const handleImageThreeChange = ({
+  e,
+  setImageThree,
+  setImageThreeLoading,
+  uploadImageThree,
+}: imageThreeProp) => {
+  setImageThreeLoading(true)
+  uploadImageThree(e.target.files[0], setImageThree, setImageThreeLoading)
 }
 
 export const handleLogoChange = ({

@@ -58,7 +58,7 @@ export default function Signup() {
             />
           </Link>
 
-          <div className="mt-56">
+          <div className="mt-36">
             <Image
               src="/signup.svg"
               width={400}

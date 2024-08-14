@@ -9,10 +9,10 @@ export default function SharedLayout({
   children: React.ReactNode
 }) {
   return (
-    <>
+    <div className='min-h-screen '>
       <Navbar />
       {children}
       <Footer />
-    </>
+    </div>
   )
 }

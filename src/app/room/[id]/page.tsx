@@ -428,8 +428,8 @@ export default function RegisterRoom() {
                         onChange={(e) =>
                           handleImageChange({
                             e,
-                            setLoading,
-                            setImgUrl,
+                            setImageLoading:setLoading,
+                            setImage: setImgUrl,
                             uploadImage,
                           })
                         }

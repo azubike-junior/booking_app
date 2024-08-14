@@ -39,10 +39,10 @@ export default function Navbar() {
   const pathname = usePathname()
 
   return (
-    <header className={pathname === '/' ? 'bg-[#F2F7FF] ' : 'bg-[#F2F7FF] '}>
-      <nav className="container flex justify-between  items-center max-w-[1062px]   mx-auto px-6 md:px-10 pt-6 pb-4 axiforma-light">
+    <header className={pathname === '/' ? 'bg-[#F2F7FF] sticky top-0 z-50 ' : 'bg-[#F2F7FF] sticky top-0 z-50 '}>
+      <nav className="container flex justify-between  items-center max-w-[1400px]   mx-auto px-6 md:px-10 pt-6 axiforma-light">
         <Link href={'/'}>
-          <img src="/bookteller.svg" alt="" className=' w-32 md:w-40'/>
+          <img src="/bookteller.svg" alt="" className=' w-32 md:w-[200px]'/>
         </Link>
 
         <IoMdMenu size={30} className="flex sm:hidden" onClick={onOpen} />

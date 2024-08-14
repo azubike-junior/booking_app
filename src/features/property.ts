@@ -24,17 +24,21 @@ export const propertyApi = api.injectEndpoints({
      invalidatesTags:['Property']
     }),
     editProperty: builder.mutation<string, PropertyProp>({
-      query: ({id, ...body}) => ({
+      query: ({id, ...data}) => ({
         url: `/property/edit/${id}`,
         method: 'PATCH',
-        body
+        data
       }),
-       transformResponse: (res: any, meta, arg:PropertyProp): any => {
-         const { route } = arg
+      transformResponse: (res: any, meta, arg: PropertyProp): any => {
+         
+        console.log(">>>>>res", res);
 
-         if (res?.status === 201) {
-           route.push('/dashboard/property')
-           toast.success('Property has been edited successfully')
+        const {setEdit} = arg
+        
+
+        if (res?.status === 201) {
+          toast.success('Property has been edited successfully')
+           setEdit(false)
          }
          
         return {res}

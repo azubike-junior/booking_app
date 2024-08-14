@@ -28,9 +28,7 @@ export default function Settings({ property }: prop) {
     watch,
   } = useForm<any>({})
 
-  const { data, isLoading } = useCouponsByPropertyIdQuery(property.id)
-
-  console.log('>>>>>>>data', data)
+  const { data, isLoading } = useCouponsByPropertyIdQuery(property?.id || "")
 
   return (
     <div className="lato">
