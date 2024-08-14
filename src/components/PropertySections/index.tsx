@@ -1,3 +1,5 @@
+'use client'
+
 import { useEditPropertyMutation } from '@/features/property'
 import {
   handleImageChange,
@@ -29,7 +31,7 @@ import {
 import EmptyState from './emptyState'
 
 type prop = {
-  property: PropertyProp
+  property: PropertyProp | any
   isLoading: boolean
 }
 
@@ -40,7 +42,6 @@ export default function Properties({ property, isLoading }: prop) {
       [key]: value,
     }))
   }
-  const logoRef = useRef() as MutableRefObject<HTMLInputElement>
   const imageRef = useRef() as MutableRefObject<HTMLInputElement>
   const imageTwoRef = useRef() as MutableRefObject<HTMLInputElement>
   const imageThreeRef = useRef() as MutableRefObject<HTMLInputElement>
@@ -48,8 +49,6 @@ export default function Properties({ property, isLoading }: prop) {
   const [imageLoading, setImageLoading] = useState(false)
   const [imageTwoLoading, setImageTwoLoading] = useState(false)
   const [imageThreeLoading, setImageThreeLoading] = useState(false)
-  const [loadingLogo, setLoadingLogo] = useState(false)
-
   const [edit, setEdit] = useState(false)
   const [colorModals, setColorModals] = useState({
     primaryColor: false,
@@ -86,7 +85,6 @@ export default function Properties({ property, isLoading }: prop) {
   }, [property?.logo, property?.image])
 
   const editPropertyHandler = (data: PropertyProp) => {
-    // console.log(">>>Nooo", Number(data?.number_of_rooms,));
     
     const {
       id,

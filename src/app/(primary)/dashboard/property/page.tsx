@@ -1,14 +1,20 @@
 'use client'
 
-import Properties from '@/components/PropertySections'
+// import Properties from '@/components/PropertySections'
 import Rooms from '@/components/PropertySections/Rooms'
 import Settings from '@/components/PropertySections/Settings'
 import PropertyToggle from '@/components/PropertyToggle'
 import { useGetPropertiesQuery } from '@/features/property'
 import { getItem } from '@/utils'
 import { Spinner } from '@chakra-ui/react'
+import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { MdOutlineMapsHomeWork } from 'react-icons/md'
+const Properties = dynamic(
+  () => import('@/components/PropertySections'),
+  { ssr: false }
+)
+
 
 export default function Property() {
   const [clickedSection, setClickedSection] = useState('properties')

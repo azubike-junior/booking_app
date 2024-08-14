@@ -18,12 +18,12 @@ export default function page() {
           <div className="border-[0.3px] border-[#DDDEDF] flex rounded-lg w-full  items-center  px-4 shadow-sm">
             <CiSearch size={24} />
             <input
-              type="text "
+              type="text"
               className="rounded-lg w-full flex-1  py-2 px-4 outline-none "
               placeholder="Search here..."
             />
           </div>
-          <CgSortAz size={26} />
+          <CgSortAz size={26} />         
         </div>
       </div>
 
