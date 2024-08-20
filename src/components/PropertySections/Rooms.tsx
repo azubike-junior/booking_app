@@ -21,7 +21,9 @@ type prop = {
 }
 
 export default function Rooms({ property, room }: prop) {
-  const { data: rooms, isLoading } = useGetRoomByPropertyIdQuery(property?.id || '')
+  const { data: rooms, isLoading } = useGetRoomByPropertyIdQuery(
+    property?.id || '',
+  )
 
   const [roomID, setRoomID] = useState<string>(rooms ? rooms[0].id : '')
 
@@ -56,7 +58,7 @@ export default function Rooms({ property, room }: prop) {
     smoke_detector: 0,
     hair_dryer: 0,
     guest_amenities: 0,
-    magnifying_mirror: 0
+    magnifying_mirror: 0,
   }
 
   if (rooms) {
@@ -64,7 +66,7 @@ export default function Rooms({ property, room }: prop) {
   }
 
   const base_url = `
-    https://candid-sherbet-40f282.netlify.app/properties/reservations/${property.id}+${details?.id}
+    http://localhost:3000/reservation/${property.id}?${details?.id}
     `
 
   const publishLink = async () => {
@@ -187,8 +189,7 @@ export default function Rooms({ property, room }: prop) {
                 <div className="flex justify-between items-center">
                   <div className="flex items-center space-x-2">
                     <h3 className="text-3xl font-semibold">
-                      {' '}
-                      NGN {details?.price}
+                      NGN {details?.price.toLocaleString()}
                     </h3>
                     <span className="text-[#798489]">/Per month</span>
                   </div>

@@ -98,7 +98,7 @@ export const SelectField = ({
       <div>
         <select
           className={
-           "border-[0.5px] border-[#b7bcbe] w-full mt-2 py-2 rounded-lg px-4 outline-none font-medium text-[#747F8A]"
+            'border-[0.5px] border-[#b7bcbe] w-full mt-2 py-2 rounded-lg px-4 outline-none font-medium text-[#747F8A]'
           }
           {...register(name, { required })}
           value={value}
@@ -114,6 +114,7 @@ export const SelectField = ({
 }
 
 export function PaymentField({
+  label,
   type,
   register,
   placeHolder,
@@ -123,14 +124,18 @@ export function PaymentField({
   errors,
 }: InputProp) {
   return (
-    <div className="w-full shadow-sm shadow-[#ccc]">
-      <input
-        type={type}
-        placeholder={placeHolder}
-        className="w-full outline-none bg-white border-none p-2 text-sm "
-        {...register(name, { required })}
-      />
-      {errors ? <p className="text-red-500 text-sm pt-1">{message}</p> : null}
+    <div className='w-full'>
+      <label htmlFor="" className='text-sm'>{label}</label>
+
+      <div className="w-full border rounded-lg lato p-2 mt-3">
+        <input
+          type={type}
+          placeholder={placeHolder}
+          className="w-full outline-none  text-sm "
+          {...register(name, { required })}
+        />
+        {errors ? <p className="text-red-500 text-sm pt-1">{message}</p> : null}
+      </div>
     </div>
   )
 }

@@ -60,6 +60,9 @@ export const propertyApi = api.injectEndpoints({
         url: `/property/find/${id}`,
         method: 'GET',
       }),
+       transformResponse: (res: any): any => {
+        return res.data
+      },
       providesTags: ['Property']
     }),
      getPropertyByUserId: builder.query<PropertyProp[], string>({

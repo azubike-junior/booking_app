@@ -48,12 +48,14 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+    
       colors: {
         'primary-color': 'rgba(245, 134, 52, 1)',
         'ash': 'rgba(34, 40, 49, 1)',
         'light-ash': 'rgba(106, 106, 106, 1)',
         'brand-color': 'rgba(16, 55, 92, 1)',
-        '_green': '#1A2B47'
+        '_green': '#1A2B47',
+        '_grad':'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 44%, rgba(204,204,204,1) 100%)'
       }
     },
     

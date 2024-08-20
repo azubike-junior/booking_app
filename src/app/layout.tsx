@@ -3,6 +3,7 @@ import { lato, lora, poppins, quickSand, roboto } from '@/utils'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const inter = Inter({ subsets: ['latin'] })
 
