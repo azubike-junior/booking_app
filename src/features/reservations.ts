@@ -4,43 +4,42 @@ import { api } from './api';
 export const reservationApi = api.injectEndpoints({
   endpoints: (builder) => ({
     makePayment: builder.mutation<string, PaymentProps>({
-      query: (body) => ({
+      query: (data) => ({
         url: `/payment/paystack/initiate`,
         method: 'POST',
-        body
+        data
       }),
       transformResponse: (res: any, meta, arg: PaymentProps): any => {
-        const { toast, route } = arg
-        route.replace(res.data.authorization_url)
+        const { route } = arg
+        route.replace(res.data.data.authorization_url)
          
-        if (res?.status === 200) {
-          toast({
-            title: 'Room has been publish successfully',
-            description: '',
-            status: 'success',
-            duration: 9000,
-            isClosable: true,
-            position: 'top-right',
-          })
-        }
+        // if (res?.status === 200) {
+        //   toast({
+        //     title: 'Room has been publish successfully',
+        //     description: '',
+        //     status: 'success',
+        //     duration: 9000,
+        //     isClosable: true,
+        //     position: 'top-right',
+        //   })
+        // }
          
         return { res }
       },
-      invalidatesTags: ['Property']
     }),
     makePaymentOnArrival: builder.mutation<string, PaymentProps>({
-      query: (body) => ({
+      query: (data) => ({
         url: `/reservation/create`,
         method: 'POST',
-        body
+        data
       }),
       transformResponse: (res: any, meta, arg: PaymentProps): any => {
         const { toast, route } = arg
          
         if (res?.status === 200) {
-          route.push('/properties')
+          route.push('/success')
           toast({
-            title: 'Room has been publish successfully',
+            title: 'Room has been booked successfully',
             description: '',
             status: 'success',
             duration: 9000,

@@ -21,7 +21,7 @@ export default function RoomCard({ room, setRoomID, roomID }: prop) {
         <div>
           <h3 className="">{room.name}</h3>
           <div
-            className={`flex space-x-2 items-center bg-[#F58634] text-white text-sm mt-3 py-1 px-3 rounded-xl ${
+            className={`flex space-x-2 items-center bg-[#F58634] text-white text-xs xl:text-sm mt-3 py-1 px-2 xl:px-3 rounded-xl ${
               room.published ? 'bg-[#F58634]' : 'bg-[#FCD9C0]'
             }`}
           >
@@ -40,7 +40,7 @@ export default function RoomCard({ room, setRoomID, roomID }: prop) {
 
         <img
           src={room?.image_one}
-          className="w-24 h-16 rounded-lg"
+          className="w-20 xl:w-24 h-16 rounded-lg"
           alt="room"
         />
       </div>

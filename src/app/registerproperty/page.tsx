@@ -3,7 +3,12 @@
 import Button from '@/components/shared/Button'
 import InputField, { SelectField } from '@/components/shared/Input'
 import { useCreatePropertyMutation } from '@/features/property'
-import { handleImageChange, handleLogoChange } from '@/utils'
+import {
+  handleImageChange,
+  handleImageTwoChange,
+  uploadImage,
+  uploadImageTwo,
+} from '@/utils'
 import { PropertyProp } from '@/utils/types'
 import {
   Modal,
@@ -20,7 +25,6 @@ import { ColorPicker, useColor } from 'react-color-palette'
 import 'react-color-palette/css'
 import { useForm } from 'react-hook-form'
 import { IoIosArrowDropleftCircle } from 'react-icons/io'
-import { uploadLogo, uploadImage } from '@/utils'
 
 export default function RegisterProperty() {
   const route = useRouter()
@@ -52,6 +56,18 @@ export default function RegisterProperty() {
     }))
   }
 
+  const [image, setImage] = useState<any | string>('')
+  const [imageTwo, setImageTwo] = useState<any | string>('')
+  const [imageThree, setImageThree] = useState<any | string>('')
+
+  const imageRef = useRef() as MutableRefObject<HTMLInputElement>
+  const imageTwoRef = useRef() as MutableRefObject<HTMLInputElement>
+  const imageThreeRef = useRef() as MutableRefObject<HTMLInputElement>
+
+  const [imageLoading, setImageLoading] = useState(false)
+  const [imageTwoLoading, setImageTwoLoading] = useState(false)
+  const [imageThreeLoading, setImageThreeLoading] = useState(false)
+
   const [
     createProperty,
     { isLoading, error, data },
@@ -62,9 +78,6 @@ export default function RegisterProperty() {
   const logoRef = useRef() as MutableRefObject<HTMLInputElement>
 
   async function propertyHandler(data: PropertyProp) {
-
-
-
     if (!imgUrl || !logoUrl) {
       toast({
         title: 'please upload the following images listed',
@@ -104,15 +117,14 @@ export default function RegisterProperty() {
     } = data
 
     // console.log(">>>>>dataa", data);
-    
 
     createProperty({
       toast,
       route,
       number_of_rooms: Number(number_of_rooms),
       country: 'Nigeria',
-      logo: logoUrl,
-      image: imgUrl,
+      image_two:imageTwo,
+      image: image,
       secondary_color: secondaryColor.hex,
       primary_color: primaryColor.hex,
       text_color: textColor.hex,
@@ -159,7 +171,7 @@ export default function RegisterProperty() {
           </div>
         </div>
       </div>
-      <div className=" w-full lg:w-7/12 bg-white rounded-l-[40px] px-8 lg:px-20">
+      <div className=" overflow-scroll w-full lg:w-7/12 bg-white rounded-l-[40px] px-8 lg:px-20">
         <div
           onClick={() => route.back()}
           className="flex mt-20 items-center space-x-2 cursor-pointer"
@@ -288,11 +300,11 @@ export default function RegisterProperty() {
               type="text"
               register={register}
               errors={errors?.payment_link}
-              selectArray={
-                currencies.map((c) => (
-                  <option value={c} key="">{c}</option>
-                ))
-              }
+              selectArray={currencies.map((c) => (
+                <option value={c} key="">
+                  {c}
+                </option>
+              ))}
             />
 
             <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
@@ -375,32 +387,32 @@ export default function RegisterProperty() {
 
             <div className="flex  mb-10 space-x-4 text-sm">
               <button
-                onClick={() => logoRef.current.click()}
+                onClick={() => imageTwoRef.current.click()}
                 type="button"
                 className="w-full text-sm"
               >
-                <p>Upload a Logo</p>
-                <div className="w-full bg-[#F4F4F4] rounded-lg  py-10 flex justify-center mt-2">
+                <p>Upload cover</p>
+                <div className="w-full bg-[#F4F4F4] rounded-lg p-4 flex justify-center mt-2 text-sm">
                   <div>
                     <input
                       onChange={(e) =>
-                        handleLogoChange({
+                        handleImageChange({
                           e,
-                          setLogoLoading,
-                          setLogoUrl,
-                          uploadLogo,
+                          setImage,
+                          setImageLoading,
+                          uploadImage,
                         })
                       }
-                      ref={logoRef}
+                      ref={imageRef}
                       hidden
                       type="file"
                     />
-                    {logoLoading ? (
+                    {imageLoading ? (
                       <Spinner />
                     ) : (
                       <>
-                        {logoUrl ? (
-                          <p>Done !</p>
+                        {image ? (
+                            <img src={image} width={200} height={240} className="rounded-lg"  />
                         ) : (
                           <>
                             <p className="text-[#0B60B0]">Click to Upload</p>
@@ -414,32 +426,40 @@ export default function RegisterProperty() {
               </button>
 
               <button
-                onClick={() => fileRef.current.click()}
+                onClick={() => imageRef.current.click()}
                 type="button"
                 className="w-full text-sm"
               >
                 <p>Upload Image</p>
-                <div className="w-full bg-[#F4F4F4] rounded-lg  py-10 flex justify-center mt-2">
+               
+
+
+                  <div className="w-full bg-[#F4F4F4] rounded-lg  p-4 text-sm  flex justify-center mt-2">
                   <div>
                     <input
                       onChange={(e) =>
-                        handleImageChange({
+                        handleImageTwoChange({
                           e,
-                          setImageLoading:setLoading,
-                          setImage: setImgUrl,
-                          uploadImage,
+                          setImageTwoLoading,
+                          setImageTwo,
+                          uploadImageTwo,
                         })
                       }
-                      ref={fileRef}
+                      ref={imageTwoRef}
                       hidden
                       type="file"
                     />
-                    {loading ? (
+                    {imageTwoLoading ? (
                       <Spinner />
                     ) : (
                       <>
-                        {imgUrl ? (
-                          <p>Done !</p>
+                        {imageTwo ? (
+                          <img
+                            src={imageTwo}
+                            width={240}
+                            height={200}
+                            className="rounded-lg"
+                          />
                         ) : (
                           <>
                             <p className="text-[#0B60B0]">Click to Upload</p>

@@ -15,8 +15,11 @@ export default function Signup() {
   const toast = useToast()
   const [
     createAccount,
-    { isLoading, data: response, error },
+    { isLoading, data: response, error, isError },
   ] = useCreateAccountMutation()
+
+  // console.log(">>>>>isError", error, isError);
+  
 
   const {
     register,
@@ -31,18 +34,18 @@ export default function Signup() {
     const { confirmPassword, ..._data } = data
     const updated = { toast, router, country_code: '+234', ..._data }
     createAccount(updated)
-      .unwrap()
-      .then((payload) => {})
-      .catch((error) => {
-        toast({
-          title: error?.data.error,
-          description: '',
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
-          position: 'top-right',
-        })
-      })
+      // .unwrap()
+      // .then((payload) => {})
+      // .catch((error) => {
+      //   toast({
+      //     title: error?.data.error,
+      //     description: '',
+      //     status: 'error',
+      //     duration: 9000,
+      //     isClosable: true,
+      //     position: 'top-right',
+      //   })
+      // })
   }
 
   return (

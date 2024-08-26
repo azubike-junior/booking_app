@@ -1,10 +1,12 @@
 import { GoArrowUpRight } from 'react-icons/go'
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import { ImArrowUpRight2 } from "react-icons/im";
+import { ReactElement } from 'react';
 
 type prop = {
   title: string
-  amount: string
+  amount: string | ReactElement
+
 }
 
 export default function StatCard({ title, amount }: prop) {

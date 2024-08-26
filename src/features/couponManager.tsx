@@ -1,5 +1,5 @@
 import toast from 'react-hot-toast'
-import {  CouponProp, SubscriptionProp, _Coupon } from '../utils/types'
+import { CouponProp, SubscriptionProp, _Coupon } from '../utils/types'
 import { api } from './api'
 
 export const couponApi = api.injectEndpoints({
@@ -12,8 +12,6 @@ export const couponApi = api.injectEndpoints({
       }),
       transformResponse: (res: any, meta, arg: CouponProp): any => {
         const { setOpenCoupon } = arg
-        console.log(">>>>>res", res);
-        
         if (res.status === 201) {
           toast.success('Coupon created successfully')
           setOpenCoupon(false)
@@ -32,7 +30,17 @@ export const couponApi = api.injectEndpoints({
       transformResponse: (res: any): any => {
         return res.data.data
       },
-      providesTags:['Coupon']
+      providesTags: ['Coupon'],
+    }),
+    deleteCouponId: builder.mutation<string, void>({
+      query: (id) => ({
+        url: `/coupon/del/${id}`,
+        method: 'DELETE',
+      }),
+      transformResponse: (res: any): any => {
+        return res.data.data
+      },
+     invalidatesTags: ['Coupon'],
     }),
     subscriptionPlan: builder.query<SubscriptionProp, string | undefined>({
       query: (id) => ({
@@ -43,10 +51,21 @@ export const couponApi = api.injectEndpoints({
         return res.data
       },
     }),
+    getDashboardSummaries: builder.query<any, void>({
+      query: () => ({
+        url: `/dashboard`,
+        method: 'GET',
+      }),
+      transformResponse: (res: any): any => {
+        return res.data
+      },
+    }),
   }),
 })
 
 export const {
+  useGetDashboardSummariesQuery,
+  useDeleteCouponIdMutation,
   useCreateCouponMutation,
   useCouponsByPropertyIdQuery,
   useSubscriptionPlanQuery,

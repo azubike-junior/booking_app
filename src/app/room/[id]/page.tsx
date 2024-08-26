@@ -4,9 +4,11 @@ import InputField from '@/components/shared/Input'
 import { useCreateRoomMutation } from '@/features/property'
 import {
   handleImageChange,
-  handleLogoChange,
+  handleImageThreeChange,
+  handleImageTwoChange,
   uploadImage,
-  uploadLogo,
+  uploadImageThree,
+  uploadImageTwo,
 } from '@/utils'
 import { RoomProps } from '@/utils/types'
 import { Checkbox, Spinner, useToast } from '@chakra-ui/react'
@@ -62,7 +64,16 @@ export default function RegisterRoom() {
   }
 
   async function roomHandler(data: RoomProps) {
-    const { name, size, adults, category, price, mode, children, description } = data
+    const {
+      name,
+      size,
+      adults,
+      category,
+      price,
+      mode,
+      children,
+      description,
+    } = data
     const _data = {
       route,
       toast,
@@ -89,14 +100,27 @@ export default function RegisterRoom() {
       category: Number(category),
       name,
       size,
-      image_one: logoUrl,
-      image_two: imgUrl,
-      image_three: 'imagethree',
-      id:""
+      image_one: image,
+      image_two: imageTwo,
+      image_three: imageThree,
+      id: '',
+      payment_link:""
     }
 
     createRoom(_data)
   }
+
+  const [image, setImage] = useState<any | string>('')
+  const [imageTwo, setImageTwo] = useState<any | string>('')
+  const [imageThree, setImageThree] = useState<any | string>('')
+
+  const imageRef = useRef() as MutableRefObject<HTMLInputElement>
+  const imageTwoRef = useRef() as MutableRefObject<HTMLInputElement>
+  const imageThreeRef = useRef() as MutableRefObject<HTMLInputElement>
+
+  const [imageLoading, setImageLoading] = useState(false)
+  const [imageTwoLoading, setImageTwoLoading] = useState(false)
+  const [imageThreeLoading, setImageThreeLoading] = useState(false)
 
   return (
     <div className="flex h-full justify-between">
@@ -125,7 +149,7 @@ export default function RegisterRoom() {
           </div>
         </div>
       </div>
-      <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-8 lg:px-20">
+      <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-8 lg:px-20 overflow-scroll">
         <div
           onClick={() => route.back()}
           className="flex mt-20 items-center space-x-2 cursor-pointer"
@@ -368,7 +392,7 @@ export default function RegisterRoom() {
               <div className="flex mb-10 space-x-6 text-sm pt-4">
                 <button
                   type="button"
-                  onClick={() => logoRef?.current?.click()}
+                  onClick={() => imageRef?.current?.click()}
                   className=" text-sm "
                 >
                   <p
@@ -380,23 +404,23 @@ export default function RegisterRoom() {
                     <div>
                       <input
                         onChange={(e) =>
-                          handleLogoChange({
+                          handleImageChange({
                             e,
-                            setLogoLoading,
-                            setLogoUrl,
-                            uploadLogo,
+                            setImage,
+                            setImageLoading,
+                            uploadImage,
                           })
                         }
-                        ref={logoRef}
+                        ref={imageRef}
                         hidden
                         type="file"
                       />
-                      {logoLoading ? (
+                      {imageLoading ? (
                         <Spinner />
                       ) : (
                         <>
-                          {logoUrl ? (
-                            <p className=" text-[#10375C]">cover uploaded !</p>
+                          {image ? (
+                            <img src={image} alt="" className="h-24 w-36" />
                           ) : (
                             <>
                               <p className="text-[#0B60B0]">Click to Upload</p>
@@ -414,35 +438,35 @@ export default function RegisterRoom() {
 
                 <button
                   type="button"
-                  onClick={() => fileRef?.current?.click()}
+                  onClick={() => imageTwoRef?.current?.click()}
                   className=" text-sm"
                 >
                   <p
                     className={`quicksand text-[#737373] text-left font-semibold`}
                   >
-                    Upload Image 1
+                    Upload Image
                   </p>
                   <div className="rounded-lg h-24 w-36 border border-[#B9B9B9]  flex justify-center my-2  items-center text-sm">
                     <div>
                       <input
                         onChange={(e) =>
-                          handleImageChange({
+                          handleImageTwoChange({
                             e,
-                            setImageLoading:setLoading,
-                            setImage: setImgUrl,
-                            uploadImage,
+                            setImageTwoLoading,
+                            setImageTwo,
+                            uploadImageTwo,
                           })
                         }
-                        ref={fileRef}
+                        ref={imageTwoRef}
                         hidden
                         type="file"
                       />
-                      {loading ? (
+                      {imageTwoLoading ? (
                         <Spinner />
                       ) : (
                         <>
-                          {imgUrl ? (
-                            <p className="text-[#10375C]">Image uploaded !</p>
+                          {imageTwo ? (
+                            <img src={imageTwo} alt="" className="h-24 w-36" />
                           ) : (
                             <>
                               <p className="text-[#0B60B0]">Click to Upload</p>
@@ -463,57 +487,54 @@ export default function RegisterRoom() {
                   </div> */}
                 </button>
 
-                {/* {!data?.image ? (
-                  <div>
-                    <button
-                      onClick={() => logoRef.current.click()}
-                      type="button"
-                      className=" text-sm "
-                    >
-                      <p
-                        className={`${open_sans.className} text-[#737373] text-left font-semibold`}
-                      >
-                        Upload an Image
-                      </p>
-                      <div className="rounded-lg h-44 w-48 bg-[#F4F4F4] border border-[#B9B9B9] flex justify-center items-center my-2">
-                        <div>
-                          <input
-                            onChange={(e) =>
-                              handleLogoChange({
-                                e,
-                                setLogoLoading,
-                                setLogoUrl,
-                                uploadLogo,
-                              })
-                            }
-                            ref={logoRef}
-                            hidden
-                            type="file"
-                          />
-                          {logoLoading ? (
-                            <Spinner />
+                <button
+                  type="button"
+                  onClick={() => imageThreeRef?.current?.click()}
+                  className=" text-sm"
+                >
+                  <p
+                    className={`quicksand text-[#737373] text-left font-semibold`}
+                  >
+                    Upload Image
+                  </p>
+                  <div className="rounded-lg h-24 w-36 border border-[#B9B9B9]  flex justify-center my-2  items-center text-sm">
+                    <div>
+                      <input
+                        onChange={(e) =>
+                          handleImageThreeChange({
+                            e,
+                            setImageThreeLoading,
+                            setImageThree,
+                            uploadImageThree,
+                          })
+                        }
+                        ref={imageThreeRef}
+                        hidden
+                        type="file"
+                      />
+                      {imageThreeLoading ? (
+                        <Spinner />
+                      ) : (
+                        <>
+                          {imageThree ? (
+                            <img
+                              src={imageThree}
+                              alt=""
+                              className="h-24 w-36"
+                            />
                           ) : (
                             <>
-                              {imgUrl ? (
-                                <p>Done !</p>
-                              ) : (
-                                <>
-                                  <p className="text-[#0B60B0]">
-                                    Click to Upload
-                                  </p>
-                                  <p className="text-[#2E2E2E]">
-                                    {' '}
-                                    SVG, PNG, or JPG{' '}
-                                  </p>
-                                </>
-                              )}
+                              <p className="text-[#0B60B0]">Click to Upload</p>
+                              <p className="text-[#2E2E2E]">
+                                SVG, PNG, or JPG{' '}
+                              </p>
                             </>
                           )}
-                        </div>
-                      </div>
-                    </button>
+                        </>
+                      )}
+                    </div>
                   </div>
-                ) : null} */}
+                </button>
               </div>
             </div>
 

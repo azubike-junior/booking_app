@@ -40,7 +40,7 @@ const Bookings = () => {
 
   return (
     <div className="lato">
-      <div className='flex justify-between'> 
+      <div className='space-y-2 lg:space-y-0 lg:flex justify-between'> 
         <h3 className='font-semibold text-base'>
           Reservation history
         </h3>
@@ -55,7 +55,7 @@ const Bookings = () => {
           ) : (
             <>
               {!openRoomOrder ? (
-                <div className="pb-10">
+                <div className="pb-10 overflow-scroll ">
                   {isLoading ? (
                     <div className="flex justify-center items-center pb-6">
                       <Spinner />{' '}

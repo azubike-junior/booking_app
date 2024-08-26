@@ -10,7 +10,13 @@ type prop = {
   property?: PropertyProp
 }
 
-export default function EmptyState({ message, subText, btnText, route, property }: prop) {
+export default function EmptyState({
+  message,
+  subText,
+  btnText,
+  route,
+  property,
+}: prop) {
   return (
     <div>
       <div className="shadow-md shadow-slate-200 w-7/12 flex justify-center items-center mx-auto lato py-6 mt-6 px-4 ">
@@ -28,7 +34,13 @@ export default function EmptyState({ message, subText, btnText, route, property 
               {message}
             </p>
 
-            <Link href={route === 'property' ? '/dashboard/registerproperty' : `/room/${property?.id}`}>
+            <Link
+              href={
+                route === 'property'
+                  ? '/registerproperty'
+                  : `/room/${property?.id}`
+              }
+            >
               <button className="flex space-x-2 border-[#34C759] text-[#34C759] border rounded-lg mx-auto p-2 px-3 my-6">
                 <Image
                   src={'/arrow.svg'}

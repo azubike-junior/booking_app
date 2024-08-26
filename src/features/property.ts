@@ -30,12 +30,7 @@ export const propertyApi = api.injectEndpoints({
         data
       }),
       transformResponse: (res: any, meta, arg: PropertyProp): any => {
-         
-        console.log(">>>>>res", res);
-
         const {setEdit} = arg
-        
-
         if (res?.status === 201) {
           toast.success('Property has been edited successfully')
            setEdit(false)
@@ -82,34 +77,37 @@ export const propertyApi = api.injectEndpoints({
         data
       }),
        transformResponse: (res: any, meta, arg:RoomProps): any => {
-         const { toast, route, property_id } = arg
+         const {route, property_id } = arg
          if (res.status === 201) {
            route.push(`/dashboard/property`)
-
            toast.success( 'Room was created successfully')
-
-           
-          
          }
          
         return {res}
       },
+
+       
      invalidatesTags:['Property']
     }),
     editRoom: builder.mutation<string, RoomProps>({
-      query: ({id, ...body}) => ({
+      query: ({id, ...data}) => ({
         url: `/room/edit/${id}`,
         method: 'PUT',
-        body
+        data
       }),
        transformResponse: (res: any, meta, arg:RoomProps): any => {
-         const { toast, route } = arg
+         const { setEdit } = arg
          if (res.status === 200) {
-           route.push(`/dashboard/property`)
+           setEdit(false)
            toast.success( 'Room was edited successfully')
          }
          
         return {res}
+      },
+        transformErrorResponse: (res: any) => {
+          toast.error(
+              res?.data.error
+            )
       },
      invalidatesTags:['Property']
     }),
@@ -118,8 +116,14 @@ export const propertyApi = api.injectEndpoints({
         url: `/room/publish/${id}`,
         method: 'PUT',
       }),
-       transformResponse: (res: any): any => {
+      transformResponse: (res: any): any => {
+          toast.success( 'Room has been published successfully')
         return {res}
+      },
+      transformErrorResponse: (res: any) => {
+          toast.error(
+              res?.data.error
+            )
       },
      invalidatesTags:['Property']
     }),
@@ -128,8 +132,14 @@ export const propertyApi = api.injectEndpoints({
         url: `/room/unpublish/${id}`,
         method: 'PUT',
       }),
-       transformResponse: (res: any, meta): any => {
+      transformResponse: (res: any, meta): any => {
+        toast.success( 'Room has been unpublished successfully')
         return {res}
+      },
+        transformErrorResponse: (res: any) => {
+          toast.error(
+              res?.data.error
+            )
       },
      invalidatesTags:['Property']
     }),

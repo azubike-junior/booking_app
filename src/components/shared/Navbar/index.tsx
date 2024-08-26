@@ -51,12 +51,12 @@ export default function Navbar() {
           <ul
             className={` hidden  sm:flex text-black space-x-6  text-sm xl:text-base items-center leading font-medium `}
           >
-            <Link className="font-medium " href={'/properties'}>
+            <Link className="font-medium " href={'/dashboard'}>
               Dashboard
             </Link>
             
 
-            <Link className="font-medium" href={'#'}>
+            <Link className="font-medium" href={'/dashboard/properties'}>
               Settings
             </Link>
           </ul>

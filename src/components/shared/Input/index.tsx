@@ -51,7 +51,8 @@ export default function InputField({
           defaultValue={defaultValue}
           type={type}
           min={min}
-          max={max}
+            max={max}
+        
           placeholder={placeHolder}
           className="border-[0.5px] border-[#D4D6D7] w-full mt-2 py-2 rounded-md px-4 outline-none text-sm font-medium text-[#747F8A]"
           {...register(name, { required, validate })}

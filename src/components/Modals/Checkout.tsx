@@ -7,7 +7,7 @@ import { PaymentProps, PropertyProp, RoomOrderProp } from '@/utils/types'
 import { Spinner, Switch, useToast } from '@chakra-ui/react'
 import moment from 'moment'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Button from '../shared/Button'
 import { PaymentField } from '../shared/Input'
@@ -39,6 +39,8 @@ const Checkout = ({
     formState: { errors },
   } = useForm<PaymentProps>({})
 
+  const [htmlContent, setHtmlContent] = useState('')
+  const quillRef = useRef<any>(null)
   const [checked, setChecked] = useState(false)
 
   const toast = useToast()
@@ -50,8 +52,6 @@ const Checkout = ({
   ] = useMakePaymentOnArrivalMutation()
 
   const route = useRouter()
-
-  console.log('>>>>>>cartItems', cartItems)
 
   const orders = cartItems.map((c) => {
     return {
@@ -94,8 +94,6 @@ const Checkout = ({
       })
   }
 
-  // const { data: user } = useGetAccountQuery(getItem('user_id'))
-
   const onArrivalPaymentHandler = (data: PaymentProps) => {
     try {
       const { email, phonenumber, first_name, last_name } = data
@@ -128,6 +126,18 @@ const Checkout = ({
         })
     } catch (err) {}
   }
+
+  // useEffect(() => {
+  //   getHTML()
+  // }, [property?.booking_policy])
+
+  // const getHTML = () => {
+  //   if (quillRef.current) {
+  //     const editor = quillRef.current.getEditor()
+  //     const html = editor.root.innerHTML
+  //     setHtmlContent(html)
+  //   }
+  // }
 
   return (
     <form className="bg-white p-10 flex max-w-[1400px] mx-auto space-x-20">
@@ -205,28 +215,10 @@ const Checkout = ({
         <div className="mt-8">
           <h4 className="text-xl font-semibold">Booking Policy</h4>
 
-          <div className="space-y-4 text-sm pt-2">
-            <p>
-              Lorem ipsum dolor sit amet consectetur. Iaculis vulputate lobortis
-              eget in neque id sed cras vulputate. Tortor mauris vitae nisi
-              velit in. Et semper nec sem egestas consectetur condimentum
-              lectus.{' '}
-            </p>
-
-            <p>
-              Lorem ipsum dolor sit amet consectetur. Iaculis vulputate lobortis
-              eget in neque id sed cras vulputate. Tortor mauris vitae nisi
-              velit in. Et semper nec sem egestas consectetur condimentum
-              lectus.{' '}
-            </p>
-
-            <p>
-              Lorem ipsum dolor sit amet consectetur. Iaculis vulputate lobortis
-              eget in neque id sed cras vulputate. Tortor mauris vitae nisi
-              velit in. Et semper nec sem egestas consectetur condimentum
-              lectus.{' '}
-            </p>
-          </div>
+          <div
+            dangerouslySetInnerHTML={{ __html: property?.booking_policy }}
+            className=" text-sm pt-2"
+          ></div>
         </div>
       </div>
       <div className="justify-between w-4/12">

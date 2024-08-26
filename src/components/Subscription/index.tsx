@@ -1,7 +1,7 @@
 import { useGetAccountQuery } from '@/features/auth'
 import {
   useMakePaymentMutation,
-  useSubscriptionPlansQuery,
+  useSubscriptionPlansQuery
 } from '@/features/reservations'
 import { getItem } from '@/utils'
 import { SubscriptionProp } from '@/utils/types'
@@ -54,7 +54,7 @@ export default function Subscription({
       <h3 className="text-lg font-semibold">Subscription Plan & Pricing</h3>
       <p className="text-sm text-[#667184]">Simple pricing. No hidden fees. </p>
 
-      <div className=" flex  space-x-8 pt-8">
+      <div className=" grid  md:grid-cols-2 xl:grid-cols-3 pt-8 gap-6">
         {data?.map((s, index: number) => {
           const {
             annual_cost,
@@ -80,7 +80,7 @@ export default function Subscription({
           return (
             <div
               key={index}
-              className={` border-[#DDDDE5] border-[0.4px] p-6 px-8 w-full rounded-xl  ${
+              className={` border-[#DDDDE5] border-[0.4px] py-6 px-4 xl:px-8 w-full rounded-xl  ${
                 index === 2 ? 'linear text-white ' : 'bg-[#FDFDFF] '
               } ${scroll === index ? 'h-full' : 'h-fit'} `}
             >
@@ -218,23 +218,23 @@ export default function Subscription({
                 </div>
               </div>
 
-              {index !== 0 && (
+              {/* {index !== 0 && ( */}
                 <div className="flex justify-center items-center py-4 cursor-pointer">
                   {scroll === index ? (
                     <IoIosArrowUp
-                      onClick={() => setScroll(5)}
+                      onClick={() => index === 0 ? null :   setScroll(5)}
                       size={20}
                       className="text-center"
                     />
                   ) : (
                     <IoIosArrowDown
-                      onClick={() => setScroll(index)}
+                      onClick={() => index === 0 ? null :  setScroll(index)}
                       size={20}
                       className="text-center"
                     />
                   )}
                 </div>
-              )}
+              {/* )} */}
 
               <button
                 disabled={index === 0}

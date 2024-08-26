@@ -31,7 +31,7 @@ export default function Property() {
 
   return (
     <div className="lato">
-      <div className="flex justify-between ">
+      <div className="flex justify-between items-center ">
         {isLoading ? (
           <div className="flex justify-center items-center">
             <Spinner size="34" />
@@ -39,8 +39,8 @@ export default function Property() {
         ) : (
           <>
             {property && (
-              <div>
-                <h3 className="text-2xl font-semibold">{property[0]?.name}</h3>
+              <div className='hidden lg:block'>
+                <h3 className="text-xl xl:text-2xl font-semibold">{property[0]?.name}</h3>
                 <div className="flex items-center space-x-2">
                   <MdOutlineMapsHomeWork />
                   <p className="text-sm">{property[0]?.address}</p>
@@ -53,6 +53,7 @@ export default function Property() {
         <PropertyToggle
           clickedSection={clickedSection}
           setClickedSection={setClickedSection}
+          property={property[0]}
         />
       </div>
 

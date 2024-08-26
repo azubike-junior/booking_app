@@ -10,6 +10,7 @@ import {
   Spinner,
 } from '@chakra-ui/react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 type prop = {
@@ -59,6 +60,7 @@ const SubscriptionDetails = ({
     sixMonth: false,
     yearly: false,
   })
+  const route = useRouter()
 
   const [total, setTotal] = useState(0)
   const [durationPlan, setDurationPlan] = useState(1)
@@ -117,6 +119,7 @@ const SubscriptionDetails = ({
       amount: total,
       account_id: user?.id,
       sub_duration: subSelected.monthly_cost,
+      route
     }
     makePayment(newData)
   }

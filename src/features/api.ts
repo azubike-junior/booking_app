@@ -43,32 +43,33 @@ const axiosBaseQuery = (
       }
 
     headers.Authorization = 'Basic ' + btoa('bookingengine:secretbookingenginesecret');
-
-
       if (url === "/file-upload") {
         headers['Content-Type'] = 'multipart/form-data';
       }
     const result = await axiosInstance({ url: baseUrl + url, method, data });
     return { data: result };
   } catch (axiosError) {
-    let err: any = axiosError as AxiosError;
+      let err: any = axiosError as AxiosError;
+      
+      console.log(">>>>eerr", err);
+      
 
-    if (err) {
-      if (err.response?.data.message) {
-         toast.error(err.response?.data.message, {
-          duration: 4000,
-          position: 'top-right'
-        })
-      }
-      if (err.response?.data.error) {
-          toast.error(err.response?.data.error, {
-          duration: 4000,
-          position: 'top-right'
-        })
-      }
-    }
+    // if (err) {
+    //   if (err.response?.data.message) {
+    //      toast.error(err.response?.data.message, {
+    //       duration: 4000,
+    //       position: 'top-right'
+    //     })
+    //   }
+    //   if (err.response?.data.error) {
+    //       toast.error(err.response?.data.error, {
+    //       duration: 4000,
+    //       position: 'top-right'
+    //     })
+    //   }
+    // }
     
-    return { error: { status: err.response?.status, data: err.response?.data } };
+    return { error: { status: err.response?.status, message:err.response?.data.message, data: err.response?.data } };
   }
 };
 

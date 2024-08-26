@@ -99,8 +99,8 @@ const ReservationCard = ({
             swipeable={true}
             showThumbs={false}
             centerMode
-            centerSlidePercentage={110}
-            // dynamicHeight={true}
+            centerSlidePercentage={130}
+            dynamicHeight={true}
             className="mx-auto"
           >
             <div>
@@ -120,46 +120,7 @@ const ReservationCard = ({
           </Carousel>
 
           {/* {checkItemAdded(room.id) && chosenItem(room?.id)?.quantity > 0 && ( */}
-          <div className="pt-6">
-            <hr />
-            <div className="flex justify-center space-x-4 items-center pt-6">
-              <p className="text-red-600 text-xs">
-                {checkItemAdded(room?.id) ? 'No room left' : 'Only 1 Room Left'}{' '}
-              </p>
-              <div className="flex justify-between border-[1px] items-center rounded-md shadow-lg px-2 text-xs space-x-2 ">
-                <button
-                  onClick={() => {
-                    if (chosenItem(room?.id)?.quantity === 1) {
-                      removeItem(chosenItem(room?.id)?.room_id)
-                    }
-                    changeQuantity(chosenItem(room?.id)?.room_id, 'dec')
-                  }}
-                  className="py-2 cursor-pointer"
-                  disabled={
-                    !checkItemAdded(room?.id) && !chosenItem(room?.id)?.quantity
-                  }
-                >
-                  <FaMinus />
-                </button>
-                <span className="border-l border-r px-3">
-                  {!checkItemAdded(room?.id) && !chosenItem(room?.id)?.quantity
-                    ? 0
-                    : chosenItem(room.id)?.quantity}
-                </span>
-                <button
-                  onClick={() => {
-                    changeQuantity(chosenItem(room?.id)?.room_id, 'inc')
-                  }}
-                  className="py-1 cursor-pointer"
-                  disabled={
-                    !checkItemAdded(room?.id) && !chosenItem(room?.id)?.quantity
-                  }
-                >
-                  <FaPlus />
-                </button>
-              </div>
-            </div>
-          </div>
+
           {/* )} */}
         </div>
 
@@ -245,14 +206,60 @@ const ReservationCard = ({
               </div>
             </div>
 
-            <p className="text-[#AE5F25] font-semibold text-sm pt-5">
+            {/* <p className="text-[#AE5F25] font-semibold text-sm pt-5">
               {checkItemAdded(room?.id) ? 'No room left' : 'Only 1 Room Left'}
-            </p>
+            </p> */}
+
+            <div className="">
+              {/* <hr />/ */}
+              <div className="flex justify-start space-x-4 items-center pt-6">
+                <p className="text-red-600 text-xs">
+                  {checkItemAdded(room?.id)
+                    ? 'No room left'
+                    : 'Only 1 Room Left'}{' '}
+                </p>
+                <div className="flex justify-between border-[1px] items-center rounded-md shadow-lg px-2 text-xs space-x-2 ">
+                  <button
+                    onClick={() => {
+                      if (chosenItem(room?.id)?.quantity === 1) {
+                        removeItem(chosenItem(room?.id)?.room_id)
+                      }
+                      changeQuantity(chosenItem(room?.id)?.room_id, 'dec')
+                    }}
+                    className="py-2 cursor-pointer"
+                    disabled={
+                      !checkItemAdded(room?.id) &&
+                      !chosenItem(room?.id)?.quantity
+                    }
+                  >
+                    <FaMinus />
+                  </button>
+                  <span className="border-l border-r px-3">
+                    {!checkItemAdded(room?.id) &&
+                    !chosenItem(room?.id)?.quantity
+                      ? 0
+                      : chosenItem(room.id)?.quantity}
+                  </span>
+                  <button
+                    onClick={() => {
+                      changeQuantity(chosenItem(room?.id)?.room_id, 'inc')
+                    }}
+                    className="py-1 cursor-pointer"
+                    disabled={
+                      !checkItemAdded(room?.id) &&
+                      !chosenItem(room?.id)?.quantity
+                    }
+                  >
+                    <FaPlus />
+                  </button>
+                </div>
+              </div>
+            </div>
 
             <button
               type="button"
               style={{
-                background: checkItemAdded(room?.id) ? '#a9a4a4cc' : "#AE5F25",
+                background: checkItemAdded(room?.id) ? '#a9a4a4cc' : '#AE5F25',
               }}
               disabled={(!checkIn && !checkOut) || checkItemAdded(room?.id)}
               className="bg-[#AE5F25]  w-full text-center text-white mt-6 py-2.5 rounded-lg"

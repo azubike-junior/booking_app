@@ -413,6 +413,10 @@ export const COUPON_COLUMNS = [
     Header: 'Code',
     accessor: 'coupon_code',
   },
+   {
+    Header: '',
+    accessor: 'id',
+  }
 ]
 
 export const bookings_data = [

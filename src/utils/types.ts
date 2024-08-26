@@ -53,18 +53,23 @@ export type PropertyProp = {
   payment_link?: string
   bank: string
   setEdit?: any
+  whatsapp_number: string
+  facebook_pixel_id: string
+  google_tag_manager_id: string
+  booking_policy?: string
 }
 
 
 export type RoomProps = {
   toast?: any
   route?: any
-  id: string
-  property_id: string,
+  setEdit?: any
+  id?: any
+  property_id?: string,
     description: string
   name: string,
   size: string,
-  price: number,
+  price?: number,
   adults: number,
   mode?: number,
   children: number,
@@ -90,6 +95,7 @@ export type RoomProps = {
   hair_dryer:  number
   guest_amenities:  number
   magnifying_mirror: number
+  payment_link: string
 }
 
 export type PublishProp = {

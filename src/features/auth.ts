@@ -18,9 +18,13 @@ export const authApi = api.injectEndpoints({
               'Login successfully'
             )
       }
-       
         return {res}
       },
+      transformErrorResponse: (res: any) => {
+          toast.error(
+              res?.data.error
+            )
+      }
     }),
     createAccount: build.mutation<string, FormValues>({
       query: (data) => ({
@@ -38,6 +42,15 @@ export const authApi = api.injectEndpoints({
         } 
         return {res: res.status}
       },
+      transformErrorResponse: (res: any) => {
+        console.log(">>>>>>res", res);
+        
+        if (res.status === 400) {
+             toast.error(
+              res.data.error
+            )
+          }
+      }
     }),
      getAccount: build.query<LoginResponse, string>({
       query: (id) => ({
