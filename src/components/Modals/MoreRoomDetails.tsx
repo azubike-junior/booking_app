@@ -82,52 +82,52 @@ const MoreRoomDetails = ({ room, property, openDetails, setOpenDetails }: Room) 
 
             <div className="grid grid-cols-4 pt-4 gap-6">
               {room?.bedside_fridge ? (
-                <AmenitiesCard name="Bedside Fridge" img="" />
+                <AmenitiesCard name="Bedside Fridge"  />
               ) : (
                 ''
               )}
               {room?.adults ? (
-                <AmenitiesCard name={`${room?.adults} Adults`} img="" />
+                <AmenitiesCard name={`${room?.adults} Adults`}  />
               ) : (
                 ''
               )}
-              {room?.flat_tv ? <AmenitiesCard name="Flat TV" img="" /> : null}
-              {room?.balcony ? <AmenitiesCard name="Balcony" img="" /> : ''}
+              {room?.flat_tv ? <AmenitiesCard name="Flat TV"  /> : null}
+              {room?.balcony ? <AmenitiesCard name="Balcony"  /> : ''}
               {room?.bathroom_telephone ? (
-                <AmenitiesCard name="Bathroom Telephone" img="" />
+                <AmenitiesCard name="Bathroom Telephone"  />
               ) : (
                 ''
               )}
               {room?.air_conditioner ? (
-                <AmenitiesCard name="Air Conditioner" img="" />
+                <AmenitiesCard name="Air Conditioner"  />
               ) : (
                 ''
               )}
-              {room?.children ? <AmenitiesCard name="Children" img="" /> : ''}
+              {room?.children ? <AmenitiesCard name="Children"  /> : ''}
               {room?.hair_dryer ? (
-                <AmenitiesCard name="Hair Dryer" img="" />
+                <AmenitiesCard name="Hair Dryer"  />
               ) : (
                 ''
               )}
               {room?.bed_breakfast ? (
-                <AmenitiesCard name="Bed breakfast" img="" />
+                <AmenitiesCard name="Bed breakfast"  />
               ) : (
                 ''
               )}
-              {room?.laundry ? <AmenitiesCard name="Laundry" img="" /> : ''}
+              {room?.laundry ? <AmenitiesCard name="Laundry"  /> : ''}
               {room?.magnifying_mirror ? (
-                <AmenitiesCard name="Magnifying mirror" img="" />
+                <AmenitiesCard name="Magnifying mirror"  />
               ) : (
                 ''
               )}
-              {room?.internet ? <AmenitiesCard name="Internet" img="" /> : ''}
+              {room?.internet ? <AmenitiesCard name="Internet"  /> : ''}
               {room?.room_service_24h ? (
-                <AmenitiesCard name="24hr Room Sevice" img="" />
+                <AmenitiesCard name="24hr Room Sevice"  />
               ) : null}{' '}
               {room?.wakeup_call ? (
-                <AmenitiesCard name="Wake up Calls" img="" />
+                <AmenitiesCard name="Wake up Calls"  />
               ) : null}
-              {room?.intercom ? <AmenitiesCard name="Intercom" img="" /> : null}
+              {room?.intercom ? <AmenitiesCard name="Intercom"  /> : null}
             </div>
           </div>
         </div>

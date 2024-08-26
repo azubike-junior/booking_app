@@ -10,7 +10,6 @@ import { RiLogoutCircleRLine } from 'react-icons/ri'
 export default function Sidebar() {
   const pathname = usePathname()
 
-  console.log('>>>>pathname', pathname)
 
   const _protected = [
     { name: 'Dashoard', route: '', icon: <MdOutlineDashboard size={20} /> },
@@ -27,8 +26,6 @@ export default function Sidebar() {
       <ul className="  text-base py-8 px-6 xl:pl-10 shadow-lg w-full shadow-slate-200 lato h-full">
         {_protected.map((r, index) => {
           const isActive = pathname === `/dashboard${r.route}`
-
-          console.log('>>>>', `/dashboard/${r.route}`)
 
           return (
             <Link

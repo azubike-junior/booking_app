@@ -216,6 +216,7 @@ const Checkout = ({
           <h4 className="text-xl font-semibold">Booking Policy</h4>
 
           <div
+            //@ts-ignore
             dangerouslySetInnerHTML={{ __html: property?.booking_policy }}
             className=" text-sm pt-2"
           ></div>

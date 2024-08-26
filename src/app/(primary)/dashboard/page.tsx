@@ -7,8 +7,10 @@ import { Spinner } from '@chakra-ui/react'
 import { CgSortAz } from 'react-icons/cg'
 import { CiSearch } from 'react-icons/ci'
 
-export default function page() {
+export default function Dashboard() {
   const { data, isLoading} = useGetDashboardSummariesQuery()
+  // const data: any = {}
+  // const isLoading = false
 
   console.log(">>>>>rate", data);
   

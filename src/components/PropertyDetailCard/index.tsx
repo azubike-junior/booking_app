@@ -13,7 +13,7 @@ type prop = {
 
 type AmenitiesProp = {
   name?: string
-  value: string | number
+  value?: any
   edit?: boolean
   checked?: boolean
   handleCheckboxChange?: any
