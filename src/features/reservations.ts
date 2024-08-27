@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { PaymentProps, ReservationProps, ReservationRes, SubscriptionProp } from '../utils/types';
 import { api } from './api';
 
@@ -34,21 +35,19 @@ export const reservationApi = api.injectEndpoints({
         data
       }),
       transformResponse: (res: any, meta, arg: PaymentProps): any => {
-        const { toast, route } = arg
+        const {  route, trigger } = arg
          
         if (res?.status === 200) {
+          console.log(">>>>res.data", res.data);
+          
+          trigger(res.data.reservation_id)
           route.push('/success')
-          toast({
-            title: 'Room has been booked successfully',
-            description: '',
-            status: 'success',
-            duration: 9000,
-            isClosable: true,
-            position: 'top-right',
-          })
+          toast.success( 'Room has been booked successfully')
         }
-         
-        return { res }
+        return res.data
+      },
+       transformErrorResponse: (res: any, meta, arg: PaymentProps): any => {
+        toast.error(res.data.error)
       },
       invalidatesTags: ['Property']
     }),
@@ -114,5 +113,5 @@ export const reservationApi = api.injectEndpoints({
   })
 })
 
-export const {useMakePaymentMutation, useMakePaymentOnArrivalMutation, useGetReservationsByRoomIDQuery, useGetReservationQuery, useGetReservationsByPropertyIdQuery, useGetRoomOrderByReservationIdQuery, useSubscriptionPlansQuery, useSubscriptionPlanQuery} = reservationApi
+export const {useMakePaymentMutation, useLazyGetRoomOrderByReservationIdQuery, useMakePaymentOnArrivalMutation, useGetReservationsByRoomIDQuery, useGetReservationQuery, useGetReservationsByPropertyIdQuery, useGetRoomOrderByReservationIdQuery, useSubscriptionPlansQuery, useSubscriptionPlanQuery} = reservationApi
 

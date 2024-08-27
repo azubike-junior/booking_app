@@ -1,8 +1,17 @@
+'use client'
+
+import { useLazyGetRoomOrderByReservationIdQuery } from '@/features/reservations'
 import Image from 'next/image'
-import Link from 'next/link'
-import { RiVerifiedBadgeFill } from 'react-icons/ri'
 
 const Success = () => {
+  const [
+    trigger,
+    { isLoading: loading, data },
+  ] = useLazyGetRoomOrderByReservationIdQuery()
+
+  console.log(">>>>>data", data);
+  
+
   return (
     <>
       {/* <div className="flex justify-center items-center mt-20  text-black ">
@@ -107,7 +116,7 @@ const Success = () => {
               <hr />
               <div className="flex  justify-between  pb-3 mt-5 text-[#48556C]">
                 <p>Room Link</p>
-                <p className='text-[#AE5F25]'>https:,wyxyilwsnjab</p>
+                <p className="text-[#AE5F25]">https:,wyxyilwsnjab</p>
               </div>
               <hr />
             </div>

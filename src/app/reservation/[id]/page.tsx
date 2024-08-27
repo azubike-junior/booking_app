@@ -5,8 +5,8 @@ import ReservationCard from '@/components/ReservationComp/ReservationCard'
 import Button from '@/components/shared/Button'
 import {
   useGetPropertyQuery,
-  useGetRoomByIdQuery,
   useGetRoomByPropertyIdQuery,
+  useGetRoomBySlugQuery,
 } from '@/features/property'
 import { _convertDateFormat } from '@/utils'
 import { RoomOrderProp } from '@/utils/types'
@@ -40,18 +40,29 @@ const Reservations = () => {
     setShowDetails(!showDetails)
   }
 
-  const property_id = params?.id.split('?')[0]
-  const room_id = params?.id.split('?')[1]
+  const slug = params?.id
 
-  const { data: property } = useGetPropertyQuery(property_id)
-  const { data: otherRooms, isLoading } = useGetRoomByPropertyIdQuery(
-    property_id,
-  )
+  // const property_id = params?.id.split('?')[0]
+  // const room_id = params?.id.split('?')[1]
 
   const {
     data: roomDetail,
     isLoading: loadingRoomDetails,
-  } = useGetRoomByIdQuery(room_id)
+  } = useGetRoomBySlugQuery(slug)
+
+  // @ts-ignore
+  const { data: property, isLoading: loadingProperty } = useGetPropertyQuery(
+    roomDetail?.property_id,
+  )
+  // @ts-ignore
+  const { data: otherRooms, isLoading } = useGetRoomByPropertyIdQuery(
+    roomDetail?.property_id,
+  )
+
+  // const {
+  //   data: roomDetail,
+  //   isLoading: loadingRoomDetails,
+  // } = useGetRoomByIdQuery(room_id)
 
   let _data: any = []
 
@@ -93,7 +104,7 @@ const Reservations = () => {
 
   return (
     <>
-      {isLoading ? (
+      {loadingProperty || loadingRoomDetails || isLoading ? (
         <div className="flex justify-center items-center pb-6 mt-20">
           <Spinner />
         </div>
@@ -116,7 +127,7 @@ const Reservations = () => {
 
                   <div className="border-[0.1px] shadow-xl border-white bg-opacity-30  w-4/12 px-2 py-7 flex justify-center items-center rounded-lg space-x-6 bg-[#ccc]">
                     <img
-                      src={property?.image_three}
+                      src={property?.image}
                       className="w-16 h-16 z-10 shadow rounded-lg"
                     />
 
@@ -163,6 +174,7 @@ const Reservations = () => {
                       setOpenCart={setOpenCart}
                       setOpenCheckout={setOpenCheckout}
                       textColor={textColor}
+                      bg={bg}
                       removeItem={removeItem}
                     />
                   )
@@ -257,6 +269,7 @@ const Reservations = () => {
 
                       <div className="flex justify-end px-2">
                         <Button
+                          bg={bg}
                           onClick={() => {
                             setOpenCheckout(true)
                             setOpenCart(false)

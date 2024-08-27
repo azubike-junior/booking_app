@@ -65,8 +65,10 @@ export type RoomProps = {
   route?: any
   setEdit?: any
   id?: any
+  property_name?: string
   property_id?: string,
-    description: string
+  description: string
+  slug?: string
   name: string,
   size: string,
   price?: number,
@@ -121,6 +123,7 @@ export type PaymentProps = {
   type: string
   sub_id?: string
   sub_duration?: number
+  trigger?: any
   }
 
 export type ReservationProps = {

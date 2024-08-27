@@ -1,4 +1,6 @@
 import {
+  useGetRoomOrderByReservationIdQuery,
+  useLazyGetRoomOrderByReservationIdQuery,
   useMakePaymentMutation,
   useMakePaymentOnArrivalMutation,
 } from '@/features/reservations'
@@ -39,17 +41,22 @@ const Checkout = ({
     formState: { errors },
   } = useForm<PaymentProps>({})
 
-  const [htmlContent, setHtmlContent] = useState('')
-  const quillRef = useRef<any>(null)
   const [checked, setChecked] = useState(false)
 
   const toast = useToast()
 
   const [makePayment, { isLoading }] = useMakePaymentMutation()
   const [
+
     makePaymentOnArrival,
-    { isLoading: loadingPaymentOnArrivalResponse },
+    { isLoading: loadingPaymentOnArrivalResponse, data },
+    
   ] = useMakePaymentOnArrivalMutation()
+
+  console.log(">>>>>dataa", data);
+  
+
+  const [trigger, {isLoading: loading}] = useLazyGetRoomOrderByReservationIdQuery()
 
   const route = useRouter()
 
@@ -109,35 +116,24 @@ const Checkout = ({
         orders,
         type: 'booking',
         account_id: getItem('user_id'),
+        trigger
       }
 
       makePaymentOnArrival(newData)
-        .unwrap()
-        .then((payload) => {})
-        .catch((error) => {
-          toast({
-            title: error?.data?.error,
-            description: '',
-            status: 'error',
-            duration: 9000,
-            isClosable: true,
-            position: 'top-right',
-          })
-        })
+        // .unwrap()
+        // .then((payload) => {})
+        // .catch((error) => {
+        //   toast({
+        //     title: error?.data?.error,
+        //     description: '',
+        //     status: 'error',
+        //     duration: 9000,
+        //     isClosable: true,
+        //     position: 'top-right',
+        //   })
+        // })
     } catch (err) {}
   }
-
-  // useEffect(() => {
-  //   getHTML()
-  // }, [property?.booking_policy])
-
-  // const getHTML = () => {
-  //   if (quillRef.current) {
-  //     const editor = quillRef.current.getEditor()
-  //     const html = editor.root.innerHTML
-  //     setHtmlContent(html)
-  //   }
-  // }
 
   return (
     <form className="bg-white p-10 flex max-w-[1400px] mx-auto space-x-20">
@@ -172,22 +168,22 @@ const Checkout = ({
           <div className="flex space-x-4">
             <PaymentField
               label="Phone Number"
-              type="name"
-              errors={errors.email}
+              type="text"
+              errors={errors.phonenumber}
               message="required"
-              placeHolder="Email address"
-              name="email"
+              placeHolder="Phone Number"
+              name="phonenumber"
               required
               register={register}
             />
 
             <PaymentField
               label="Email Address"
-              type="name"
-              errors={errors.phonenumber}
+              type="text"
+              errors={errors.email}
               message="required"
-              placeHolder="Phone number"
-              name="phonenumber"
+              placeHolder="Email Address"
+              name="email"
               required
               register={register}
             />

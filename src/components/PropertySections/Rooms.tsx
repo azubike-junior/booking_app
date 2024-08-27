@@ -73,7 +73,7 @@ export default function Rooms({ property, room }: prop) {
 
   const [edit, setEdit] = useState(false)
 
-  let details: RoomProps| any = {
+  let details: RoomProps | any = {
     id: '',
     property_id: '',
     description: '',
@@ -111,8 +111,10 @@ export default function Rooms({ property, room }: prop) {
     details = !r ? rooms[0] : r
   }
 
+  console.log('>>>>>>room', details)
+
   const base_url = `
-    https://candid-sherbet-40f282.netlify.app/reservation/${property.id}?${details?.id}
+    https://candid-sherbet-40f282.netlify.app/reservation/${details?.slug}
     `
 
   const publishLink = async () => {
@@ -246,7 +248,7 @@ export default function Rooms({ property, room }: prop) {
 
   const handleEditRoom = (data: RoomProps) => {
     const generateDataFromAmenities = () => {
-      const amenities: any = {} 
+      const amenities: any = {}
 
       allAmenities.forEach((amenity) => {
         const formattedName = amenity.name.replace(/\s+/g, '_').toLowerCase()
@@ -304,7 +306,10 @@ export default function Rooms({ property, room }: prop) {
                     </div>
                   </div>
 
-                  <div onClick={onOpen} className="flex space-x-2 items-center justify-center">
+                  <div
+                    onClick={onOpen}
+                    className="flex space-x-2 items-center justify-center"
+                  >
                     <p>All rooms</p>
                     <IoIosArrowDown />
                   </div>
@@ -505,36 +510,34 @@ export default function Rooms({ property, room }: prop) {
                   <div className="flex justify-between items-center">
                     <h4 className="font-semibold">Amenities</h4>
 
-                    {details?.published === 0 && (
-                      <>
-                        {edit ? (
-                          <div className="flex space-x-4">
-                            <div
-                              onClick={() => setEdit(false)}
-                              className={`flex space-x-2 p-2 px-4 items-center rounded-lg mt-4 lato text-sm bg-[#E8EAED] cursor-pointer
-                  }`}
-                            >
-                              <span>Cancel</span>
-                            </div>
-                            <button
-                              type={'submit'}
-                              className="flex space-x-2 p-2 items-center rounded-lg mt-4 lato text-sm bg-[#34C759] text-white px-4"
-                            >
-                              {editingRoom ? <Spinner /> : 'Save'}
-                            </button>
-                          </div>
-                        ) : (
+                    <>
+                      {edit ? (
+                        <div className="flex space-x-4">
                           <div
-                            onClick={() => setEdit(true)}
+                            onClick={() => setEdit(false)}
                             className={`flex space-x-2 p-2 px-4 items-center rounded-lg mt-4 lato text-sm bg-[#E8EAED] cursor-pointer
-                  }`}
+                            }`}
                           >
-                            <CiEdit size={24} />
-                            <span>Edit room details</span>
+                            <span>Cancel</span>
                           </div>
-                        )}
-                      </>
-                    )}
+                          <button
+                            type={'submit'}
+                            className="flex space-x-2 p-2 items-center rounded-lg mt-4 lato text-sm bg-[#34C759] text-white px-4"
+                          >
+                            {editingRoom ? <Spinner /> : 'Save'}
+                          </button>
+                        </div>
+                      ) : (
+                        <div
+                          onClick={() => setEdit(true)}
+                          className={`flex space-x-2 p-2 px-4 items-center rounded-lg mt-4 lato text-sm bg-[#E8EAED] cursor-pointer
+                  }`}
+                        >
+                          <CiEdit size={24} />
+                          <span>Edit room details</span>
+                        </div>
+                      )}
+                    </>
                   </div>
 
                   {!edit ? (
@@ -696,6 +699,7 @@ export default function Rooms({ property, room }: prop) {
                     <button
                       className="border-[#F58634] border text-[#F58634] p-2 rounded-lg flex items-center space-x-2 px-6 text-sm "
                       onClick={publishLink}
+                      type="button"
                     >
                       <p>Copy link</p> <RiLink color="#F58634" />
                     </button>

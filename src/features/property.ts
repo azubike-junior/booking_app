@@ -50,7 +50,7 @@ export const propertyApi = api.injectEndpoints({
       },
       providesTags: ['Property',]
      }),
-    getProperty: builder.query<PropertyProp, string>({
+    getProperty: builder.query<PropertyProp, string|any>({
       query: (id) => ({
         url: `/property/find/${id}`,
         method: 'GET',
@@ -143,9 +143,19 @@ export const propertyApi = api.injectEndpoints({
       },
      invalidatesTags:['Property']
     }),
-     getRoomByPropertyId: builder.query<RoomProps[], string>({
+     getRoomByPropertyId: builder.query<RoomProps[], string | any>({
       query: (id) => ({
         url: `/room/property/${id}`,
+        method: 'GET',
+       }),
+       transformResponse: (res: any,): any => {
+        return res.data
+      },
+      providesTags: ['Property']
+     }),
+     getRoomBySlug: builder.query<RoomProps, string | any>({
+      query: (slug) => ({
+        url: `/room/slug/${slug}`,
         method: 'GET',
        }),
        transformResponse: (res: any,): any => {
@@ -166,5 +176,5 @@ export const propertyApi = api.injectEndpoints({
   })
 })
 
-export const {useCreatePropertyMutation, useEditRoomMutation, useEditPropertyMutation, useGetPropertiesQuery, useGetPropertyQuery, useCreateRoomMutation, useGetRoomByPropertyIdQuery, useGetRoomByIdQuery, useGetPropertyByUserIdQuery, usePublishRoomMutation, useUnpublishRoomMutation} = propertyApi
+export const {useCreatePropertyMutation, useEditRoomMutation, useEditPropertyMutation, useGetPropertiesQuery, useGetPropertyQuery, useCreateRoomMutation, useGetRoomByPropertyIdQuery, useGetRoomByIdQuery, useGetPropertyByUserIdQuery, usePublishRoomMutation, useUnpublishRoomMutation, useGetRoomBySlugQuery} = propertyApi
 

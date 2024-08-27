@@ -9,6 +9,7 @@ type btnProp = {
   type: 'button' | 'submit'
   className?: string
   bg?: string
+
 }
 
 export default function Button({ name, icon, onClick, type, className, bg}: Readonly<btnProp>) {

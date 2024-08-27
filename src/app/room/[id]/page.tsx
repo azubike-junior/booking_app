@@ -1,7 +1,7 @@
 'use client'
 
 import InputField from '@/components/shared/Input'
-import { useCreateRoomMutation } from '@/features/property'
+import { useCreateRoomMutation, useGetPropertyQuery } from '@/features/property'
 import {
   handleImageChange,
   handleImageThreeChange,
@@ -36,6 +36,8 @@ export default function RegisterRoom() {
   const [logoLoading, setLogoLoading] = useState(false)
   const fileRef = useRef() as MutableRefObject<HTMLInputElement>
   const logoRef = useRef() as MutableRefObject<HTMLInputElement>
+
+  const {data: property} = useGetPropertyQuery(params.id)
 
   const [checks, setchecks] = useState({
     wakeup_call: false,
@@ -78,6 +80,7 @@ export default function RegisterRoom() {
       route,
       toast,
       description,
+      property_name: property?.name,
       price: Number(price),
       property_id: params.id,
       adults: Number(adults),

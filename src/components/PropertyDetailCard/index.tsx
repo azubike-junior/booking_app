@@ -52,7 +52,7 @@ export default function DetailCard({
           <input
             type={type}
             defaultValue={value ? value : subtitle}
-            className="w-full p-2 outline-none text-center"
+            className="w-full p-2 outline-none "
             {...register(name)}
           />
         </div>

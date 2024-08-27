@@ -27,6 +27,7 @@ interface Room {
   cartItems: RoomOrderProp[]
   setOpenCart: (open: boolean) => void
   textColor: string
+  bg: string
   removeItem: (id: any) => void
 }
 
@@ -99,7 +100,7 @@ const ReservationCard = ({
             swipeable={true}
             showThumbs={false}
             centerMode
-            centerSlidePercentage={130}
+            centerSlidePercentage={150}
             dynamicHeight={true}
             className="mx-auto"
           >
@@ -125,7 +126,7 @@ const ReservationCard = ({
         </div>
 
         <div className="w-1/2 p-5">
-          <div className="flex justify-between w-full items-center text-[#673816]">
+          <div style={{color: textColor}} className="flex justify-between w-full items-center text-[#673816]">
             <h3 className="text-xl font-semibold ">{room?.name}</h3>
             <span className="text-sm font-semibold">
               NGN {room?.price.toLocaleString()}
@@ -218,7 +219,8 @@ const ReservationCard = ({
                     ? 'No room left'
                     : 'Only 1 Room Left'}{' '}
                 </p>
-                <div className="flex justify-between border-[1px] items-center rounded-md shadow-lg px-2 text-xs space-x-2 ">
+                <div  className={`flex justify-between border-[1px] items-center rounded-md shadow-lg px-2 text-xs space-x-2  ${!checkItemAdded(room?.id) &&
+                      !chosenItem(room?.id)?.quantity && 'bg-[#ccc]'}`}>
                   <button
                     onClick={() => {
                       if (chosenItem(room?.id)?.quantity === 1) {
@@ -259,7 +261,7 @@ const ReservationCard = ({
             <button
               type="button"
               style={{
-                background: checkItemAdded(room?.id) ? '#a9a4a4cc' : '#AE5F25',
+                background: checkItemAdded(room?.id) ? '#a9a4a4cc' : bg,
               }}
               disabled={(!checkIn && !checkOut) || checkItemAdded(room?.id)}
               className="bg-[#AE5F25]  w-full text-center text-white mt-6 py-2.5 rounded-lg"
