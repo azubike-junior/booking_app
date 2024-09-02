@@ -87,7 +87,6 @@ export const reservationApi = api.injectEndpoints({
         method: 'GET',
       }),
       transformResponse: (res: any, meta): any => {
-        console.log(">>>res", res.data);
         
         return res.data.data
       },
