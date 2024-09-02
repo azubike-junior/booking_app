@@ -6,7 +6,7 @@ import { Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 
@@ -31,7 +31,6 @@ export default function Signup() {
   const password = watch('password')
 
   async function onChange() {
-    console.log(">>>>je;;p");
     setRecaptchaValidation(false)
     
   }
@@ -70,7 +69,7 @@ export default function Signup() {
       <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-8 lg:px-20">
         <div className="mx-auto mt-16 max-w-[500px]">
           <p className={`quicksand text-center text-[#111827] text-3xl`}>
-            Create Account
+          Create Your BookTeller Account
           </p>
 
           {/* <div className="border border-[#96A0A5]  space-x-2 flex justify-center items-center py-2 mt-12 rounded-lg">
@@ -166,6 +165,7 @@ export default function Signup() {
 
             <button
               type="submit"
+              disabled={recaptchaValidation}
               className="bg-primary-color py-3 text-center w-full text-white mt-10 rounded-lg"
             >
               {isLoading ? <Spinner /> : 'Create Account'}

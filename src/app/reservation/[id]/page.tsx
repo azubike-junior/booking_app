@@ -12,6 +12,7 @@ import { _convertDateFormat } from '@/utils'
 import { RoomOrderProp } from '@/utils/types'
 import { Spinner } from '@chakra-ui/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { useLayoutEffect, useState } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -225,12 +226,20 @@ const Reservations = () => {
 
                             <div className="text-sm flex justify-between">
                               <div>
-                               {`${c?.adults} Adult, ${c?.children} Child, ${c?.quantity} ${c.quantity > 1 ? "Rooms" : "Room"},  ${c?.noOfDays} ${c.noOfDays > 1 ? "Days" : "Day"}`}
+                                {`${c?.adults} Adult, ${c?.children} Child, ${
+                                  c?.quantity
+                                } ${c.quantity > 1 ? 'Rooms' : 'Room'},  ${
+                                  c?.noOfDays
+                                } ${c.noOfDays > 1 ? 'Days' : 'Day'}`}
                               </div>
 
                               <p>
                                 &#8358;{' '}
-                                {(c.price * c.quantity * c?.noOfDays).toLocaleString()}
+                                {(
+                                  c.price *
+                                  c.quantity *
+                                  c?.noOfDays
+                                ).toLocaleString()}
                               </p>
                             </div>
 
@@ -285,6 +294,56 @@ const Reservations = () => {
               </div>
             </div>
           )}
+
+          <div className="bg-[#673816] py-14 ">
+            <div className="flex justify-between max-w-[1400px] mx-auto items-center">
+              <div className="flex items-center">
+                <div className="mr-10 flex space-x-20">
+                  <img
+                    src={property?.image}
+                    className="w-20 h-20 z-10 shadow rounded-lg"
+                  />
+
+                  <div className="bg-[#798489] w-[1px] h-[80px] ml-6"></div>
+                </div>
+
+                <div className="text-white text-sm tracking-wider font-light ">
+                  <p className="">
+                    This site is protected by{' '}
+                    <span className="font-bold">reCAPTCHA </span> and the{' '}
+                    <span className="font-bold">
+                      {' '}
+                      <Link href="https://policies.google.com/privacy" passHref legacyBehavior>
+                        <a target="_blank"> Google Privacy Policy</a>
+                      </Link>
+                    </span>{' '}
+                    and{' '}
+                    <span className="font-bold">
+                      {' '}
+                      <Link href="https://policies.google.com/terms" passHref legacyBehavior>
+                        <a target="_blank">Terms of Service</a>
+                      </Link>{' '}
+                    </span>{' '}
+                    apply
+                  </p>
+                  <p>Copyright © 2024 Hotels.com All Rights Reserved.</p>
+                </div>
+              </div>
+              {/* <div className=" flex justify-center items-center">
+               
+              </div> */}
+
+              <div className="flex space-x-6">
+                <Image src={'/gmail.svg'} width={30} height={100} alt="gmail" />
+                <Image
+                  src={'/whatsapp.svg'}
+                  width={34}
+                  height={100}
+                  alt="gmail"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </>

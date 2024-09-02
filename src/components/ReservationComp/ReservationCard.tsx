@@ -110,7 +110,7 @@ const ReservationCard = ({
   return (
     <div className="w-full">
       <div className="border-[#D9E6F280] border-[0.2px] shadow-md shadow-slate-300 flex rounded-lg ">
-        <div className="group w-1/2 h-full  border-r-[1px] p-5 relative overflow-hidden rounded-lg  ">
+        <div className="group w-1/2 h-[400px]  border-r-[1px] p-5 relative overflow-hidden rounded-lg  ">
           <Carousel
             swipeable={true}
             showThumbs={false}
@@ -123,14 +123,14 @@ const ReservationCard = ({
               <img
                 src={!room?.image_one ? '/placeholder.png' : room?.image_one}
                 alt=""
-                className="w-full z-0"
+                className="w-full z-0 h-[400px]"
               />
             </div>
             <div>
               <img
                 src={!room?.image_two ? '/placeholder.png' : room?.image_two}
                 alt=""
-                className="w-full z-0"
+                className="w-full z-0 h-[400px]"
               />
             </div>
           </Carousel>

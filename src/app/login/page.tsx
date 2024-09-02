@@ -10,6 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 
 export default function Login() {
@@ -17,7 +18,11 @@ export default function Login() {
 
   const router = useRouter()
   const dispatch = useAppDispatch()
-  const [errorMessage, setErrorMessage] = useState('')
+  const [recaptchaValidation, setRecaptchaValidation] = useState(true)
+
+  async function onChange() {
+    setRecaptchaValidation(false)
+  }
 
   const [login, { isLoading, error }] = useLoginMutation()
 
@@ -56,7 +61,7 @@ export default function Login() {
           <p
             className={`${quickSand.className} text-center text-[#111827] text-3xl`}
           >
-            Login
+            Welcome back
           </p>
 
           {/* <div className="border border-[#96A0A5]  space-x-2 flex justify-center items-center py-2 mt-16 rounded-lg">
@@ -97,11 +102,17 @@ export default function Login() {
               message={'Password is required'}
             />
 
+            <ReCAPTCHA
+              sitekey="6LfdQTQqAAAAAAJ25nl_CVBu4oUY162NhKkVkd0Y"
+              onChange={onChange}
+            />
+
             <button
               type="submit"
+              disabled={recaptchaValidation}
               className="bg-primary-color py-3 text-center w-full text-white mt-10 rounded-lg"
             >
-              {isLoading ? <Spinner /> : 'Login'}
+              {isLoading ? <Spinner /> : 'Sign In'}
             </button>
           </form>
 
