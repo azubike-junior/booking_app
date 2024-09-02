@@ -1,4 +1,4 @@
-import { convertDateFormat } from '@/utils'
+import { calculateDifferenceInDays, convertDateFormat } from '@/utils'
 import { PropertyProp, RoomOrderProp, RoomProps } from '@/utils/types'
 import { useToast } from '@chakra-ui/react'
 import {
@@ -91,20 +91,6 @@ const ReservationCard = ({
 
   const chosenItem = (id: string): any => {
     return cartItems.find((item) => item?.room_id === id)
-  }
-
-
-  const calculateDifferenceInDays: any = (checkIn: string, checkOut: string) => {
-    const date1 = new Date(checkIn)
-    const date2 = new Date(checkOut)
-
-    if (isNaN(date1.getTime()) || isNaN(date2.getTime())) {
-      console.error('Invalid Date')
-    } else {
-      const timeDifference = Math.abs(date2.getTime() - date1.getTime())
-
-      return Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) || 1
-    }
   }
 
   return (

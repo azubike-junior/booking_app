@@ -236,7 +236,7 @@ export const handleImageChange = ({
   e,
   setImageLoading,
   uploadImage,
-  setImage
+  setImage,
 }: imageProp) => {
   setImageLoading(true)
   uploadImage(e.target.files[0], setImage, setImageLoading)
@@ -413,10 +413,10 @@ export const COUPON_COLUMNS = [
     Header: 'Code',
     accessor: 'coupon_code',
   },
-   {
+  {
     Header: '',
     accessor: 'id',
-  }
+  },
 ]
 
 export const bookings_data = [
@@ -466,4 +466,17 @@ export function _convertDateFormat(dateString: string) {
 
   // Return the formatted date string in yyyy-MM-dd format
   return `${year}/${month}/${day}`
+}
+
+export const calculateDifferenceInDays: any = (checkIn: string, checkOut: string) => {
+  const date1 = new Date(checkIn)
+  const date2 = new Date(checkOut)
+
+  if (isNaN(date1.getTime()) || isNaN(date2.getTime())) {
+    console.error('Invalid Date')
+  } else {
+    const timeDifference = Math.abs(date2.getTime() - date1.getTime())
+
+    return Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) || 1
+  }
 }
