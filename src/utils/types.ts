@@ -163,6 +163,7 @@ export type RoomOrderProp = {
   adults?: number
   children?: number
   resIndex?: number
+  noOfDays: number
 }
 
 export type SubscriptionProp = {

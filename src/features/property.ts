@@ -12,7 +12,7 @@ export const propertyApi = api.injectEndpoints({
         data
       }),
        transformResponse: (res:any, meta, arg:PropertyProp): any => {
-         const { toast, route } = arg
+         const {route } = arg
 
          if (res?.status === 201) {
            route.push('/dashboard/property')
@@ -20,6 +20,11 @@ export const propertyApi = api.injectEndpoints({
          }
          
         return {res}
+      },
+         transformErrorResponse: (res: any) => {
+          toast.error(
+              res?.data.error
+            )
       },
      invalidatesTags:['Property']
     }),
@@ -37,6 +42,11 @@ export const propertyApi = api.injectEndpoints({
          }
          
         return {res}
+      },
+        transformErrorResponse: (res: any) => {
+          toast.error(
+              res?.data.error
+            )
       },
      invalidatesTags:['Property']
     }),
@@ -84,6 +94,11 @@ export const propertyApi = api.injectEndpoints({
          }
          
         return {res}
+      },
+         transformErrorResponse: (res: any) => {
+          toast.error(
+              res?.data.error
+            )
       },
 
        

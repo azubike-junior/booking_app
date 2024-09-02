@@ -52,8 +52,6 @@ const Checkout = ({
     { isLoading: loadingPaymentOnArrivalResponse, data },
     
   ] = useMakePaymentOnArrivalMutation()
-
-  console.log(">>>>>dataa", data);
   
 
   const [trigger, {isLoading: loading}] = useLazyGetRoomOrderByReservationIdQuery()
@@ -120,18 +118,6 @@ const Checkout = ({
       }
 
       makePaymentOnArrival(newData)
-        // .unwrap()
-        // .then((payload) => {})
-        // .catch((error) => {
-        //   toast({
-        //     title: error?.data?.error,
-        //     description: '',
-        //     status: 'error',
-        //     duration: 9000,
-        //     isClosable: true,
-        //     position: 'top-right',
-        //   })
-        // })
     } catch (err) {}
   }
 
@@ -230,15 +216,15 @@ const Checkout = ({
                 <div key={c.room_id}>
                   <p>{c.room_name}</p>
                   <p className=" text-[#969DAA] text-sm pt-2">
-                    {c?.adults} Adult, {c.children} Child, {c.quantity} Room
+                     {`${c?.adults} Adult, ${c?.children} Child, ${c?.quantity} ${c.quantity > 1 ? "Rooms" : "Room"},  ${c?.noOfDays} ${c.noOfDays > 1 ? "Days" : "Day"}`}
                   </p>
 
                   <div className="text-[#969DAA] text-sm flex justify-between pt-2">
                     <p>
-                      NGN {c.price.toLocaleString()} x {c.quantity} Nights
+                      NGN {c.price.toLocaleString()} x {c.noOfDays} {`${c.noOfDays > 1 ? "Nights" : "Night"}`}
                     </p>
 
-                    <p>NGN {(c.price * c.quantity).toLocaleString()} </p>
+                    <p>NGN {(c.price * c.quantity * c?.noOfDays).toLocaleString()} </p>
                   </div>
                 </div>
               )

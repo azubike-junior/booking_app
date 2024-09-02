@@ -92,6 +92,21 @@ const ReservationCard = ({
   const chosenItem = (id: string): any => {
     return cartItems.find((item) => item?.room_id === id)
   }
+
+
+  const calculateDifferenceInDays: any = (checkIn: string, checkOut: string) => {
+    const date1 = new Date(checkIn)
+    const date2 = new Date(checkOut)
+
+    if (isNaN(date1.getTime()) || isNaN(date2.getTime())) {
+      console.error('Invalid Date')
+    } else {
+      const timeDifference = Math.abs(date2.getTime() - date1.getTime())
+
+      return Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) || 1
+    }
+  }
+
   return (
     <div className="w-full">
       <div className="border-[#D9E6F280] border-[0.2px] shadow-md shadow-slate-300 flex rounded-lg ">
@@ -126,7 +141,10 @@ const ReservationCard = ({
         </div>
 
         <div className="w-1/2 p-5">
-          <div style={{color: textColor}} className="flex justify-between w-full items-center text-[#673816]">
+          <div
+            style={{ color: textColor }}
+            className="flex justify-between w-full items-center text-[#673816]"
+          >
             <h3 className="text-xl font-semibold ">{room?.name}</h3>
             <span className="text-sm font-semibold">
               NGN {room?.price.toLocaleString()}
@@ -219,8 +237,13 @@ const ReservationCard = ({
                     ? 'No room left'
                     : 'Only 1 Room Left'}{' '}
                 </p>
-                <div  className={`flex justify-between border-[1px] items-center rounded-md shadow-lg px-2 text-xs space-x-2  ${!checkItemAdded(room?.id) &&
-                      !chosenItem(room?.id)?.quantity && 'bg-[#ccc]'}`}>
+                <div
+                  className={`flex justify-between border-[1px] items-center rounded-md shadow-lg px-2 text-xs space-x-2  ${
+                    !checkItemAdded(room?.id) &&
+                    !chosenItem(room?.id)?.quantity &&
+                    'bg-[#ccc]'
+                  }`}
+                >
                   <button
                     onClick={() => {
                       if (chosenItem(room?.id)?.quantity === 1) {
@@ -274,7 +297,8 @@ const ReservationCard = ({
                   room_name: room?.name,
                   price: room?.price,
                   quality: 0,
-                  quantity: 1,
+                  noOfDays: calculateDifferenceInDays(checkIn, checkOut),
+                  quantity: 1 ,
                   start_date: convertDateFormat(checkIn.toLocaleDateString()),
                   end_date: convertDateFormat(checkOut.toLocaleDateString()),
                   adults: room?.adults,

@@ -421,7 +421,7 @@ export default function Rooms({ property, room }: prop) {
                   </div>
                 </div>
 
-                <div className="w-4/12  hidden lg:block">
+                <div className="w-4/12  hidden lg:block ">
                   <div className=" w-full flex space-x-3 items-center lato">
                     <div className="border-[0.3px] border-[#48556CCC] flex rounded-lg w-full  items-center  px-4 shadow-sm">
                       <input
@@ -433,7 +433,7 @@ export default function Rooms({ property, room }: prop) {
                     </div>
                   </div>
 
-                  <div className="bg-[#FFFAF7] space-y-4 rounded-lg shadow-sm p-4 px-4 mt-4 text-sm lg:text-base">
+                  <div className="bg-[#FFFAF7] space-y-4 rounded-lg shadow-sm p-4 px-4 mt-4 text-sm lg:text-base h-[60%] xl:h-[70%] overflow-scroll ">
                     {rooms?.map((room, index) => {
                       return (
                         <RoomCard
@@ -629,11 +629,7 @@ export default function Rooms({ property, room }: prop) {
                         edit={edit}
                         name="Intercom"
                       />
-                      {/* <AmenitiesCard
-                        value={1}
-                        edit={edit}
-                        name={`Payment link: ${details?.payment_link}`}
-                      /> */}
+                     
                     </div>
                   ) : (
                     <div className="grid grid-cols-2 lg:grid-cols-3 pt-4 gap-6 text-sm ">
@@ -727,7 +723,7 @@ export default function Rooms({ property, room }: prop) {
                   ''
                 )}
 
-                <div className="w-full lg:w-8/12 flex mt-6 space-x-3 text-xs xl:text-sm">
+                {/* <div className="w-full lg:w-8/12 flex mt-6 space-x-3 text-xs xl:text-sm">
                   <div className=" xl:w-5/12 flex space-x-2 bg-[#F58634] text-white rounded-lg items-center justify-center px-3 py-3 ">
                     <span>Paste payment link</span>
                     <RiLink color="white" />
@@ -741,7 +737,7 @@ export default function Rooms({ property, room }: prop) {
                     className="xl:w-7/12 p-2 py-3 outline-none border-[1px] rounded-lg"
                     placeholder="Enter payment link"
                   />
-                </div>
+                </div> */}
               </form>
             </div>
           )}

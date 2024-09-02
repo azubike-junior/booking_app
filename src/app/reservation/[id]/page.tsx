@@ -85,7 +85,7 @@ const Reservations = () => {
   }
 
   const total = cartItems.reduce((acc: number, cur: RoomOrderProp) => {
-    return cur.price * cur.quantity + acc
+    return cur.price * cur.quantity * cur.noOfDays + acc
   }, 0)
 
   const checkRooms = (arr: any) => {
@@ -156,7 +156,7 @@ const Reservations = () => {
               openCheckout={openCheckout}
             />
           ) : (
-            <div className="lato w-[1400px] mx-auto h-full flex p-10 gap-10 justify-between ">
+            <div className="lato w-[1400px] mx-auto h-full flex p-10 gap-10 justify-between relative ">
               <div className="max-w-[900px] mx-auto space-y-10">
                 {allRooms?.map((p: any, index: number) => {
                   return (
@@ -181,7 +181,7 @@ const Reservations = () => {
                 })}
               </div>
 
-              <div className="w-[350px] ">
+              <div className="w-[350px] sticky top-5 right-0 h-screen">
                 <div className="border-[#F2F4F7] border-[0.2px] shadow-md shadow-[#7090B01A] w-full rounded-lg h-full">
                   <p className="text-center border-b pb-4 py-6 text-[#673816]">
                     Booking Summary
@@ -225,12 +225,12 @@ const Reservations = () => {
 
                             <div className="text-sm flex justify-between">
                               <div>
-                                {c?.adults} Adult, {c?.children} Child, 1 Room
+                               {`${c?.adults} Adult, ${c?.children} Child, ${c?.quantity} ${c.quantity > 1 ? "Rooms" : "Room"},  ${c?.noOfDays} ${c.noOfDays > 1 ? "Days" : "Day"}`}
                               </div>
 
                               <p>
                                 &#8358;{' '}
-                                {(c.price * c.quantity).toLocaleString()}
+                                {(c.price * c.quantity * c?.noOfDays).toLocaleString()}
                               </p>
                             </div>
 

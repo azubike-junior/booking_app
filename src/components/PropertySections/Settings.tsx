@@ -140,6 +140,22 @@ export default function Settings({ property }: prop) {
             // message={'Email is required'}
           />
         </div>
+         <div className="lg:flex space-y-4 lg:space-y-0 justify-between lg:space-x-6">
+          <InputField
+            name="payment_link"
+            label="Payment Link"
+            type="text"
+            register={register}
+            defaultValue={property?.payment_link}
+            placeHolder="Enter Payment link"
+            // errors={errors?.email}
+            // message={'Email is required'}
+          />
+          <div className='w-full'>
+            
+         </div>
+
+        </div>
       </div>
 
       <div className="w-full lg:w-9/12 pb-10">

@@ -1,25 +1,25 @@
 'use client'
-
 import InputField from '@/components/shared/Input'
 import { useCreateAccountMutation } from '@/features/auth'
-import { handleErrorResponse, handleSuccessResponse } from '@/utils'
 import { FormValues } from '@/utils/types'
 import { Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useRef, useState } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 
 export default function Signup() {
   const router = useRouter()
   const toast = useToast()
+  const [recaptchaValidation, setRecaptchaValidation] = useState(true)
+
   const [
     createAccount,
     { isLoading, data: response, error, isError },
   ] = useCreateAccountMutation()
 
-  // console.log(">>>>>isError", error, isError);
-  
 
   const {
     register,
@@ -30,22 +30,18 @@ export default function Signup() {
 
   const password = watch('password')
 
+  async function onChange() {
+    console.log(">>>>je;;p");
+    setRecaptchaValidation(false)
+    
+  }
+
   async function signupHandler(data: FormValues) {
+
+
     const { confirmPassword, ..._data } = data
     const updated = { toast, router, country_code: '+234', ..._data }
     createAccount(updated)
-      // .unwrap()
-      // .then((payload) => {})
-      // .catch((error) => {
-      //   toast({
-      //     title: error?.data.error,
-      //     description: '',
-      //     status: 'error',
-      //     duration: 9000,
-      //     isClosable: true,
-      //     position: 'top-right',
-      //   })
-      // })
   }
 
   return (
@@ -164,6 +160,9 @@ export default function Signup() {
                 value === password || 'Password do not match'
               }
             />
+
+            <ReCAPTCHA sitekey="6LfdQTQqAAAAAAJ25nl_CVBu4oUY162NhKkVkd0Y" onChange={onChange}/>
+
 
             <button
               type="submit"

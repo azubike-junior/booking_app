@@ -78,7 +78,7 @@ export default function RegisterProperty() {
   const logoRef = useRef() as MutableRefObject<HTMLInputElement>
 
   async function propertyHandler(data: PropertyProp) {
-    if (!imgUrl || !logoUrl) {
+    if (!image || !imageTwo) {
       toast({
         title: 'please upload the following images listed',
         description: '',
@@ -106,7 +106,7 @@ export default function RegisterProperty() {
       return
     }
     const {
-      image,
+      // image,
       number_of_rooms,
       country,
       logo,
@@ -123,25 +123,13 @@ export default function RegisterProperty() {
       route,
       number_of_rooms: Number(number_of_rooms),
       country: 'Nigeria',
-      image_two:imageTwo,
+      image_two: imageTwo,
       image: image,
       secondary_color: secondaryColor.hex,
       primary_color: primaryColor.hex,
       text_color: textColor.hex,
       ...rest,
     })
-      .unwrap()
-      .then((payload) => {})
-      .catch((error) => {
-        toast({
-          title: error?.data.error,
-          description: '',
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
-          position: 'top-right',
-        })
-      })
   }
 
   return (
@@ -261,30 +249,6 @@ export default function RegisterProperty() {
               />
 
               <InputField
-                name="bank"
-                label="Bank"
-                type="text"
-                register={register}
-                required
-                placeHolder="Enter bank name"
-                errors={errors?.bank}
-                message={'bank is required'}
-              />
-            </div>
-
-            <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
-              <InputField
-                name="account_number"
-                label="Account Number"
-                type="text"
-                register={register}
-                required
-                placeHolder="Enter account"
-                errors={errors?.account_number}
-                message={'Account no. is required'}
-              />
-
-              <InputField
                 name="payment_link"
                 label="Payment Link"
                 type="text"
@@ -294,20 +258,21 @@ export default function RegisterProperty() {
               />
             </div>
 
-            <SelectField
-              name="currency"
-              label="Currency"
-              type="text"
-              register={register}
-              errors={errors?.payment_link}
-              selectArray={currencies.map((c) => (
-                <option value={c} key="">
-                  {c}
-                </option>
-              ))}
-            />
-
             <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
+              <SelectField
+                className='w-full'
+                name="currency"
+                label="Currency"
+                type="text"
+                register={register}
+                errors={errors?.payment_link}
+                selectArray={currencies.map((c) => (
+                  <option value={c} key="">
+                    {c}
+                  </option>
+                ))}
+              />
+
               <div className="w-full">
                 <label
                   className="flex text-sm text-[#393F42] font-semibold"
@@ -318,7 +283,7 @@ export default function RegisterProperty() {
                 <input
                   placeholder="Enter no."
                   type="number"
-                  className="border-[0.5px] border-[#b7bcbe] w-full mt-2 rounded-lg p-[2.5px] px-2 outline-none font-medium text-[#747F8A]"
+                  className="border-[0.5px] border-[#b7bcbe] w-full mt-2 rounded-lg  px-4 py-2 outline-none font-medium text-[#747F8A]"
                   {...register('number_of_rooms', { required: true })}
                 />
                 {/* {errors?.number_of_rooms ? ( */}
@@ -327,7 +292,9 @@ export default function RegisterProperty() {
                 </p>
                 {/* ) : null} */}
               </div>
+            </div>
 
+            <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
               <div className="w-full">
                 <label
                   className="flex text-sm text-[#393F42] font-semibold pb-2"
@@ -345,7 +312,7 @@ export default function RegisterProperty() {
                   bg={secondaryColor.hex}
                   name="select color"
                   type="button"
-                  className={`border-[#b7bcbe] text-sm  text-[#747F8A] border py-1 text-center px-2 items-center  rounded-lg flex space-x-2`}
+                  className={`border-[#b7bcbe] text-sm  text-[#747F8A] border py-1 text-center px-2 items-center  rounded-lg flex space-x-2 w-full`}
                 />
               </div>
               <div className="w-full">
@@ -362,7 +329,7 @@ export default function RegisterProperty() {
                   bg={primaryColor.hex}
                   name="select color"
                   type="button"
-                  className="border-[#b7bcbe] text-sm  text-[#747F8A] border py-1 text-center px-2 items-center  rounded-lg flex space-x-2"
+                  className="border-[#b7bcbe] text-sm  text-[#747F8A] border py-1 w-full text-center px-2 items-center  rounded-lg flex space-x-2"
                 />
               </div>
 
@@ -380,14 +347,14 @@ export default function RegisterProperty() {
                   bg={textColor.hex}
                   name="select color"
                   type="button"
-                  className="border-[#b7bcbe] text-sm text-[#747F8A] border py-1 text-center px-2 items-center  rounded-lg flex space-x-2"
+                  className="border-[#b7bcbe] text-sm text-[#747F8A] border py-1 text-center px-2 items-center  rounded-lg flex space-x-2 w-full"
                 />
               </div>
             </div>
 
             <div className="flex  mb-10 space-x-4 text-sm">
               <button
-                onClick={() => imageTwoRef.current.click()}
+                onClick={() => imageRef.current.click()}
                 type="button"
                 className="w-full text-sm"
               >
@@ -412,7 +379,12 @@ export default function RegisterProperty() {
                     ) : (
                       <>
                         {image ? (
-                            <img src={image} width={200} height={240} className="rounded-lg"  />
+                          <img
+                            src={image}
+                            width={200}
+                            height={240}
+                            className="rounded-lg"
+                          />
                         ) : (
                           <>
                             <p className="text-[#0B60B0]">Click to Upload</p>
@@ -426,15 +398,13 @@ export default function RegisterProperty() {
               </button>
 
               <button
-                onClick={() => imageRef.current.click()}
+                onClick={() => imageTwoRef.current.click()}
                 type="button"
                 className="w-full text-sm"
               >
                 <p>Upload Image</p>
-               
 
-
-                  <div className="w-full bg-[#F4F4F4] rounded-lg  p-4 text-sm  flex justify-center mt-2">
+                <div className="w-full bg-[#F4F4F4] rounded-lg  p-4 text-sm  flex justify-center mt-2">
                   <div>
                     <input
                       onChange={(e) =>

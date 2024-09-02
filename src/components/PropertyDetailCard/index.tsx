@@ -32,7 +32,7 @@ export default function DetailCard({
   return (
     <>
       {!edit ? (
-        <div className="lg:flex justify-between w-full overflow-scroll lg:border-[0.3px] border-[#667184] lg:px-3 py-3 rounded-lg items-center lg:space-x-4 text-xs lg:text-sm">
+        <div className="lg:flex justify-between w-full overflow-hidden lg:border-[0.3px] border-[#667184] lg:px-3 py-3 rounded-lg items-center lg:space-x-4 text-xs lg:text-sm">
           <div className="lg:flex space-x-2 items-center">
             <div className="bg-[#E8EAED] w-7 h-7 lg:h-10 lg:w-10 rounded-full flex justify-center items-center mx-auto">
               {icon}

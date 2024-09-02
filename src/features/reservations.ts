@@ -41,7 +41,7 @@ export const reservationApi = api.injectEndpoints({
           console.log(">>>>res.data", res.data);
           
           trigger(res.data.reservation_id)
-          route.push('/success')
+          route.push(`/${res.data.reservation_id}/success`)
           toast.success( 'Room has been booked successfully')
         }
         return res.data
@@ -61,6 +61,16 @@ export const reservationApi = api.injectEndpoints({
       },
       providesTags: ['Property',]
     }),
+     getReservationsByID: builder.query<ReservationProps, string>({
+      query: (id) => ({
+        url: `/reservation/find/${id}`,
+        method: 'GET',
+      }),
+      transformResponse: (res: {data: {data:ReservationProps}, message:""}, meta): any => {
+        return res.data.data
+      },
+      providesTags: ['Property',]
+    }),
     getReservation: builder.query<ReservationProps, string>({
       query: (id) => ({
         url: `/reservation/find/${id}`,
@@ -71,12 +81,14 @@ export const reservationApi = api.injectEndpoints({
       },
       providesTags: ['Property',]
     }),
-    getRoomOrderByReservationId: builder.query<ReservationProps, string>({
+    getRoomOrderByReservationId: builder.query<any, string>({
       query: (id) => ({
         url: `/room-order/reservation/${id}`,
         method: 'GET',
       }),
       transformResponse: (res: any, meta): any => {
+        console.log(">>>res", res.data);
+        
         return res.data.data
       },
       providesTags: ['Property',]
@@ -113,5 +125,5 @@ export const reservationApi = api.injectEndpoints({
   })
 })
 
-export const {useMakePaymentMutation, useLazyGetRoomOrderByReservationIdQuery, useMakePaymentOnArrivalMutation, useGetReservationsByRoomIDQuery, useGetReservationQuery, useGetReservationsByPropertyIdQuery, useGetRoomOrderByReservationIdQuery, useSubscriptionPlansQuery, useSubscriptionPlanQuery} = reservationApi
+export const {useMakePaymentMutation, useGetReservationsByIDQuery, useLazyGetRoomOrderByReservationIdQuery, useMakePaymentOnArrivalMutation, useGetReservationsByRoomIDQuery, useGetReservationQuery, useGetReservationsByPropertyIdQuery, useGetRoomOrderByReservationIdQuery, useSubscriptionPlansQuery, useSubscriptionPlanQuery} = reservationApi
 
