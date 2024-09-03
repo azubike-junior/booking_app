@@ -36,14 +36,13 @@ export const authApi = api.injectEndpoints({
         const {  router } = arg
         if (res.status === 201) {
           toast.success(
-              'Your Account was created successfully, please login'
-            )
-            router.push('/login')
+            "A Verification email has been sent to your email inbox, please verify your email "
+          )
+            // router.push('/login')
         } 
-        return {res: res.status}
+        return res.status
       },
       transformErrorResponse: (res: any) => {
-        console.log(">>>>>>res", res);
         
         if (res.status === 400) {
              toast.error(

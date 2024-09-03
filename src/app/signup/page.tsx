@@ -2,7 +2,7 @@
 import InputField from '@/components/shared/Input'
 import { useCreateAccountMutation } from '@/features/auth'
 import { FormValues } from '@/utils/types'
-import { Spinner, useToast } from '@chakra-ui/react'
+import { Alert, AlertIcon, Spinner, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -20,7 +20,6 @@ export default function Signup() {
     { isLoading, data: response, error, isError },
   ] = useCreateAccountMutation()
 
-
   const {
     register,
     handleSubmit,
@@ -32,12 +31,9 @@ export default function Signup() {
 
   async function onChange() {
     setRecaptchaValidation(false)
-    
   }
 
   async function signupHandler(data: FormValues) {
-
-
     const { confirmPassword, ..._data } = data
     const updated = { toast, router, country_code: '+234', ..._data }
     createAccount(updated)
@@ -67,9 +63,19 @@ export default function Signup() {
         </div>
       </div>
       <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-8 lg:px-20">
+        {response && (
+          <Alert status="success" className='pt-6'>
+            <AlertIcon />
+            <p>
+              A Verification email has been sent to your email inbox, please
+              verify your email
+            </p>
+          </Alert>
+        )}
+
         <div className="mx-auto mt-16 max-w-[500px]">
           <p className={`quicksand text-center text-[#111827] text-3xl`}>
-          Create Your BookTeller Account
+            Create Your BookTeller Account
           </p>
 
           {/* <div className="border border-[#96A0A5]  space-x-2 flex justify-center items-center py-2 mt-12 rounded-lg">
@@ -160,8 +166,10 @@ export default function Signup() {
               }
             />
 
-            <ReCAPTCHA sitekey="6LfdQTQqAAAAAAJ25nl_CVBu4oUY162NhKkVkd0Y" onChange={onChange}/>
-
+            <ReCAPTCHA
+              sitekey="6LfdQTQqAAAAAAJ25nl_CVBu4oUY162NhKkVkd0Y"
+              onChange={onChange}
+            />
 
             <button
               type="submit"
