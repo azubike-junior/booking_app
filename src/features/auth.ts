@@ -38,7 +38,6 @@ export const authApi = api.injectEndpoints({
           toast.success(
             "A Verification email has been sent to your email inbox, please verify your email "
           )
-            // router.push('/login')
         } 
         return res.status
       },

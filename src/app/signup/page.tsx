@@ -78,18 +78,6 @@ export default function Signup() {
             Create Your BookTeller Account
           </p>
 
-          {/* <div className="border border-[#96A0A5]  space-x-2 flex justify-center items-center py-2 mt-12 rounded-lg">
-            <Image src="/googlee.svg" width={22} height={22} alt="bookteller" />
-            <p className={`quicksand text-xs`}>
-              Sign up with Google
-            </p>
-          </div>
-
-          <p
-            className={`quicksand text-center text-[#717E83] pt-6 pb-6`}
-          >
-            OR
-          </p> */}
 
           <form
             onSubmit={handleSubmit(signupHandler)}
@@ -167,7 +155,7 @@ export default function Signup() {
             />
 
             <ReCAPTCHA
-              sitekey="6LfdQTQqAAAAAAJ25nl_CVBu4oUY162NhKkVkd0Y"
+              sitekey="6Ld52DUqAAAAAKSSbjfrVBXpsGZF7_WK-aB6zRYT"
               onChange={onChange}
             />
 

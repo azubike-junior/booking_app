@@ -103,7 +103,7 @@ export default function Login() {
             />
 
             <ReCAPTCHA
-              sitekey="6LfdQTQqAAAAAAJ25nl_CVBu4oUY162NhKkVkd0Y"
+              sitekey="6Ld52DUqAAAAAKSSbjfrVBXpsGZF7_WK-aB6zRYT"
               onChange={onChange}
             />
 
