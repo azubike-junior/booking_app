@@ -2,17 +2,24 @@
 
 import StatCard from '@/components/StatCard'
 import SummaryCard from '@/components/StatCard/summaryCard'
-import { useGetDashboardSummariesQuery } from '@/features/couponManager'
+import { useGetAccountQuery } from '@/features/auth'
+import {
+  useGetDashboardSummariesQuery,
+  useSubscriptionPlanQuery,
+} from '@/features/couponManager'
+import { useSubscriptionOrderQuery } from '@/features/reservations'
+import { getItem } from '@/utils'
 import { Spinner } from '@chakra-ui/react'
+import Link from 'next/link'
 import { CgSortAz } from 'react-icons/cg'
 import { CiSearch } from 'react-icons/ci'
 
 export default function Dashboard() {
   const { data, isLoading } = useGetDashboardSummariesQuery()
-  // const data: any = {}
-  // const isLoading = false
 
-  console.log('>>>>>rate', data)
+  const userId = getItem('user_id')
+
+  const { data: user, isLoading: loadingUser } = useGetAccountQuery(userId)
 
   const date = new Date()
 
@@ -29,57 +36,79 @@ export default function Dashboard() {
     hour12: true,
   })
 
+  const {
+    data: currentOrder,
+    isLoading: loadingOrder,
+  } = useSubscriptionOrderQuery()
+
+  const {
+    data: currentSub,
+    isLoading: loadingCurrent,
+  } = useSubscriptionPlanQuery(currentOrder?.subscription_id)
+
   return (
     <div className="lato">
-      <div className="bg-[#FEF3EB] space-y-3 md:space-y-0 w-full md:flex items-center justify-between py-4 rounded-lg border-dashed border-[#874A1D] mb-8 border-b-[2px] xl:px-20 px-10">
-        <div className="flex space-x-6  items-center  text-sm xl:text-base">
-          <p className="text-[#F8AE77]">Active Plan:</p>{' '}
-          <span className=" text-sm  xl:text-lg  font-semibold text-[#874A1D]">
-            {' '}
-            Basic Plan
-          </span>
+      {loadingCurrent || loadingOrder ? (
+        <Spinner />
+      ) : (
+        <div className="bg-[#FEF3EB] space-y-3 md:space-y-0 w-full md:flex items-center justify-between py-4 rounded-lg border-dashed border-[#874A1D] mb-8 border-b-[2px] xl:px-20 px-10">
+          <div className="flex space-x-6  items-center  text-sm xl:text-base">
+            <p className="text-[#F8AE77]">Active Plan:</p>{' '}
+            <span className=" text-sm  xl:text-lg  font-semibold text-[#874A1D]">
+              {currentSub?.name}
+            </span>
+          </div>
+
+          <div className="w-[1px] bg-[#D9C2B2] hidden md:block h-16"></div>
+
+          <div className="md:space-y-4 text-sm xl:text-base">
+            <div className="text-[#F8AE77] space-x-6 flex ">
+              <p className="xl:w-36">Date Activited:</p>
+              <span className="text-[#874A1D] font-semibold">
+                {new Date(currentOrder?.start_date).toLocaleDateString()}
+              </span>{' '}
+            </div>
+            <div className="text-[#F8AE77] space-x-6 flex ">
+              <p className="xl:w-36"> Expiry Date:</p>{' '}
+              <span className="text-[#874A1D] font-semibold">
+                {new Date(currentOrder?.end_date).toLocaleDateString()}
+              </span>
+            </div>
+          </div>
+
+          <div className="w-[1px] bg-[#D9C2B2] h-16 hidden md:block"></div>
+
+          <div className="md:space-y-4 text-sm xl:text-base">
+            <div className="text-[#F8AE77] space-x-6 flex ">
+              <p className="xl:w-36">Duration:</p>
+              <span className="text-[#874A1D] font-semibold">1 Year</span>{' '}
+            </div>
+            <div className="text-[#F8AE77] space-x-6 flex ">
+              <p className="xl:w-36"> Status:</p>{' '}
+              <span className="text-[#31CF1C] font-semibold">
+                {user?.current_subscription}
+              </span>
+            </div>
+          </div>
+
+          <div className="w-[1px] bg-[#D9C2B2] h-16 hidden md:block"></div>
+
+          <div className="md:space-y-4 text-sm xl:text-base">
+            <div className="text-[#F8AE77] space-x-6 flex ">
+              <p>Price:</p>
+              <span className="text-[#874A1D] font-semibold">
+                # {currentSub?.annual_cost.toLocaleString()}
+              </span>{' '}
+            </div>
+
+            <Link href="/dashboard/property">
+              <button className="bg-[#673816] py-1 rounded-[20px] text-white px-6 text-center ">
+                Upgrade
+              </button>
+            </Link>
+          </div>
         </div>
-
-        <div className="w-[1px] bg-[#D9C2B2] hidden md:block h-16"></div>
-
-        <div className="md:space-y-4 text-sm xl:text-base">
-          <div className="text-[#F8AE77] space-x-6 flex ">
-            <p className="xl:w-36">Date Activited:</p>
-            <span className="text-[#874A1D] font-semibold">
-              30/10/2023
-            </span>{' '}
-          </div>
-          <div className="text-[#F8AE77] space-x-6 flex ">
-            <p className="xl:w-36"> Expiry Date:</p>{' '}
-            <span className="text-[#874A1D] font-semibold">30/10/2023</span>
-          </div>
-        </div>
-
-        <div className="w-[1px] bg-[#D9C2B2] h-16 hidden md:block"></div>
-
-        <div className="md:space-y-4 text-sm xl:text-base">
-          <div className="text-[#F8AE77] space-x-6 flex ">
-            <p className="xl:w-36">Duration:</p>
-            <span className="text-[#874A1D] font-semibold">1 Year</span>{' '}
-          </div>
-          <div className="text-[#F8AE77] space-x-6 flex ">
-            <p className="xl:w-36"> Status:</p>{' '}
-            <span className="text-[#31CF1C] font-semibold">Active</span>
-          </div>
-        </div>
-
-        <div className="w-[1px] bg-[#D9C2B2] h-16 hidden md:block"></div>
-
-        <div className="md:space-y-4 text-sm xl:text-base">
-          <div className="text-[#F8AE77] space-x-6 flex ">
-            <p>Price:</p>
-            <span className="text-[#874A1D] font-semibold"># 30, 000</span>{' '}
-          </div>
-          <button className="bg-[#673816] py-1 rounded-[20px] text-white px-6 text-center ">
-            Upgrade
-          </button>
-        </div>
-      </div>
+      )}
       <div className="flex justify-between items-baseline">
         <div className="">
           <h2 className="text-2xl xl:text-4xl font-medium ">Today</h2>
