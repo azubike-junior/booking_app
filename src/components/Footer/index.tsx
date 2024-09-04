@@ -1,9 +1,14 @@
 import { quickSand } from '@/utils'
+import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <div className="max-w-[1062px] mx-auto px-6 md:px-10">
-      <div className={`${quickSand.className} flex flex-wrap justify-between pb-6`}>
+    <div className="max-w-[1062px] mx-auto px-6 md:px-10 text-sm">
+      <div className={`lato flex flex-wrap justify-between pb-6`}>
+        <Link href={'/'}>
+          <img src="/bookteller.svg" alt="" className=' w-32 md:w-[150px]'/>
+        </Link>
+
         <div className="space-y-3 text-[#717E83] font-light">
           <p className=" text-_green font-semibold ">Company</p>
           <p>About Us</p>
@@ -30,9 +35,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <hr />
+      {/* <hr /> */}
 
-      <p className='text-center pt-6 text-sm text-[#717E83]'>Copyright © 2024 Bookteller Nigeria Ent.</p>
+      <p className='text-center py-6 text-sm text-[#717E83]'>Copyright © 2024 Bookteller Nigeria Ent.</p>
     </div>
   )
 }

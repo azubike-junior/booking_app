@@ -84,10 +84,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-full relative">
-          <div className="bg-[#F2F7FF] skew-slant w-full h-72 absolute -z-10 bottom-44 -skew-y-12"></div>
+        <section className="w-full relative lato">
+          {/* <div className="bg-[#F2F7FF] skew-slant w-full h-72 absolute -z-10 bottom-44 -skew-y-12"></div> */}
 
-          <div className="max-w-[1062px] mx-auto bg-transparent mt-20 lg:mt-28 px-6 md:px-10 z-50">
+          {/* <div className="max-w-[1062px] mx-auto bg-transparent mt-20 lg:mt-28 px-6 md:px-10 z-50">
             <h3 className="text-lg lg:text-[30px] roboto font-bold ">
               Why you need direct bookings
             </h3>
@@ -138,6 +138,56 @@ export default function Home() {
                 </Link>
               </div>
             </div>
+          </div> */}
+
+          <p className="text-center w-full max-w-3xl mx-auto pt-10 lg:pt-0">
+            Increase your direct bookings by 30% with Bookteller’s Booking
+            Engine without paying additional commissions.  Make your hotel's
+            website your most effective source of reservations.
+          </p>
+
+          <p className="max-w-[400px] pt-6 mx-auto text-center">
+            Increase Your Occupancy Rate with Direct Bookings
+            <br />- No Commission Fees
+          </p>
+
+          <h3 className="text-lg lg:text-xl text-center font-bold pt-10 uppercase ">
+            Why you need direct bookings
+          </h3>
+
+          <p className="text-center w-full max-w-2xl mx-auto pt-4">
+            Stay ahead of the competition by leveraging the power of Google
+            travel products and Microsoft Maps to capture the attention of
+            travelers and drive direct bookings to your properties.
+          </p>
+
+          <div className="grid grid-cols-1 px-8 lg:px-0 md:grid-cols-2 lg:grid-cols-3 grid-rows-2 gap-6 mt-14   max-w-5xl mx-auto">
+            <SuiteDetail
+              img={'/bookPrice.svg'}
+              title=" Innovate Continuously"
+              subtitle="By leveraging cutting-edge technology, we aim to provide intuitive and efficient booking solutions that cater to the evolving needs of both travelers and hoteliers.
+"
+            />
+            <SuiteDetail
+              img={'/personalize.svg'}
+              title="Personalized Experience"
+              subtitle="Direct booking lets guests communicate directly with the hotel, ensuring their needs and preferences are met. Whether it's room preferences, special requests, or additional amenities, this ensures satisfaction tailored to their stay."
+            />
+            <SuiteDetail
+              img="/flex.svg"
+              title="Flexibility and Transparency"
+              subtitle="With direct booking, you have full control over your reservation, from making changes to cancellations. Enjoy peace of mind knowing that your booking details are transparent and easily accessible, without the hassle of intermediaries."
+            />
+            <SuiteDetail
+              img={'/access.svg'}
+              title="Accept Secure Online Payments"
+              subtitle=" Integrate a secured payment gateway into your website to provide quick, safe, and easy payment processing for you and your guests."
+            />
+            <SuiteDetail
+              img="/access.svg"
+              title="Our Direct Booking Partners"
+              subtitle="Stay ahead of the competition by leveraging the power of Google free booking links and Microsoft Maps to capture the attention of travelers and drive direct bookings to your properties."
+            />
           </div>
         </section>
 
@@ -199,7 +249,7 @@ export default function Home() {
         </section>
 
         <section className="max-w-[1062px] mx-auto px-6 md:px-10">
-          <div className="mt-10 md:mt-28  bg-_green w-full rounded-xl p-5 md:p-14 block lg:flex justify-between items-center shadow-[#0066F440] shadow-xl md:space-x-4">
+          {/* <div className="mt-10 md:mt-28  bg-_green w-full rounded-xl p-5 md:p-14 block lg:flex justify-between items-center shadow-[#0066F440] shadow-xl md:space-x-4">
             <div className="w-full lg:w-6/12 text-[16px] lg:text-[32px] text-white font-semibold">
               <p className="roboto">
                 Start Investing in assets and business ideas today.
@@ -216,6 +266,33 @@ export default function Home() {
 
                 <button className="bg-white w-4/12  rounded-[40px] text-_green text-xs md:text-base font-bold">
                   Explore
+                </button>
+              </div>
+            </div>
+          </div> */}
+
+          <div className="mt-10 md:mt-28  w-full rounded-xl p-4 md:p-10 block lg:flex justify-between items-center shadow-[#ccc] shadow-sm md:space-x-4 text-[#667184] lato">
+            <div className="w-full lg:w-4/12 text-[14px] lg:text-xl  font-semibold">
+              <p className="">
+                Start Investing in assets and business ideas today.
+              </p>
+            </div>
+
+            <div className="w-full lg:w-8/12 mt-4 lg:mt-0 bg-[#F5F5F5] rounded-lg">
+              <div className=" h-12 rounded-sm   flex text-sm ">
+                <input
+                  type="text"
+                  className="w-8/12 px-4 bg-transparent outline-none text-[#969DAA]"
+                  placeholder="Enter Your Phone Number"
+                />
+
+                <input
+                  type="text"
+                  className="w-8/12 py-2 px-4 my-1 outline-none text-black bg-[#FCFFFD]"
+                  placeholder="Your email"
+                />
+                <button className="bg-[#1A2B47] px-2 md:w-3/12  rounded-sm text-white text-xs md:text-base font-bold">
+                  Submit
                 </button>
               </div>
             </div>
