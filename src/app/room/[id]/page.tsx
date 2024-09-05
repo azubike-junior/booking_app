@@ -37,7 +37,7 @@ export default function RegisterRoom() {
   const fileRef = useRef() as MutableRefObject<HTMLInputElement>
   const logoRef = useRef() as MutableRefObject<HTMLInputElement>
 
-  const {data: property} = useGetPropertyQuery(params.id)
+  const { data: property } = useGetPropertyQuery(params.id)
 
   const [checks, setchecks] = useState({
     wakeup_call: false,
@@ -107,7 +107,7 @@ export default function RegisterRoom() {
       image_two: imageTwo,
       image_three: imageThree,
       id: '',
-      payment_link:""
+      payment_link: '',
     }
 
     createRoom(_data)
@@ -180,15 +180,54 @@ export default function RegisterRoom() {
                 errors={errors?.name}
                 message={' Name is required'}
               />
-              <InputField
-                name="children"
-                label="Children"
+
+              {/* <InputField
+                name="price"
+                label="Price"
                 type="number"
                 register={register}
                 required
-                placeHolder="Enter number of children"
-                errors={errors?.children}
-                message={'Number of children is required'}
+                placeHolder="Enter price"
+                errors={errors?.price}
+                message={'Price is required'}
+              /> */}
+            </div>
+
+            <div className="flex space-x-8">
+              {/* <InputField
+                name="currency"
+                label="Currency"
+                type="text"
+                register={register}
+                value={property?.currency}
+                required
+                placeHolder="Enter name"
+                errors={errors?.name}
+                message={' Name is required'}
+              /> */}
+
+              <div className="w-full">
+                <label
+                  className="flex text-sm text-[#969DAA] font-light"
+                  htmlFor=""
+                >
+                  Currency
+                </label>
+
+                <div className="border-[0.5px] border-[#D4D6D7] w-full mt-2 py-2 rounded-md px-4 outline-none text-sm font-medium text-[#747F8A]">
+                 <p>{property?.currency}</p> 
+                </div>
+              </div>
+
+              <InputField
+                name="price"
+                label="Price"
+                type="number"
+                register={register}
+                required
+                placeHolder="Enter price"
+                errors={errors?.price}
+                message={'Price is required'}
               />
             </div>
 
@@ -206,30 +245,6 @@ export default function RegisterRoom() {
 
             <div className="flex space-x-8">
               <InputField
-                name="size"
-                label="Size"
-                type="text"
-                register={register}
-                required
-                placeHolder="Enter size"
-                errors={errors?.size}
-                message={'Size is required'}
-              />
-
-              <InputField
-                name="price"
-                label="Price"
-                type="text"
-                register={register}
-                required
-                placeHolder="Enter price"
-                errors={errors?.price}
-                message={'Price is required'}
-              />
-            </div>
-
-            <div className="flex space-x-8">
-              <InputField
                 name="adults"
                 label="Adults"
                 type="number"
@@ -238,6 +253,30 @@ export default function RegisterRoom() {
                 placeHolder="Enter number of adults"
                 errors={errors?.adults}
                 message={' numbers of adults is required'}
+              />
+
+              <InputField
+                name="children"
+                label="Children"
+                type="number"
+                register={register}
+                required
+                placeHolder="Enter number of children"
+                errors={errors?.children}
+                message={'Number of children is required'}
+              />
+            </div>
+
+            <div className="flex space-x-8">
+              <InputField
+                name="size"
+                label="Size"
+                type="text"
+                register={register}
+                required
+                placeHolder="Enter size"
+                errors={errors?.size}
+                message={'Size is required'}
               />
               {/* <InputField
                 name="mode"

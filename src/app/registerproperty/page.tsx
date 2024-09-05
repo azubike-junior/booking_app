@@ -47,7 +47,24 @@ export default function RegisterProperty() {
   const [primaryColor, setPrimaryColor] = useColor('#fff')
   const [textColor, setTextColor] = useColor('#fff')
 
-  const currencies = ['NGN', 'USD', 'EURO']
+  const currencies = [
+    'NGN',
+    'USD',
+    'EUR',
+    'GHS',
+    'GNF',
+    'KES',
+    'MWK',
+    'MAD',
+    'RWF',
+    'SLL',
+    'STD',
+    'ZAR',
+    'TZS',
+    'UGX',
+    'XOF',
+    'ZMW',
+  ]
 
   const updateColorModal = (key: string, value: boolean) => {
     setColorModals((prevState) => ({
@@ -260,7 +277,7 @@ export default function RegisterProperty() {
 
             <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
               <SelectField
-                className='w-full'
+                className="w-full"
                 name="currency"
                 label="Currency"
                 type="text"

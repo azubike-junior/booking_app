@@ -1,7 +1,7 @@
 import Footer from '@/components/Footer'
+import Head from 'next/head'
 import React from 'react'
 import Navbar from '../Navbar'
-import ParentProvider from '../ParentProvider'
 
 export default function SharedLayout({
   children,
@@ -9,10 +9,20 @@ export default function SharedLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className='min-h-screen '>
-      <Navbar />
-      {children}
-      <Footer />
-    </div>
+    <>
+      <Head>
+        {/* <Script src="https://s.widgetwhats.com/wwwa.js" data-wwwa="23795" /> */}
+        <script
+          async
+          src="https://s.widgetwhats.com/wwwa.js"
+          data-wwwa="23795"
+        ></script>
+      </Head>
+      <div className="min-h-screen ">
+        <Navbar />
+        {children}
+        <Footer />
+      </div>
+    </>
   )
 }

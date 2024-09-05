@@ -45,7 +45,7 @@ export default function About() {
               </p>
 
               <Link
-                href={"/signup"}
+                href={'/signup'}
                 className={`${quickSand.className} bg-_green  text-white text-sm  items-center  space-x-3 inline-flex py-3 px-8 rounded-[50px] mt-10 `}
               >
                 <p>Get Started</p>
@@ -130,17 +130,18 @@ export default function About() {
                                 isExpanded ? 'text-[#F58634]' : ''
                               } font-bold py-3`}
                             >
-                              Lorem Ipsum is simply dummy text of the prin....?
+                              What is the Bookteller Engine?
                             </Box>
                             <AccordionIcon />
                           </AccordionButton>
                         </h2>
                         <AccordionPanel pb={4}>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
+                          The Bookteller Engine is a powerful hotel booking
+                          engine designed to help hotels manage bookings
+                          directly from travelers worldwide. It offers seamless
+                          integration, real-time availability, and secure
+                          payment options, ensuring a smooth booking experience
+                          for both hotels and guests.
                         </AccordionPanel>
                       </div>
                     )}
@@ -159,7 +160,8 @@ export default function About() {
                                 isExpanded ? 'text-[#F58634]' : ''
                               } font-bold py-3`}
                             >
-                              Section 2 title
+                              How does Bookteller Engine help increase direct
+                              bookings ?
                             </Box>
                             {isExpanded ? (
                               <PiMinusCircleDuotone fontSize="12px" />
@@ -169,11 +171,12 @@ export default function About() {
                           </AccordionButton>
                         </h2>
                         <AccordionPanel pb={4}>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
+                          Bookteller Engine connects hotels directly with
+                          travelers, bypassing third-party platforms and
+                          reducing commission fees. With features like dynamic
+                          pricing, special offers, and instant booking
+                          confirmations, it drives more direct bookings,
+                          maximizing your hotel’s revenue.
                         </AccordionPanel>
                       </div>
                     )}
@@ -192,7 +195,8 @@ export default function About() {
                                 isExpanded ? 'text-[#F58634]' : ''
                               } font-bold py-3`}
                             >
-                              Section 2 title
+                              Is Bookteller Engine easy to integrate with my
+                              hotel’s existing website?
                             </Box>
                             {isExpanded ? (
                               <PiMinusCircleDuotone fontSize="12px" />
@@ -202,11 +206,11 @@ export default function About() {
                           </AccordionButton>
                         </h2>
                         <AccordionPanel pb={4}>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
+                          Yes, the Bookteller Engine is designed for easy
+                          integration with any hotel website. Our team provides
+                          full support during the setup process, ensuring your
+                          booking system is up and running smoothly without
+                          disrupting your current operations.
                         </AccordionPanel>
                       </div>
                     )}
@@ -224,7 +228,8 @@ export default function About() {
                                 isExpanded ? 'text-[#F58634]' : ''
                               } font-bold py-3`}
                             >
-                              Section 2 title
+                              Can I manage bookings and cancellations through
+                              the Bookteller Engine?
                             </Box>
                             {isExpanded ? (
                               <PiMinusCircleDuotone fontSize="12px" />
@@ -234,11 +239,11 @@ export default function About() {
                           </AccordionButton>
                         </h2>
                         <AccordionPanel pb={4}>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
+                          Absolutely! Bookteller Engine offers a comprehensive
+                          management dashboard where you can handle bookings,
+                          cancellations, and modifications in real-time. You’ll
+                          receive instant notifications for any changes, keeping
+                          your booking records accurate and up-to-date.
                         </AccordionPanel>
                       </div>
                     )}
@@ -256,7 +261,8 @@ export default function About() {
                                 isExpanded ? 'text-[#F58634]' : ''
                               } font-bold py-3`}
                             >
-                              Section 2 title
+                              Does Bookteller Engine support multiple
+                              payment options?
                             </Box>
                             {isExpanded ? (
                               <PiMinusCircleDuotone fontSize="12px" />
@@ -266,11 +272,72 @@ export default function About() {
                           </AccordionButton>
                         </h2>
                         <AccordionPanel pb={4}>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
+                          Yes, Bookteller Engine supports a variety of payment
+                          methods, including credit/debit cards, mobile
+                          payments, and online transfers. Guests can also choose
+                          to pay upon arrival, providing flexibility and
+                          convenience.
+                        </AccordionPanel>
+                      </div>
+                    )}
+                  </AccordionItem>
+                  <AccordionItem>
+                    {({ isExpanded }) => (
+                      <div className="border-[#F58634] border-l">
+                        <h2>
+                          <AccordionButton>
+                            <Box
+                              as="span"
+                              flex="1"
+                              textAlign="left"
+                              className={`${
+                                isExpanded ? 'text-[#F58634]' : ''
+                              } font-bold py-3`}
+                            >
+                              Is there customer support available for Bookteller
+                              Engine users?
+                            </Box>
+                            {isExpanded ? (
+                              <PiMinusCircleDuotone fontSize="12px" />
+                            ) : (
+                              <p>+</p>
+                            )}
+                          </AccordionButton>
+                        </h2>
+                        <AccordionPanel pb={4}>
+                          Yes, Bookteller Engine offers 24/7 customer support
+                          to assist with any technical issues or questions you
+                          may have. Our dedicated team is always ready to help
+                          ensure that your booking engine operates smoothly and
+                          efficiently.
+                        </AccordionPanel>
+                      </div>
+                    )}
+                  </AccordionItem>
+                   <AccordionItem>
+                    {({ isExpanded }) => (
+                      <div className="border-[#F58634] border-l">
+                        <h2>
+                          <AccordionButton>
+                            <Box
+                              as="span"
+                              flex="1"
+                              textAlign="left"
+                              className={`${
+                                isExpanded ? 'text-[#F58634]' : ''
+                              } font-bold py-3`}
+                            >
+                              How secure is the Bookteller Engine for handling guest data?
+                            </Box>
+                            {isExpanded ? (
+                              <PiMinusCircleDuotone fontSize="12px" />
+                            ) : (
+                              <p>+</p>
+                            )}
+                          </AccordionButton>
+                        </h2>
+                        <AccordionPanel pb={4}>
+                          The Booteller Engine is built with advanced security protocols to protect guest data. All transactions are encrypted, and we comply with international data protection standards, ensuring that your guests’ information is safe and secure.
                         </AccordionPanel>
                       </div>
                     )}

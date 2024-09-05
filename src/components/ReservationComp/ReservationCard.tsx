@@ -133,7 +133,7 @@ const ReservationCard = ({
           >
             <h3 className="text-xl font-semibold ">{room?.name}</h3>
             <span className="text-sm font-semibold">
-              NGN {room?.price.toLocaleString()}
+               {`${property?.currency}`} {room?.price.toLocaleString()}
             </span>
           </div>
 

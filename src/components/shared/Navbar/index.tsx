@@ -34,7 +34,7 @@ export default function Navbar() {
     isOpen: isProfileOpen,
     onOpen: openProfile,
     onClose: closeProfile,
-  } = useDisclosure()
+} = useDisclosure()
 
   const pathname = usePathname()
 

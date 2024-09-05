@@ -1,15 +1,14 @@
 import {
-  useGetRoomOrderByReservationIdQuery,
   useLazyGetRoomOrderByReservationIdQuery,
   useMakePaymentMutation,
   useMakePaymentOnArrivalMutation,
 } from '@/features/reservations'
 import { getItem } from '@/utils'
 import { PaymentProps, PropertyProp, RoomOrderProp } from '@/utils/types'
-import { Spinner, Switch, useToast } from '@chakra-ui/react'
+import { Checkbox, Spinner, useToast } from '@chakra-ui/react'
 import moment from 'moment'
 import { useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Button from '../shared/Button'
 import { PaymentField } from '../shared/Input'
@@ -47,14 +46,14 @@ const Checkout = ({
 
   const [makePayment, { isLoading }] = useMakePaymentMutation()
   const [
-
     makePaymentOnArrival,
     { isLoading: loadingPaymentOnArrivalResponse, data },
-    
   ] = useMakePaymentOnArrivalMutation()
-  
 
-  const [trigger, {isLoading: loading}] = useLazyGetRoomOrderByReservationIdQuery()
+  const [
+    trigger,
+    { isLoading: loading },
+  ] = useLazyGetRoomOrderByReservationIdQuery()
 
   const route = useRouter()
 
@@ -114,7 +113,7 @@ const Checkout = ({
         orders,
         type: 'booking',
         account_id: getItem('user_id'),
-        trigger
+        trigger,
       }
 
       makePaymentOnArrival(newData)
@@ -176,7 +175,7 @@ const Checkout = ({
           </div>
         </div>
 
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <h4 className="text-xl font-semibold">Payment Method</h4>
 
           <div className="pt-2 flex space-x-4 -ml-4">
@@ -192,17 +191,19 @@ const Checkout = ({
               <p>Online payment</p>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="mt-8">
-          <h4 className="text-xl font-semibold">Booking Policy</h4>
+        {property?.booking_policy &&
+          <div className="mt-8">
+            <h4 className="text-xl font-semibold">Booking Policy</h4>
 
-          <div
-            //@ts-ignore
-            dangerouslySetInnerHTML={{ __html: property?.booking_policy }}
-            className=" text-sm pt-2"
-          ></div>
-        </div>
+            <div
+              //@ts-ignore
+              dangerouslySetInnerHTML={{ __html: property?.booking_policy }}
+              className=" text-sm pt-2"
+            ></div>
+          </div>
+        }
       </div>
       <div className="justify-between w-4/12">
         <div className=" border rounded-t-xl w-full border-[#F2F4F7] h-fit">
@@ -216,28 +217,42 @@ const Checkout = ({
                 <div key={c.room_id}>
                   <p>{c.room_name}</p>
                   <p className=" text-[#969DAA] text-sm pt-2">
-                     {`${c?.adults} Adult, ${c?.children} Child, ${c?.quantity} ${c.quantity > 1 ? "Rooms" : "Room"},  ${c?.noOfDays} ${c.noOfDays > 1 ? "Days" : "Day"}`}
+                    {`${c?.adults} Adult, ${c?.children} Child, ${
+                      c?.quantity
+                    } ${c.quantity > 1 ? 'Rooms' : 'Room'},  ${c?.noOfDays} ${
+                      c.noOfDays > 1 ? 'Days' : 'Day'
+                    }`}
                   </p>
 
                   <div className="text-[#969DAA] text-sm flex justify-between pt-2">
                     <p>
-                      NGN {c.price.toLocaleString()} x {c.noOfDays} {`${c.noOfDays > 1 ? "Nights" : "Night"}`}
+                       {`${property?.currency}`} {c.price.toLocaleString()} x {c.noOfDays}{' '}
+                      {`${c.noOfDays > 1 ? 'Nights' : 'Night'}`}
                     </p>
 
-                    <p>NGN {(c.price * c.quantity * c?.noOfDays).toLocaleString()} </p>
+                    <p>
+                       {`${property?.currency}`}{' '}
+                      {(c.price * c.quantity * c?.noOfDays).toLocaleString()}{' '}
+                    </p>
                   </div>
                 </div>
               )
             })}
           </div>
         </div>
-        <div className="flex justify-between text-md font-semibold pt-4">
+        <div className="flex justify-between text-md font-semibold">
           <p>Pay</p>
-          <p>NGN {total?.toLocaleString()}</p>
+          <p> {`${property?.currency}`} {total?.toLocaleString()}</p>
+        </div>
+
+        <div className='flex space-x-2 pt-6'>
+          <Checkbox isChecked={checked} onChange={() => setChecked(!checked) } />
+          <p>I have read and accepted the booking policy</p>
         </div>
 
         <div className="space-x-6 pt-6 flex justify-between">
           <Button
+            disabled={!checked}
             onClick={handleSubmit(onArrivalPaymentHandler)}
             type="button"
             name={loadingPaymentOnArrivalResponse ? <Spinner /> : 'Book Now'}

@@ -56,8 +56,6 @@ export default function Settings({ property }: prop) {
 
   const { data, isLoading } = useCouponsByPropertyIdQuery(property?.id || '')
 
-  console.log('>>>value', data)
-
   const [
     editProperty,
     { isLoading: editingProperty },

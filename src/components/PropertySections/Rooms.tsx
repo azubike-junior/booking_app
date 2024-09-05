@@ -468,7 +468,7 @@ export default function Rooms({ property, room }: prop) {
                       />
                     ) : (
                       <h3 className=" text-xl lg:text-3xl font-semibold">
-                        NGN {details?.price.toLocaleString()}
+                        {`${property?.currency}`} {details?.price.toLocaleString()}
                       </h3>
                     )}
                     <span className="text-[#798489]">/Per month</span>

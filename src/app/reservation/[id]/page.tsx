@@ -8,6 +8,7 @@ import {
   useGetRoomByPropertyIdQuery,
   useGetRoomBySlugQuery,
 } from '@/features/property'
+import { useSubscriptionOrderQuery, useSubscriptionPlanQuery } from '@/features/reservations'
 import { _convertDateFormat } from '@/utils'
 import { RoomOrderProp } from '@/utils/types'
 import { Spinner } from '@chakra-ui/react'
@@ -43,9 +44,6 @@ const Reservations = () => {
 
   const slug = params?.id
 
-  // const property_id = params?.id.split('?')[0]
-  // const room_id = params?.id.split('?')[1]
-
   const {
     data: roomDetail,
     isLoading: loadingRoomDetails,
@@ -59,11 +57,6 @@ const Reservations = () => {
   const { data: otherRooms, isLoading } = useGetRoomByPropertyIdQuery(
     roomDetail?.property_id,
   )
-
-  // const {
-  //   data: roomDetail,
-  //   isLoading: loadingRoomDetails,
-  // } = useGetRoomByIdQuery(room_id)
 
   let _data: any = []
 
@@ -90,7 +83,7 @@ const Reservations = () => {
   }, 0)
 
   const checkRooms = (arr: any) => {
-    const roomIndex: any = otherRooms?.findIndex((r) => r.id === roomDetail?.id)
+    const roomIndex: any = otherRooms?.findIndex((r: any) => r.id === roomDetail?.id)
     const [selectedRoom] = arr?.splice(roomIndex, 1)
     arr?.unshift(selectedRoom)
     return arr
@@ -102,6 +95,16 @@ const Reservations = () => {
   }
 
   let img: any = property?.image
+
+    const {
+    data: currentOrder,
+    isLoading: loadingOrder,
+  } = useSubscriptionOrderQuery()
+
+  const {
+    data: currentSub,
+    isLoading: loadingCurrent,
+  } = useSubscriptionPlanQuery(currentOrder?.subscription_id)
 
   return (
     <>
@@ -234,7 +237,7 @@ const Reservations = () => {
                               </div>
 
                               <p>
-                                &#8358;{' '}
+                                {`${property?.currency}`}{' '}
                                 {(
                                   c.price *
                                   c.quantity *
@@ -273,7 +276,7 @@ const Reservations = () => {
                       <div className="flex justify-between px-4">
                         <p>Total:</p>
 
-                        <p> &#8358; {total.toLocaleString()}</p>
+                        <p>  {`${property?.currency}`} {total.toLocaleString()}</p>
                       </div>
 
                       <div className="flex justify-end px-2">
@@ -295,7 +298,7 @@ const Reservations = () => {
             </div>
           )}
 
-          <div className="bg-[#673816] py-14 ">
+          <div style={{background: bg}} className="bg-[#673816] py-14 ">
             <div className="flex justify-between max-w-[1400px] mx-auto items-center">
               <div className="flex items-center">
                 <div className="mr-10 flex space-x-20">
@@ -313,14 +316,22 @@ const Reservations = () => {
                     <span className="font-bold">reCAPTCHA </span> and the{' '}
                     <span className="font-bold">
                       {' '}
-                      <Link href="https://policies.google.com/privacy" passHref legacyBehavior>
+                      <Link
+                        href="https://policies.google.com/privacy"
+                        passHref
+                        legacyBehavior
+                      >
                         <a target="_blank"> Google Privacy Policy</a>
                       </Link>
                     </span>{' '}
                     and{' '}
                     <span className="font-bold">
                       {' '}
-                      <Link href="https://policies.google.com/terms" passHref legacyBehavior>
+                      <Link
+                        href="https://policies.google.com/terms"
+                        passHref
+                        legacyBehavior
+                      >
                         <a target="_blank">Terms of Service</a>
                       </Link>{' '}
                     </span>{' '}
@@ -333,15 +344,20 @@ const Reservations = () => {
                
               </div> */}
 
-              <div className="flex space-x-6">
-                <Image src={'/gmail.svg'} width={30} height={100} alt="gmail" />
-                <Image
-                  src={'/whatsapp.svg'}
-                  width={34}
-                  height={100}
-                  alt="gmail"
-                />
-              </div>
+                
+                {currentSub?.name === "Business" &&
+                  <div className="flex space-x-6">
+                    <Image src={'/gmail.svg'} width={30} height={100} alt="gmail" />
+                    <Link href={`https://wa.me/${property?.whatsapp_number}`}>
+                      <Image
+                        src={'/whatsapp.svg'}
+                        width={34}
+                        height={100}
+                        alt="gmail"
+                      />
+                    </Link>
+                  </div>
+                }
             </div>
           </div>
         </div>

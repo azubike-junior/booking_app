@@ -1,5 +1,6 @@
 'use client'
 
+import { useGetPropertyQuery } from '@/features/property'
 import {
   useGetReservationsByIDQuery,
   useGetRoomOrderByReservationIdQuery,
@@ -14,6 +15,8 @@ const Success = () => {
 
   const { data: property, isLoading } = useGetReservationsByIDQuery(params?.id)
 
+  const { data: p, isLoading: loadingProp } = useGetPropertyQuery(property?.property_id)
+
   const { data, isLoading: loadingOrder } = useGetRoomOrderByReservationIdQuery(
     params?.id,
   )
@@ -27,7 +30,7 @@ const Success = () => {
   return (
     <>
       <div className="mx-auto flex justify-center items-center my-10 ">
-        {isLoading || loadingOrder ? (
+        {isLoading || loadingOrder  || loadingProp ? (
           <Spinner />
         ) : (
           <div className="xl:w-4/12 border-[0.2px] shadow p-10 px-20 rounded-lg">
@@ -71,9 +74,14 @@ const Success = () => {
             <div className="pt-10">
               <p className="font-bold text-lg">Booking details</p>
 
-              <div className="flex  justify-between pb-3 mt-5 text-[#48556C] ">
+              <div className="flex  justify-between mt-5 text-[#48556C] ">
                 <p>Booking number</p>
                 <p>{params?.id}</p>
+              </div>
+
+              <div className="flex  justify-between pb-3 mt-5 text-[#48556C] ">
+                <p>Payment Link</p>
+                <p>{p?.payment_link}</p>
               </div>
 
               {data?.map((d: any, index: number) => {
