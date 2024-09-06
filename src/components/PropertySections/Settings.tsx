@@ -237,6 +237,7 @@ export default function Settings({ property }: prop) {
         openSubDetails={openSubDetails}
         setOpenSubDetails={setOpenSubDetails}
         subSelected={subSelected}
+        currency={property?.currency}
       />
     </form>
   )

@@ -23,8 +23,6 @@ type prop = {
 }
 
 export default function SummaryCard({ title, emptyString, data, type }: prop) {
-  console.log('>>>>>data', data)
-
   const monthNames = [
     'Jan',
     'Feb',
@@ -51,24 +49,16 @@ export default function SummaryCard({ title, emptyString, data, type }: prop) {
     )
   }
 
-  // const _data = [
-  //   { name: 'A', value: 80, color: '#ff0000' },
-  //   { name: 'B', value: 45, color: '#00ff00' },
-  //   { name: 'C', value: 25, color: '#0000ff' },
-  // ]
-  const RADIAN = Math.PI / 180
+
   const cx = 150
   const cy = 200
   const iR = 50
   const oR = 100
-  const value = 50
 
   const bookings = [
     { name: 'Success', value: data?.successful_bookings, color: '#1A2B47' },
     { name: 'Total', value: data?.total_impressions, color: '#F58634' },
   ]
-  const COLORS = ['#0088FE', '#00C49F']
-
   return (
     <div className="pt-8 w-full">
       <div className="border-[0.3px] border-[#EEEFF3] rounded-2xl bg-[#FAFCFE] h-full  ">
@@ -147,7 +137,7 @@ export default function SummaryCard({ title, emptyString, data, type }: prop) {
                 </div>
                 :
                 <>
-                  <div className="flex justify-between items-center px-6 lg:px-20">
+                  <div className="flex justify-between items-center px-2 lg:px-20">
                     <div className="flex space-x-3 items-center">
                       <div className="w-2 bg-[#1A2B47] h-14 rounded-lg"></div>
                       <div>

@@ -17,6 +17,7 @@ type prop = {
   openSubDetails: boolean
   setOpenSubDetails: (open: boolean) => void
   subSelected: any
+  currency: string
 }
 
 type cardProp = {
@@ -25,6 +26,7 @@ type cardProp = {
   subtitle: string
   onClick?: () => void
   duration?: boolean
+  
 }
 
 const DurationCard = ({
@@ -54,6 +56,7 @@ const SubscriptionDetails = ({
   openSubDetails,
   setOpenSubDetails,
   subSelected,
+  currency
 }: prop) => {
   const [selectedDuration, setSelectedDuration] = useState({
     monthly: true,
@@ -63,7 +66,7 @@ const SubscriptionDetails = ({
   const route = useRouter()
 
   const [total, setTotal] = useState(0)
-  const [durationPlan, setDurationPlan] = useState(1)
+  const [durationPlan, setDurationPlan] = useState(3)
 
   // const updateDuration = (duration: string) => {
   //   setSelectedDuration((prevState: any) => ({
@@ -84,8 +87,8 @@ const SubscriptionDetails = ({
   const calculatedSubAmount = () => {
     let amount = 0
     if (selectedDuration.monthly) {
-      setDurationPlan(1)
-      amount = subSelected?.monthly_cost
+      setDurationPlan(3)
+      amount = subSelected?.monthly_cost * 3
       setTotal(amount)
     }
 
@@ -118,7 +121,7 @@ const SubscriptionDetails = ({
       sub_id: subSelected.id,
       amount: total,
       account_id: user?.id,
-      sub_duration: subSelected.monthly_cost,
+      sub_duration: Number(durationPlan),
       route
     }
     makePayment(newData)
@@ -151,7 +154,7 @@ const SubscriptionDetails = ({
         <div className="flex justify-between space-x-3 pt-6">
           <DurationCard
             img={'/1month.svg'}
-            title="Monthly Payment"
+            title="3-Monthly Payment"
             subtitle="Be charged a one-time payment fee to access the content"
             onClick={() =>
               setSelectedDuration({
@@ -213,7 +216,7 @@ const SubscriptionDetails = ({
               <div className=" bg-white border-[#E6E6E6] border-[0.3px] flex space-x-2 px-2  shadow mt-2 rounded-lg">
                 <select name="" id="" className="">
                   <option value="" key="">
-                    USD
+                    {currency}
                   </option>
                 </select>
                 <input
@@ -251,7 +254,7 @@ const SubscriptionDetails = ({
           </div>
         </div>
 
-        <button onClick={() => paymentHandler()} className="bg-[#1A2B47] text-white py-2 rounded-lg mt-4">
+        <button type='button' onClick={() => paymentHandler()} className="bg-[#1A2B47] text-white py-2 rounded-lg mt-4">
           {loadingPaymentResponse ? <Spinner /> : 'Subsribe'}
         </button>
       </ModalContent>
