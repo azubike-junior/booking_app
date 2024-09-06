@@ -155,7 +155,7 @@ export default function Signup() {
             />
 
             <ReCAPTCHA
-              sitekey="6Ld52DUqAAAAAKSSbjfrVBXpsGZF7_WK-aB6zRYT"
+              sitekey="6LcjYTgqAAAAAP3hn9YT1sIPESxieOypWTqPqja8"
               onChange={onChange}
             />
 
