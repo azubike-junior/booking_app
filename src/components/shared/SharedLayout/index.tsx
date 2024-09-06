@@ -13,14 +13,12 @@ export default function SharedLayout({
 }) {
   return (
     <>
-      <Head>
         <Script src="https://s.widgetwhats.com/wwwa.js" data-wwwa="23795" />
-        <script
+        {/* <script
           async
           src="https://s.widgetwhats.com/wwwa.js"
           data-wwwa="23795"
-        ></script>
-      </Head>
+        ></script> */}
       <div className="min-h-screen relative ">
         <Navbar />
         {children}
