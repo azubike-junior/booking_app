@@ -76,7 +76,7 @@ const Success = () => {
 
               <div className="flex  justify-between mt-5 text-[#48556C] ">
                 <p>Booking number</p>
-                <p>{params?.id}</p>
+                <p>{property?.booking_number}</p>
               </div>
 
               <div className="flex  justify-between pb-3 mt-5 text-[#48556C] ">
@@ -105,7 +105,7 @@ const Success = () => {
                           </span>{' '}
                         </p>
                         <p className="text-sm">
-                          &#8358;{' '}
+                          {p?.currency}{' '}
                           {(
                             d.price *
                             d.quantity *

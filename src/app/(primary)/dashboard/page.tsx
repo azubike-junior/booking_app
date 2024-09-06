@@ -39,7 +39,7 @@ export default function Dashboard() {
   const {
     data: currentOrder,
     isLoading: loadingOrder,
-  } = useSubscriptionOrderQuery()
+  } = useSubscriptionOrderQuery(userId)
 
   const {
     data: currentSub,
@@ -152,9 +152,9 @@ export default function Dashboard() {
       <div className="pt-8 lato">
         <h2 className="text-xl font-medium ">Recent Activity</h2>
 
-        <div className="lg:grid grid-cols-2 gap-10 ">
-          <SummaryCard title=" Booking Summary" emptyString="Add bookings" />
-          <SummaryCard title=" Impressions" emptyString="No activity Logged" />
+        <div className="lg:grid xl:grid-cols-2 gap-10 ">
+          <SummaryCard data={data} type="booking" title=" Booking Summary" emptyString="Add bookings" />
+          <SummaryCard data={data} type="imp" title="Impressions" emptyString="No activity Logged" />
         </div>
       </div>
     </div>

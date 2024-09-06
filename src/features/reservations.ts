@@ -111,9 +111,9 @@ export const reservationApi = api.injectEndpoints({
          return res.data
        }
      }),
-      subscriptionOrder: builder.query < any, void>({
-        query: () => ({
-          url: `/sub-order/current`,
+      subscriptionOrder: builder.query < any, string>({
+        query: (id) => ({
+          url: `/sub-order/current/${id}`,
           method: 'GET',
        }),
        transformResponse: (res: any): any => {

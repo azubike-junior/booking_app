@@ -143,7 +143,8 @@ export type ReservationProps = {
     created_at: string
     updated_at: string
     payment_reference: string
-    payment_status:string
+  payment_status: string
+    booking_number: string
 }
 
 export type ReservationRes = {

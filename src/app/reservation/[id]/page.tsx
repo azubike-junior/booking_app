@@ -3,13 +3,13 @@
 import Checkout from '@/components/Modals/Checkout'
 import ReservationCard from '@/components/ReservationComp/ReservationCard'
 import Button from '@/components/shared/Button'
+import { useGetAccountQuery } from '@/features/auth'
 import {
   useGetPropertyQuery,
   useGetRoomByPropertyIdQuery,
   useGetRoomBySlugQuery,
 } from '@/features/property'
-import { useSubscriptionOrderQuery, useSubscriptionPlanQuery } from '@/features/reservations'
-import { _convertDateFormat } from '@/utils'
+import { getItem, _convertDateFormat } from '@/utils'
 import { RoomOrderProp } from '@/utils/types'
 import { Spinner } from '@chakra-ui/react'
 import Image from 'next/image'
@@ -83,7 +83,9 @@ const Reservations = () => {
   }, 0)
 
   const checkRooms = (arr: any) => {
-    const roomIndex: any = otherRooms?.findIndex((r: any) => r.id === roomDetail?.id)
+    const roomIndex: any = otherRooms?.findIndex(
+      (r: any) => r.id === roomDetail?.id,
+    )
     const [selectedRoom] = arr?.splice(roomIndex, 1)
     arr?.unshift(selectedRoom)
     return arr
@@ -96,15 +98,9 @@ const Reservations = () => {
 
   let img: any = property?.image
 
-    const {
-    data: currentOrder,
-    isLoading: loadingOrder,
-  } = useSubscriptionOrderQuery()
+  const userId = getItem('user_id')
 
-  const {
-    data: currentSub,
-    isLoading: loadingCurrent,
-  } = useSubscriptionPlanQuery(currentOrder?.subscription_id)
+  const { data: user, isLoading: loadingUser } = useGetAccountQuery(userId)
 
   return (
     <>
@@ -276,7 +272,10 @@ const Reservations = () => {
                       <div className="flex justify-between px-4">
                         <p>Total:</p>
 
-                        <p>  {`${property?.currency}`} {total.toLocaleString()}</p>
+                        <p>
+                          {' '}
+                          {`${property?.currency}`} {total.toLocaleString()}
+                        </p>
                       </div>
 
                       <div className="flex justify-end px-2">
@@ -298,7 +297,7 @@ const Reservations = () => {
             </div>
           )}
 
-          <div style={{background: bg}} className="bg-[#673816] py-14 ">
+          <div style={{ background: bg }} className="bg-[#673816] py-14 ">
             <div className="flex justify-between max-w-[1400px] mx-auto items-center">
               <div className="flex items-center">
                 <div className="mr-10 flex space-x-20">
@@ -344,20 +343,27 @@ const Reservations = () => {
                
               </div> */}
 
-                
-                {currentSub?.name === "Business" &&
-                  <div className="flex space-x-6">
-                    <Image src={'/gmail.svg'} width={30} height={100} alt="gmail" />
-                    <Link href={`https://wa.me/${property?.whatsapp_number}`}>
-                      <Image
-                        src={'/whatsapp.svg'}
-                        width={34}
-                        height={100}
-                        alt="gmail"
-                      />
-                    </Link>
-                  </div>
-                }
+              {user?.current_subscription === 'Business' && (
+                <div className="flex space-x-6">
+                  <Link href={`mailto:${user?.email}`}>
+                    <Image
+                      src={'/gmail.svg'}
+                      width={30}
+                      height={100}
+                      alt="gmail"
+                    />
+                  </Link>
+
+                  <Link href={`https://wa.me/${property?.whatsapp_number}`}>
+                    <Image
+                      src={'/whatsapp.svg'}
+                      width={34}
+                      height={100}
+                      alt="gmail"
+                    />
+                  </Link>
+                </div>
+             )} 
             </div>
           </div>
         </div>
