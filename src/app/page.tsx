@@ -51,7 +51,7 @@ export default function Home() {
 
               <div className=" flex justify-center md:justify-between lg:hidden items-center mt-10">
                 <Image
-                  src={'/phone_1.svg'}
+                  src={'/phone.webp'}
                   width={300}
                   height={500}
                   alt="bg_img"
@@ -67,7 +67,7 @@ export default function Home() {
             </div>
 
             <Image
-              src={'/phone_1.svg'}
+              src={'/phone.webp'}
               width={400}
               height={500}
               alt="bg_img"
