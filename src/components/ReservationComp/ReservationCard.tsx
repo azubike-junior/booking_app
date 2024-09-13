@@ -267,6 +267,8 @@ const ReservationCard = ({
                   <button
                     onClick={() => {
                       changeQuantity(chosenItem(room?.id)?.room_id, 'inc')
+                      console.log(">>>helllo");
+                      
                     }}
                     className="py-1 cursor-pointer"
                     // disabled={
