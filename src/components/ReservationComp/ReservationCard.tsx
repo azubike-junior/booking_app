@@ -270,8 +270,13 @@ const ReservationCard = ({
                   </span>
                   <button
                     onClick={() => {
-                      incQuantity(chosenItem(room?.id)?.room_id)
-                      console.log('>>>helllo')
+                      // incQuantity(chosenItem(room?.id)?.room_id)
+
+                      if (chosenItem(room?.id)?.quantity === 1) {
+                        // removeItem(chosenItem(room?.id)?.room_id)
+                        incQuantity(chosenItem(room?.id)?.room_id)
+                      }
+                      
                     }}
                     className="py-1 cursor-pointer"
                     // disabled={
