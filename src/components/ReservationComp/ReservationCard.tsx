@@ -12,7 +12,6 @@ import DatePicker from 'react-datepicker'
 import { FaMinus, FaPlus } from 'react-icons/fa'
 import { HiOutlineUserGroup } from 'react-icons/hi2'
 import { Carousel } from 'react-responsive-carousel'
-import BookingSummaryDrawer from '../Modals/BookingSummaryDrawer'
 import MoreRoomDetails from '../Modals/MoreRoomDetails'
 
 interface Room {
@@ -76,14 +75,15 @@ const ReservationCard = ({
   const changeQuantity = (room_id: any, action: string) => {
     setCartItems((prev) => {
       return prev.map((item: RoomOrderProp) => {
-        if (action === 'inc') {
-          return item.room_id === room_id
-            ? { ...item, quantity: item.quantity++ }
-            : item
-        }
         if (action === 'dec') {
           return item.room_id === room_id
             ? { ...item, quantity: item.quantity-- }
+            : item
+        }
+
+        if (action === 'inc') {
+          return item.room_id === room_id
+            ? { ...item, quantity: item.quantity++ }
             : item
         }
 
@@ -269,10 +269,10 @@ const ReservationCard = ({
                       changeQuantity(chosenItem(room?.id)?.room_id, 'inc')
                     }}
                     className="py-1 cursor-pointer"
-                    disabled={
-                      !checkItemAdded(room?.id) &&
-                      !chosenItem(room?.id)?.quantity
-                    }
+                    // disabled={
+                    //   !checkItemAdded(room?.id) &&
+                    //   !chosenItem(room?.id)?.quantity
+                    // }
                   >
                     <FaPlus />
                   </button>
@@ -351,7 +351,6 @@ const ReservationCard = ({
         setOpenDetails={setOpenDetails}
         openDetails={openDetails}
       />
-
     </div>
   )
 }
