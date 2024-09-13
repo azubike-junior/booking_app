@@ -12,7 +12,6 @@ import DatePicker from 'react-datepicker'
 import { FaMinus, FaPlus } from 'react-icons/fa'
 import { HiOutlineUserGroup } from 'react-icons/hi2'
 import { Carousel } from 'react-responsive-carousel'
-import BookingSummaryDrawer from '../Modals/BookingSummaryDrawer'
 import MoreRoomDetails from '../Modals/MoreRoomDetails'
 
 interface Room {
@@ -73,52 +72,24 @@ const ReservationCard = ({
       return item.room_id === id
     })
 
-  // const changeQuantity = (room_id: any, action: string) => {
-  //   setCartItems((prev) => {
-  //     return prev.map((item: RoomOrderProp) => {
-  //       if (action === 'inc') {
-  //         console.log(">>>>>>inc", item.quantity );
-          
-  //         return item.room_id === room_id
-  //           ? { ...item, quantity: item.quantity + 1 }
-  //           : item
-  //       }
-  //       if (action === 'dec') {
-  //         console.log(">>>>>deec", item.quantity );
-
-  //         return item.room_id === room_id
-  //           ? { ...item, quantity: item.quantity-- }
-  //           : item
-  //       }
-
-  //       return item
-  //     })
-  //   })
-  // }
-
   const changeQuantity = (room_id: any, action: string) => {
-  setCartItems((prev) => {
-    return prev.map((item: RoomOrderProp) => {
-      if (action === 'inc') {
-        console.log(">>>>>>inc", item.quantity);
-        
-        return item.room_id === room_id
-          ? { ...item, quantity: item.quantity + 1 } // Correctly increasing quantity
-          : item;
-      }
-      if (action === 'dec') {
-        console.log(">>>>>deec", item.quantity);
-        
-        return item.room_id === room_id
-          ? { ...item, quantity: item.quantity - 1 } // Correctly decreasing quantity immutably
-          : item;
-      }
+    setCartItems((prev) => {
+      return prev.map((item: RoomOrderProp) => {
+        if (action === 'inc') {
+          return item.room_id === room_id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        }
+        if (action === 'dec') {
+          return item.room_id === room_id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        }
 
-      return item;
-    });
-  });
-};
-
+        return item
+      })
+    })
+  }
 
   const chosenItem = (id: string): any => {
     return cartItems.find((item) => item?.room_id === id)
@@ -127,7 +98,7 @@ const ReservationCard = ({
   return (
     <div className="w-full">
       <div className="border-[#D9E6F280] border-[0.2px] shadow-md shadow-slate-300  md:flex rounded-lg ">
-        <div className="group md:w-1/2 md:h-[400px] border-r-[1px] md:p-5 relative overflow-hidden rounded-lg  ">
+        <div className="group md:w-1/2 md:h-[400px] border-r-[1px] md:p-5 lg:p-0 relative overflow-hidden rounded-lg  ">
           <Carousel
             swipeable={true}
             showThumbs={false}
@@ -140,7 +111,7 @@ const ReservationCard = ({
               <img
                 src={!room?.image_one ? '/placeholder.png' : room?.image_one}
                 alt=""
-                className="w-full z-0 h-[300px] md:h-[400px]"
+                className="w-full z-0 h-[300px] lg:w-[200px] md:h-[400px]"
               />
             </div>
             <div>
@@ -215,11 +186,11 @@ const ReservationCard = ({
 
           <hr />
 
-          <div className="md:shadow-xl shadow-[#AABDD01F] md:p-2">
-            <div className="flex justify-between space-x-4 md:space-x-0 text-sm text-[#667184] pt-4 w-full ">
-              <div className="w-full ">
+          <div className="xl:shadow-xl shadow-[#AABDD01F] xl:p-2">
+            <div className="flex justify-between space-x-4 lg:space-x-2 text-sm text-[#667184] pt-4 w-full ">
+              <div className="w-full text-sm xl:text-base ">
                 Check in:{' '}
-                <span className="text-[#10375C] pl-2">
+                 <span className="text-[#10375C] pl-2 text-xs xl:text-base">
                   {chosenItem(room?.id)?.start_date}
                 </span>
                 <div className="w-full mt-2 rounded-lg">
@@ -232,9 +203,9 @@ const ReservationCard = ({
                   />
                 </div>
               </div>
-              <div className="w-full text-sm md:text-base">
+              <div className="w-full text-sm xl:text-base ">
                 Check out:{' '}
-                <span className="text-[#10375C] pl-2 text-sm md:text-base">
+                <span className="text-[#10375C] pl-2 text-xs xl:text-base">
                   {chosenItem(room?.id)?.end_date}
                 </span>
                 <div className=" w-full flex mt-2 rounded-lg">
@@ -259,7 +230,7 @@ const ReservationCard = ({
 
             <div className="">
               <div className="flex justify-center  md:justify-start space-x-4 items-center pt-6">
-                <p className="text-red-600 text-xs hidden md:block">
+                <p className="text-red-600 text-xs hidden xl:block">
                   {checkItemAdded(room?.id)
                     ? 'No room left'
                     : 'Only 1 Room Left'}{' '}
@@ -312,7 +283,7 @@ const ReservationCard = ({
                     background: checkItemAdded(room?.id) ? '#a9a4a4cc' : bg,
                   }}
                   disabled={(!checkIn && !checkOut) || checkItemAdded(room?.id)}
-                  className="bg-[#AE5F25] px-4 text-center text-white md:mt-6 py-1.5 rounded-lg md:hidden text-sm"
+                  className="bg-[#AE5F25] px-4 text-center text-white xl:mt-6 py-1.5 rounded-lg xl:hidden text-sm"
                   onClick={() => {
                     setOpenCart(true)
                     const cart = {
@@ -347,7 +318,7 @@ const ReservationCard = ({
                 background: checkItemAdded(room?.id) ? '#a9a4a4cc' : bg,
               }}
               disabled={(!checkIn && !checkOut) || checkItemAdded(room?.id)}
-              className="bg-[#AE5F25]  w-full text-center text-white mt-6 py-2.5 rounded-lg hidden md:block"
+              className="bg-[#AE5F25]  w-full text-center text-white mt-6 py-2.5 rounded-lg hidden xl:block"
               onClick={() => {
                 setOpenCart(true)
                 const cart = {
@@ -379,7 +350,6 @@ const ReservationCard = ({
         setOpenDetails={setOpenDetails}
         openDetails={openDetails}
       />
-
     </div>
   )
 }

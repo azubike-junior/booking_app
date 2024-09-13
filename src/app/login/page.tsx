@@ -98,14 +98,14 @@ export default function Login() {
               message={'Password is required'}
             />
 
-            <ReCAPTCHA
+            {/* <ReCAPTCHA
               sitekey="6LcjYTgqAAAAAP3hn9YT1sIPESxieOypWTqPqja8"
               onChange={onChange}
-            />
+            /> */}
 
             <button
               type="submit"
-              disabled={recaptchaValidation}
+              // disabled={recaptchaValidation}
               className="bg-primary-color py-3 text-center w-full text-white mt-10 rounded-lg"
             >
               {isLoading ? <Spinner /> : 'Sign In'}

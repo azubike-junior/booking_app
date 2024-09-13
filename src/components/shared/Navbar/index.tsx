@@ -17,7 +17,6 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
 import { IoMdMenu } from 'react-icons/io'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 
@@ -34,15 +33,21 @@ export default function Navbar() {
     isOpen: isProfileOpen,
     onOpen: openProfile,
     onClose: closeProfile,
-} = useDisclosure()
+  } = useDisclosure()
 
   const pathname = usePathname()
 
   return (
-    <header className={pathname === '/' ? 'bg-[#F2F7FF] sticky top-0 z-50 ' : 'bg-[#F2F7FF] sticky top-0 z-50 '}>
+    <header
+      className={
+        pathname === '/'
+          ? 'bg-[#F2F7FF] sticky top-0 z-50 '
+          : 'bg-[#F2F7FF] sticky top-0 z-50 '
+      }
+    >
       <nav className="container flex justify-between  items-center max-w-[1062px]   mx-auto px-6 md:px-10 py-4 axiforma-light">
         <Link href={'/'}>
-          <img src="/bookteller.svg" alt="" className=' w-32 md:w-[200px]'/>
+          <img src="/bookteller.svg" alt="" className=" w-32 md:w-[200px]" />
         </Link>
 
         <IoMdMenu size={30} className="flex sm:hidden" onClick={onOpen} />
@@ -54,10 +59,9 @@ export default function Navbar() {
             <Link className="font-medium " href={'/dashboard'}>
               Dashboard
             </Link>
-            
 
             <Link className="font-medium" href={'/dashboard/properties'}>
-              Settings
+              Properties
             </Link>
           </ul>
         ) : (
@@ -156,7 +160,7 @@ export default function Navbar() {
                 <div
                   className={`   text-black text-base grid gap-6 mt-4 leading font-medium`}
                 >
-                  <Link onClick={onClose} className=" " href={'/properties'}>
+                  <Link onClick={onClose} className=" " href={'/dashboard'}>
                     <p>Dashboard</p>
                   </Link>
                   {/* <Link
@@ -167,23 +171,27 @@ export default function Navbar() {
                     <p>Bookings</p>
                   </Link> */}
 
-                  <Link onClick={onClose} className=" " href={'#'}>
-                    <p>Settings</p>
+                  <Link
+                    onClick={onClose}
+                    className=" "
+                    href={'/dashboard/properties'}
+                  >
+                    <p>Properties</p>
                   </Link>
                 </div>
               ) : (
                 <div
                   className={`   text-black text-base grid gap-6 mt-4 leading font-medium`}
                 >
-                  <Link onClick={onClose} className=" " href={'#'}>
+                  <Link onClick={onClose} href={'/'}>
                     <p>Home</p>
                   </Link>
 
-                  <Link onClick={onClose} className=" " href={'#'}>
+                  <Link onClick={onClose} className=" " href={'/about'}>
                     <p> About</p>
                   </Link>
 
-                  <Link onClick={onClose} className=" " href={'#'}>
+                  <Link onClick={onClose} className=" " href={'/contact'}>
                     <p> Contact</p>
                   </Link>
                 </div>
@@ -200,8 +208,6 @@ export default function Navbar() {
                     alt="bookteller"
                     className="mr-2"
                   />
-                  <p> EN</p>
-                  <MdKeyboardArrowDown size={20} />
                 </div>
               </div>
             ) : (
