@@ -12,6 +12,7 @@ import DatePicker from 'react-datepicker'
 import { FaMinus, FaPlus } from 'react-icons/fa'
 import { HiOutlineUserGroup } from 'react-icons/hi2'
 import { Carousel } from 'react-responsive-carousel'
+import BookingSummaryDrawer from '../Modals/BookingSummaryDrawer'
 import MoreRoomDetails from '../Modals/MoreRoomDetails'
 
 interface Room {
@@ -29,6 +30,8 @@ interface Room {
   textColor: string
   bg: string
   removeItem: (id: any) => void
+  setOpenBookingDrawer: any
+  openBookingDrawer: boolean
 }
 
 const ReservationCard = ({
@@ -95,8 +98,8 @@ const ReservationCard = ({
 
   return (
     <div className="w-full">
-      <div className="border-[#D9E6F280] border-[0.2px] shadow-md shadow-slate-300 flex rounded-lg ">
-        <div className="group w-1/2 h-[400px]  border-r-[1px] p-5 relative overflow-hidden rounded-lg  ">
+      <div className="border-[#D9E6F280] border-[0.2px] shadow-md shadow-slate-300  md:flex rounded-lg ">
+        <div className="group md:w-1/2 md:h-[400px] border-r-[1px] md:p-5 relative overflow-hidden rounded-lg  ">
           <Carousel
             swipeable={true}
             showThumbs={false}
@@ -109,14 +112,14 @@ const ReservationCard = ({
               <img
                 src={!room?.image_one ? '/placeholder.png' : room?.image_one}
                 alt=""
-                className="w-full z-0 h-[400px]"
+                className="w-full z-0 h-[300px] md:h-[400px]"
               />
             </div>
             <div>
               <img
                 src={!room?.image_two ? '/placeholder.png' : room?.image_two}
                 alt=""
-                className="w-full z-0 h-[400px]"
+                className="w-full z-0 h-[300px] md:h-[400px]"
               />
             </div>
           </Carousel>
@@ -126,32 +129,24 @@ const ReservationCard = ({
           {/* )} */}
         </div>
 
-        <div className="w-1/2 p-5">
+        <div className="md:w-1/2 p-3 md:p-5">
           <div
             style={{ color: textColor }}
             className="flex justify-between w-full items-center text-[#673816]"
           >
             <h3 className="text-xl font-semibold ">{room?.name}</h3>
             <span className="text-sm font-semibold">
-               {`${property?.currency}`} {room?.price.toLocaleString()}
+              {`${property?.currency}`} {room?.price.toLocaleString()}
             </span>
           </div>
 
-          <div className="flex justify-between text-[#798489] text-sm pt-7">
+          <div className="flex justify-center items-center space-x-4 md:space-x-8 text-[#798489] text-sm pt-4 lg:pt-7">
             <div>
               <span className="">Capacity</span>
               <div className="flex items-center gap-2">
                 <HiOutlineUserGroup /> <span>{room?.adults}</span>
               </div>
             </div>
-            {room?.bedside_fridge && (
-              <div>
-                <span>Bedside Fridge</span>
-                <div className="flex items-center gap-2">
-                  <HiOutlineUserGroup /> <span>1</span>
-                </div>
-              </div>
-            )}
 
             <div>
               <span>Area</span>
@@ -159,10 +154,29 @@ const ReservationCard = ({
                 <HiOutlineUserGroup /> <span>{room?.size}</span>
               </div>
             </div>
+
+            {room?.bedside_fridge ? (
+              <div>
+                <span>Bedside Fridge</span>
+                <div className="flex items-center gap-2">
+                  <HiOutlineUserGroup /> <span>1</span>
+                </div>
+              </div>
+            ) : null}
           </div>
 
-          <p className="text-sm text-[#BFC6D5] py-6 tracking-wider">
+          <p className="text-sm text-[#BFC6D5] hidden md:block py-6 tracking-wider">
             {room?.description.substring(0, 100).concat('..')}{' '}
+            <span
+              onClick={() => setOpenDetails(true)}
+              className="underline text-[#DF7A2FC4] cursor-pointer"
+            >
+              See More
+            </span>
+          </p>
+
+          <p className="text-sm text-[#BFC6D5] py-6 tracking-wider md:hidden">
+            {room?.description.substring(0, 60).concat('..')}{' '}
             <span
               onClick={() => setOpenDetails(true)}
               className="underline text-[#DF7A2FC4] cursor-pointer"
@@ -173,8 +187,8 @@ const ReservationCard = ({
 
           <hr />
 
-          <div className="shadow-xl shadow-[#AABDD01F] p-2">
-            <div className="flex justify-between text-sm text-[#667184] pt-4 w-full ">
+          <div className="md:shadow-xl shadow-[#AABDD01F] md:p-2">
+            <div className="flex justify-between space-x-4 md:space-x-0 text-sm text-[#667184] pt-4 w-full ">
               <div className="w-full ">
                 Check in:{' '}
                 <span className="text-[#10375C] pl-2">
@@ -190,9 +204,9 @@ const ReservationCard = ({
                   />
                 </div>
               </div>
-              <div className="w-full ">
+              <div className="w-full text-sm md:text-base">
                 Check out:{' '}
-                <span className="text-[#10375C] pl-2">
+                <span className="text-[#10375C] pl-2 text-sm md:text-base">
                   {chosenItem(room?.id)?.end_date}
                 </span>
                 <div className=" w-full flex mt-2 rounded-lg">
@@ -216,9 +230,8 @@ const ReservationCard = ({
             </p> */}
 
             <div className="">
-              {/* <hr />/ */}
-              <div className="flex justify-start space-x-4 items-center pt-6">
-                <p className="text-red-600 text-xs">
+              <div className="flex justify-center  md:justify-start space-x-4 items-center pt-6">
+                <p className="text-red-600 text-xs hidden md:block">
                   {checkItemAdded(room?.id)
                     ? 'No room left'
                     : 'Only 1 Room Left'}{' '}
@@ -264,6 +277,39 @@ const ReservationCard = ({
                     <FaPlus />
                   </button>
                 </div>
+
+                <button
+                  type="button"
+                  style={{
+                    background: checkItemAdded(room?.id) ? '#a9a4a4cc' : bg,
+                  }}
+                  disabled={(!checkIn && !checkOut) || checkItemAdded(room?.id)}
+                  className="bg-[#AE5F25] px-4 text-center text-white md:mt-6 py-1.5 rounded-lg md:hidden text-sm"
+                  onClick={() => {
+                    setOpenCart(true)
+                    const cart = {
+                      image: room?.image_one,
+                      room_id: room?.id,
+                      index,
+                      room_name: room?.name,
+                      price: room?.price,
+                      quality: 0,
+                      noOfDays: calculateDifferenceInDays(checkIn, checkOut),
+                      quantity: 1,
+                      start_date: convertDateFormat(
+                        checkIn.toLocaleDateString(),
+                      ),
+                      end_date: convertDateFormat(
+                        checkOut.toLocaleDateString(),
+                      ),
+                      adults: room?.adults,
+                      children: room?.children,
+                    }
+                    setCartItems((prev: any) => [...prev, cart])
+                  }}
+                >
+                  {checkItemAdded(room?.id) ? 'Room added' : 'Add room'}
+                </button>
               </div>
             </div>
 
@@ -273,7 +319,7 @@ const ReservationCard = ({
                 background: checkItemAdded(room?.id) ? '#a9a4a4cc' : bg,
               }}
               disabled={(!checkIn && !checkOut) || checkItemAdded(room?.id)}
-              className="bg-[#AE5F25]  w-full text-center text-white mt-6 py-2.5 rounded-lg"
+              className="bg-[#AE5F25]  w-full text-center text-white mt-6 py-2.5 rounded-lg hidden md:block"
               onClick={() => {
                 setOpenCart(true)
                 const cart = {
@@ -284,7 +330,7 @@ const ReservationCard = ({
                   price: room?.price,
                   quality: 0,
                   noOfDays: calculateDifferenceInDays(checkIn, checkOut),
-                  quantity: 1 ,
+                  quantity: 1,
                   start_date: convertDateFormat(checkIn.toLocaleDateString()),
                   end_date: convertDateFormat(checkOut.toLocaleDateString()),
                   adults: room?.adults,
@@ -305,6 +351,7 @@ const ReservationCard = ({
         setOpenDetails={setOpenDetails}
         openDetails={openDetails}
       />
+
     </div>
   )
 }

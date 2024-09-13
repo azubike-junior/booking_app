@@ -343,7 +343,7 @@ export default function Properties({ property, isLoading }: prop) {
               </div>
 
               <form onSubmit={handleSubmit(editPropertyHandler)}>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-center lg:justify-between items-center">
                   <div className="flex items-center space-x-2 lg:space-x-4 pt-8 text-xs lg:text-lg">
                     <button
                       type="button"

@@ -237,6 +237,7 @@ export default function Subscription({
               {/* )} */}
 
               <button
+                type='button'
                 disabled={index === 0}
                 onClick={() => {
                   setOpenSubDetails(true)

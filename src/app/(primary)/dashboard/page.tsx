@@ -52,7 +52,7 @@ export default function Dashboard() {
         <Spinner />
       ) : (
         <div className="bg-[#FEF3EB] space-y-3 md:space-y-0 w-full md:flex items-center justify-between py-4 rounded-lg border-dashed border-[#874A1D] mb-8 border-b-[2px] xl:px-20 px-10">
-          <div className="flex space-x-6  items-center  text-sm xl:text-base">
+          <div className="flex space-x-6  items-center justify-between  text-sm xl:text-base">
             <p className="text-[#F8AE77]">Active Plan:</p>{' '}
             <span className=" text-sm  xl:text-lg  font-semibold text-[#874A1D]">
               {currentSub?.name}
@@ -61,14 +61,14 @@ export default function Dashboard() {
 
           <div className="w-[1px] bg-[#D9C2B2] hidden md:block h-16"></div>
 
-          <div className="md:space-y-4 text-sm xl:text-base">
-            <div className="text-[#F8AE77] space-x-6 flex ">
+          <div className="space-y-4 text-sm xl:text-base">
+            <div className="text-[#F8AE77] space-x-6 flex justify-between ">
               <p className="xl:w-36">Date Activited:</p>
               <span className="text-[#874A1D] font-semibold">
                 {new Date(currentOrder?.start_date).toLocaleDateString()}
               </span>{' '}
             </div>
-            <div className="text-[#F8AE77] space-x-6 flex ">
+            <div className="text-[#F8AE77] space-x-6 flex justify-between ">
               <p className="xl:w-36"> Expiry Date:</p>{' '}
               <span className="text-[#874A1D] font-semibold">
                 {new Date(currentOrder?.end_date).toLocaleDateString()}
@@ -78,12 +78,12 @@ export default function Dashboard() {
 
           <div className="w-[1px] bg-[#D9C2B2] h-16 hidden md:block"></div>
 
-          <div className="md:space-y-4 text-sm xl:text-base">
-            <div className="text-[#F8AE77] space-x-6 flex ">
+          <div className="space-y-4 text-sm xl:text-base">
+            <div className="text-[#F8AE77] space-x-6 flex justify-between">
               <p className="xl:w-36">Duration:</p>
               <span className="text-[#874A1D] font-semibold">1 Year</span>{' '}
             </div>
-            <div className="text-[#F8AE77] space-x-6 flex ">
+            <div className="text-[#F8AE77] space-x-6 flex justify-between ">
               <p className="xl:w-36"> Status:</p>{' '}
               <span className="text-[#31CF1C] font-semibold">
                 {user?.current_subscription}
@@ -93,15 +93,15 @@ export default function Dashboard() {
 
           <div className="w-[1px] bg-[#D9C2B2] h-16 hidden md:block"></div>
 
-          <div className="md:space-y-4 text-sm xl:text-base">
-            <div className="text-[#F8AE77] space-x-6 flex ">
+          <div className="space-y-4 text-sm xl:text-base ">
+            <div className="text-[#F8AE77] space-x-6 flex justify-between ">
               <p>Price:</p>
               <span className="text-[#874A1D] font-semibold">
                 # {currentSub?.annual_cost.toLocaleString()}
               </span>{' '}
             </div>
 
-            <Link href="/dashboard/property">
+            <Link href="/dashboard/property" className='flex justify-center items-center lg:block'>
               <button className="bg-[#673816] py-1 rounded-[20px] text-white px-6 text-center ">
                 Upgrade
               </button>

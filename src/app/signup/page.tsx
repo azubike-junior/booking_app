@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
+import { IoChevronBack } from 'react-icons/io5'
 
 export default function Signup() {
   const router = useRouter()
@@ -64,7 +65,7 @@ export default function Signup() {
       </div>
       <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-8 lg:px-20">
         {response && (
-          <Alert status="success" className='pt-6'>
+          <Alert status="success" className="pt-6">
             <AlertIcon />
             <p>
               A Verification email has been sent to your email inbox, please
@@ -73,15 +74,26 @@ export default function Signup() {
           </Alert>
         )}
 
-        <div className="mx-auto mt-16 max-w-[500px]">
-          <p className={`quicksand text-center text-[#111827] text-3xl`}>
-            Create Your BookTeller Account
-          </p>
+        <Link href={'/'}>
+          <img
+            src="/bookteller.svg"
+            alt=""
+            className=" w-32 md:w-[200px] lg:hidden mt-10"
+          />
+        </Link>
 
+        <div className="mx-auto mt-16 max-w-[500px]">
+          <div className="flex justify-center space-x-6 items-center">
+            <p
+              className={`quicksand text-center text-[#111827] text-xl lg:text-3xl`}
+            >
+              Create Your BookTeller Account
+            </p>
+          </div>
 
           <form
             onSubmit={handleSubmit(signupHandler)}
-            className={`lato space-y-6 mt-20`}
+            className={`lato space-y-6 my-10 lg:mt-20`}
           >
             <div className="block space-y-6 lg:space-y-0 lg:flex lg:space-x-6">
               <InputField
@@ -166,9 +178,13 @@ export default function Signup() {
             >
               {isLoading ? <Spinner /> : 'Create Account'}
             </button>
-            <Link href={'/login'}>
-              <p className="text-right pt-2">Login</p>
-            </Link>
+
+            <p className="text-center lato">
+              Already have an account?{' '}
+              <Link href={'/login'}>
+                <span className=" text-[#F58634] underline">Login</span>
+              </Link>{' '}
+            </p>
           </form>
         </div>
       </div>

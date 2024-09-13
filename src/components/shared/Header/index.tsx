@@ -37,7 +37,7 @@ export default function Header() {
         <img src="/bookteller.svg" alt="" className=" w-32 md:w-40" />
 
         <div className="flex items-center space-x-4">
-          <CiBellOn size={24} className="" />
+          {/* <CiBellOn size={24} className="" /> */}
 
           <Menu>
             <MenuButton>
@@ -82,7 +82,7 @@ export default function Header() {
         </div>
 
         <div className="flex space-x-4 items-center">
-          <CiBellOn size={26} className="" />
+          {/* <CiBellOn size={26} className="" /> */}
 
           <RxHamburgerMenu size={26} onClick={onOpen}/>
         </div>

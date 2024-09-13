@@ -8,7 +8,7 @@ type prop = {
 
 export default function SuiteDetail({img, title, subtitle}: prop) {
   return (
-    <div className="w-full shadow-sm shadow-[#ccc] bg-white px-6 rounded-lg py-5 z-50">
+    <div className="w-full shadow-sm shadow-[#ccc] bg-white px-6 rounded-lg py-5 ">
       <Image
         src={img}
         width={40}

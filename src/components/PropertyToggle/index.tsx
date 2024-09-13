@@ -22,7 +22,7 @@ export default function PropertyToggle({
             : 'text-black'
         }`}
       >
-        Property Details
+        Property
       </button>
       <button
         disabled={!property}

@@ -121,12 +121,12 @@ const Checkout = ({
   }
 
   return (
-    <form className="bg-white p-10 flex max-w-[1400px] mx-auto space-x-20">
-      <div className="w-8/12">
+    <form className="bg-white px-6 md:p-10 md:flex md:max-w-[1400px] mx-auto md:space-x-20 pt-6 md:pt-0">
+      <div className="md:w-8/12">
         <h4 className="text-xl font-semibold">Guest Information</h4>
 
         <div className="space-y-4 mt-6 lg:mt-10">
-          <div className="flex space-x-4">
+          <div className=" md:flex md:space-x-4 space-y-4 lg:space-y-0">
             <PaymentField
               label="First Name"
               type="name"
@@ -150,7 +150,7 @@ const Checkout = ({
             />
           </div>
 
-          <div className="flex space-x-4">
+          <div className="md:flex md:space-x-4 space-y-4 lg:space-y-0">
             <PaymentField
               label="Phone Number"
               type="text"
@@ -205,7 +205,7 @@ const Checkout = ({
           </div>
         }
       </div>
-      <div className="justify-between w-4/12">
+      <div className="justify-between w-full md:w-4/12 py-6 md:pt-0">
         <div className=" border rounded-t-xl w-full border-[#F2F4F7] h-fit">
           <div className="bg-[#F7FAF6] border-[0.3px] rounded-t-xl p-6 w-full border-[#F2F4F7]">
             <p>Your booking Summary</p>
@@ -240,7 +240,7 @@ const Checkout = ({
             })}
           </div>
         </div>
-        <div className="flex justify-between text-md font-semibold">
+        <div className="flex justify-between text-md font-semibold pt-2 lg:pt-0">
           <p>Pay</p>
           <p> {`${property?.currency}`} {total?.toLocaleString()}</p>
         </div>

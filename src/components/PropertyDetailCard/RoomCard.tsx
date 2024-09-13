@@ -6,13 +6,19 @@ type prop = {
   room: RoomProps
   setRoomID: (room: string) => void
   roomID: string
+  onClose: any
 }
 
-export default function RoomCard({ room, setRoomID, roomID }: prop) {
+export default function RoomCard({ room, setRoomID, roomID, onClose }: prop) {
   const { data: _room, isLoading } = useGetRoomByIdQuery(room?.id)
 
   return (
-    <div onClick={() => setRoomID(room?.id)}>
+    <div
+      onClick={() => {
+        setRoomID(room?.id)
+        onClose()
+      }}
+    >
       <div
         className={`p-3 py-4 shadow-md shadow-slate-300 flex justify-between items-center rounded-lg cursor-pointer ${
           room.id === roomID ? 'bg-[#FEF3EB]' : 'bg-white'

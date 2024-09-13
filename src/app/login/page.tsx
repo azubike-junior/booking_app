@@ -57,29 +57,25 @@ export default function Login() {
         </div>
       </div>
       <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-10 md:px-20">
+        <Link href={'/'}>
+          <img
+            src="/bookteller.svg"
+            alt=""
+            className=" w-32 md:w-[200px] lg:hidden mt-10"
+          />
+        </Link>
         <div className="mx-auto mt-16 max-w-[500px]">
-          <p
-            className={`${quickSand.className} text-center text-[#111827] text-3xl`}
-          >
-            Welcome back
-          </p>
-
-          {/* <div className="border border-[#96A0A5]  space-x-2 flex justify-center items-center py-2 mt-16 rounded-lg">
-            <Image src="/googlee.svg" width={22} height={22} alt="bookteller" />
-            <p className={`${quickSand.className} text-xs`}>
-              Sign up with Google
+          <div className="flex space-x-6 justify-center items-center">
+            <p
+              className={`${quickSand.className} text-center text-[#111827] text-xl lg:text-3xl`}
+            >
+              Welcome back
             </p>
           </div>
 
-          <p
-            className={`${quickSand.className} text-center text-[#717E83] pt-10 pb-6`}
-          >
-            OR
-          </p> */}
-
           <form
             onSubmit={handleSubmit(loginHandler)}
-            className={`${lato.className} space-y-6 mt-20`}
+            className={`${lato.className} space-y-6 mt-10 lg:mt-20`}
           >
             <InputField
               name="email"
@@ -116,9 +112,12 @@ export default function Login() {
             </button>
           </form>
 
-          <Link href={'/signup'}>
-            <p className="text-right pt-2">Sign up</p>
-          </Link>
+          <p className="text-center pt-4 lato">
+            Don't have an account?{' '}
+            <Link href={'/signup'}>
+              <span className=" text-[#F58634] underline">Sign up</span>
+            </Link>{' '}
+          </p>
         </div>
       </div>
     </div>

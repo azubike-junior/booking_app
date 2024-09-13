@@ -22,9 +22,6 @@ const MoreRoomDetails = ({
   openDetails,
   setOpenDetails,
 }: Room) => {
-  console.log('>>>>>>', property)
-
-  console.log('>>>>>> room', room)
 
   return (
     <Modal
@@ -37,51 +34,51 @@ const MoreRoomDetails = ({
       <ModalContent>
         <div className="bg-[#F7FAF6] lato">
           <div className="px-14 py-10 flex space-x-10 items-center">
-            <MdOutlineArrowBackIos color="black" size={24} />
+            <MdOutlineArrowBackIos color="black" size={24} onClick={() => setOpenDetails(false)} />
 
-            <div className=" flex space-x-6">
+            <div className=" flex space-x-6 justify-center items-center">
               <img
                 src={property?.image}
-                className="w-16 h-16 z-10 shadow rounded-lg"
+                className="w-10 md:w-16 h-10 md:h-16 z-10 shadow rounded-lg"
               />
               <div className="z-30">
-                <h3 className="font-Semibold text-2xl shadow-sm">
+                <h3 className="font-Semibold text-xl md:text-2xl shadow-sm">
                   {room?.name}
                 </h3>
-                <p>{property?.address}</p>
+                <p className='text-sm md:text-base'>{property?.address}</p>
               </div>
             </div>
           </div>
         </div>
 
         <div className="bg-white p-10 ">
-          <div className="flex justify-between space-x-10">
+          <div className="md:flex justify-between md:space-x-10 ">
             <Carousel
               swipeable={true}
               showThumbs={false}
               centerMode
               centerSlidePercentage={110}
               // dynamicHeight={true}
-              className="mx-auto w-1/2 rounded-lg"
+              className="md:mx-auto md:w-1/2 rounded-lg h-[300px]"
             >
               <div>
                 <img
                   src={!room?.image_one ? '/placeholder.png' : room?.image_one}
                   alt=""
-                  className="w-full rounded-lg"
+                  className="w-full rounded-lg h-[300px]"
                 />
               </div>
               <div>
                 <img
                   src={!room?.image_two ? '/placeholder.png' : room?.image_two}
                   alt=""
-                  className="w-full  rounded-lg"
+                  className="w-full  rounded-lg h-[300px]"
                 />
               </div>
             </Carousel>
 
-            <div className="w-1/2 lato">
-              <h4 className="text-xl font-semibold">Room Description</h4>
+            <div className="md:w-1/2 w-full lato pt-4 md:pt-0">
+              <h4 className="text-lg md:text-xl font-semibold text-center">Room Description</h4>
               <p className="text-[#273238] pt-6">{room?.description}</p>
             </div>
           </div>

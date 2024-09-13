@@ -1,7 +1,6 @@
 import { useGetAccountQuery } from '@/features/auth'
 import { useMakePaymentMutation } from '@/features/reservations'
 import { getItem } from '@/utils'
-import { SubscriptionProp } from '@/utils/types'
 import {
   Modal,
   ModalCloseButton,
@@ -26,7 +25,6 @@ type cardProp = {
   subtitle: string
   onClick?: () => void
   duration?: boolean
-  
 }
 
 const DurationCard = ({
@@ -39,7 +37,7 @@ const DurationCard = ({
   return (
     <div
       onClick={onClick}
-      className={`border-[#E6E6E6] border-[0.3px] rounded-lg p-3 px-4 shadow-lg cursor-pointer ${
+      className={`border-[#E6E6E6] flex space-x-4 lg:space-x-0 items-center lg:block border-[0.3px] rounded-lg p-3 px-4 shadow-lg cursor-pointer ${
         duration ? 'bg-[#FAC7A233]' : ''
       }`}
     >
@@ -47,7 +45,7 @@ const DurationCard = ({
 
       <p className="text-sm font-semibold pt-4">{title}</p>
 
-      <span className="font-md text-sm text-[#4F4D55] pt-1">{subtitle}</span>
+      <span className="hidden md:block font-md text-sm text-[#4F4D55] pt-1">{subtitle}</span>
     </div>
   )
 }
@@ -56,7 +54,7 @@ const SubscriptionDetails = ({
   openSubDetails,
   setOpenSubDetails,
   subSelected,
-  currency
+  currency,
 }: prop) => {
   const [selectedDuration, setSelectedDuration] = useState({
     monthly: true,
@@ -122,7 +120,7 @@ const SubscriptionDetails = ({
       amount: total,
       account_id: user?.id,
       sub_duration: Number(durationPlan),
-      route
+      route,
     }
     makePayment(newData)
   }
@@ -151,7 +149,7 @@ const SubscriptionDetails = ({
           </div>
         </div>
 
-        <div className="flex justify-between space-x-3 pt-6">
+        <div className="space-y-3 lg:space-y-0 md:flex justify-between md:space-x-3 pt-6">
           <DurationCard
             img={'/1month.svg'}
             title="3-Monthly Payment"
@@ -238,13 +236,6 @@ const SubscriptionDetails = ({
                   className="w-full py-1.5 px-2 outline-none border-r-[0.3px] border-[#E6E6E6]"
                   value={durationPlan}
                 />
-                {/* <select name="" id=""  className="w-full py-1.5 px-2 outline-none border-r-[0.3px] border-[#E6E6E6]" >
-                  {Array.from({ length: 10 }, (_, index) => (
-                    <option key={index + 1} value={index + 1}>
-                      {index + 1}
-                    </option>
-                  ))}
-                </select> */}
 
                 <div className="flex justify-center items-center">
                   {selectedDuration.monthly ? 'Month' : 'Months'}
@@ -254,7 +245,11 @@ const SubscriptionDetails = ({
           </div>
         </div>
 
-        <button type='button' onClick={() => paymentHandler()} className="bg-[#1A2B47] text-white py-2 rounded-lg mt-4">
+        <button
+          type="button"
+          onClick={() => paymentHandler()}
+          className="bg-[#1A2B47] text-white py-2 rounded-lg mt-4"
+        >
           {loadingPaymentResponse ? <Spinner /> : 'Subsribe'}
         </button>
       </ModalContent>

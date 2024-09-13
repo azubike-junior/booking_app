@@ -1,5 +1,6 @@
 'use client'
 
+import BookingSummaryDrawer from '@/components/Modals/BookingSummaryDrawer'
 import Checkout from '@/components/Modals/Checkout'
 import ReservationCard from '@/components/ReservationComp/ReservationCard'
 import Button from '@/components/shared/Button'
@@ -35,6 +36,7 @@ const Reservations = () => {
   const [checkOut, setCheckOut] = useState<any>(defaultCheckOutDate)
   const [openCheckout, setOpenCheckout] = useState(false)
   const [openCart, setOpenCart] = useState(false)
+  const [openBookingDrawer, setOpenBookingDrawer] = useState(false)
 
   const [cartItems, setCartItems] = useState<RoomOrderProp[] | any>([])
 
@@ -122,18 +124,21 @@ const Reservations = () => {
           >
             <div className="max-w-[1400px] px-10 mx-auto">
               <div className={`lato  w-full h-[350px]`}>
-                <div className="mt-4  text-white flex  space-x-6">
+                <div
+                  style={{ color: textColor }}
+                  className="mt-4  text-white md:flex  md:space-x-6"
+                >
                   <MdOutlineArrowBackIos color="white" size={24} />
 
-                  <div className="border-[0.1px] shadow-xl border-white bg-opacity-30  w-4/12 px-2 py-7 flex justify-center items-center rounded-lg space-x-6 bg-[#ccc]">
+                  <div className="border-[0.1px] shadow-xl border-white bg-opacity-30 lg:w-4/12 mt-6 md:mt-0 px-2 py-4 md:py-7 flex justify-center items-center rounded-lg space-x-6 bg-[#ccc]">
                     <img
                       src={property?.image}
-                      className="w-16 h-16 z-10 shadow rounded-lg"
+                      className="w-10 h-10 lg:w-16 lg:h-16 z-10 shadow rounded-lg"
                     />
 
                     <div className="z-30">
-                      <h3 className="font-bold text-2xl shadow-sm">
-                        {property?.name}
+                      <h3 className="font-bold text-xl lg:text-2xl shadow-sm">
+                        {property?.name?.substring(0, 20).concat('...')}
                       </h3>
                       <p>{property?.address}</p>
                     </div>
@@ -142,6 +147,21 @@ const Reservations = () => {
               </div>
             </div>
           </div>
+
+          {!openCheckout && (
+            <div className="flex justify-center items-center mt-6">
+              <button
+                className="border-[1px] border-[#EEEFF3] rounded-[20px] flex items-center space-x-4 px-4 py-2 md:hidden"
+                onClick={() => setOpenBookingDrawer(true)}
+              >
+                {/* <GiBookCover /> */}
+                <div className="bg-red-500 w-5 h-5 rounded-full text-xs flex items-center justify-center text-white">
+                  {cartItems.length}
+                </div>
+                <span>Booking Summary</span>
+              </button>
+            </div>
+          )}
 
           {openCheckout ? (
             <Checkout
@@ -156,7 +176,7 @@ const Reservations = () => {
               openCheckout={openCheckout}
             />
           ) : (
-            <div className="lato w-[1400px] mx-auto h-full flex p-10 gap-10 justify-between relative ">
+            <div className="lato lg:w-[1400px] mx-auto h-full flex p-10 gap-10 justify-between relative ">
               <div className="max-w-[900px] mx-auto space-y-10">
                 {allRooms?.map((p: any, index: number) => {
                   return (
@@ -176,12 +196,14 @@ const Reservations = () => {
                       textColor={textColor}
                       bg={bg}
                       removeItem={removeItem}
+                      openBookingDrawer={openBookingDrawer}
+                      setOpenBookingDrawer={setOpenBookingDrawer}
                     />
                   )
                 })}
               </div>
 
-              <div className="w-[350px] sticky top-5 right-0 h-screen">
+              <div className="w-[350px] sticky top-5 right-0 h-screen hidden lg:block">
                 <div className="border-[#F2F4F7] border-[0.2px] shadow-md shadow-[#7090B01A] w-full rounded-lg h-full">
                   <p className="text-center border-b pb-4 py-6 text-[#673816]">
                     Booking Summary
@@ -294,13 +316,28 @@ const Reservations = () => {
                   )}
                 </div>
               </div>
+
+              <BookingSummaryDrawer
+                openBookingDrawer={openBookingDrawer}
+                setOpenBookingDrawer={setOpenBookingDrawer}
+                setOpenCheckout={setOpenCheckout}
+                setOpenCart={setOpenCart}
+                property={property}
+                cartItems={cartItems}
+                removeItem={removeItem}
+                total={total}
+                bg={bg}
+              />
             </div>
           )}
 
-          <div style={{ background: bg }} className="bg-[#673816] py-14 ">
+          <div
+            style={{ background: bg }}
+            className="bg-[#673816] py-14 px-10 lg:px-0 "
+          >
             <div className="flex justify-between max-w-[1400px] mx-auto items-center">
               <div className="flex items-center">
-                <div className="mr-10 flex space-x-20">
+                <div className="mr-10 hidden md:flex lg:space-x-20">
                   <img
                     src={property?.image}
                     className="w-20 h-20 z-10 shadow rounded-lg"
@@ -336,7 +373,9 @@ const Reservations = () => {
                     </span>{' '}
                     apply
                   </p>
-                  <p>Copyright © 2024 Hotels.com All Rights Reserved.</p>
+                  <p className="pt-3">
+                    Copyright © 2024 Hotels.com All Rights Reserved.
+                  </p>
                 </div>
               </div>
               {/* <div className=" flex justify-center items-center">
@@ -363,7 +402,7 @@ const Reservations = () => {
                     />
                   </Link>
                 </div>
-             )} 
+              )}
             </div>
           </div>
         </div>

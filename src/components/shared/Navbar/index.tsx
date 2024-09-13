@@ -40,7 +40,7 @@ export default function Navbar() {
 
   return (
     <header className={pathname === '/' ? 'bg-[#F2F7FF] sticky top-0 z-50 ' : 'bg-[#F2F7FF] sticky top-0 z-50 '}>
-      <nav className="container flex justify-between  items-center max-w-[1062px]   mx-auto px-6 md:px-10 pt-6 axiforma-light">
+      <nav className="container flex justify-between  items-center max-w-[1062px]   mx-auto px-6 md:px-10 py-4 axiforma-light">
         <Link href={'/'}>
           <img src="/bookteller.svg" alt="" className=' w-32 md:w-[200px]'/>
         </Link>

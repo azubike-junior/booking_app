@@ -301,16 +301,16 @@ export default function Rooms({ property, room }: prop) {
                   <div>
                     <h3 className="text-xl font-semibold">{details?.name}</h3>
                     <div className="flex items-center space-x-2">
-                      <MdOutlineMapsHomeWork />
-                      <p className="text-sm">{property?.address}</p>
+                      {/* <MdOutlineMapsHomeWork className='hidden' /> */}
+                      <p className="text-sm">{property?.address?.substring(0, 24).concat("....")}</p>
                     </div>
                   </div>
 
                   <div
                     onClick={onOpen}
-                    className="flex space-x-2 items-center justify-center"
+                    className="flex space-x-2 items-center justify-center text-sm"
                   >
-                    <p>All rooms</p>
+                    <p>Select rooms</p>
                     <IoIosArrowDown />
                   </div>
                 </div>
@@ -441,6 +441,7 @@ export default function Rooms({ property, room }: prop) {
                           key={index}
                           setRoomID={setRoomID}
                           roomID={roomID}
+                          onClose={() => {}}
                         />
                       )
                     })}
@@ -755,6 +756,7 @@ export default function Rooms({ property, room }: prop) {
                   key={index}
                   setRoomID={setRoomID}
                   roomID={roomID}
+                  onClose={onClose}
                 />
               )
             })}
