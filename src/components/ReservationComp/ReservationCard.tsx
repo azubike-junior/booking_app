@@ -73,28 +73,52 @@ const ReservationCard = ({
       return item.room_id === id
     })
 
-  const changeQuantity = (room_id: any, action: string) => {
-    setCartItems((prev) => {
-      return prev.map((item: RoomOrderProp) => {
-        if (action === 'inc') {
-          console.log(">>>>>>inc", item.quantity );
+  // const changeQuantity = (room_id: any, action: string) => {
+  //   setCartItems((prev) => {
+  //     return prev.map((item: RoomOrderProp) => {
+  //       if (action === 'inc') {
+  //         console.log(">>>>>>inc", item.quantity );
           
-          return item.room_id === room_id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        }
-        if (action === 'dec') {
-          console.log(">>>>>deec", item.quantity );
+  //         return item.room_id === room_id
+  //           ? { ...item, quantity: item.quantity + 1 }
+  //           : item
+  //       }
+  //       if (action === 'dec') {
+  //         console.log(">>>>>deec", item.quantity );
 
-          return item.room_id === room_id
-            ? { ...item, quantity: item.quantity-- }
-            : item
-        }
+  //         return item.room_id === room_id
+  //           ? { ...item, quantity: item.quantity-- }
+  //           : item
+  //       }
 
-        return item
-      })
-    })
-  }
+  //       return item
+  //     })
+  //   })
+  // }
+
+  const changeQuantity = (room_id: any, action: string) => {
+  setCartItems((prev) => {
+    return prev.map((item: RoomOrderProp) => {
+      if (action === 'inc') {
+        console.log(">>>>>>inc", item.quantity);
+        
+        return item.room_id === room_id
+          ? { ...item, quantity: item.quantity + 1 } // Correctly increasing quantity
+          : item;
+      }
+      if (action === 'dec') {
+        console.log(">>>>>deec", item.quantity);
+        
+        return item.room_id === room_id
+          ? { ...item, quantity: item.quantity - 1 } // Correctly decreasing quantity immutably
+          : item;
+      }
+
+      return item;
+    });
+  });
+};
+
 
   const chosenItem = (id: string): any => {
     return cartItems.find((item) => item?.room_id === id)
