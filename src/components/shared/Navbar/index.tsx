@@ -163,21 +163,39 @@ export default function Navbar() {
                   <Link onClick={onClose} className=" " href={'/dashboard'}>
                     <p>Dashboard</p>
                   </Link>
-                  {/* <Link
-                    onClick={onClose}
-                    className=" "
-                    href={'/properties/reservations/bookings'}
-                  >
+                  <Link onClick={onClose} href={'/properties/bookings'}>
                     <p>Bookings</p>
-                  </Link> */}
+                  </Link>
 
-                  <Link
-                    onClick={onClose}
-                    className=" "
-                    href={'/dashboard/properties'}
-                  >
+                  <Link onClick={onClose} href={'/dashboard/properties'}>
                     <p>Properties</p>
                   </Link>
+
+                  <div
+                    onClick={() => {
+                      localStorage.clear()
+                      onClose()
+                    }}
+                    className="pt-4"
+                  >
+                    <Link
+                      href="/login"
+                      className={` bg-_green rounded-[50px] p-3 px-8 text-white font-md`}
+                    >
+                     Log out
+                    </Link>
+                  </div>
+
+                  {/* <Link
+                    onClick={() => {
+                      localStorage.clear()
+                      onClose()
+                    }}
+                    href="/login"
+                    className={` text-black font-md`}
+                  >
+                    Log In
+                  </Link> */}
                 </div>
               ) : (
                 <div
@@ -194,11 +212,28 @@ export default function Navbar() {
                   <Link onClick={onClose} className=" " href={'/contact'}>
                     <p> Contact</p>
                   </Link>
+
+                  <Link
+                    onClick={onClose}
+                    href="/login"
+                    className={` text-black font-md`}
+                  >
+                    Log In
+                  </Link>
+
+                  <div onClick={onClose} className="pt-4">
+                    <Link
+                      href="/signup"
+                      className={` bg-_green rounded-[50px] p-3 px-8 text-white font-md`}
+                    >
+                      Sign Up
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
 
-            {firstname ? (
+            {/* {firstname ? (
               <div className=" pt-6 flex items-center space-x-6 ">
                 <div className="flex items-center space-x-2">
                   <Image
@@ -225,7 +260,7 @@ export default function Navbar() {
                   </Link>
                 </div>
               </div>
-            )}
+            )} */}
           </DrawerBody>
 
           {/* <DrawerFooter className="flex space-x-10">

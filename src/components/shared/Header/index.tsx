@@ -18,7 +18,6 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { CiBellOn } from 'react-icons/ci'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { RxHamburgerMenu } from 'react-icons/rx'
 
@@ -34,7 +33,9 @@ export default function Header() {
   return (
     <>
       <div className=" hidden lg:flex justify-between px-10 shadow py-2 fixed w-full bg-white ">
-        <img src="/bookteller.svg" alt="" className=" w-32 md:w-40" />
+        <Link href={'/'}>
+          <img src="/bookteller.svg" alt="" className=" w-32 md:w-40" />
+        </Link>
 
         <div className="flex items-center space-x-4">
           {/* <CiBellOn size={24} className="" /> */}
@@ -84,7 +85,7 @@ export default function Header() {
         <div className="flex space-x-4 items-center">
           {/* <CiBellOn size={26} className="" /> */}
 
-          <RxHamburgerMenu size={26} onClick={onOpen}/>
+          <RxHamburgerMenu size={26} onClick={onOpen} />
         </div>
       </div>
 
