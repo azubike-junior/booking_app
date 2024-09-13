@@ -72,28 +72,27 @@ const ReservationCard = ({
       return item.room_id === id
     })
 
-  const changeQuantity = (room_id: any, action: string) => {
+  const incQuantity = (room_id: any) => {
     setCartItems((prev) => {
       return prev.map((item: RoomOrderProp) => {
-        if (action === 'dec') {
-          return item.room_id === room_id
-            ? { ...item, quantity: item.quantity-- }
-            : item
-        }
-
-        if (action === 'inc') {
-          return item.room_id === room_id
-            ? { ...item, quantity: item.quantity++ }
-            : item
-        }
-
-        return item
+        return item.room_id === room_id
+          ? { ...item, quantity: item.quantity++ }
+          : item
       })
     })
   }
 
-  console.log(">>>>>>>cartItems", cartItems);
-  
+  const decQuantity = (room_id: any) => {
+    setCartItems((prev) => {
+      return prev.map((item: RoomOrderProp) => {
+        return item.room_id === room_id
+          ? { ...item, quantity: item.quantity-- }
+          : item
+      })
+    })
+  }
+
+  console.log('>>>>>>>cartItems', cartItems)
 
   const chosenItem = (id: string): any => {
     return cartItems.find((item) => item?.room_id === id)
@@ -251,7 +250,7 @@ const ReservationCard = ({
                       if (chosenItem(room?.id)?.quantity === 1) {
                         removeItem(chosenItem(room?.id)?.room_id)
                       }
-                      changeQuantity(chosenItem(room?.id)?.room_id, 'dec')
+                      decQuantity(chosenItem(room?.id)?.room_id)
                     }}
                     className="py-2 cursor-pointer"
                     disabled={
@@ -266,16 +265,13 @@ const ReservationCard = ({
                     !chosenItem(room?.id)?.quantity
                       ? 0
                       : chosenItem(room.id)?.quantity} */}
-                    
-                    {chosenItem(room?.id)?.quantity} 
-                    
-                    
+
+                    {chosenItem(room?.id)?.quantity}
                   </span>
                   <button
                     onClick={() => {
-                      changeQuantity(chosenItem(room?.id)?.room_id, 'inc')
-                      console.log(">>>helllo");
-                      
+                      incQuantity(chosenItem(room?.id)?.room_id)
+                      console.log('>>>helllo')
                     }}
                     className="py-1 cursor-pointer"
                     // disabled={
