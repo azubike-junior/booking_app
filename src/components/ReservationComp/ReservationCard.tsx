@@ -80,7 +80,7 @@ const ReservationCard = ({
           console.log(">>>>>>inc", item.quantity );
           
           return item.room_id === room_id
-            ? { ...item, quantity: item.quantity++ }
+            ? { ...item, quantity: item.quantity + 1 }
             : item
         }
         if (action === 'dec') {
