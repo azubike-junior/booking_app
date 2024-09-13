@@ -12,6 +12,7 @@ import DatePicker from 'react-datepicker'
 import { FaMinus, FaPlus } from 'react-icons/fa'
 import { HiOutlineUserGroup } from 'react-icons/hi2'
 import { Carousel } from 'react-responsive-carousel'
+import BookingSummaryDrawer from '../Modals/BookingSummaryDrawer'
 import MoreRoomDetails from '../Modals/MoreRoomDetails'
 
 interface Room {
@@ -72,27 +73,28 @@ const ReservationCard = ({
       return item.room_id === id
     })
 
-  const incQuantity = (room_id: any) => {
+  const changeQuantity = (room_id: any, action: string) => {
     setCartItems((prev) => {
       return prev.map((item: RoomOrderProp) => {
-        return item.room_id === room_id
-          ? { ...item, quantity: item.quantity++ }
-          : item
+        if (action === 'inc') {
+          console.log(">>>>>>inc", item.quantity );
+          
+          return item.room_id === room_id
+            ? { ...item, quantity: item.quantity++ }
+            : item
+        }
+        if (action === 'dec') {
+          console.log(">>>>>deec", item.quantity );
+
+          return item.room_id === room_id
+            ? { ...item, quantity: item.quantity-- }
+            : item
+        }
+
+        return item
       })
     })
   }
-
-  const decQuantity = (room_id: any) => {
-    setCartItems((prev) => {
-      return prev.map((item: RoomOrderProp) => {
-        return item.room_id === room_id
-          ? { ...item, quantity: item.quantity-- }
-          : item
-      })
-    })
-  }
-
-  console.log('>>>>>>>cartItems', cartItems)
 
   const chosenItem = (id: string): any => {
     return cartItems.find((item) => item?.room_id === id)
@@ -250,7 +252,7 @@ const ReservationCard = ({
                       if (chosenItem(room?.id)?.quantity === 1) {
                         removeItem(chosenItem(room?.id)?.room_id)
                       }
-                      decQuantity(chosenItem(room?.id)?.room_id)
+                      changeQuantity(chosenItem(room?.id)?.room_id, 'dec')
                     }}
                     className="py-2 cursor-pointer"
                     disabled={
@@ -261,28 +263,20 @@ const ReservationCard = ({
                     <FaMinus />
                   </button>
                   <span className="border-l border-r px-3">
-                    {/* {!checkItemAdded(room?.id) &&
+                    {!checkItemAdded(room?.id) &&
                     !chosenItem(room?.id)?.quantity
                       ? 0
-                      : chosenItem(room.id)?.quantity} */}
-
-                    {chosenItem(room?.id)?.quantity}
+                      : chosenItem(room.id)?.quantity}
                   </span>
                   <button
                     onClick={() => {
-                      // incQuantity(chosenItem(room?.id)?.room_id)
-
-                      if (chosenItem(room?.id)?.quantity === 1) {
-                        // removeItem(chosenItem(room?.id)?.room_id)
-                        incQuantity(chosenItem(room?.id)?.room_id)
-                      }
-                      
+                      changeQuantity(chosenItem(room?.id)?.room_id, 'inc')
                     }}
                     className="py-1 cursor-pointer"
-                    // disabled={
-                    //   !checkItemAdded(room?.id) &&
-                    //   !chosenItem(room?.id)?.quantity
-                    // }
+                    disabled={
+                      !checkItemAdded(room?.id) &&
+                      !chosenItem(room?.id)?.quantity
+                    }
                   >
                     <FaPlus />
                   </button>
@@ -361,6 +355,7 @@ const ReservationCard = ({
         setOpenDetails={setOpenDetails}
         openDetails={openDetails}
       />
+
     </div>
   )
 }
