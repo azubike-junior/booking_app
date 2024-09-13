@@ -92,6 +92,9 @@ const ReservationCard = ({
     })
   }
 
+  console.log(">>>>>>>cartItems", cartItems);
+  
+
   const chosenItem = (id: string): any => {
     return cartItems.find((item) => item?.room_id === id)
   }
@@ -259,10 +262,14 @@ const ReservationCard = ({
                     <FaMinus />
                   </button>
                   <span className="border-l border-r px-3">
-                    {!checkItemAdded(room?.id) &&
+                    {/* {!checkItemAdded(room?.id) &&
                     !chosenItem(room?.id)?.quantity
                       ? 0
-                      : chosenItem(room.id)?.quantity}
+                      : chosenItem(room.id)?.quantity} */}
+                    
+                    {chosenItem(room?.id)?.quantity} 
+                    
+                    
                   </span>
                   <button
                     onClick={() => {
