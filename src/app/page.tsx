@@ -86,13 +86,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-full relative lato px-8 lg:px-0">
-          <p className="text-center w-full max-w-3xl mx-auto pt-10  lg:pt-0 text-sm lg:text-base">
-            {/* Increase your direct bookings by 30% with Bookteller’s Booking
-            Engine without paying additional commissions.  Make your hotel's
-            website your most effective source of reservations. */}
-            SEAMLESS INTEGRATION WITH HOTEL WEBSITES BTL (Bookteller) Engine
-            easily integrates with your hotel’s existing website, providing a
+        <section className="w-full relative lato px-8 lg:px-0  pt-10 ">
+
+          <h3 className="text-lg lg:text-xl text-center font-bold uppercase ">
+             SEAMLESS INTEGRATION WITH HOTEL WEBSITES
+          </h3>
+          <p className="text-center w-full max-w-3xl mx-auto text-sm lg:text-base pt-4">
+           
+            BTL (Bookteller) Engine easily integrates with your hotel’s existing website, providing a
             seamless booking experience for guests. The engine is designed to
             blend effortlessly with your site’s design, ensuring brand
             consistency and a smooth transition from browsing to booking.

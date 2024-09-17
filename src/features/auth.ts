@@ -84,9 +84,31 @@ export const authApi = api.injectEndpoints({
       },
       invalidatesTags: ['Accounts',]
     }),
+    contactUs: build.mutation<string, FormValues>({
+      query: (data) => ({
+        url: `/contact-us`,
+        method: 'POST',
+        data
+      }),
+      transformResponse: (res: any, meta, arg): any => {
+        const { toast } = arg
+        if (res.status === 200) {
+          toast({
+            title: 'successfully',
+            description: '',
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+            position: 'top-right',
+          })
+        }
+        
+        return {res: res.status}
+      },
+    }),
     
   })
 })
 
 
-export const {useCreateAccountMutation, useLoginMutation, useGetAccountQuery, useEditAccountMutation} = authApi
+export const {useCreateAccountMutation, useLoginMutation, useGetAccountQuery, useEditAccountMutation, useContactUsMutation} = authApi

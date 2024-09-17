@@ -41,7 +41,7 @@ export default function Signup() {
 
   return (
     <div className="flex justify-between h-screen">
-      <div className="hidden lg:block w-1/2 top-0 bottom-0  bg-[#00525DB2] fixed ">
+      <div className="hidden lg:block w-1/2 top-0 bottom-0  bg-[#00525DB2] lg:fixed ">
         <div className="px-24 mt-16">
           <Link href={'/'}>
             <Image
@@ -62,7 +62,7 @@ export default function Signup() {
           </div>
         </div>
       </div>
-      <div className="w-full lg:w-1/2 ml-[50%] bg-white rounded-l-[40px] px-8 lg:px-20">
+      <div className="w-full lg:w-1/2 lg:ml-[50%] bg-white rounded-l-[40px] px-8 lg:px-20">
         {response && (
           <Alert status="success" className="pt-6">
             <AlertIcon />

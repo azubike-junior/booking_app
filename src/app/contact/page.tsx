@@ -2,8 +2,10 @@
 
 import InputField from '@/components/shared/Input/index'
 import SharedLayout from '@/components/shared/SharedLayout'
+import { useContactUsMutation } from '@/features/auth'
 import { quickSand } from '@/utils/index'
 import { FormValues } from '@/utils/types'
+import { Spinner } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 
 export default function Contact() {
@@ -14,10 +16,21 @@ export default function Contact() {
     watch,
   } = useForm<FormValues>({})
 
+  const [submitContact, {isLoading}] = useContactUsMutation()
+
+  const submitForm = (data: FormValues) => {
+    console.log('>>>>>>data', data)
+
+    submitContact(data)
+  }
+
   return (
     <SharedLayout>
       <div className={`pb-20 quicksand`}>
-        <section className="bg-[#F2F7FF] pb-28">
+        <form
+          onSubmit={handleSubmit(submitForm)}
+          className="bg-[#F2F7FF] pb-28"
+        >
           <div className="px-6 md:px-10 max-w-[1062px] mx-auto pt-6 lg:flex lg:pt-4 justify-between lg:space-x-10 block">
             <div className="pt-2 lg:w-1/2">
               <div
@@ -33,63 +46,69 @@ export default function Contact() {
               <div className="space-y-3 lg:space-y-6 pt-10">
                 <div className="block space-y-3 lg:space-y-0  lg:flex lg:space-x-8">
                   <InputField
-                    name="phone_number"
+                    name="first_name"
                     label="First name"
                     type="text"
                     register={register}
                     required
                     placeHolder="Enter first name"
-                    message={'Phone is required'}
+                    errors={errors?.first_name}
+                    message={'First name is required'}
                   />
 
                   <InputField
-                    name="email_address"
+                    name="last_name"
                     label="Last name"
                     type="text"
                     register={register}
                     required
-                    placeHolder="Enter email"
-                    message={' Email is required'}
+                    errors={errors?.last_name}
+                    placeHolder="Enter last name"
+                    message={' Last name is required'}
                   />
                 </div>
 
                 <InputField
-                  name="email_address"
+                  name="email"
                   label="Email Address"
                   type="text"
                   register={register}
                   required
                   placeHolder="Enter email"
+                  errors={errors?.email}
                   message={' Email is required'}
                 />
 
                 <InputField
-                  name="email_address"
+                  name="phone_number"
                   label="Phone number"
-                  type="text"
+                  type="number"
                   register={register}
                   required
-                  placeHolder="Enter email"
-                  message={' Email is required'}
+                  placeHolder="Enter phone number"
+                  errors={errors?.phone_number}
+                  message={' Phone number is required'}
                 />
 
                 <InputField
                   textarea
-                  name="email_address"
+                  name="message"
                   label="Message"
                   type="text"
                   register={register}
                   required
                   placeHolder="Enter email"
-                  message={' Email is required'}
+                  errors={errors?.message}
+                  message={'A message is required'}
                 />
               </div>
 
-              <div
+              <button
                 className={`${quickSand.className} bg-_green  text-white text-sm  items-center flex  space-x-3 justify-center py-3 px-8 rounded-[10px] mt-10 w-full`}
+
               >
-                <p>Submit</p>
-              </div>
+                <p>{isLoading ? <Spinner/> : "Submit"}</p>
+              </button>
             </div>
 
             <div className="lg:w-1/2 pt-10">
@@ -100,7 +119,7 @@ export default function Contact() {
               />
             </div>
           </div>
-        </section>
+        </form>
       </div>
     </SharedLayout>
   )

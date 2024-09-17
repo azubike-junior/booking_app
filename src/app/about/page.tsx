@@ -57,7 +57,7 @@ export default function About() {
         <section className="max-w-[1062px] flex  mx-auto bg-white mt-28 px-6 md:px-10 space-x-6">
           <div>
             <h3
-              className={`text-[#111827] text-[18px] roboto font-bold lg:text-3xl xl:text-2xl tracking-wider space-y-3`}
+              className={`text-[#111827] text-[18px] roboto font-bold lg:text-xl tracking-wider space-y-3`}
             >
               Our Mission
             </h3>
@@ -71,7 +71,7 @@ export default function About() {
 
           <div>
             <h3
-              className={`text-[#111827] text-[18px] roboto font-bold lg:text-3xl xl:text-2xl tracking-wider space-y-3`}
+              className={`text-[#111827] text-[18px] roboto font-bold lg:text-xl tracking-wider space-y-3`}
             >
               Our Vision
             </h3>

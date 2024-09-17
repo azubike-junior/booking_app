@@ -4,9 +4,14 @@ export type FormValues = {
   firstname?: string
   lastname?: string
   email: string
-  password: string
+  password?: string
   phonenumber?: string
   confirmPassword?: string
+  message?: string
+  first_name?: string
+  last_name?: string
+  phone_number?: string
+
 }
 
 export type LoginResponse = {
