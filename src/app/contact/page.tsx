@@ -30,7 +30,7 @@ export default function Contact() {
                 Our friendly team would love to hear from you.
               </p>
 
-              <div className="space-y-3 lg:space-y-10 pt-10">
+              <div className="space-y-3 lg:space-y-6 pt-10">
                 <div className="block space-y-3 lg:space-y-0  lg:flex lg:space-x-8">
                   <InputField
                     name="phone_number"
