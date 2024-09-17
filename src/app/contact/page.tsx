@@ -18,7 +18,7 @@ export default function Contact() {
     <SharedLayout>
       <div className={`pb-20 quicksand`}>
         <section className="bg-[#F2F7FF] pb-28">
-          <div className="px-6 md:px-10 max-w-[1062px] mx-auto lg:flex lg:pt-10 justify-between lg:space-x-10 block">
+          <div className="px-6 md:px-10 max-w-[1062px] mx-auto pt-6 lg:flex lg:pt-4 justify-between lg:space-x-10 block">
             <div className="pt-2 lg:w-1/2">
               <div
                 className={`text-[#111827] text-[24px] roboto font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}
@@ -30,8 +30,8 @@ export default function Contact() {
                 Our friendly team would love to hear from you.
               </p>
 
-              <div className="space-y-10 pt-10">
-                <div className="block space-y-6 lg:space-y-0  lg:flex lg:space-x-8">
+              <div className="space-y-3 lg:space-y-10 pt-10">
+                <div className="block space-y-3 lg:space-y-0  lg:flex lg:space-x-8">
                   <InputField
                     name="phone_number"
                     label="First name"

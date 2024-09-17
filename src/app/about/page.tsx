@@ -19,7 +19,7 @@ export default function About() {
     <SharedLayout>
       <div className={`pb-20`}>
         <section className="bg-white">
-          <div className="px-6 md:px-10 max-w-[1062px]  mx-auto  lg:flex lg:pt-10 justify-between lg:space-x-10 space-y-10 lg:space-y-0 ">
+          <div className="px-6 md:px-10 max-w-[1062px]  mx-auto  lg:flex lg:pt-4 justify-between lg:space-x-10 space-y-10 lg:space-y-0 ">
             <div className="pt-10 lg:w-1/2">
               <div
                 className={`text-[#111827] text-[24px] roboto font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}
@@ -28,20 +28,12 @@ export default function About() {
               </div>
 
               <p className="w-full pt-6 text-lg text-[#374151] tahoma-light font-light tracking-wider">
-                Bookteller International is a prime provider of innovative
-                solutions in the hospitality industry. As a Google Hotel
-                connectivity partner and Microsoft hotel ads expert, we
-                specialize in empowering hotels to optimize their online
-                presence and maximize direct bookings from travelers worldwide.
+                BTL Engine (Bookteller Engine) is a state-of-the-art hotel booking engine developed by Bookteller, specifically designed to help hotels attract more direct bookings, reduce reliance on third-party platforms, and boost revenue. The engine is built with cutting-edge technology, ensuring seamless integration with hotel websites, an intuitive user experience, and powerful management tools.
+
               </p>
 
               <p className="w-full pt-6 text-lg text-[#374151] tahoma-light font-light tracking-wider">
-                At Bookteller International, we offer a state-of-the-art booking
-                engine that seamlessly integrates with hotel websites, enabling
-                them to efficiently attract and convert potential guests into
-                confirmed bookings. Our technology is designed to streamline the
-                booking process, enhance user experience, and drive revenue
-                growth for our hotel partners.
+               One of the most notable features of BTL Engine is its integration with Google's free booking link. We are a Microsoft hotel ads expert and a Google Hotel connectivity partner, and our expertise is in enabling hotels to optimise their online presence. This feature improves the visibility of your hotel on Google's meta-search engine, thereby increasing the probability of securing direct reservations and driving more traffic to your direct booking channel.
               </p>
 
               <Link
@@ -65,7 +57,7 @@ export default function About() {
         <section className="max-w-[1062px] flex  mx-auto bg-white mt-28 px-6 md:px-10 space-x-6">
           <div>
             <h3
-              className={`text-[#111827] text-[24px] roboto font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}
+              className={`text-[#111827] text-[18px] roboto font-bold lg:text-3xl xl:text-2xl tracking-wider space-y-3`}
             >
               Our Mission
             </h3>
@@ -79,7 +71,7 @@ export default function About() {
 
           <div>
             <h3
-              className={`text-[#111827] text-[24px] roboto font-bold lg:text-3xl xl:text-4xl tracking-wider space-y-3`}
+              className={`text-[#111827] text-[18px] roboto font-bold lg:text-3xl xl:text-2xl tracking-wider space-y-3`}
             >
               Our Vision
             </h3>

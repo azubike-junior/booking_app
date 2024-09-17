@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
-import { IoChevronBack } from 'react-icons/io5'
 
 export default function Signup() {
   const router = useRouter()
@@ -42,11 +41,11 @@ export default function Signup() {
 
   return (
     <div className="flex justify-between h-screen">
-      <div className="hidden lg:block w-1/2  bg-[#00525DB2] ">
+      <div className="hidden lg:block w-1/2 top-0 bottom-0  bg-[#00525DB2] fixed ">
         <div className="px-24 mt-16">
           <Link href={'/'}>
             <Image
-              src="/whitelogo.svg"
+              src="/bookteller.svg"
               width={250}
               height={200}
               alt="bookteller"
@@ -63,7 +62,7 @@ export default function Signup() {
           </div>
         </div>
       </div>
-      <div className="w-full lg:w-1/2 bg-white rounded-l-[40px] px-8 lg:px-20">
+      <div className="w-full lg:w-1/2 ml-[50%] bg-white rounded-l-[40px] px-8 lg:px-20">
         {response && (
           <Alert status="success" className="pt-6">
             <AlertIcon />
@@ -82,18 +81,18 @@ export default function Signup() {
           />
         </Link>
 
-        <div className="mx-auto mt-16 max-w-[500px]">
+        <div className="mx-auto my-16 max-w-[500px]">
           <div className="flex justify-center space-x-6 items-center">
             <p
               className={`quicksand text-center text-[#111827] text-xl lg:text-3xl`}
             >
-              Create Your BookTeller Account
+              Create Your Bookteller Account
             </p>
           </div>
 
           <form
             onSubmit={handleSubmit(signupHandler)}
-            className={`lato space-y-6 my-10 lg:mt-20`}
+            className={`lato space-y-6 my-10 lg:mt-10`}
           >
             <div className="block space-y-6 lg:space-y-0 lg:flex lg:space-x-6">
               <InputField

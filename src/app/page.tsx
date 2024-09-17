@@ -88,15 +88,20 @@ export default function Home() {
 
         <section className="w-full relative lato px-8 lg:px-0">
           <p className="text-center w-full max-w-3xl mx-auto pt-10  lg:pt-0 text-sm lg:text-base">
-            Increase your direct bookings by 30% with Bookteller’s Booking
+            {/* Increase your direct bookings by 30% with Bookteller’s Booking
             Engine without paying additional commissions.  Make your hotel's
-            website your most effective source of reservations.
+            website your most effective source of reservations. */}
+            SEAMLESS INTEGRATION WITH HOTEL WEBSITES BTL (Bookteller) Engine
+            easily integrates with your hotel’s existing website, providing a
+            seamless booking experience for guests. The engine is designed to
+            blend effortlessly with your site’s design, ensuring brand
+            consistency and a smooth transition from browsing to booking.
           </p>
 
-          <p className="max-w-[400px] pt-6 mx-auto text-center text-sm lg:text-base">
+          {/* <p className="max-w-[400px] pt-6 mx-auto text-center text-sm lg:text-base">
             Increase Your Occupancy Rate with Direct Bookings
             <br />- No Commission Fees
-          </p>
+          </p> */}
 
           <h3 className="text-lg lg:text-xl text-center font-bold pt-10 uppercase ">
             Why you need direct bookings
@@ -108,13 +113,13 @@ export default function Home() {
             travelers and drive direct bookings to your properties.
           </p>
 
-          <div className="grid grid-cols-1 px-2 lg:px-0 md:grid-cols-2 lg:grid-cols-3 grid-rows-2 gap-6 mt-14   max-w-5xl mx-auto">
-            <SuiteDetail
+          <div className="grid grid-cols-1 px-2 lg:px-10 md:grid-cols-2 lg:grid-cols-3 grid-rows-1 gap-6 mt-14   max-w-5xl mx-auto">
+            {/* <SuiteDetail
               img={'/bookPrice.svg'}
               title=" Innovate Continuously"
               subtitle="By leveraging cutting-edge technology, we aim to provide intuitive and efficient booking solutions that cater to the evolving needs of both travelers and hoteliers.
 "
-            />
+            /> */}
             <SuiteDetail
               img={'/personalize.svg'}
               title="Personalized Experience"
@@ -125,11 +130,11 @@ export default function Home() {
               title="Flexibility and Transparency"
               subtitle="With direct booking, you have full control over your reservation, from making changes to cancellations. Enjoy peace of mind knowing that your booking details are transparent and easily accessible, without the hassle of intermediaries."
             />
-            <SuiteDetail
+            {/* <SuiteDetail
               img={'/access.svg'}
               title="Accept Secure Online Payments"
               subtitle=" Integrate a secured payment gateway into your website to provide quick, safe, and easy payment processing for you and your guests."
-            />
+            /> */}
             <SuiteDetail
               img="/access.svg"
               title="Our Direct Booking Partners"
