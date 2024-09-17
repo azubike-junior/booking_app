@@ -10,7 +10,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 
 export default function Login() {
@@ -43,12 +42,7 @@ export default function Login() {
       <div className="hidden lg:block w-1/2 bg-[#00525DB2]">
         <div className="px-24 mt-16">
           <Link href="/">
-            <Image
-              src="/whitelogo.svg"
-              width={250}
-              height={200}
-              alt="bookteller"
-            />
+            <Image src="/white.png" width={250} height={200} alt="bookteller" />
           </Link>
 
           <div className="mt-36">

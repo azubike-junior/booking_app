@@ -45,7 +45,7 @@ export default function Signup() {
         <div className="px-24 mt-16">
           <Link href={'/'}>
             <Image
-              src="/bookteller.svg"
+              src="/white.png"
               width={250}
               height={200}
               alt="bookteller"
