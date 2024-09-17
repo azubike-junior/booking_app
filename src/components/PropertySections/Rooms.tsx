@@ -111,10 +111,10 @@ export default function Rooms({ property, room }: prop) {
     details = !r ? rooms[0] : r
   }
 
-  console.log('>>>>>>room', details)
+  // console.log('>>>>>>room', details)
 
   const base_url = `
-    https://candid-sherbet-40f282.netlify.app/reservation/${details?.slug}
+    https://btlengine.com/reservation/${details?.slug}
     `
 
   const publishLink = async () => {

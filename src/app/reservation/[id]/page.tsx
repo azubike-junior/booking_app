@@ -21,6 +21,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { IoCloseSharp } from 'react-icons/io5'
 import { MdOutlineArrowBackIos } from 'react-icons/md'
 
+
+
 const Reservations = () => {
   const params = useParams<{ id: string }>()
   const [bg, setbg] = useState<any>(null)
