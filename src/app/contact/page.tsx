@@ -14,14 +14,14 @@ export default function Contact() {
     handleSubmit,
     formState: { errors },
     watch,
+    reset
   } = useForm<FormValues>({})
 
   const [submitContact, {isLoading}] = useContactUsMutation()
 
   const submitForm = (data: FormValues) => {
-    console.log('>>>>>>data', data)
-
     submitContact(data)
+    reset()
   }
 
   return (

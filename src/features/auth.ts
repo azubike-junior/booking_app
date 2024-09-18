@@ -91,16 +91,11 @@ export const authApi = api.injectEndpoints({
         data
       }),
       transformResponse: (res: any, meta, arg): any => {
-        const { toast } = arg
         if (res.status === 200) {
-          toast({
-            title: 'successfully',
-            description: '',
-            status: 'success',
-            duration: 9000,
-            isClosable: true,
-            position: 'top-right',
-          })
+          toast.success(
+            "Your message has been sent successfully"
+          )
+          
         }
         
         return {res: res.status}

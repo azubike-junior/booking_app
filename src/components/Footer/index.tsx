@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { FaFacebook, FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
@@ -12,13 +11,7 @@ export default function Footer() {
       >
         <Link href={'/'}>
           <img src="/bookteller.svg" alt="" className=" w-40 md:w-[150px]" />
-          <Image
-            src={'/ssl.svg'}
-            width={40}
-            height={40}
-            alt="ssl"
-            className="pt-2"
-          />
+          <img src="/ssl.svg" alt="" className=" w-14" />
         </Link>
 
         <div className="grid grid-cols-2 gap-10  lg:flex justify-between w-full">
