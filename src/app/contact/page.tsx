@@ -6,6 +6,7 @@ import { useContactUsMutation } from '@/features/auth'
 import { quickSand } from '@/utils/index'
 import { FormValues } from '@/utils/types'
 import { Spinner } from '@chakra-ui/react'
+import Script from 'next/script'
 import { useForm } from 'react-hook-form'
 
 export default function Contact() {
@@ -14,10 +15,10 @@ export default function Contact() {
     handleSubmit,
     formState: { errors },
     watch,
-    reset
+    reset,
   } = useForm<FormValues>({})
 
-  const [submitContact, {isLoading}] = useContactUsMutation()
+  const [submitContact, { isLoading }] = useContactUsMutation()
 
   const submitForm = (data: FormValues) => {
     submitContact(data)
@@ -26,6 +27,19 @@ export default function Contact() {
 
   return (
     <SharedLayout>
+      <Script id='script'  src="https://static.elfsight.com/platform/platform.js"
+          data-use-service-core
+          defer>
+        {/* <script
+          src="https://static.elfsight.com/platform/platform.js"
+          data-use-service-core
+          defer
+        ></script> */}
+        <div
+          className="elfsight-app-88645a73-887a-4718-890a-20f925c87145"
+          data-elfsight-app-lazy
+        ></div>
+      </Script>
       <div className={`pb-20 quicksand`}>
         <form
           onSubmit={handleSubmit(submitForm)}
@@ -105,9 +119,8 @@ export default function Contact() {
 
               <button
                 className={`${quickSand.className} bg-_green  text-white text-sm  items-center flex  space-x-3 justify-center py-3 px-8 rounded-[10px] mt-10 w-full`}
-
               >
-                <p>{isLoading ? <Spinner/> : "Submit"}</p>
+                <p>{isLoading ? <Spinner /> : 'Submit'}</p>
               </button>
             </div>
 

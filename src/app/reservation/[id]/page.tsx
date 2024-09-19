@@ -133,7 +133,6 @@ const Reservations = () => {
               <div className="max-w-[1400px] px-10 mx-auto">
                 <div className={`lato  w-full h-[350px]`}>
                   <div
-                    style={{ color: textColor }}
                     className="mt-4  text-white md:flex  md:space-x-6"
                   >
                     <MdOutlineArrowBackIos
@@ -191,7 +190,7 @@ const Reservations = () => {
                 openCheckout={openCheckout}
               />
             ) : (
-              <div className="lato xl:w-[1400px] mx-auto h-full flex p-10 lg:px-6 gap-5 xl:gap-10 justify-between relative">
+              <div className="lato xl:w-[1400px] mx-auto h-full flex p-10 lg:px-10 gap-5 xl:gap-10 justify-between relative ">
                 <div className=" lg:w-[800px] xl:w-[900px] mx-auto space-y-10">
                   {allRooms?.map((p: any, index: number) => {
                     return (
@@ -218,8 +217,8 @@ const Reservations = () => {
                   })}
                 </div>
 
-                <div className="w-[350px] sticky top-5 right-0 h-screen hidden lg:block">
-                  <div className="border-[#F2F4F7] border-[0.2px] shadow-md shadow-[#7090B01A] w-full rounded-lg h-full">
+                <div className="w-[350px] hidden lg:block mb-20">
+                  <div className="border-[#F2F4F7] sticky top-5 min-h-[500px]  max-h-[700px] right-0  border-[0.2px] shadow-md shadow-[#7090B01A] w-full rounded-lg overflow-scroll ">
                     <p className="text-center border-b pb-4 py-6 text-[#673816]">
                       Booking Summary
                     </p>
@@ -355,7 +354,7 @@ const Reservations = () => {
               //   width: '100%',
               
             }}
-            className=" py-14 px-10 lg:px-0 mt-72 z-30"
+            className=" py-14 px-10 lg:px-10 mt-72 z-30"
           >
             <div className="flex justify-center xl:justify-between xl:max-w-[1400px] mx-auto items-center">
               <div className="flex items-center">
@@ -396,7 +395,7 @@ const Reservations = () => {
                     apply
                   </p>
                   <p className="pt-3">
-                    Copyright © 2024 Hotels.com All Rights Reserved.
+                     Copyright © 2024 BTL Engine
                   </p>
                 </div>
               </div>

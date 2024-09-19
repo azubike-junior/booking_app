@@ -11,7 +11,7 @@ export default function Footer() {
       >
         <Link href={'/'}>
           <img src="/bookteller.svg" alt="" className=" w-40 md:w-[150px]" />
-          <img src="/ssl.svg" alt="" className=" w-14" />
+          <img src="/SSL.svg" alt="" className=" w-12" />
         </Link>
 
         <div className="grid grid-cols-2 gap-10  lg:flex justify-between w-full">
