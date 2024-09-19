@@ -42,6 +42,13 @@ export const authApi = api.injectEndpoints({
         return res.status
       },
       transformErrorResponse: (res: any) => {
+
+        if (res.status === 500) {
+            toast.error(
+             res.data.error
+            )
+        }
+        
         
         if (res.status === 400) {
              toast.error(
