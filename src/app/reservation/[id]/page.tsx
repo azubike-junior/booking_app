@@ -13,6 +13,7 @@ import {
 import { getItem, _convertDateFormat } from '@/utils'
 import { RoomOrderProp } from '@/utils/types'
 import { Spinner } from '@chakra-ui/react'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
@@ -20,8 +21,6 @@ import { useLayoutEffect, useState } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import { IoCloseSharp } from 'react-icons/io5'
 import { MdOutlineArrowBackIos } from 'react-icons/md'
-
-
 
 const Reservations = () => {
   const params = useParams<{ id: string }>()
@@ -108,6 +107,19 @@ const Reservations = () => {
 
   return (
     <>
+      <Head>
+        <meta
+          name="keywords"
+          content="hotel booking engine, free booking engine, Booking engine 
+            for hotels, booking engine examples, direct booking site, Booking extranet, hotel booking 
+            discount, Hotels deals, commission free booking, book direct"
+                    ></meta>
+        <meta
+          name="description"
+          content={`${property?.name}, booking is powered by btlengine.com`}
+        ></meta>
+      </Head>
+
       {loadingProperty || loadingRoomDetails || isLoading ? (
         <div className="flex justify-center items-center pb-6 mt-20">
           <Spinner />
@@ -132,9 +144,7 @@ const Reservations = () => {
             >
               <div className="max-w-[1400px] px-10 mx-auto">
                 <div className={`lato  w-full h-[350px]`}>
-                  <div
-                    className="mt-4  text-white md:flex  md:space-x-6"
-                  >
+                  <div className="mt-4  text-white md:flex  md:space-x-6">
                     <MdOutlineArrowBackIos
                       color="white"
                       size={24}
@@ -352,7 +362,6 @@ const Reservations = () => {
               // position: 'absolute',
               // bottom: 0,
               //   width: '100%',
-              
             }}
             className=" py-14 px-10 lg:px-10 mt-72 z-30"
           >
@@ -394,12 +403,9 @@ const Reservations = () => {
                     </span>{' '}
                     apply
                   </p>
-                  <p className="pt-3">
-                     Copyright © 2024 BTL Engine
-                  </p>
+                  <p className="pt-3">Copyright © 2024 BTL Engine</p>
                 </div>
               </div>
-             
 
               {user?.current_subscription === 'Business' && (
                 <div className="flex space-x-6">

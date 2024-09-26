@@ -11,7 +11,7 @@ export default function Footer() {
       >
         <Link href={'/'}>
           <img src="/bookteller.svg" alt="" className=" w-40 md:w-[150px]" />
-          <img src="/SSL.svg" alt="" className=" w-12" />
+          <img src="/commad.png" alt="" className=" w-20" />
         </Link>
 
         <div className="grid grid-cols-2 gap-10  lg:flex justify-between w-full">
@@ -126,7 +126,7 @@ export default function Footer() {
       {/* <hr /> */}
 
       <p className="text-center py-6 text-sm text-[#717E83]">
-        Copyright © 2024 BTL Engine
+       
       </p>
     </div>
   )

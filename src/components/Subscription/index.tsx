@@ -126,7 +126,7 @@ export default function Subscription({
                 <p className="flex space-x-3 items-center">
                   <IoCheckmark size={20} color="#34C759" />{' '}
                   <span className=" text-base">
-                    {index === 2 ? 'Unlimited' : '30'} bookings monthly
+                    {index === 2 ? 'Unlimited' : bookings} bookings monthly
                   </span>
                 </p>
 
@@ -165,7 +165,7 @@ export default function Subscription({
                     <p className="flex space-x-3 items-center">
                       <IoCheckmark size={20} color="#34C759" />{' '}
                       <span className=" text-base">{`Show booking history, up to  ${
-                        name === 'Premium' ? '3 Months' : '1 year'
+                        name === 'Standard' ? '3 Months' : '1 year'
                       } `}</span>
                     </p>
                   )}
@@ -194,7 +194,7 @@ export default function Subscription({
                     <p className="flex space-x-3 items-center">
                       <IoCheckmark size={20} color="#34C759" />{' '}
                       <span className=" text-base">
-                        Google hotel Ads weekly (bi weekly)
+                        Free Google Hotel Ads support
                       </span>
                     </p>
                   )}
@@ -202,7 +202,7 @@ export default function Subscription({
                     <p className="flex space-x-3 items-center">
                       <IoCheckmark size={20} color="#34C759" />{' '}
                       <span className=" text-base">
-                        Microsoft hotel Ads weekly (Upon request)
+                        Free Microsoft hotel Ads support
                       </span>
                     </p>
                   )}
@@ -211,7 +211,7 @@ export default function Subscription({
                     <p className="flex space-x-3 items-center">
                       <IoCheckmark size={20} color="#34C759" />{' '}
                       <span className=" text-base">
-                        Eligible for free dedicated ads support on Google
+                       Free Facebook hotel Ads support
                       </span>
                     </p>
                   )}

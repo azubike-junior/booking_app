@@ -11,10 +11,14 @@ export default function PropertyToggle({
   clickedSection,
   property,
 }: prop) {
+
+  console.log(">>>property", property);
+  
+
   return (
     <div className="flex w-full lg:w-6/12 xl:w-5/12 border-[0.3px] bg-white shadow-slate-200 shadow-md  items-center rounded-[50px] h-14 text-sm xl:text-base">
       <button
-        disabled={!property}
+        // disabled={!property}
         onClick={() => setClickedSection('properties')}
         className={`h-full rounded-[50px] flex justify-center items-center w-full cursor-pointer ${
           clickedSection === 'properties'
@@ -25,7 +29,7 @@ export default function PropertyToggle({
         Property
       </button>
       <button
-        disabled={!property}
+        // disabled={!property}
         onClick={() => setClickedSection('rooms')}
         className={` h-full rounded-[50px] flex justify-center items-center w-full cursor-pointer ${
           clickedSection === 'rooms' ? 'bg-[#1A2B47] text-white' : 'text-black'
@@ -34,7 +38,7 @@ export default function PropertyToggle({
         Rooms
       </button>
       <button
-        disabled={!property}
+        // disabled={!property}
         onClick={() => setClickedSection('settings')}
         className={` h-full rounded-[50px] flex justify-center items-center w-full cursor-pointer ${
           clickedSection === 'settings'

@@ -38,10 +38,11 @@ export default function SummaryCard({ title, emptyString, data, type }: prop) {
     'Dec',
   ]
 
+
   let impressions
 
-  if (data) {
-    impressions = Object.entries(data?.property_impressions).map(
+  if (data?.property_impressions) {
+    impressions = Object.entries(data?.property_impressions)?.map(
       ([monthNumber, impressions]) => ({
         name: monthNames[parseInt(monthNumber) - 1],
         imp: impressions,

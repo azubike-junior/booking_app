@@ -33,11 +33,7 @@ export default function RegisterProperty() {
     handleSubmit,
     formState: { errors },
   } = useForm<PropertyProp>({})
-  const [loading, setLoading] = useState(false)
   const toast = useToast()
-  const [imgUrl, setImgUrl] = useState('')
-  const [logoUrl, setLogoUrl] = useState('')
-  const [logoLoading, setLogoLoading] = useState(false)
   const [colorModals, setColorModals] = useState({
     primaryColor: false,
     secondaryColor: false,
@@ -79,20 +75,14 @@ export default function RegisterProperty() {
 
   const imageRef = useRef() as MutableRefObject<HTMLInputElement>
   const imageTwoRef = useRef() as MutableRefObject<HTMLInputElement>
-  const imageThreeRef = useRef() as MutableRefObject<HTMLInputElement>
 
   const [imageLoading, setImageLoading] = useState(false)
   const [imageTwoLoading, setImageTwoLoading] = useState(false)
-  const [imageThreeLoading, setImageThreeLoading] = useState(false)
 
   const [
     createProperty,
     { isLoading, error, data },
   ] = useCreatePropertyMutation()
-
-  const fileRef = useRef() as MutableRefObject<HTMLInputElement>
-
-  const logoRef = useRef() as MutableRefObject<HTMLInputElement>
 
   async function propertyHandler(data: PropertyProp) {
     if (!image || !imageTwo) {
@@ -132,8 +122,6 @@ export default function RegisterProperty() {
       primary_color,
       ...rest
     } = data
-
-    // console.log(">>>>>dataa", data);
 
     createProperty({
       toast,

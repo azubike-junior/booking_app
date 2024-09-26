@@ -9,8 +9,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Book Teller',
-  description: 'Booking Engine',
+  title: 'BTL Engine | Direct Booking Engine | Commission Free',
+  description: 'BTL Engine',
   icons: '/favicon.ico'
 }
 

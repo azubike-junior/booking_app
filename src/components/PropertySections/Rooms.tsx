@@ -236,7 +236,6 @@ export default function Rooms({ property, room }: prop) {
     }
   }, [details?.image_one, details?.image_two, details?.image_three])
 
-  // console.log('>>>>>>>data adulst', allAmenities)
 
   const handleCheckboxChange = (index: number) => {
     const updatedAmenities = allAmenities.map((amenity, i) =>
@@ -279,6 +278,9 @@ export default function Rooms({ property, room }: prop) {
     editRoom(new_data)
   }
 
+  console.log(">>.rooms", rooms);
+  
+
   return (
     <div>
       {isLoading ? (
@@ -287,7 +289,7 @@ export default function Rooms({ property, room }: prop) {
         </div>
       ) : (
         <>
-          {rooms?.length === 0 ? (
+          {!rooms ? (
             <EmptyState
               message="You currently do not have a room registered under this property."
               btnText="Create a Room"
