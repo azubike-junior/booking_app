@@ -1,7 +1,7 @@
 import { useGetAccountQuery } from '@/features/auth'
 import {
   useMakePaymentMutation,
-  useSubscriptionPlansQuery
+  useSubscriptionPlansQuery,
 } from '@/features/reservations'
 import { getItem } from '@/utils'
 import { SubscriptionProp } from '@/utils/types'
@@ -108,7 +108,18 @@ export default function Subscription({
                 </div>
 
                 <h3 className="text-2xl font-semibold">
-                  {annual_cost === 0 ? 'Free' : `$ ${monthly_cost}`}{' '}
+                  {monthly_cost === 0 ? (
+                    <span>
+                      $0 <span className="text-sm text-[#798489] ">/mo</span>
+                    </span>
+                  ) : (
+                    <>
+                      <span>
+                        {`$${monthly_cost}`}{' '}
+                        <span className="text-sm text-[#798489] ">/mo</span>
+                      </span>
+                    </>
+                  )}
                 </h3>
               </div>
 
@@ -158,7 +169,7 @@ export default function Subscription({
                   {pay_online === 1 && (
                     <p className="flex space-x-3 items-center">
                       <IoCheckmark size={20} color="#34C759" />{' '}
-                      <span className=" text-base">Pay on online</span>
+                      <span className=" text-base">Pay online</span>
                     </p>
                   )}
                   {show_booking_history === 1 && (
@@ -211,7 +222,7 @@ export default function Subscription({
                     <p className="flex space-x-3 items-center">
                       <IoCheckmark size={20} color="#34C759" />{' '}
                       <span className=" text-base">
-                       Free Facebook hotel Ads support
+                        Free Facebook hotel Ads support
                       </span>
                     </p>
                   )}
@@ -219,25 +230,25 @@ export default function Subscription({
               </div>
 
               {/* {index !== 0 && ( */}
-                <div className="flex justify-center items-center py-4 cursor-pointer">
-                  {scroll === index ? (
-                    <IoIosArrowUp
-                      onClick={() => index === 0 ? null :   setScroll(5)}
-                      size={20}
-                      className="text-center"
-                    />
-                  ) : (
-                    <IoIosArrowDown
-                      onClick={() => index === 0 ? null :  setScroll(index)}
-                      size={20}
-                      className="text-center"
-                    />
-                  )}
-                </div>
+              <div className="flex justify-center items-center py-4 cursor-pointer">
+                {scroll === index ? (
+                  <IoIosArrowUp
+                    onClick={() => (index === 0 ? null : setScroll(5))}
+                    size={20}
+                    className="text-center"
+                  />
+                ) : (
+                  <IoIosArrowDown
+                    onClick={() => (index === 0 ? null : setScroll(index))}
+                    size={20}
+                    className="text-center"
+                  />
+                )}
+              </div>
               {/* )} */}
 
               <button
-                type='button'
+                type="button"
                 disabled={index === 0}
                 onClick={() => {
                   setOpenSubDetails(true)
