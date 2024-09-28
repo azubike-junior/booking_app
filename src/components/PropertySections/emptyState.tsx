@@ -19,8 +19,8 @@ export default function EmptyState({
 }: prop) {
   return (
     <div>
-      <div className="shadow-md shadow-slate-200 w-7/12 flex justify-center items-center mx-auto lato py-6 mt-6 px-4 ">
-        <div className="border-dashed border-[#969DAA]  border-[1px] w-full py-20">
+      <div className="lg:shadow-md lg:shadow-slate-200 lg:w-7/12 flex justify-center items-center mx-auto lato py-6 mt-6 px-4 ">
+        <div className="lg:border-dashed lg:border-[#969DAA]  lg:border-[1px] w-full py-20">
           <div className="">
             <Image
               src={'/empty.svg'}

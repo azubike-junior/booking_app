@@ -7,14 +7,14 @@ export default function Footer() {
   return (
     <div className="max-w-[1062px] mx-auto px-8 md:px-10 text-sm">
       <div
-        className={`lato flex space-x-10 lg:space-x-20 justify-between pb-6`}
+        className={`lato flex justify-between  space-x-20 lg:space-x-20  pb-6`}
       >
         <Link href={'/'}>
-          <img src="/bookteller.svg" alt="" className=" w-40 md:w-[150px]" />
+          <img src="/bookteller.svg" alt="" className=" w-80 md:w-[150px]" />
           <img src="/commad.png" alt="" className=" w-20" />
         </Link>
 
-        <div className="grid grid-cols-2 gap-10  lg:flex justify-between w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10  lg:flex justify-between w-full">
           <div className="space-y-3 text-[#717E83] font-light">
             <p className=" text-_green font-semibold ">Company</p>
             <p>
@@ -80,7 +80,7 @@ export default function Footer() {
             {/* <p>Partner</p> */}
             <p> +2348150367790</p>
             <p>support@bookteller.ng</p>
-            <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+            <div className="flex space-x-3">
               <Link
                 passHref
                 legacyBehavior

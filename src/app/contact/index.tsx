@@ -8,6 +8,8 @@ import { FormValues } from '@/utils/types'
 import { Spinner } from '@chakra-ui/react'
 import Head from 'next/head'
 import Script from 'next/script'
+import { useState } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 
 export default function ContactPage() {
@@ -20,6 +22,11 @@ export default function ContactPage() {
   } = useForm<FormValues>({})
 
   const [submitContact, { isLoading }] = useContactUsMutation()
+  const [recaptchaValidation, setRecaptchaValidation] = useState(true)
+
+  async function onChange() {
+    setRecaptchaValidation(false)
+  }
 
   const submitForm = (data: FormValues) => {
     submitContact(data)
@@ -103,7 +110,7 @@ export default function ContactPage() {
                   Our friendly team would love to hear from you.
                 </p>
 
-                <div className="space-y-3 lg:space-y-6 pt-10">
+                <div className="space-y-3 lg:space-y-6 pt-10 pb-6">
                   <div className="block space-y-3 lg:space-y-0  lg:flex lg:space-x-8">
                     <InputField
                       name="first_name"
@@ -163,8 +170,14 @@ export default function ContactPage() {
                   />
                 </div>
 
+                <ReCAPTCHA
+                  sitekey="6LcjYTgqAAAAAP3hn9YT1sIPESxieOypWTqPqja8"
+                  onChange={onChange}
+                />
+
                 <button
-                  className={`${quickSand.className} bg-_green  text-white text-sm  items-center flex  space-x-3 justify-center py-3 px-8 rounded-[10px] mt-10 w-full`}
+                  className={`${quickSand.className} bg-_green  text-white text-sm  items-center flex  space-x-3 justify-center py-3 px-8 rounded-[10px] mt-6 w-full`}
+                  disabled={recaptchaValidation}
                 >
                   <p>{isLoading ? <Spinner /> : 'Submit'}</p>
                 </button>

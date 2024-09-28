@@ -474,7 +474,7 @@ export default function Rooms({ property, room }: prop) {
                         {`${property?.currency}`} {details?.price.toLocaleString()}
                       </h3>
                     )}
-                    <span className="text-[#798489]">/Per month</span>
+                    <span className="text-[#798489]">/Per night</span>
                   </div>
 
                   {details?.published === 1 ? (
