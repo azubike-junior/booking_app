@@ -214,7 +214,7 @@ const SubscriptionDetails = ({
               <div className=" bg-white border-[#E6E6E6] border-[0.3px] flex space-x-2 px-2  shadow mt-2 rounded-lg">
                 <select name="" id="" className="">
                   <option value="" key="">
-                    {currency}
+                    USD
                   </option>
                 </select>
                 <input

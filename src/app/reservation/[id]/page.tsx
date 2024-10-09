@@ -8,7 +8,7 @@ import { useGetAccountQuery } from '@/features/auth'
 import {
   useGetPropertyQuery,
   useGetRoomByPropertyIdQuery,
-  useGetRoomBySlugQuery,
+  useGetRoomBySlugQuery
 } from '@/features/property'
 import { getItem, _convertDateFormat } from '@/utils'
 import { RoomOrderProp } from '@/utils/types'
@@ -96,6 +96,10 @@ const Reservations = () => {
   let allRooms
 
   if (otherRooms) {
+    console.log(">>>>>allRooms", otherRooms);
+
+    const publishedRooms = otherRooms?.map((room) => room.published)
+    
     allRooms = checkRooms([...otherRooms])
   }
 

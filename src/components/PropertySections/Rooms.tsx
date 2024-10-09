@@ -436,7 +436,7 @@ export default function Rooms({ property, room }: prop) {
                   </div>
 
                   <div className="bg-[#FFFAF7] space-y-4 rounded-lg shadow-sm p-4 px-4 mt-4 text-sm lg:text-base h-[60%] xl:h-[70%] overflow-scroll ">
-                    {rooms?.map((room, index) => {
+                    {rooms?.map((room: RoomProps, index: number) => {
                       return (
                         <RoomCard
                           room={room}
