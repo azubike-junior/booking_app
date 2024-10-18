@@ -57,8 +57,8 @@ export default function Home() {
       <SharedLayout>
         <div className={`pb-20 quicksand flex-grow`}>
           <section className="bg-[#F2F7FF] slanted">
-            <div className="px-6 md:px-10 max-w-[1062px] mx-auto flex lg:pt-10 ">
-              <div className="pt-10 lg:pt-28">
+            <div className="px-6 md:px-10 max-w-[1062px] mx-auto flex lg:pt-10 justify-between">
+              <div className="pt-10 lg:pt-18 ">
                 <div
                   className={`text-[#111827] tahoma font-black  tracking-wider  space-y-1 md:space-y-3.5`}
                 >
@@ -81,7 +81,7 @@ export default function Home() {
                   </p>
                 </div>
 
-                <p className="lg:w-[48%] pt-6 text-base text-[#374151] font-medium text-left tracking-wider">
+                <p className="lg:w-[60%] pt-6 text-base text-[#374151] font-medium  tracking-wider">
                   Increase your direct bookings by up to 20% with Bookteller
                   Booking Engine without paying additional commissions.  Make
                   your hotel's website your most effective source of
@@ -107,28 +107,33 @@ export default function Home() {
                     alt="bg_img"
                     className="lg:block z-10 mx-auto"
                   />
-
-                  {/* <img
-                  src="/sm-crop.png"
-                  alt="phone"
-                  className="hidden md:flex w-[30%] _graph"
-                /> */}
                 </div>
               </div>
 
-              <Image
-                src={'/phone.webp'}
-                width={400}
-                height={500}
-                alt="bg_img"
-                className="phone-image hidden lg:block  z-10"
-              />
+              <div className=" w-full xl:mt-20 hidden lg:block">
+                <Image
+                  src={'/phone.webp'}
+                  // width={300}
+                  // height={800}
+                  alt="bg_img"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className=" object-contain lg:pl-72  xl:ml-[11rem] mt-10 xl:mt-10 md:hidden lg:block z-10"
+                />
+              </div>
 
               <div className="mt-32">
-                <img
+                <Image
                   src="/sm-crop.png"
                   alt=""
-                  className="graph hidden lg:block z-1 w-[30%]"
+                  width={200}
+                  height={500}
+                  className="graph hidden lg:block xl:hidden z-1 w-[30%]"
+                  // fill
+                  // priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  // className="object-contain"
                 />
               </div>
             </div>

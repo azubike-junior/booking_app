@@ -318,7 +318,7 @@ export const RESERVATION_COLUMNS = [
     },
   },
   {
-    Header: 'Payment Status',
+    Header: 'Booking Status',
     accessor: 'payment_status_str',
     Cell: ({ value }: any) => {
       return (

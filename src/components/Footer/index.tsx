@@ -5,16 +5,22 @@ import { IoLogoInstagram } from 'react-icons/io'
 
 export default function Footer() {
   return (
-    <div className="max-w-[1062px] mx-auto px-8 md:px-10 text-sm">
-      <div
-        className={`lato flex justify-between  space-x-20 lg:space-x-20  pb-6`}
-      >
-        <Link href={'/'}>
-          <img src="/bookteller.svg" alt="" className=" w-80 md:w-[150px]" />
+    <div className="max-w-[1062px] mx-auto px-8 md:px-10 text-sm pt-6">
+      <div className="lg:hidden ">
+        <Link href={'/'} className="flex">
+          <img src="/bookteller.svg" alt="" className=" w-48 md:w-[150px]" />
           <img src="/commad.png" alt="" className=" w-20" />
         </Link>
+      </div>
+      <div className={`lato flex justify-between  lg:space-x-20 pt-10  pb-6`}>
+        <div className="hidden ">
+          <Link href={'/'}>
+            <img src="/bookteller.svg" alt="" className=" w-80 md:w-[150px]" />
+            <img src="/commad.png" alt="" className=" w-20" />
+          </Link>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10  lg:flex justify-between w-full">
+        <div className="grid grid-cols-2 gap-10  md:flex justify-between w-full">
           <div className="space-y-3 text-[#717E83] font-light">
             <p className=" text-_green font-semibold ">Company</p>
             <p>
@@ -80,7 +86,7 @@ export default function Footer() {
             {/* <p>Partner</p> */}
             <p> +2348150367790</p>
             <p>support@bookteller.ng</p>
-            <div className="flex space-x-3">
+            <div className="hidden md:flex space-x-3 ">
               <Link
                 passHref
                 legacyBehavior
@@ -123,11 +129,45 @@ export default function Footer() {
         </div>
       </div>
 
+      <div className="flex justify-center items-center space-x-6 pt-4 md:hidden ">
+        <Link
+          passHref
+          legacyBehavior
+          href={'https://web.facebook.com/booktellerng'}
+        >
+          <a target="_blank">
+            <FaFacebook size={24} />
+          </a>
+        </Link>
+        <Link passHref legacyBehavior href={'https://twitter.com/booktellerng'}>
+          <a target="_blank">
+            <FaXTwitter size={24} />
+          </a>
+        </Link>
+
+        <Link
+          passHref
+          legacyBehavior
+          href={'https://www.instagram.com/bookteller_ng'}
+        >
+          <a target="_blank">
+            <IoLogoInstagram size={24} />
+          </a>
+        </Link>
+        <Link
+          passHref
+          legacyBehavior
+          href={'https://www.linkedin.com/company/booktellerng'}
+        >
+          <a target="_blank">
+            <FaLinkedin size={24} />
+          </a>
+        </Link>
+      </div>
+
       {/* <hr /> */}
 
-      <p className="text-center py-6 text-sm text-[#717E83]">
-       
-      </p>
+      <p className="text-center py-6 text-sm text-[#717E83]"></p>
     </div>
   )
 }

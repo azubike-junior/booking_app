@@ -1,17 +1,12 @@
 import { useGetReservationQuery } from '@/features/reservations'
 import {
   Button,
-  Modal,
-  ModalContent,
-  ModalOverlay,
-  Popover,
-  PopoverArrow,
-  PopoverContent,
-  PopoverTrigger,
-  Spinner,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   useDisclosure,
 } from '@chakra-ui/react'
-import moment from 'moment'
 import { useState } from 'react'
 import { HiDotsVertical } from 'react-icons/hi'
 import { usePagination, useTable } from 'react-table'
@@ -23,7 +18,12 @@ interface TableProps {
   columns: any[] // Replace with the appropriate type for your columns
 }
 
-export default function Table({ data, columns, setOpenRoomOrder, setReservationId }: TableProps) {
+export default function Table({
+  data,
+  columns,
+  setOpenRoomOrder,
+  setReservationId,
+}: TableProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const {
@@ -47,7 +47,7 @@ export default function Table({ data, columns, setOpenRoomOrder, setReservationI
 
   return (
     <>
-      <table {...getTableProps()} className="w-full bg-white rounded-xl">
+      <table {...getTableProps()} className="w-full bg-white rounded-xl scrollbar-hide">
         <thead className="">
           {headerGroups.map((headerGroup, index) => (
             <tr
@@ -89,53 +89,42 @@ export default function Table({ data, columns, setOpenRoomOrder, setReservationI
                 ))}
 
                 <td className="text-[#80B539] text-[14px] font-normal cursor-pointer pr-6">
-                  <Popover>
-                    <PopoverTrigger>
+                  <Menu>
+                    <MenuButton>
                       <div className="flex justify-start">
                         <Button variant="ghost">
                           <HiDotsVertical />
                         </Button>
                       </div>
-                    </PopoverTrigger>
+                    </MenuButton>
 
-                    <div className="p-2 py-0 bg-red-200  absolute z-10 left-10 -top-10 border border-[#E6E6E6] flex flex-col gap-3 rounded-[8px]">
-                      <PopoverContent
-                        width={'38'}
-                        position={'absolute'}
-                        left={-25}
-                        top={-10}
-                        padding={'1.5'}
+                    {/* <div className="p-2 py-0 bg-red-200  absolute z-10  -top-10 border border-[#E6E6E6] flex flex-col gap-3 rounded-[8px]"> */}
+                    <MenuList>
+                      <MenuItem
+                        onClick={() => {
+                          // onOpen()
+                          setReservationId(row.values.id)
+                          setOpenRoomOrder(true)
+                        }}
+                        className=" py-[5px] whitespace-nowrap  text-sm px-4"
                       >
-                        <PopoverArrow />
-                        <div className="opacity-0">
-                          {/* <PopoverCloseButton display={"false"} /> */}
-                        </div>
+                        <p className="text-sm px-2">
+                          View Room Order
+                        </p>
+                      </MenuItem>
 
-                        <div
-                          onClick={() => {
-                            // onOpen()
-                            setReservationId(row.values.id)
-                            setOpenRoomOrder(true)
-                          }}
-                          className=" py-[5px] whitespace-nowrap  text-sm px-4"
-                        >
-                          <button>View Room Order</button>
-                        </div>
-
-                        <div className="cursor-pointer py-[5px] whitespace-nowrap text-red-500 text-sm px-4">
-                          Delete
-                        </div>
-                      </PopoverContent>
-                    </div>
-                  </Popover>
+                      <MenuItem className="cursor-pointer py-[5px] whitespace-nowrap ">
+                        <p className="text-red-500 text-sm px-2">Delete</p>
+                      </MenuItem>
+                    </MenuList>
+                    {/* </div> */}
+                  </Menu>
                 </td>
               </tr>
             )
           })}
         </tbody>
       </table>
-
-      
     </>
   )
 }

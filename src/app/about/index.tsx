@@ -72,7 +72,7 @@ export default function AboutPage() {
                   <p>About us</p>
                 </div>
 
-                <p className="w-full pt-6 text-lg text-[#374151] tahoma-light font-light tracking-wider">
+                <p className="w-full pt-6 text-sm text-[#374151] tahoma-light font-light tracking-wider">
                   BTL Engine (Bookteller Engine) is a state-of-the-art hotel
                   booking engine developed by Bookteller, specifically designed
                   to help hotels attract more direct bookings, reduce reliance
@@ -82,7 +82,7 @@ export default function AboutPage() {
                   and powerful management tools.
                 </p>
 
-                <p className="w-full pt-6 text-lg text-[#374151] tahoma-light font-light tracking-wider">
+                <p className="w-full pt-6 text-sm text-[#374151] tahoma-light font-light tracking-wider">
                   One of the most notable features of BTL Engine is its
                   integration with Google's free booking link. We are a
                   Microsoft hotel ads expert and a Google Hotel connectivity
@@ -111,7 +111,7 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
-          <section className="max-w-[1062px] flex  mx-auto bg-white mt-28 px-6 md:px-10 space-x-6">
+          <section className="max-w-[1062px] md:flex  mx-auto bg-white mt-28 px-6 md:px-10 md:space-x-6">
             <div>
               <h3
                 className={`text-[#111827] text-[18px] roboto font-bold lg:text-xl tracking-wider space-y-3`}
@@ -119,21 +119,21 @@ export default function AboutPage() {
                 Our Mission
               </h3>
 
-              <p className="pt-6 tracking-wide font-medium tahoma-light">
+              <p className="pt-3 tracking-wide font-medium tahoma-light text-sm">
                 Commitment to transforming how travelers connect with
                 accommodations, ensuring a seamless and enjoyable booking
                 experience for everyone, everywhere.
               </p>
             </div>
 
-            <div>
+            <div className='pt-6 md:pt-0'>
               <h3
                 className={`text-[#111827] text-[18px] roboto font-bold lg:text-xl tracking-wider space-y-3`}
               >
                 Our Vision
               </h3>
 
-              <p className="pt-6 tracking-wide font-medium tahoma-light">
+              <p className="pt-3 tracking-wide font-medium tahoma-light text-sm">
                 To become the go-to destination for travelers worldwide,
                 ensuring they find and book accommodations with ease,
                 confidence, and satisfaction every time.

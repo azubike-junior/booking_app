@@ -8,7 +8,7 @@ import { useGetAccountQuery } from '@/features/auth'
 import {
   useGetPropertyQuery,
   useGetRoomByPropertyIdQuery,
-  useGetRoomBySlugQuery
+  useGetRoomBySlugQuery,
 } from '@/features/property'
 import { getItem, _convertDateFormat } from '@/utils'
 import { RoomOrderProp } from '@/utils/types'
@@ -96,11 +96,19 @@ const Reservations = () => {
   let allRooms
 
   if (otherRooms) {
-    console.log(">>>>>allRooms", otherRooms);
+    const publishedRooms = otherRooms?.filter((room) => room.published === 1)
 
-    const publishedRooms = otherRooms?.map((room) => room.published)
-    
-    allRooms = checkRooms([...otherRooms])
+    // allRooms = checkRooms([...publishedRooms])
+
+    const sortedRooms = checkRooms([...publishedRooms])
+
+    if (sortedRooms.includes(undefined)) {
+      allRooms = publishedRooms
+    } else {
+      allRooms = checkRooms([...publishedRooms])
+    }
+
+    console.log('>>publisj', allRooms)
   }
 
   let img: any = property?.image
@@ -110,14 +118,14 @@ const Reservations = () => {
   const { data: user, isLoading: loadingUser } = useGetAccountQuery(userId)
 
   return (
-    <>
+    <div>
       <Head>
         <meta
           name="keywords"
           content="hotel booking engine, free booking engine, Booking engine 
             for hotels, booking engine examples, direct booking site, Booking extranet, hotel booking 
             discount, Hotels deals, commission free booking, book direct"
-                    ></meta>
+        ></meta>
         <meta
           name="description"
           content={`${property?.name}, booking is powered by btlengine.com`}
@@ -130,12 +138,12 @@ const Reservations = () => {
         </div>
       ) : (
         <div
-          style={{
-            minHeight: '100vh',
-          }}
-          className="lato flex flex-col h-screen"
+          // style={{
+          //   minHeight: '100vh',
+          // }}
+          className="lato flex flex-col relative "
         >
-          <div className="">
+          <div className=" ">
             <div
               className="w-full h-[300px] lg:h-[350px] border "
               style={{
@@ -158,7 +166,7 @@ const Reservations = () => {
                       }}
                     />
 
-                    <div className="border-[0.1px] shadow-xl border-white bg-opacity-30 xl:w-4/12 mt-6 md:mt-0 px-2 py-4 md:py-7 flex justify-center items-center rounded-lg space-x-6 bg-[#ccc]">
+                    <div className="border-[0.1px] shadow-xl border-white bg-opacity-30  mt-6 md:mt-0 px-4 py-4 md:py-7 flex justify-center items-center rounded-lg space-x-6 bg-[#ccc] w-auto">
                       <img
                         src={property?.image}
                         className="w-10 h-10 lg:w-16 lg:h-16 z-10 shadow rounded-lg"
@@ -166,7 +174,8 @@ const Reservations = () => {
 
                       <div className="z-30">
                         <h3 className="font-bold text-xl lg:text-2xl shadow-sm">
-                          {property?.name?.substring(0, 20).concat('...')}
+                          {/* {property?.name?.substring(0, 20).concat('...')} */}
+                          {property?.name}
                         </h3>
                         <p>{property?.address}</p>
                       </div>
@@ -177,16 +186,18 @@ const Reservations = () => {
             </div>
 
             {!openCheckout && (
-              <div className="flex justify-center items-center mt-6">
+              <div className="flex justify-center items-center mt-6 fixed bottom-56 shadow-md border rounded-xl bg-white z-20 left-[80px] ">
                 <button
-                  className="border-[1px] border-[#EEEFF3] rounded-[20px] flex items-center space-x-4 px-4 py-2 lg:hidden"
+                  className=" rounded-[20px] flex items-center space-x-4 py-2 lg:hidden px-10  "
                   onClick={() => setOpenBookingDrawer(true)}
                 >
                   {/* <GiBookCover /> */}
-                  <div className="bg-red-500 w-5 h-5 rounded-full text-xs flex items-center justify-center text-white">
+                  <div className="bg-red-500 w-5 h-5 rounded-full text-base flex items-center justify-center text-white">
                     {cartItems.length}
                   </div>
-                  <span>Booking Summary</span>
+                  <span className="text-base font-semibold">
+                    Booking Summary
+                  </span>
                 </button>
               </div>
             )}
@@ -204,239 +215,238 @@ const Reservations = () => {
                 openCheckout={openCheckout}
               />
             ) : (
-              <div className="lato xl:w-[1400px] mx-auto h-full flex p-10 lg:px-10 gap-5 xl:gap-10 justify-between relative ">
-                <div className=" lg:w-[800px] xl:w-[900px] mx-auto space-y-10">
-                  {allRooms?.map((p: any, index: number) => {
-                    return (
-                      <ReservationCard
-                        property={property}
-                        room={p}
-                        key={index}
-                        index={index}
-                        checkIn={checkIn}
-                        checkOut={checkOut}
-                        setCheckIn={setCheckIn}
-                        setCheckOut={setCheckOut}
-                        setCartItems={setCartItems}
-                        cartItems={cartItems}
-                        setOpenCart={setOpenCart}
-                        setOpenCheckout={setOpenCheckout}
-                        textColor={textColor}
-                        bg={bg}
-                        removeItem={removeItem}
-                        openBookingDrawer={openBookingDrawer}
-                        setOpenBookingDrawer={setOpenBookingDrawer}
-                      />
-                    )
-                  })}
-                </div>
-
-                <div className="w-[350px] hidden lg:block mb-20">
-                  <div className="border-[#F2F4F7] sticky top-5 min-h-[500px]  max-h-[700px] right-0  border-[0.2px] shadow-md shadow-[#7090B01A] w-full rounded-lg overflow-scroll ">
-                    <p className="text-center border-b pb-4 py-6 text-[#673816]">
-                      Booking Summary
-                    </p>
-
-                    {cartItems.length === 0 ? (
-                      <div className="pt-10">
-                        <Image
-                          src={'/emptybed.svg'}
-                          width={60}
-                          height={60}
-                          alt="empty"
-                          className="mx-auto"
+              <>
+                <div className="lato xl:w-[1400px] mx-auto h-full flex p-10 lg:px-10 gap-5 xl:gap-10 justify-between relative ">
+                  <div className=" lg:w-[800px] xl:w-[900px] mx-auto space-y-10">
+                    {allRooms?.map((p: any, index: number) => {
+                      return (
+                        <ReservationCard
+                          property={property}
+                          room={p}
+                          key={index}
+                          index={index}
+                          checkIn={checkIn}
+                          checkOut={checkOut}
+                          setCheckIn={setCheckIn}
+                          setCheckOut={setCheckOut}
+                          setCartItems={setCartItems}
+                          cartItems={cartItems}
+                          setOpenCart={setOpenCart}
+                          setOpenCheckout={setOpenCheckout}
+                          textColor={textColor}
+                          bg={bg}
+                          removeItem={removeItem}
+                          openBookingDrawer={openBookingDrawer}
+                          setOpenBookingDrawer={setOpenBookingDrawer}
                         />
+                      )
+                    })}
+                  </div>
 
-                        <p className="text-center text-sm text-[#969DAA]">
-                          No Room(s) Selected
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="  rounded-xl py-2 space-y-4">
-                        {cartItems?.map((c: RoomOrderProp) => {
-                          return (
-                            <div
-                              key={c.room_id}
-                              style={{ borderTop: '3px' }}
-                              className=" px-4 py-4 items-center text-xl rounded-xl relative border-b"
-                            >
-                              <div className="flex justify-end">
-                                <IoCloseSharp
-                                  className=" cursor-pointer text-end"
-                                  size={18}
-                                  color="red"
-                                  onClick={() => removeItem(c.room_id)}
-                                />
-                              </div>
+                  <div className="w-[350px] hidden lg:block mb-20">
+                    <div className="border-[#F2F4F7] sticky top-5 min-h-[500px]  max-h-[700px] right-0  border-[0.2px] shadow-md shadow-[#7090B01A] w-full rounded-lg overflow-scroll scrollbar-hide">
+                      <p className="text-center border-b pb-4 py-6 text-[#673816]">
+                        Booking Summary
+                      </p>
 
-                              <p className=" text-base capitalize text-[#273238] pt-2">
-                                {c.room_name}
-                              </p>
+                      {cartItems.length === 0 ? (
+                        <div className="pt-10">
+                          <Image
+                            src={'/emptybed.svg'}
+                            width={60}
+                            height={60}
+                            alt="empty"
+                            className="mx-auto"
+                          />
 
-                              <div className="text-sm flex justify-between">
-                                <div>
-                                  {`${c?.adults} Adult, ${c?.children} Child, ${
-                                    c?.quantity
-                                  } ${c.quantity > 1 ? 'Rooms' : 'Room'},  ${
-                                    c?.noOfDays
-                                  } ${c.noOfDays > 1 ? 'Days' : 'Day'}`}
-                                </div>
-
-                                <p>
-                                  {`${property?.currency}`}{' '}
-                                  {(
-                                    c.price *
-                                    c.quantity *
-                                    c?.noOfDays
-                                  ).toLocaleString()}
-                                </p>
-                              </div>
-
-                              <div className="text-sm items-center flex justify-between space-x-4 pb-1 pt-5">
-                                <div>
-                                  <p className="text-[#969DAA] text-base">
-                                    Check-In
-                                  </p>
-                                  <p className="text-black text-base">
-                                    {_convertDateFormat(c.start_date)}
-                                  </p>
-                                </div>
-
-                                <div className="w-[1px] h-10 bg-[#E8EAED]"></div>
-
-                                <div>
-                                  <p className="text-[#969DAA] text-base ">
-                                    Check-Out
-                                  </p>
-                                  <p className="text-black text-base">
-                                    {_convertDateFormat(c.end_date)}
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          )
-                        })}
-
-                        {/* <hr /> */}
-
-                        <div className="flex justify-between px-4">
-                          <p>Total:</p>
-
-                          <p>
-                            {' '}
-                            {`${property?.currency}`} {total.toLocaleString()}
+                          <p className="text-center text-sm text-[#969DAA]">
+                            No Room(s) Selected
                           </p>
                         </div>
+                      ) : (
+                        <div className="  rounded-xl py-2 space-y-4">
+                          {cartItems?.map((c: RoomOrderProp) => {
+                            return (
+                              <div
+                                key={c.room_id}
+                                style={{ borderTop: '3px' }}
+                                className=" px-4 py-4 items-center text-xl rounded-xl relative border-b"
+                              >
+                                <div className="flex justify-end">
+                                  <IoCloseSharp
+                                    className=" cursor-pointer text-end"
+                                    size={18}
+                                    color="red"
+                                    onClick={() => removeItem(c.room_id)}
+                                  />
+                                </div>
 
-                        <div className="flex justify-end px-2">
-                          <Button
-                            bg={bg}
-                            onClick={() => {
-                              setOpenCheckout(true)
-                              setOpenCart(false)
-                            }}
-                            type="button"
-                            name="Book "
-                            className={` text-white border py-2 text-xs mt-2 lg:mt-4 lg:text-sm text-center px-4 rounded-lg w-full bg-[#AE5F25]`}
-                          />
+                                <p className=" text-base capitalize text-[#273238] pt-2">
+                                  {c.room_name}
+                                </p>
+
+                                <div className="text-sm flex justify-between">
+                                  <div>
+                                    {`${c?.adults} Adult, ${
+                                      c?.children
+                                    } Child, ${c?.quantity} ${
+                                      c.quantity > 1 ? 'Rooms' : 'Room'
+                                    },  ${c?.noOfDays} ${
+                                      c.noOfDays > 1 ? 'Days' : 'Day'
+                                    }`}
+                                  </div>
+
+                                  <p>
+                                    {`${property?.currency}`}{' '}
+                                    {(
+                                      c.price *
+                                      c.quantity *
+                                      c?.noOfDays
+                                    ).toLocaleString()}
+                                  </p>
+                                </div>
+
+                                <div className="text-sm items-center flex justify-between space-x-4 pb-1 pt-5">
+                                  <div>
+                                    <p className="text-[#969DAA] text-base">
+                                      Check-In
+                                    </p>
+                                    <p className="text-black text-base">
+                                      {_convertDateFormat(c.start_date)}
+                                    </p>
+                                  </div>
+
+                                  <div className="w-[1px] h-10 bg-[#E8EAED]"></div>
+
+                                  <div>
+                                    <p className="text-[#969DAA] text-base ">
+                                      Check-Out
+                                    </p>
+                                    <p className="text-black text-base">
+                                      {_convertDateFormat(c.end_date)}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          })}
+
+                          {/* <hr /> */}
+
+                          <div className="flex justify-between px-4">
+                            <p>Total:</p>
+
+                            <p>
+                              {' '}
+                              {`${property?.currency}`} {total.toLocaleString()}
+                            </p>
+                          </div>
+
+                          <div className="flex justify-end px-2">
+                            <Button
+                              bg={bg}
+                              onClick={() => {
+                                setOpenCheckout(true)
+                                setOpenCart(false)
+                              }}
+                              type="button"
+                              name="Book "
+                              className={` text-white border py-2 text-xs mt-2 lg:mt-4 lg:text-sm text-center px-4 rounded-lg w-full bg-[#AE5F25]`}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                <BookingSummaryDrawer
-                  openBookingDrawer={openBookingDrawer}
-                  setOpenBookingDrawer={setOpenBookingDrawer}
-                  setOpenCheckout={setOpenCheckout}
-                  setOpenCart={setOpenCart}
-                  property={property}
-                  cartItems={cartItems}
-                  removeItem={removeItem}
-                  total={total}
-                  bg={bg}
-                />
-              </div>
-            )}
-          </div>
-
-          <div
-            style={{
-              background: bg,
-              // position: 'absolute',
-              // bottom: 0,
-              //   width: '100%',
-            }}
-            className=" py-14 px-10 lg:px-10 mt-72 z-30"
-          >
-            <div className="flex justify-center xl:justify-between xl:max-w-[1400px] mx-auto items-center">
-              <div className="flex items-center">
-                <div className="mr-10 hidden md:flex lg:space-x-20">
-                  <img
-                    src={property?.image}
-                    className="w-20 h-20 z-10 shadow rounded-lg"
+                  <BookingSummaryDrawer
+                    openBookingDrawer={openBookingDrawer}
+                    setOpenBookingDrawer={setOpenBookingDrawer}
+                    setOpenCheckout={setOpenCheckout}
+                    setOpenCart={setOpenCart}
+                    property={property}
+                    cartItems={cartItems}
+                    removeItem={removeItem}
+                    total={total}
+                    bg={bg}
                   />
-
-                  <div className="bg-[#798489] w-[1px] h-[80px] ml-6"></div>
                 </div>
-
-                <div className="text-white text-sm tracking-wider font-light ">
-                  <p className="">
-                    This site is protected by{' '}
-                    <span className="font-bold">reCAPTCHA </span> and the{' '}
-                    <span className="font-bold">
-                      {' '}
-                      <Link
-                        href="https://policies.google.com/privacy"
-                        passHref
-                        legacyBehavior
-                      >
-                        <a target="_blank"> Google Privacy Policy</a>
-                      </Link>
-                    </span>{' '}
-                    and{' '}
-                    <span className="font-bold">
-                      {' '}
-                      <Link
-                        href="https://policies.google.com/terms"
-                        passHref
-                        legacyBehavior
-                      >
-                        <a target="_blank">Terms of Service</a>
-                      </Link>{' '}
-                    </span>{' '}
-                    apply
-                  </p>
-                  <p className="pt-3">Copyright © 2024 BTL Engine</p>
-                </div>
-              </div>
-
-              {user?.current_subscription === 'Business' && (
-                <div className="flex space-x-6">
-                  <Link href={`mailto:${user?.email}`}>
-                    <Image
-                      src={'/gmail.svg'}
-                      width={30}
-                      height={100}
-                      alt="gmail"
-                    />
-                  </Link>
-
-                  <Link href={`https://wa.me/${property?.whatsapp_number}`}>
-                    <Image
-                      src={'/whatsapp.svg'}
-                      width={34}
-                      height={100}
-                      alt="gmail"
-                    />
-                  </Link>
-                </div>
-              )}
-            </div>
+              </>
+            )}
           </div>
         </div>
       )}
-    </>
+
+      <div
+        style={{
+          background: bg,
+          // position: 'absolute',
+          // bottom: 0,
+          //   width: '100%',
+        }}
+        className=" py-14 px-10 lg:px-10 mt-72 z-10"
+      >
+        <div className="flex justify-center xl:justify-between xl:max-w-[1400px] mx-auto items-center">
+          <div className="flex items-center">
+            <div className="mr-10 hidden md:flex lg:space-x-20">
+              <img
+                src={property?.image}
+                className="w-20 h-20 z-10 shadow rounded-lg"
+              />
+
+              <div className="bg-[#798489] w-[1px] h-[80px] ml-6"></div>
+            </div>
+
+            <div className="text-white text-sm tracking-wider font-light ">
+              <p className="">
+                This site is protected by{' '}
+                <span className="font-bold">reCAPTCHA </span> and the{' '}
+                <span className="font-bold">
+                  {' '}
+                  <Link
+                    href="https://policies.google.com/privacy"
+                    passHref
+                    legacyBehavior
+                  >
+                    <a target="_blank"> Google Privacy Policy</a>
+                  </Link>
+                </span>{' '}
+                and{' '}
+                <span className="font-bold">
+                  {' '}
+                  <Link
+                    href="https://policies.google.com/terms"
+                    passHref
+                    legacyBehavior
+                  >
+                    <a target="_blank">Terms of Service</a>
+                  </Link>{' '}
+                </span>{' '}
+                apply
+              </p>
+              <p className="pt-3">Copyright © 2024 BTL Engine</p>
+            </div>
+          </div>
+
+          {user?.current_subscription === 'Business' && (
+            <div className="flex space-x-6">
+              <Link href={`mailto:${user?.email}`}>
+                <Image src={'/gmail.svg'} width={30} height={100} alt="gmail" />
+              </Link>
+
+              <Link href={`https://wa.me/${property?.whatsapp_number}`}>
+                <Image
+                  src={'/whatsapp.svg'}
+                  width={34}
+                  height={100}
+                  alt="gmail"
+                />
+              </Link>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   )
 }
 

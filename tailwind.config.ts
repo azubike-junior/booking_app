@@ -60,6 +60,21 @@ const config: Config = {
     },
     
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }: any) {
+      addUtilities({
+        '.scrollbar-hide': {
+          /* For Webkit browsers (Chrome, Safari) */
+          '-webkit-overflow-scrolling': 'touch',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+          /* For Firefox */
+          'scrollbar-width': 'none',
+          '-ms-overflow-style': 'none',  /* Internet Explorer 10+ */
+        },
+      });
+    },
+  ],
 };
 export default config;

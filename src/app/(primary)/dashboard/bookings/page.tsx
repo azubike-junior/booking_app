@@ -9,7 +9,7 @@ import {
   useGetReservationsByPropertyIdQuery,
   useGetRoomOrderByReservationIdQuery,
 } from '@/features/reservations'
-import { getItem } from '@/utils'
+import { getItem, _convertDateFormat } from '@/utils'
 import { Spinner } from '@chakra-ui/react'
 import moment from 'moment'
 import { useMemo, useState } from 'react'
@@ -33,7 +33,6 @@ const Bookings = () => {
     data: roomOrders,
     isLoading: loadingRoomOrders,
   } = useGetRoomOrderByReservationIdQuery(reservationId)
-
 
   const bookingColumns = useMemo(
     () => [
@@ -126,7 +125,7 @@ const Bookings = () => {
         },
       },
       {
-        Header: 'Payment Status',
+        Header: 'Booking Status',
         accessor: 'payment_status_str',
         Cell: ({ value }: any) => {
           return (
@@ -142,6 +141,17 @@ const Bookings = () => {
               >
                 {value}
               </span>
+            </>
+          )
+        },
+      },
+      {
+        Header: 'Date Created',
+        accessor: 'created_at',
+        Cell: ({ value }: any) => {
+          return (
+            <>
+              <span>{moment(value).format('MMM Do YYYY, HH:mm')}</span>
             </>
           )
         },

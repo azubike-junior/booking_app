@@ -33,7 +33,7 @@ export default function RoomOrderTable({ data, columns }: TableProps) {
 
   return (
     <>
-      <table {...getTableProps()} className="w-full bg-white rounded-xl">
+      <table {...getTableProps()} className="w-full bg-white rounded-xl scrollbar-hide">
         <thead className="">
           {headerGroups.map((headerGroup, index) => (
             <tr

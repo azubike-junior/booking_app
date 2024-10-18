@@ -96,6 +96,18 @@ background: linear-gradient(180deg, rgba(245,134,52,1) 0%, rgba(227,124,48,1) 53
 }
 
 
+div {
+  overflow: auto; /* Allows scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+div::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+
+
 
 
 @media (min-width: 768px) {
@@ -218,9 +230,9 @@ background: linear-gradient(180deg, rgba(245,134,52,1) 0%, rgba(227,124,48,1) 53
     left:3%;
   }
    .phone-image {
-    position: absolute;
-    left: 46%;
-    width: 28%;
+    /* position: absolute;
+    left: 53%; */
+    /* width: 18vw; */
   }
 
   .slanted {
@@ -264,11 +276,11 @@ background: linear-gradient(180deg, rgba(245,134,52,1) 0%, rgba(227,124,48,1) 53
     position: absolute;
     left:22%;
   }
-  .phone-image {
+  /* .phone-image {
     position: absolute;
     left: 50%;
     width:18%;
-  } 
+  }  */
 
   .graph {
     width: 40%;

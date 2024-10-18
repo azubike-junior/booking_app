@@ -278,8 +278,6 @@ export default function Rooms({ property, room }: prop) {
     editRoom(new_data)
   }
 
-  console.log(">>.rooms", rooms);
-  
 
   return (
     <div>

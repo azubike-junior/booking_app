@@ -7,15 +7,17 @@ import {
 } from '@/features/reservations'
 import { calculateDifferenceInDays } from '@/utils'
 import { Spinner } from '@chakra-ui/react'
-import Image from 'next/image'
 import { useParams } from 'next/navigation'
+import { IoIosCheckmarkCircle } from 'react-icons/io'
 
 const Success = () => {
   const params = useParams<{ id: string }>()
 
   const { data: property, isLoading } = useGetReservationsByIDQuery(params?.id)
 
-  const { data: p, isLoading: loadingProp } = useGetPropertyQuery(property?.property_id)
+  const { data: p, isLoading: loadingProp } = useGetPropertyQuery(
+    property?.property_id,
+  )
 
   const { data, isLoading: loadingOrder } = useGetRoomOrderByReservationIdQuery(
     params?.id,
@@ -29,15 +31,18 @@ const Success = () => {
 
   return (
     <>
-      <div className="mx-auto flex justify-center items-center my-10 ">
-        {isLoading || loadingOrder  || loadingProp ? (
+      <div className=" flex justify-center h-screen  bg-[#f4f4f4]">
+        {isLoading || loadingOrder || loadingProp ? (
           <Spinner />
         ) : (
-          <div className="xl:w-4/12 border-[0.2px] shadow p-10 px-20 rounded-lg">
+          <div className="xl:w-4/12 border-[0.2px] mx-6 lg:mx-0 h-fit mt-20  p-10 px-10 rounded-xl shadow-kg bg-white ">
             <div className="flex items-center justify-between text-[#667184]">
-              <div>
-                <Image src="/room.svg" width={60} height={30} alt="logo" />
-                <p className="text-sm pt-2">This is your receipt</p>
+              <div className='flex space-x-4 items-center'>
+                <IoIosCheckmarkCircle size={80} color="green" />
+                <p className="text-xl font-semibold pt-2 text-black">
+                  {property?.first_name}, Your booking was submitted
+                  successfully
+                </p>
               </div>
 
               {/* <div>
@@ -46,7 +51,7 @@ const Success = () => {
             </div> */}
             </div>
 
-            <div className="pt-4">
+            <div className="pt-8">
               <p>Your details</p>
 
               <div className="mt-3 text-[#48556C] text-sm ">
@@ -79,10 +84,10 @@ const Success = () => {
                 <p>{property?.booking_number}</p>
               </div>
 
-              <div className="flex  justify-between pb-3 mt-5 text-[#48556C] ">
+              {/* <div className="flex  justify-between pb-3 mt-5 text-[#48556C] ">
                 <p>Payment Link</p>
                 <p>{p?.payment_link}</p>
-              </div>
+              </div> */}
 
               {data?.map((d: any, index: number) => {
                 return (
@@ -119,10 +124,10 @@ const Success = () => {
 
                       <div className="text-sm flex justify-between"></div>
 
-                      <div className="text-sm items-center flex justify-between space-x-4 pb-1 pt-5">
+                      <div className="text-sm items-center flex justify-between space-x-4 pb-1 pt-5 text-[#273238]">
                         <div>
-                          <p className="text-[#969DAA] text-base">Check-In</p>
-                          <p className="text-[#969DAA] text-sm">
+                          <p className="text-base">Check-In</p>
+                          <p className=" text-sm">
                             {new Date(d.start_date).toLocaleString()}
                           </p>
                         </div>
@@ -130,8 +135,8 @@ const Success = () => {
                         <div className="w-[1px] h-10 bg-[#E8EAED]"></div>
 
                         <div>
-                          <p className="text-[#969DAA] text-base ">Check-Out</p>
-                          <p className="text-[#969DAA]  text-sm">
+                          <p className=" text-base text-right">Check-Out</p>
+                          <p className=" text-sm text-right">
                             {new Date(d.end_date).toLocaleString()}
                           </p>
                         </div>
