@@ -60,7 +60,7 @@ export default function Navbar() {
               Dashboard
             </Link>
 
-            <Link className="font-medium" href={'/dashboard/properties'}>
+            <Link className="font-medium" href={'/dashboard/property'}>
               Properties
             </Link>
           </ul>
@@ -167,7 +167,7 @@ export default function Navbar() {
                     <p>Bookings</p>
                   </Link>
 
-                  <Link onClick={onClose} href={'/dashboard/properties'}>
+                  <Link onClick={onClose} href={'/dashboard/property'}>
                     <p>Properties</p>
                   </Link>
 

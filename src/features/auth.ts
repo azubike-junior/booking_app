@@ -35,6 +35,7 @@ export const authApi = api.injectEndpoints({
       transformResponse: (res: any, meta, arg): any => {
         const {  router } = arg
         if (res.status === 201) {
+          router.push('/login')
           toast.success(
             "A Verification email has been sent to your email inbox, please verify your email "
           )

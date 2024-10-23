@@ -37,11 +37,11 @@ const DurationCard = ({
   return (
     <div
       onClick={onClick}
-      className={`border-[#E6E6E6] flex space-x-4 lg:space-x-0 items-center lg:block border-[0.3px] rounded-lg p-3 px-4 shadow-lg cursor-pointer ${
+      className={`border-[#E6E6E6] flex  space-x-4 lg:space-x-0 items-center md:block border-[0.3px] rounded-lg p-3 px-4 shadow-lg cursor-pointer ${
         duration ? 'bg-[#FAC7A233]' : ''
       }`}
     >
-      <Image src={img} width={40} height={40} alt="subIcon" />
+      <Image src={img} width={40} height={40} alt="subIcon" className='ml-4' />
 
       <p className="text-sm font-semibold pt-4">{title}</p>
 
@@ -149,7 +149,7 @@ const SubscriptionDetails = ({
           </div>
         </div>
 
-        <div className="space-y-3 lg:space-y-0 md:flex justify-between md:space-x-3 pt-6">
+        <div className="space-y-3 md:space-y-0 lg:space-y-0 md:flex justify-between md:space-x-3 pt-6">
           <DurationCard
             img={'/1month.svg'}
             title="3-Monthly Payment"
@@ -237,7 +237,7 @@ const SubscriptionDetails = ({
                   value={durationPlan}
                 />
 
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center px-4">
                   {selectedDuration.monthly ? 'Month' : 'Months'}
                 </div>
               </div>

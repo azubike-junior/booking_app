@@ -28,6 +28,7 @@ export default function SignupPage() {
     handleSubmit,
     formState: { errors },
     watch,
+    reset
   } = useForm<FormValues>({})
 
   const password = watch('password')
@@ -38,7 +39,7 @@ export default function SignupPage() {
 
   async function signupHandler(data: FormValues) {
     const { confirmPassword, ..._data } = data
-    const updated = { toast, router, country_code: '+234', ..._data }
+    const updated = { toast, router, country_code: '+234', ..._data}
     createAccount(updated)
   }
 
