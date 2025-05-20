@@ -2,21 +2,30 @@ import { setItem } from '@/utils';
 import { createSlice } from '@reduxjs/toolkit';
 import { authApi } from '../auth';
 
+type initState = {
+  user: any
+  verificationStr: string
+}
+
+const initialState: initState = {
+  user: null,
+  verificationStr: ''
+}
+
 export const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    user: null,
-  },
+  initialState,
   reducers: {
     setUserState: (state, action) => {
       state.user = action.payload;
     },
+    setVerificationState: (state, action) => {
+      state.verificationStr = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder.addMatcher(
       authApi.endpoints.login.matchFulfilled, (_state, { payload }: any) => {
-
-        console.log(">>>>>>paylooa", payload);
 
         const res = payload.res.data
         
@@ -33,6 +42,6 @@ export const authSlice = createSlice({
   }
 });
 
-export const { setUserState } = authSlice.actions;
+export const { setUserState, setVerificationState} = authSlice.actions;
 
 export default authSlice.reducer;

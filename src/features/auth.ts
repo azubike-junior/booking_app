@@ -1,6 +1,7 @@
 import toast from 'react-hot-toast';
 import { FormValues, LoginResponse } from '../utils/types';
 import { api } from './api';
+import { setVerificationState } from './slice/authslice';
 
 export const authApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -33,13 +34,15 @@ export const authApi = api.injectEndpoints({
         data
       }),
       transformResponse: (res: any, meta, arg): any => {
-        const {  router } = arg
-        if (res.status === 201) {
-          router.push('/login')
-          toast.success(
+        const { router, dispatch } = arg
+        
+        router.push('/login')
+
+        dispatch(setVerificationState("A Verification email has been sent to your email inbox, please verify your email"))
+
+        toast.success(
             "A Verification email has been sent to your email inbox, please verify your email "
           )
-        } 
         return res.status
       },
       transformErrorResponse: (res: any) => {

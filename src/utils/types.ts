@@ -1,6 +1,7 @@
 export type FormValues = {
    router?: any
   toast?: any
+  dispatch?: any
   firstname?: string
   lastname?: string
   email: string

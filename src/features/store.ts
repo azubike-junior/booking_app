@@ -25,4 +25,4 @@ setupListeners(store.dispatch)
 export type AppDispatch = typeof store.dispatch
 export const useAppDispatch: () => AppDispatch = useDispatch
 export type RootState = ReturnType<typeof store.getState>
-export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
