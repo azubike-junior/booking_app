@@ -9,7 +9,6 @@ import AppleBtn, {
 import SuiteDetail from '@/components/SuiteDetail'
 import { TestimonialCard } from '@/components/TestimonialCard'
 import Head from 'next/head'
-import Image from 'next/image'
 import { BsFillBookmarkCheckFill } from 'react-icons/bs'
 
 export default function Home() {
@@ -70,27 +69,13 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="lg:hidden items-center mt-10 mx-auto">
-                  <Image
-                    src={'/sendora-ios.png'}
-                    width={200}
-                    height={300}
-                    alt="bg_img"
-                    className="lg:block z-10 mx-auto"
-                  />
+                <div className="lg:hidden flex justify-center items-center mt-10 mx-auto">
+                  <img src={'/phoness.jpg'} width={200} height={200} alt="ok" />
                 </div>
               </div>
 
-              <div className="  hidden lg:block">
-                <Image
-                  src={'/sendora-ios.png'}
-                  width={300}
-                  height={300}
-                  alt="bg_img"
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className=" mt-10 xl:mt-10 md:hidden lg:block z-10"
-                />
+              <div className=" hidden lg:block">
+                <img src="/phoness.jpg" width={300} height={300} />
               </div>
             </div>
           </section>
@@ -249,15 +234,17 @@ export default function Home() {
 
               <div className="">
                 <div className="flex justify-center items-center mt-6 mx-auto">
-                  <Image
-                    src={'/sendora-ios.png'}
+                  {/* <Image
+                    src={'/phoness.jpg'}
                     width={200}
                     height={200}
                     alt="bg_img"
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className=" mt-10 xl:mt-10  lg:block z-10"
-                  />
+                  /> */}
+
+                   <img src="/phoness.jpg" width={200} height={200} />
                 </div>
 
                 <div className="flex space-x-4 justify-center mt-10">

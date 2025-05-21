@@ -27,9 +27,9 @@ export function PlayStoreBtn() {
   return (
     <div className="bg-black space-x-3 rounded-[8px] items-center inline-flex px-4 py-2 ">
       <Image
-        src={'/playstore.png'}
-        width={20}
-        height={20}
+        src={'/playstores.svg'}
+        width={23}
+        height={23}
         alt="bg_img"
         priority
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

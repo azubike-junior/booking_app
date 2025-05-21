@@ -1,0 +1,9 @@
+import type { Config } from "@netlify/edge-functions";
+
+export default async () => new Response("Hello, world!");
+
+export const config: Config = {
+  path: "/test",
+  excludedPath: ["/_next/image?url=%2Fphoness.png&w=1080&q=75", "/phoness.jpg"]
+};
+
