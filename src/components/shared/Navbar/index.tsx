@@ -1,6 +1,4 @@
 import AppleBtn, { PlayStoreBtn } from '@/components/StoreBtn/AppleBtn'
-import { useGetAccountQuery } from '@/features/auth'
-import { getItem } from '@/utils'
 import {
   Drawer,
   DrawerBody,
@@ -8,42 +6,27 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  useDisclosure,
+  useDisclosure
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
 import { IoMdMenu } from 'react-icons/io'
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const router = useRouter()
-  const firstname = getItem('first_name')
-  const lastname = getItem('last_name')
-  const userId = getItem('user_id')
 
-  const { data, isLoading } = useGetAccountQuery(userId)
-
-  const {
-    isOpen: isProfileOpen,
-    onOpen: openProfile,
-    onClose: closeProfile,
-  } = useDisclosure()
-
-  const pathname = usePathname()
 
   return (
-    <header className={'bg-[#FFF7D6] sticky top-0 z-50 '}>
-      <nav className="container flex justify-between  items-center max-w-[1062px]   mx-auto px-6 md:px-10 py-4 axiforma-light">
+    <header className={'bg-[#6DBE45] pt-10 '}>
+      <nav className="  bg-[#FFF7D6] rounded-[39px] flex justify-between  items-center max-w-[1062px]   mx-auto px-6 md:px-2 md:pl-6 py-2">
         <Link href={'/'}>
-          <img src="/sendora.svg" alt="" className=" w-32 md:w-[200px]" />
+          <Image src="/logo.svg" width={178} height={28} alt="logo"/>
         </Link>
         <IoMdMenu size={30} className="flex sm:hidden" onClick={onOpen} />
 
-        <div className="hidden sm:flex space-x-6 items-center">
-          <AppleBtn />
-          <PlayStoreBtn />
-        </div>
+          <div className='bg-[#6DBE45] text-white rounded-[32px] px-5 py-2.5'>
+            Download
+          </div>
       </nav>
 
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>

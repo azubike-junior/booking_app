@@ -10,7 +10,11 @@ import {
   Quicksand,
   Roboto,
 } from 'next/font/google'
+
 import { storage } from './firebase'
+
+
+
 
 export const lato = Lato({
   weight: ['300', '400', '700', '900'],

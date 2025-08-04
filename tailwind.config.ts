@@ -7,6 +7,10 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      geist: ['var(--font-geist)'], 
+      inter:['var(--font-inter)']
+    },
     container: {
       center: true,
       padding: "1rem",

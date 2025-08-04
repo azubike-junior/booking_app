@@ -1,6 +1,5 @@
 'use client'
 
-import { store } from '@/features/store'
 import { ChakraProvider } from '@chakra-ui/react'
 import React from 'react'
 import { Toaster } from 'react-hot-toast'
@@ -12,9 +11,9 @@ export default function ParentProvider({
   children: React.ReactNode
 }) {
   return (
-    <Provider store={store}>
+    <div>
       <ChakraProvider>{children}</ChakraProvider>
       <Toaster position='top-right' />
-    </Provider>
+    </div>
   )
 }
